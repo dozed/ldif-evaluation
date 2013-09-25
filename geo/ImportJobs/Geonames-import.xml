@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<importJob xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://www4.wiwiss.fu-berlin.de/ldif/ ../../xsd/ImportJob.xsd"
+           xmlns="http://www4.wiwiss.fu-berlin.de/ldif/">
+    <internalId>geonames.0</internalId>
+    <dataSource>Geonames</dataSource>
+    <refreshSchedule>onStartup</refreshSchedule>
+<!--     <sparqlImportJob>
+        <endpointLocation>http://sparql.reegle.info/</endpointLocation>
+        <tripleLimit>100</tripleLimit>
+        <sparqlPatterns>
+            <pattern>?s &lt;http://www.geonames.org/ontology#featureCode&gt; ?code . FILTER (?code IN (&lt;http://www.geonames.org/ontology#A.PCL&gt;, &lt;http://www.geonames.org/ontology#A.PCLD&gt;, &lt;http://www.geonames.org/ontology#A.PCLF&gt;, &lt;http://www.geonames.org/ontology#A.PCLI&gt;, &lt;http://www.geonames.org/ontology#A.PCLIX&gt;, &lt;http://www.geonames.org/ontology#A.PCLS&gt;, &lt;http://www.geonames.org/ontology#A.TERR&gt;)) .</pattern>
+        </sparqlPatterns>
+    </sparqlImportJob>
+ -->
+    <tripleImportJob>
+        <!-- <dumpLocation>file:///media/stefan/EXT2/Diplomarbeit/Alignment/Geonames/geonames-countries-light-2.ttl</dumpLocation> -->
+        <dumpLocation>file:///home/stefan/Code/diplom-code/ldif-geo/dump/geonames-countries.nt</dumpLocation>
+    </tripleImportJob>
+</importJob>

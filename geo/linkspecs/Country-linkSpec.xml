@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Silk xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../xsd/LinkSpecificationLanguage.xsd">
+    <Prefixes>
+        <Prefix id="rdf" namespace="http://www.w3.org/1999/02/22-rdf-syntax-ns#" />
+        <Prefix id="rdfs" namespace="http://www.w3.org/2000/01/rdf-schema#" />
+        <Prefix id="owl" namespace="http://www.w3.org/2002/07/owl#" />
+        <Prefix id="foaf" namespace="http://xmlns.com/foaf/0.1/" />
+        <Prefix id="skos" namespace="http://www.w3.org/2004/02/skos/core#" />
+        <Prefix id="dcterms" namespace="http://purl.org/dc/terms/" />
+        <Prefix id="purl" namespace="http://purl.org/dc/elements/1.1/" />
+        <Prefix id="dbpedia" namespace="http://dbpedia.org/resource/" />
+        <Prefix id="openei" namespace="http://en.openei.org/lod/resource/wiki/" />
+        <Prefix id="gn" namespace="http://www.geonames.org/ontology#" />
+        <Prefix id="lgd" namespace="http://linkedgeodata.org/" />
+        <Prefix id="lgdo" namespace="http://linkedgeodata.org/ontology/" />
+        <Prefix id="faogeo" namespace="http://aims.fao.org/aos/geopolitical.owl#" />
+        <Prefix id="reegle" namespace="http://reegle.info/schema#" />
+        <Prefix id="glossary" namespace="http://reegle.info/glossary/" />
+        <Prefix id="country" namespace="http://reegle.info/countries/" />
+    </Prefixes>
+
+    <Interlinks>
+
+        <Interlink id="Country">
+            <LinkType>owl:sameAs</LinkType>
+
+            <SourceDataset dataSource="SOURCE" var="a">
+                <RestrictTo>?a rdf:type gn:Feature .</RestrictTo>
+            </SourceDataset>
+
+            <TargetDataset dataSource="TARGET" var="b">
+                <RestrictTo>?b rdf:type gn:Feature .</RestrictTo>
+            </TargetDataset>
+
+            <LinkageRule>
+                <Compare metric="equality" threshold="1.0" required="true">
+                    <TransformInput function="lowerCase">
+                        <Input path="?a/gn:countryCode" />
+                    </TransformInput>
+                    <TransformInput function="lowerCase">
+                        <Input path="?b/gn:countryCode" />
+                    </TransformInput>
+                </Compare>
+            </LinkageRule>
+
+            <Filter />
+
+<!--             <Outputs>
+                <Output type="file" minConfidence="0.95">
+                    <Param name="file" value="accepted_links.nt" />
+                    <Param name="format" value="ntriples" />
+                </Output>
+                <Output type="file" maxConfidence="0.95">
+                    <Param name="file" value="verify_links.nt" />
+                    <Param name="format" value="alignment" />
+                </Output>
+            </Outputs> -->
+        </Interlink>
+
+    </Interlinks>
+
+</Silk>

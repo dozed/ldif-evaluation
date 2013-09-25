@@ -1,0 +1,9 @@
+geo/dumps/*
+geo/integrated_reegle_geonames.*
+
+data
+
+fuseki.n3
+tdb
+
+

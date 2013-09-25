@@ -1,0 +1,8 @@
+<rdf:RDF>
+  <Evaluation class="SymMeanEvaluator">
+    <class>NaN</class>
+    <properties>NaN</properties>
+    <individuals>0.0</individuals>
+    <result>0.0</result>
+  </Evaluation>
+</rdf:RDF>

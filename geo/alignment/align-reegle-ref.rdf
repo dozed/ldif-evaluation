@@ -1,0 +1,1998 @@
+<?xml version='1.0' encoding='utf-8' standalone='no' ?>
+<rdf:RDF xmlns='http://knowledgeweb.semanticweb.org/heterogeneity/alignment#' xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#' xmlns:xsd='http://www.w3.org/2001/XMLSchema#' xmlns:align='http://knowledgeweb.semanticweb.org/heterogeneity/alignment#'>
+<Alignment>
+
+    <!-- http://alignapi.gforge.inria.fr/format.html -->
+    <xml>yes</xml>
+    <level>0</level>
+    <type>11</type>
+    <time>0</time>
+
+    <onto1>
+        <Ontology rdf:about="http://www.example.org/ontology1">
+            <location></location>
+            <formalism>
+                <Formalism name="INSTANCES" />
+            </formalism>
+        </Ontology>
+    </onto1>
+
+    <onto2>
+        <Ontology rdf:about="http://www.example.org/ontology2">
+            <location></location>
+            <formalism>
+                <Formalism name="INSTANCES"/>
+            </formalism>
+        </Ontology>
+    </onto2>
+
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/CR" />
+            <entity2 rdf:resource="http://sws.geonames.org/3624060/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/BQ" />
+            <entity2 rdf:resource="http://sws.geonames.org/7626844/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/SX" />
+            <entity2 rdf:resource="http://sws.geonames.org/7609695/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/PS" />
+            <entity2 rdf:resource="http://sws.geonames.org/6254930/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/YT" />
+            <entity2 rdf:resource="http://sws.geonames.org/1024031/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/SH" />
+            <entity2 rdf:resource="http://sws.geonames.org/3370751/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/PR" />
+            <entity2 rdf:resource="http://sws.geonames.org/4566966/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/FO" />
+            <entity2 rdf:resource="http://sws.geonames.org/2622320/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/VG" />
+            <entity2 rdf:resource="http://sws.geonames.org/3577718/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/CW" />
+            <entity2 rdf:resource="http://sws.geonames.org/7626836/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/HK" />
+            <entity2 rdf:resource="http://sws.geonames.org/1819730/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/VI" />
+            <entity2 rdf:resource="http://sws.geonames.org/4796775/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/SS" />
+            <entity2 rdf:resource="http://sws.geonames.org/7909807/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/NO" />
+            <entity2 rdf:resource="http://sws.geonames.org/3144096/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/GN" />
+            <entity2 rdf:resource="http://sws.geonames.org/2420477/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/CI" />
+            <entity2 rdf:resource="http://sws.geonames.org/2287781/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/SO" />
+            <entity2 rdf:resource="http://sws.geonames.org/51537/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/IL" />
+            <entity2 rdf:resource="http://sws.geonames.org/294640/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/LA" />
+            <entity2 rdf:resource="http://sws.geonames.org/1655842/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/TO" />
+            <entity2 rdf:resource="http://sws.geonames.org/4032283/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/JP" />
+            <entity2 rdf:resource="http://sws.geonames.org/1861060/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/FJ" />
+            <entity2 rdf:resource="http://sws.geonames.org/2205218/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/MO" />
+            <entity2 rdf:resource="http://sws.geonames.org/1821275/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/BI" />
+            <entity2 rdf:resource="http://sws.geonames.org/433561/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/UG" />
+            <entity2 rdf:resource="http://sws.geonames.org/226074/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/DJ" />
+            <entity2 rdf:resource="http://sws.geonames.org/223816/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/RO" />
+            <entity2 rdf:resource="http://sws.geonames.org/798549/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/CY" />
+            <entity2 rdf:resource="http://sws.geonames.org/146669/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/BY" />
+            <entity2 rdf:resource="http://sws.geonames.org/630336/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/UY" />
+            <entity2 rdf:resource="http://sws.geonames.org/3439705/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/KM" />
+            <entity2 rdf:resource="http://sws.geonames.org/921929/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/TN" />
+            <entity2 rdf:resource="http://sws.geonames.org/2464461/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/SN" />
+            <entity2 rdf:resource="http://sws.geonames.org/2245662/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/CH" />
+            <entity2 rdf:resource="http://sws.geonames.org/2658434/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/YE" />
+            <entity2 rdf:resource="http://sws.geonames.org/69543/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/BH" />
+            <entity2 rdf:resource="http://sws.geonames.org/290291/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/FK" />
+            <entity2 rdf:resource="http://sws.geonames.org/3474414/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/MN" />
+            <entity2 rdf:resource="http://sws.geonames.org/2029969/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/DK" />
+            <entity2 rdf:resource="http://sws.geonames.org/2623032/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/CZ" />
+            <entity2 rdf:resource="http://sws.geonames.org/3077311/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/AQ" />
+            <entity2 rdf:resource="http://sws.geonames.org/6697173/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/BZ" />
+            <entity2 rdf:resource="http://sws.geonames.org/3582678/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/PN" />
+            <entity2 rdf:resource="http://sws.geonames.org/4030699/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/NZ" />
+            <entity2 rdf:resource="http://sws.geonames.org/2186224/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/SA" />
+            <entity2 rdf:resource="http://sws.geonames.org/102358/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/GL" />
+            <entity2 rdf:resource="http://sws.geonames.org/3425505/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/IN" />
+            <entity2 rdf:resource="http://sws.geonames.org/1269750/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/CK" />
+            <entity2 rdf:resource="http://sws.geonames.org/1899402/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/MM" />
+            <entity2 rdf:resource="http://sws.geonames.org/1327865/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/BG" />
+            <entity2 rdf:resource="http://sws.geonames.org/732800/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/SM" />
+            <entity2 rdf:resource="http://sws.geonames.org/3168068/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/AR" />
+            <entity2 rdf:resource="http://sws.geonames.org/3865483/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/OM" />
+            <entity2 rdf:resource="http://sws.geonames.org/286963/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/KN" />
+            <entity2 rdf:resource="http://sws.geonames.org/3575174/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/BW" />
+            <entity2 rdf:resource="http://sws.geonames.org/933860/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/UA" />
+            <entity2 rdf:resource="http://sws.geonames.org/690791/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/IO" />
+            <entity2 rdf:resource="http://sws.geonames.org/1282588/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/GM" />
+            <entity2 rdf:resource="http://sws.geonames.org/2413451/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/SB" />
+            <entity2 rdf:resource="http://sws.geonames.org/2103350/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/NP" />
+            <entity2 rdf:resource="http://sws.geonames.org/1282988/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/FM" />
+            <entity2 rdf:resource="http://sws.geonames.org/2081918/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/ML" />
+            <entity2 rdf:resource="http://sws.geonames.org/2453866/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/BF" />
+            <entity2 rdf:resource="http://sws.geonames.org/2361809/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/JO" />
+            <entity2 rdf:resource="http://sws.geonames.org/248816/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/SL" />
+            <entity2 rdf:resource="http://sws.geonames.org/2403846/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/NA" />
+            <entity2 rdf:resource="http://sws.geonames.org/3355338/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/AT" />
+            <entity2 rdf:resource="http://sws.geonames.org/2782113/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/AS" />
+            <entity2 rdf:resource="http://sws.geonames.org/5880801/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/DM" />
+            <entity2 rdf:resource="http://sws.geonames.org/3575830/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/WS" />
+            <entity2 rdf:resource="http://sws.geonames.org/4034894/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/UZ" />
+            <entity2 rdf:resource="http://sws.geonames.org/1512440/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/ZM" />
+            <entity2 rdf:resource="http://sws.geonames.org/895949/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/MK" />
+            <entity2 rdf:resource="http://sws.geonames.org/718075/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/AU" />
+            <entity2 rdf:resource="http://sws.geonames.org/2077456/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/BE" />
+            <entity2 rdf:resource="http://sws.geonames.org/2802361/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/GR" />
+            <entity2 rdf:resource="http://sws.geonames.org/390903/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/PA" />
+            <entity2 rdf:resource="http://sws.geonames.org/3703430/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/BT" />
+            <entity2 rdf:resource="http://sws.geonames.org/1252634/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/GA" />
+            <entity2 rdf:resource="http://sws.geonames.org/2400553/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/AE" />
+            <entity2 rdf:resource="http://sws.geonames.org/290557/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/KP" />
+            <entity2 rdf:resource="http://sws.geonames.org/1873107/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/MX" />
+            <entity2 rdf:resource="http://sws.geonames.org/3996063/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/LT" />
+            <entity2 rdf:resource="http://sws.geonames.org/597427/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/TC" />
+            <entity2 rdf:resource="http://sws.geonames.org/3576916/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/UM" />
+            <entity2 rdf:resource="http://sws.geonames.org/5854968/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/TR" />
+            <entity2 rdf:resource="http://sws.geonames.org/298795/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/JM" />
+            <entity2 rdf:resource="http://sws.geonames.org/3489940/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/CU" />
+            <entity2 rdf:resource="http://sws.geonames.org/3562981/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/GS" />
+            <entity2 rdf:resource="http://sws.geonames.org/3474415/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/SR" />
+            <entity2 rdf:resource="http://sws.geonames.org/3382998/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/CD" />
+            <entity2 rdf:resource="http://sws.geonames.org/203312/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/LY" />
+            <entity2 rdf:resource="http://sws.geonames.org/2215636/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/AD" />
+            <entity2 rdf:resource="http://sws.geonames.org/3041565/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/BV" />
+            <entity2 rdf:resource="http://sws.geonames.org/3371123/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/MY" />
+            <entity2 rdf:resource="http://sws.geonames.org/1733045/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/CV" />
+            <entity2 rdf:resource="http://sws.geonames.org/3374766/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/TD" />
+            <entity2 rdf:resource="http://sws.geonames.org/2434508/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/LU" />
+            <entity2 rdf:resource="http://sws.geonames.org/2960313/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/BD" />
+            <entity2 rdf:resource="http://sws.geonames.org/1210997/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/AW" />
+            <entity2 rdf:resource="http://sws.geonames.org/3577279/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/VN" />
+            <entity2 rdf:resource="http://sws.geonames.org/1562822/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/DZ" />
+            <entity2 rdf:resource="http://sws.geonames.org/2589581/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/CG" />
+            <entity2 rdf:resource="http://sws.geonames.org/2260494/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/GP" />
+            <entity2 rdf:resource="http://sws.geonames.org/3579143/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/BR" />
+            <entity2 rdf:resource="http://sws.geonames.org/3469034/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/LC" />
+            <entity2 rdf:resource="http://sws.geonames.org/3576468/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/AG" />
+            <entity2 rdf:resource="http://sws.geonames.org/3576396/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/EH" />
+            <entity2 rdf:resource="http://sws.geonames.org/2461445/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/KR" />
+            <entity2 rdf:resource="http://sws.geonames.org/1835841/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/LR" />
+            <entity2 rdf:resource="http://sws.geonames.org/2275384/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/LV" />
+            <entity2 rdf:resource="http://sws.geonames.org/458258/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/MZ" />
+            <entity2 rdf:resource="http://sws.geonames.org/1036973/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/AX" />
+            <entity2 rdf:resource="http://sws.geonames.org/661882/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/TT" />
+            <entity2 rdf:resource="http://sws.geonames.org/3573591/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/MH" />
+            <entity2 rdf:resource="http://sws.geonames.org/2080185/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/CF" />
+            <entity2 rdf:resource="http://sws.geonames.org/239880/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/PT" />
+            <entity2 rdf:resource="http://sws.geonames.org/2264397/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/LB" />
+            <entity2 rdf:resource="http://sws.geonames.org/272103/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/NL" />
+            <entity2 rdf:resource="http://sws.geonames.org/2750405/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/BS" />
+            <entity2 rdf:resource="http://sws.geonames.org/3572887/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/GQ" />
+            <entity2 rdf:resource="http://sws.geonames.org/2309096/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/AF" />
+            <entity2 rdf:resource="http://sws.geonames.org/1149361/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/BB" />
+            <entity2 rdf:resource="http://sws.geonames.org/3374084/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/GB" />
+            <entity2 rdf:resource="http://sws.geonames.org/2635167/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/LS" />
+            <entity2 rdf:resource="http://sws.geonames.org/932692/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/CX" />
+            <entity2 rdf:resource="http://sws.geonames.org/2078138/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/PE" />
+            <entity2 rdf:resource="http://sws.geonames.org/3932488/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/PF" />
+            <entity2 rdf:resource="http://sws.geonames.org/4030656/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/GE" />
+            <entity2 rdf:resource="http://sws.geonames.org/614540/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/MW" />
+            <entity2 rdf:resource="http://sws.geonames.org/927384/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/SV" />
+            <entity2 rdf:resource="http://sws.geonames.org/3585968/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/AI" />
+            <entity2 rdf:resource="http://sws.geonames.org/3573511/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/FI" />
+            <entity2 rdf:resource="http://sws.geonames.org/660013/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/WF" />
+            <entity2 rdf:resource="http://sws.geonames.org/4034749/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/KW" />
+            <entity2 rdf:resource="http://sws.geonames.org/285570/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/TF" />
+            <entity2 rdf:resource="http://sws.geonames.org/1546748/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/ID" />
+            <entity2 rdf:resource="http://sws.geonames.org/1643084/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/FR" />
+            <entity2 rdf:resource="http://sws.geonames.org/3017382/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/PW" />
+            <entity2 rdf:resource="http://sws.geonames.org/1559582/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/TG" />
+            <entity2 rdf:resource="http://sws.geonames.org/2363686/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/TV" />
+            <entity2 rdf:resource="http://sws.geonames.org/2110297/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/EE" />
+            <entity2 rdf:resource="http://sws.geonames.org/453733/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/NF" />
+            <entity2 rdf:resource="http://sws.geonames.org/2155115/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/ZA" />
+            <entity2 rdf:resource="http://sws.geonames.org/953987/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/SG" />
+            <entity2 rdf:resource="http://sws.geonames.org/1880251/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/VA" />
+            <entity2 rdf:resource="http://sws.geonames.org/3164670/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/CC" />
+            <entity2 rdf:resource="http://sws.geonames.org/1547376/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/SE" />
+            <entity2 rdf:resource="http://sws.geonames.org/2661886/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/PG" />
+            <entity2 rdf:resource="http://sws.geonames.org/2088628/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/MV" />
+            <entity2 rdf:resource="http://sws.geonames.org/1282028/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/GD" />
+            <entity2 rdf:resource="http://sws.geonames.org/3580239/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/TW" />
+            <entity2 rdf:resource="http://sws.geonames.org/1668284/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/IE" />
+            <entity2 rdf:resource="http://sws.geonames.org/2963597/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/MG" />
+            <entity2 rdf:resource="http://sws.geonames.org/1062947/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/HR" />
+            <entity2 rdf:resource="http://sws.geonames.org/3202326/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/GW" />
+            <entity2 rdf:resource="http://sws.geonames.org/2372248/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/KE" />
+            <entity2 rdf:resource="http://sws.geonames.org/192950/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/LI" />
+            <entity2 rdf:resource="http://sws.geonames.org/3042058/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/RW" />
+            <entity2 rdf:resource="http://sws.geonames.org/49518/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/VU" />
+            <entity2 rdf:resource="http://sws.geonames.org/2134431/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/AZ" />
+            <entity2 rdf:resource="http://sws.geonames.org/587116/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/NG" />
+            <entity2 rdf:resource="http://sws.geonames.org/2328926/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/MU" />
+            <entity2 rdf:resource="http://sws.geonames.org/934292/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/PH" />
+            <entity2 rdf:resource="http://sws.geonames.org/1694008/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/ET" />
+            <entity2 rdf:resource="http://sws.geonames.org/337996/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/SD" />
+            <entity2 rdf:resource="http://sws.geonames.org/366755/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/ST" />
+            <entity2 rdf:resource="http://sws.geonames.org/2410758/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/BO" />
+            <entity2 rdf:resource="http://sws.geonames.org/3923057/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/PY" />
+            <entity2 rdf:resource="http://sws.geonames.org/3437598/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/MD" />
+            <entity2 rdf:resource="http://sws.geonames.org/617790/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/GT" />
+            <entity2 rdf:resource="http://sws.geonames.org/3595528/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/EG" />
+            <entity2 rdf:resource="http://sws.geonames.org/357994/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/HU" />
+            <entity2 rdf:resource="http://sws.geonames.org/719819/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/MT" />
+            <entity2 rdf:resource="http://sws.geonames.org/2562770/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/CA" />
+            <entity2 rdf:resource="http://sws.geonames.org/6251999/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/GF" />
+            <entity2 rdf:resource="http://sws.geonames.org/3381670/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/SC" />
+            <entity2 rdf:resource="http://sws.geonames.org/241170/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/VC" />
+            <entity2 rdf:resource="http://sws.geonames.org/3577815/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/DE" />
+            <entity2 rdf:resource="http://sws.geonames.org/2921044/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/KG" />
+            <entity2 rdf:resource="http://sws.geonames.org/1527747/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/US" />
+            <entity2 rdf:resource="http://sws.geonames.org/6252001/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/IT" />
+            <entity2 rdf:resource="http://sws.geonames.org/3175395/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/TH" />
+            <entity2 rdf:resource="http://sws.geonames.org/1605651/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/ME" />
+            <entity2 rdf:resource="http://sws.geonames.org/3194884/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/NI" />
+            <entity2 rdf:resource="http://sws.geonames.org/3617476/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/BN" />
+            <entity2 rdf:resource="http://sws.geonames.org/1820814/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/GU" />
+            <entity2 rdf:resource="http://sws.geonames.org/4043988/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/HT" />
+            <entity2 rdf:resource="http://sws.geonames.org/3723988/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/SZ" />
+            <entity2 rdf:resource="http://sws.geonames.org/934841/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/GI" />
+            <entity2 rdf:resource="http://sws.geonames.org/2411586/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/MS" />
+            <entity2 rdf:resource="http://sws.geonames.org/3578097/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/AM" />
+            <entity2 rdf:resource="http://sws.geonames.org/174982/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/TZ" />
+            <entity2 rdf:resource="http://sws.geonames.org/149590/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/ER" />
+            <entity2 rdf:resource="http://sws.geonames.org/338010/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/SK" />
+            <entity2 rdf:resource="http://sws.geonames.org/3057568/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/IS" />
+            <entity2 rdf:resource="http://sws.geonames.org/2629691/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/BM" />
+            <entity2 rdf:resource="http://sws.geonames.org/3573345/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/HM" />
+            <entity2 rdf:resource="http://sws.geonames.org/1547314/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/CM" />
+            <entity2 rdf:resource="http://sws.geonames.org/2233387/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/KH" />
+            <entity2 rdf:resource="http://sws.geonames.org/1831722/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/TK" />
+            <entity2 rdf:resource="http://sws.geonames.org/4031074/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/PK" />
+            <entity2 rdf:resource="http://sws.geonames.org/1168579/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/KZ" />
+            <entity2 rdf:resource="http://sws.geonames.org/1522867/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/DO" />
+            <entity2 rdf:resource="http://sws.geonames.org/3508796/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/NR" />
+            <entity2 rdf:resource="http://sws.geonames.org/2110425/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/MR" />
+            <entity2 rdf:resource="http://sws.geonames.org/2378080/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/RS" />
+            <entity2 rdf:resource="http://sws.geonames.org/6290252/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/GH" />
+            <entity2 rdf:resource="http://sws.geonames.org/2300660/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/VE" />
+            <entity2 rdf:resource="http://sws.geonames.org/3625428/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/ES" />
+            <entity2 rdf:resource="http://sws.geonames.org/2510769/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/AL" />
+            <entity2 rdf:resource="http://sws.geonames.org/783754/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/SJ" />
+            <entity2 rdf:resource="http://sws.geonames.org/607072/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/IR" />
+            <entity2 rdf:resource="http://sws.geonames.org/130758/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/QA" />
+            <entity2 rdf:resource="http://sws.geonames.org/289688/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/NC" />
+            <entity2 rdf:resource="http://sws.geonames.org/2139685/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/BL" />
+            <entity2 rdf:resource="http://sws.geonames.org/3578476/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/CL" />
+            <entity2 rdf:resource="http://sws.geonames.org/3895114/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/HN" />
+            <entity2 rdf:resource="http://sws.geonames.org/3608932/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/TJ" />
+            <entity2 rdf:resource="http://sws.geonames.org/1220409/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/MC" />
+            <entity2 rdf:resource="http://sws.geonames.org/2993457/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/KI" />
+            <entity2 rdf:resource="http://sws.geonames.org/4030945/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/KY" />
+            <entity2 rdf:resource="http://sws.geonames.org/3580718/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/NU" />
+            <entity2 rdf:resource="http://sws.geonames.org/4036232/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/PL" />
+            <entity2 rdf:resource="http://sws.geonames.org/798544/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/ZW" />
+            <entity2 rdf:resource="http://sws.geonames.org/878675/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/RE" />
+            <entity2 rdf:resource="http://sws.geonames.org/935317/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/AO" />
+            <entity2 rdf:resource="http://sws.geonames.org/3351879/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/MQ" />
+            <entity2 rdf:resource="http://sws.geonames.org/3570311/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/EC" />
+            <entity2 rdf:resource="http://sws.geonames.org/3658394/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/CO" />
+            <entity2 rdf:resource="http://sws.geonames.org/3686110/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/SI" />
+            <entity2 rdf:resource="http://sws.geonames.org/3190538/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/IQ" />
+            <entity2 rdf:resource="http://sws.geonames.org/99237/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/TM" />
+            <entity2 rdf:resource="http://sws.geonames.org/1218197/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/SY" />
+            <entity2 rdf:resource="http://sws.geonames.org/163843/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/PM" />
+            <entity2 rdf:resource="http://sws.geonames.org/3424932/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/AN" />
+            <entity2 rdf:resource="http://sws.geonames.org/3513447/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/MP" />
+            <entity2 rdf:resource="http://sws.geonames.org/4041468/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/NE" />
+            <entity2 rdf:resource="http://sws.geonames.org/2440476/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/LK" />
+            <entity2 rdf:resource="http://sws.geonames.org/1227603/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/RU" />
+            <entity2 rdf:resource="http://sws.geonames.org/2017370/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/CN" />
+            <entity2 rdf:resource="http://sws.geonames.org/1814991/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/BJ" />
+            <entity2 rdf:resource="http://sws.geonames.org/2395170/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/GY" />
+            <entity2 rdf:resource="http://sws.geonames.org/3378535/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/BA" />
+            <entity2 rdf:resource="http://sws.geonames.org/3277605/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/TL" />
+            <entity2 rdf:resource="http://sws.geonames.org/1966436/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+    <map>
+        <Cell>
+            <entity1 rdf:resource="http://reegle.info/countries/MA" />
+            <entity2 rdf:resource="http://sws.geonames.org/2542007/" />
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+        </Cell>
+    </map>
+</Alignment>
+</rdf:RDF>

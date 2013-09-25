@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<importJob xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://www4.wiwiss.fu-berlin.de/ldif/ ../../xsd/ImportJob.xsd"
+           xmlns="http://www4.wiwiss.fu-berlin.de/ldif/">
+    <internalId>reegle.0</internalId>
+    <dataSource>Reegle</dataSource>
+    <refreshSchedule>onStartup</refreshSchedule>
+<!--     <sparqlImportJob>
+        <endpointLocation>http://sparql.reegle.info/</endpointLocation>
+        <sparqlPatterns>
+            <pattern>?s a &lt;http://www.geonames.org/ontology#Feature&gt;</pattern>
+        </sparqlPatterns>
+    </sparqlImportJob> -->
+    <tripleImportJob>
+        <!-- <dumpLocation>file:///media/stefan/EXT2/Diplomarbeit/Alignment/Reegle/reegle-no-sameas.ttl</dumpLocation> -->
+        <dumpLocation>file:///home/stefan/Code/diplom-code/ldif-geo/dump/reegle.nt</dumpLocation>
+    </tripleImportJob>
+</importJob>

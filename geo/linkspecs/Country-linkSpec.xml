@@ -33,12 +33,12 @@
             </TargetDataset>
 
             <LinkageRule>
-                <Compare metric="equality" threshold="1.0" required="true">
+                <Compare metric="jaroWinkler" threshold="0.04" required="true">
                     <TransformInput function="lowerCase">
-                        <Input path="?a/gn:countryCode" />
+                        <Input path="?a/gn:name" />
                     </TransformInput>
                     <TransformInput function="lowerCase">
-                        <Input path="?b/gn:countryCode" />
+                        <Input path="?b/gn:name" />
                     </TransformInput>
                 </Compare>
             </LinkageRule>

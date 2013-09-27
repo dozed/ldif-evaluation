@@ -4,10 +4,10 @@
   <map:output rdf:about=''>
     <map:input1 rdf:resource="null"/>
     <map:input2 rdf:resource="null"/>
-    <map:precision>0.2747688243064729</map:precision>
-    <map:recall>0.8495934959349594</map:recall>
-    <map:fMeasure>0.41524302587149736</map:fMeasure>
-    <map:oMeasure>-1.3928431832395245</map:oMeasure>
-    <result>3.0920301751094432</result>
+    <map:precision>0.9800995024875622</map:precision>
+    <map:recall>0.8008130081300813</map:recall>
+    <map:fMeasure>0.8814317673378075</map:fMeasure>
+    <map:oMeasure>0.7845528455284552</map:oMeasure>
+    <result>0.8170731707317073</result>
   </map:output>
 </rdf:RDF>

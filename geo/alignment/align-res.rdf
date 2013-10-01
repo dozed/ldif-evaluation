@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes'?>
+<rdf:RDF xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#'
+  xmlns:map='http://www.atl.external.lmco.com/projects/ontology/ResultsOntology.n3#'>
+  <map:output rdf:about=''>
+    <map:input1 rdf:resource="null"/>
+    <map:input2 rdf:resource="null"/>
+    <map:precision>0.9919354838709677</map:precision>
+    <map:recall>1.0</map:recall>
+    <map:fMeasure>0.9959514170040485</map:fMeasure>
+    <map:oMeasure>0.9918699186991871</map:oMeasure>
+    <result>1.008130081300813</result>
+  </map:output>
+</rdf:RDF>

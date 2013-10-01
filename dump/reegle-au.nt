@@ -1,0 +1,3 @@
+<http://reegle.info/countries/AU> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.geonames.org/ontology#Feature> .
+<http://reegle.info/countries/AU> <http://www.geonames.org/ontology#countryCode> "AU" .
+<http://reegle.info/countries/AU> <http://www.geonames.org/ontology#name> "Australia" .

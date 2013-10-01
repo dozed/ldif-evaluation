@@ -1,0 +1,10 @@
+<http://sws.geonames.org/2077507/> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.geonames.org/ontology#Feature> .
+<http://sws.geonames.org/2077507/> <http://www.geonames.org/ontology#name> "Territory of Ashmore and Cartier Islands" .
+<http://sws.geonames.org/2077507/> <http://www.geonames.org/ontology#countryCode> "AU" .
+<http://sws.geonames.org/2077456/> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.geonames.org/ontology#Feature> .
+<http://sws.geonames.org/2077456/> <http://www.geonames.org/ontology#name> "Commonwealth of Australia" .
+<http://sws.geonames.org/2077456/> <http://www.geonames.org/ontology#name> "Australia" .
+<http://sws.geonames.org/2077456/> <http://www.geonames.org/ontology#countryCode> "AU" .
+<http://sws.geonames.org/2170371/> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.geonames.org/ontology#Feature> .
+<http://sws.geonames.org/2170371/> <http://www.geonames.org/ontology#name> "Coral Sea Islands Territory" .
+<http://sws.geonames.org/2170371/> <http://www.geonames.org/ontology#countryCode> "AU" .

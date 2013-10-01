@@ -6,4 +6,5 @@ data
 fuseki.n3
 tdb
 
-
+target
+project/target

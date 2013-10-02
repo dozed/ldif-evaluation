@@ -74,50 +74,62 @@ trait RunSilk {
     ).apply()
   }
 
-  case class EvaluationConfig(evalType: EvaluationType, alignmentRef: File, alignmentOut: File,
-                              alignmentResults: File, rule: LinkageRule)
+  def printToFile(file: File)(func: PrintWriter => Unit) {
+    val pw = new PrintWriter(file)
+    func.apply(pw)
+    pw.close()
+  }
 
-  def evaluate(conf: EvaluationConfig) = {
+  def evaluate(rule: LinkageRule) = {
+    val evalType = SemPRecEvaluation
+    val alignmentRef = new File(f"$base/alignment/align-named-ref.rdf")
+    val alignmentOut = File.createTempFile("alignment", ".tmp")
+    val alignmentResults = File.createTempFile("alignment-prec", ".tmp")
+
     val linkSpec = LinkSpecification(
       linkType = "http://www.w3.org/2002/07/owl#sameAs",
       datasets = datasets,
-      rule = conf.rule,
-      outputs = List(new Output("output", new AlignmentApiWriter(conf.alignmentOut))))
+      rule = rule,
+      outputs = List(new Output("output", new AlignmentApiWriter(alignmentOut))))
 
     executeLinkConfig(sources, linkSpec)
 
-    Evaluation.eval(conf.evalType, conf.alignmentRef, conf.alignmentOut, conf.alignmentResults)
+    Evaluation.eval(evalType, alignmentRef, alignmentOut, alignmentResults)
 
-    val xml = XML.loadFile(conf.alignmentResults)
+    val xml = XML.loadFile(alignmentResults)
     val prec = (xml \ "output" \ "precision" text).toDouble
     val recall = (xml \ "output" \ "recall" text).toDouble
     (prec, recall)
   }
 
-  def printFalsePositivesAndNegatives(conf: EvaluationConfig) = {
+  def runEvaluationWithVaryingThreshold(label: String, rulefunc: Double => LinkageRule) {
+    println(f"evaluating $label")
 
-    val linkSpec = LinkSpecification(
-      id = "geonamesReegle",
-      linkType = "http://www.w3.org/2002/07/owl#sameAs",
-      datasets = (Dataset("geonames", "a", SparqlRestriction.fromSparql("a", "?a rdf:type gn:Feature .")),
-        Dataset("reegle", "b", SparqlRestriction.fromSparql("b", "?b rdf:type gn:Feature ."))),
-      rule = conf.rule,
-      outputs = List(new Output("output", new AlignmentApiWriter(conf.alignmentOut))))
+    printToFile(new File(f"$base/evaluation/$label.txt")) {
+      pw =>
+        for (i <- 0 to 100) {
+          val t = i / 100.0
+          val (prec, recall) = evaluate(rulefunc(t))
+          pw.println(f"${1.0 - t}, $prec, $recall")
+          println(f"${1.0 - t}, $prec, $recall")
+        }
+    }
+  }
 
-    executeLinkConfig(sources, linkSpec)
+  def runEvaluation(label: String, rule: LinkageRule) {
+    println(f"evaluating $label")
 
-    Evaluation.eval(conf.evalType, conf.alignmentRef, conf.alignmentOut, conf.alignmentResults)
-
-    println(io.Source.fromFile(conf.alignmentResults).mkString)
-
-    //val xml = XML.loadFile(conf.alignmentResults)
-    //println(xml)
-    //    val prec = (xml \ "output" \ "precision" text).toDouble
-    //    val recall = (xml \ "output" \ "recall" text).toDouble
-    //    (prec, recall)
+    printToFile(new File(f"$base/evaluation/$label.txt")) {
+      pw =>
+        val (prec, recall) = evaluate(rule)
+        pw.println(f"$prec, $recall")
+        println(f"$prec, $recall")
+    }
   }
 
   // Input Transformations --------------------
+  type InputTransformation = Input => Input
+
   def transformInputWith(t: Transformer): Input => Input = {
     (in: Input) => TransformInput(transformer = t, inputs = Seq(in))
   }
@@ -136,21 +148,6 @@ trait RunSilk {
     }
   })
 
-
-  // Link Rules & Evaluation ----------------------------------
-
-  def evaluationConfig(rule: LinkageRule) = EvaluationConfig(SemPRecEvaluation,
-    new File(f"$base/ldif-geo/alignment/align-named-ref.rdf"),
-    File.createTempFile("alignment", ".tmp"),
-    File.createTempFile("alignment-prec", ".tmp"),
-    rule)
-
-  def printToFile(file: File)(func: PrintWriter => Unit) {
-    val pw = new PrintWriter(file)
-    func.apply(pw)
-    pw.close()
-  }
-
   val metrics = List(
     "substring" -> SubStringDistance(),
     "jaro" -> JaroDistanceMetric(),
@@ -167,6 +164,6 @@ trait RunSilk {
     "qgrams-10" -> QGramsMetric(q = 10)
   )
 
-  type InputTransformation = Input => Input
+
 
 }

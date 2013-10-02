@@ -1,10 +1,11 @@
 
-import de.fuberlin.wiwiss.silk.config.Dataset
+import de.fuberlin.wiwiss.silk.config.{LinkSpecification, Dataset}
 import de.fuberlin.wiwiss.silk.datasource.Source
 import de.fuberlin.wiwiss.silk.entity._
 import de.fuberlin.wiwiss.silk.linkagerule.input._
 import de.fuberlin.wiwiss.silk.linkagerule.LinkageRule
 import de.fuberlin.wiwiss.silk.linkagerule.similarity.{Aggregation, DistanceMeasure, Comparison}
+import de.fuberlin.wiwiss.silk.output.Output
 import de.fuberlin.wiwiss.silk.plugins.aggegrator.AverageAggregator
 import de.fuberlin.wiwiss.silk.plugins.distance.characterbased._
 import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.JaroDistanceMetric
@@ -14,7 +15,9 @@ import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.QGramsMetric
 import de.fuberlin.wiwiss.silk.plugins.distance.equality.EqualityMetric
 import de.fuberlin.wiwiss.silk.util.DPair
 import java.io.File
-import ldif.local.SemPRecEvaluation
+import ldif.local.{Evaluation, SemPRecEvaluation}
+import ldif.modules.silk.local.AlignmentApiWriter
+import scala.xml.XML
 
 /**
  * Created with IntelliJ IDEA.
@@ -51,9 +54,7 @@ object RunSilk extends App with RunSilk {
   )
 
   def codeEval {
-    val inputs = {
-      (PathInput(path = Path.parse("?a/gn:countryCode")) :: PathInput(path = Path.parse("?b/gn:countryCode")) :: Nil)
-    } map lc
+    val inputs = (PathInput(path = Path.parse("?a/gn:countryCode")) :: PathInput(path = Path.parse("?b/gn:countryCode")) :: Nil) map lc
 
     println("evaluating code")
 
@@ -64,65 +65,24 @@ object RunSilk extends App with RunSilk {
       inputs = inputs
     ))
 
-    printFalsePositivesAndNegatives(EvaluationConfig(SemPRecEvaluation,
-      new File(f"$base/ldif-geo/alignment/align-ref.rdf"),
-      new File(f"$base/ldif-geo/alignment/alignment.rdf"),
-      new File(f"$base/ldif-geo/alignment/align-res.rdf"),
-      rule))
-
-    printToFile(new File(f"$base/evaluation/countryCode.txt")) {
-      pw =>
-        val config = evaluationConfig(rule)
-        val (prec, recall) = evaluate(config)
-        pw.println(f"$prec, $recall")
-        println(f"  $$prec, $recall")
-    }
-
+    runEvaluation("countryCode", rule)
   }
 
-  def nameRule(t: Double, metric: DistanceMeasure, inputs: DPair[Input]) = {
-    LinkageRule(Comparison(
-      id = "codes",
-      required = false,
-      //    weight = 1,
+  def nameEval(label: String, metric: DistanceMeasure, transformation: InputTransformation) = {
+    val inputs = (PathInput(path = Path.parse("?a/gn:name")) :: PathInput(path = Path.parse("?b/gn:name")) :: Nil) map transformation
+
+    runEvaluationWithVaryingThreshold(label, t => LinkageRule(Comparison(
       threshold = t,
       metric = metric,
       inputs = inputs
-    ))
-  }
-
-  def nameEval = (label: String, metric: DistanceMeasure, transformation: InputTransformation) => {
-    val inputs = {
-      (PathInput(path = Path.parse("?a/gn:name")) :: PathInput(path = Path.parse("?b/gn:name")) :: Nil)
-    } map transformation
-
-    println(f"evaluating $label")
-
-    printToFile(new File(f"$base/evaluation/$label.txt")) {
-      pw =>
-        for (i <- 0 to 100) {
-          val t = i / 100.0
-          val rule = nameRule(t, metric, inputs)
-          val config = evaluationConfig(rule)
-          val (prec, recall) = evaluate(config)
-          pw.println(f"${1.0 - t}, $prec, $recall")
-          println(f"${1.0 - t}, $prec, $recall")
-        }
-    }
+    )))
   }
 
   def aggregatedEval = {
-    val countryCodeInput = {
-      (PathInput(path = Path.parse("?a/gn:countryCode")) :: PathInput(path = Path.parse("?b/gn:countryCode")) :: Nil)
-    } map lc
+    val countryCodeInput = (PathInput(path = Path.parse("?a/gn:countryCode")) :: PathInput(path = Path.parse("?b/gn:countryCode")) :: Nil) map lc
+    val nameInput = (PathInput(path = Path.parse("?a/gn:name")) :: PathInput(path = Path.parse("?b/gn:name")) :: Nil) map lc
 
-    val nameInput = {
-      (PathInput(path = Path.parse("?a/gn:name")) :: PathInput(path = Path.parse("?b/gn:name")) :: Nil)
-    } map lc
-
-    println("evaluating code")
-
-    def avgRule(t: Double) = LinkageRule(
+    def rule(t: Double) = LinkageRule(
       Aggregation(
         operators = List(
           Comparison(
@@ -139,17 +99,7 @@ object RunSilk extends App with RunSilk {
       )
     )
 
-    printToFile(new File(f"$base/evaluation/aggegated-name-code.txt")) {
-      pw =>
-        for (i <- 0 to 100) {
-          val t = i / 100.0
-          val rule = avgRule(t)
-          val config = evaluationConfig(rule)
-          val (prec, recall) = evaluate(config)
-          pw.println(f"${1.0 - t}, $prec, $recall")
-          println(f"${1.0 - t}, $prec, $recall")
-        }
-    }
+    runEvaluationWithVaryingThreshold("aggregated-name-code", rule)
   }
 
   //  for {

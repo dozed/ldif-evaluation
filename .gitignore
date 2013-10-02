@@ -1,3 +1,6 @@
+*.iml
+.idea
+
 geo/dumps/*
 geo/integrated_reegle_geonames.*
 

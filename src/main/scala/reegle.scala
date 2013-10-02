@@ -26,7 +26,7 @@ import scala.xml.XML
  * Time: 14:54
  * To change this template use File | Settings | File Templates.
  */
-object RunSilk extends App with RunSilk {
+object RunSilk extends App with Evaluations {
 
   // val base = "/home/stefan/Code/diplom-code/ldif-geo"
   val base = "D:/Workspaces/Dev/ldif-evaluation"

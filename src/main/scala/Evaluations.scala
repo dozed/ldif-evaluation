@@ -28,7 +28,7 @@ import scala.xml.XML
  * Time: 14:54
  * To change this template use File | Settings | File Templates.
  */
-trait RunSilk {
+trait Evaluations {
 
   implicit val prefixes = Prefixes.fromMap(Map(
     "rdf" -> "http://www.w3.org/1999/02/22-rdf-syntax-ns#",

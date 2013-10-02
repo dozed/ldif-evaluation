@@ -65,22 +65,13 @@ trait RunSilk {
 
   val datasets: (Dataset, Dataset)
 
-  def executeLinkConfig(sources: (Source, Source), linkSpec: LinkSpecification)(implicit config: RuntimeConfig) = {
-    new GenerateLinksTask(
-      sources = List(sources._1, sources._2),
-      linkSpec = linkSpec,
-      outputs = linkSpec.outputs,
-      runtimeConfig = config
-    ).apply()
-  }
-
   def printToFile(file: File)(func: PrintWriter => Unit) {
     val pw = new PrintWriter(file)
     func.apply(pw)
     pw.close()
   }
 
-  def evaluate(rule: LinkageRule) = {
+  def evaluate(rule: LinkageRule)(implicit config: RuntimeConfig) = {
     val evalType = SemPRecEvaluation
     val alignmentRef = new File(f"$base/alignment/align-named-ref.rdf")
     val alignmentOut = File.createTempFile("alignment", ".tmp")
@@ -92,7 +83,12 @@ trait RunSilk {
       rule = rule,
       outputs = List(new Output("output", new AlignmentApiWriter(alignmentOut))))
 
-    executeLinkConfig(sources, linkSpec)
+    new GenerateLinksTask(
+      sources = List(sources._1, sources._2),
+      linkSpec = linkSpec,
+      outputs = linkSpec.outputs,
+      runtimeConfig = config
+    ).apply()
 
     Evaluation.eval(evalType, alignmentRef, alignmentOut, alignmentResults)
 

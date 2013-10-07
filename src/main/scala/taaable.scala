@@ -88,13 +88,13 @@ object TaaableMatcher extends App with Evaluations {
 //  ).apply()
 
   val metrics2 = List(
-    "substring" -> SubStringDistance(),
-    "jaro" -> JaroDistanceMetric(),
-    "jaroWinkler" -> JaroWinklerDistance(),
-    "levenshtein" -> LevenshteinMetric(),
-    "equality" -> new RelaxedEqualityMetric(),
-    "relaxed-equality" -> new RelaxedEqualityMetric(),
-    "qgrams-2" -> QGramsMetric(q = 2)
+    'substring -> SubStringDistance(),
+    //'jaro -> JaroDistanceMetric(),
+    //'jaroWinkler -> JaroWinklerDistance(),
+    'levenshtein -> LevenshteinMetric(),
+    //'equality -> new RelaxedEqualityMetric(),
+    'relaxedEquality -> new RelaxedEqualityMetric(),
+    'qgrams2 -> QGramsMetric(q = 2)
   )
 
   println(QGramsMetric(2).evaluate("Chinese noodle", "Chinese noodles"))
@@ -116,7 +116,20 @@ object TaaableMatcher extends App with Evaluations {
   val taaableEntities = entities(sources._1, entityDescs._1)
   val dbpediaEntities = entities(sources._2, entityDescs._2)
 
-  taaableEntities foreach println
+  val distMatrix = for {
+    (e1, xs) <- taaableEntities.par
+    (e2, ys) <- dbpediaEntities
+  } yield {
+    val dist = for {
+      x <- xs
+      y <- ys
+      (_, metric) <- metrics2
+    } yield {
+      metric.evaluate(x, y)
+    }
+    // println(f"$e1, $e2, $dist")
+    (e1, e2, dist)
+  }
 
   // Evaluation.eval(evalType, alignmentRef, alignmentOut, alignmentResults)
 

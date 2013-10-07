@@ -1,25 +1,20 @@
 import de.fuberlin.wiwiss.silk.config.{LinkSpecification, Dataset}
 import de.fuberlin.wiwiss.silk.datasource.Source
 import de.fuberlin.wiwiss.silk.entity.{EntityDescription, Link, Path, SparqlRestriction}
-import de.fuberlin.wiwiss.silk.execution.GenerateLinksTask
 import de.fuberlin.wiwiss.silk.linkagerule.input.PathInput
 import de.fuberlin.wiwiss.silk.linkagerule.LinkageRule
-import de.fuberlin.wiwiss.silk.linkagerule.similarity.{Aggregation, Comparison}
+import de.fuberlin.wiwiss.silk.linkagerule.similarity.Comparison
 import de.fuberlin.wiwiss.silk.output.{Output, LinkWriter}
-import de.fuberlin.wiwiss.silk.plugins.aggegrator.AverageAggregator
-import de.fuberlin.wiwiss.silk.plugins.datasource.SparqlDataSource
 import de.fuberlin.wiwiss.silk.plugins.distance.characterbased._
-import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.JaroDistanceMetric
-import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.LevenshteinMetric
-import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.QGramsMetric
 import de.fuberlin.wiwiss.silk.plugins.distance.equality.RelaxedEqualityMetric
+import java.io.PrintWriter
 import org.apache.jena.riot.Lang
-import scala.Some
-import scala.Some
 
-object TaaableMatcher extends App with Evaluations {
+object TaaableMatcher extends App with Evaluations2 {
 
   val base = "D:/Workspaces/Dev/ldif-evaluation/ldif-taaable"
+
+  // in order to work with data from SPARQL endpoints:
 
   //  CONSTRUCT {
   //    ?b <http://www.w3.org/2000/01/rdf-schema#label> ?v0
@@ -29,6 +24,12 @@ object TaaableMatcher extends App with Evaluations {
   //      ?b <http://www.w3.org/2000/01/rdf-schema#label> ?v0 .
   //  }
 
+  //  val query2 =
+  //    """
+  //      |?b dcterms:subject ?x .
+  //      |?x <http://www.w3.org/2004/02/skos/core#broader>* <http://dbpedia.org/resource/Category:Foods> .
+  //    """.stripMargin
+
   //  val sources = (Source("taaable", NewFileDataSource(f"file:///$base/food.rdf", Some(Lang.RDFXML), true)),
   //    Source("dbpedia", SparqlDataSource("http://lod.openlinksw.com/sparql")))
 
@@ -36,14 +37,6 @@ object TaaableMatcher extends App with Evaluations {
     Source("dbpedia", NewFileDataSource(f"file:///$base/dbpedia-foods.ttl", Some(Lang.TURTLE))))
 
   val query1 = "?a rdfs:subClassOf taaable:Category-3AFood ."
-
-  //  val query2 =
-  //    """
-  //      |?b dcterms:subject ?x .
-  //      |?x <http://www.w3.org/2004/02/skos/core#broader>* <http://dbpedia.org/resource/Category:Foods> .
-  //    """.stripMargin
-
-  val query2 = "?a a owl:Thing ."
 
   val datasets = (Dataset("taaable", "a", SparqlRestriction.fromSparql("a", query1)),
     Dataset("dbpedia", "b", SparqlRestriction.empty))
@@ -88,13 +81,12 @@ object TaaableMatcher extends App with Evaluations {
 //  ).apply()
 
   val metrics2 = List(
-    'substring -> SubStringDistance(),
-    //'jaro -> JaroDistanceMetric(),
-    //'jaroWinkler -> JaroWinklerDistance(),
-    'levenshtein -> LevenshteinMetric(),
-    //'equality -> new RelaxedEqualityMetric(),
-    'relaxedEquality -> new RelaxedEqualityMetric(),
-    'qgrams2 -> QGramsMetric(q = 2)
+    // "substring" -> SubStringDistance(),
+    "jaro" -> JaroDistanceMetric(),
+    "jaroWinkler" -> JaroWinklerDistance(),
+    "levenshtein" -> LevenshteinMetric(),
+    "relaxedEquality" -> new RelaxedEqualityMetric(),
+    "qgrams2" -> QGramsMetric(q = 2)
   )
 
   println(QGramsMetric(2).evaluate("Chinese noodle", "Chinese noodles"))
@@ -116,20 +108,47 @@ object TaaableMatcher extends App with Evaluations {
   val taaableEntities = entities(sources._1, entityDescs._1)
   val dbpediaEntities = entities(sources._2, entityDescs._2)
 
-  val distMatrix = for {
-    (e1, xs) <- taaableEntities.par
-    (e2, ys) <- dbpediaEntities
-  } yield {
-    val dist = for {
-      x <- xs
-      y <- ys
-      (_, metric) <- metrics2
-    } yield {
-      metric.evaluate(x, y)
+  var k = 0
+  for {
+    (label, metric) <- metrics2
+  } {
+    val pw = new PrintWriter(f"sim-$label.csv")
+
+    for {
+      ((e1, xs), i) <- taaableEntities.zipWithIndex.par
+    } {
+      val dists = for {
+        ((e2, ys), j) <- dbpediaEntities.zipWithIndex
+      } yield {
+        k += 1
+        if (k % 100000 == 0) println(k)
+
+        val d = for {
+          x <- xs
+          y <- ys
+          (_, metric) <- metrics2
+        } yield {
+          metric.evaluate(x, y)
+        }
+
+        val m = d.max
+
+        if (m < 0.5) {
+          Some((i, j, m))
+        } else {
+          None
+        }
+      }
+
+      val l = dists.flatten
+      pw.println(l.mkString(","))
     }
-    // println(f"$e1, $e2, $dist")
-    (e1, e2, dist)
+
+    pw.close()
   }
+
+
+
 
   // Evaluation.eval(evalType, alignmentRef, alignmentOut, alignmentResults)
 

@@ -2,7 +2,6 @@
 import de.fuberlin.wiwiss.silk.config._
 import de.fuberlin.wiwiss.silk.config.RuntimeConfig
 import de.fuberlin.wiwiss.silk.datasource.Source
-import de.fuberlin.wiwiss.silk.entity._
 import de.fuberlin.wiwiss.silk.execution._
 import de.fuberlin.wiwiss.silk.linkagerule.input._
 import de.fuberlin.wiwiss.silk.linkagerule.LinkageRule
@@ -17,7 +16,7 @@ import de.fuberlin.wiwiss.silk.plugins.transformer.LowerCaseTransformer
 import de.fuberlin.wiwiss.silk.plugins.transformer.phonetic.{MetaphoneTransformer, NysiisTransformer, SoundexTransformer}
 import java.io.{PrintWriter, File}
 import java.util.logging.Level
-import ldif.local.{EvaluationType, Evaluation, SemPRecEvaluation}
+import ldif.local.{Evaluation, SemPRecEvaluation}
 import ldif.modules.silk.local.AlignmentApiWriter
 import scala.xml.XML
 
@@ -28,7 +27,7 @@ import scala.xml.XML
  * Time: 14:54
  * To change this template use File | Settings | File Templates.
  */
-trait Evaluations {
+trait Evaluations2 {
 
   implicit val prefixes = Prefixes.fromMap(Map(
     "rdf" -> "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
@@ -65,6 +64,12 @@ trait Evaluations {
   val sources: (Source, Source)
 
   val datasets: (Dataset, Dataset)
+
+  def printToFile(file: String)(func: PrintWriter => Unit) {
+    val pw = new PrintWriter(file)
+    func.apply(pw)
+    pw.close()
+  }
 
   def printToFile(file: File)(func: PrintWriter => Unit) {
     val pw = new PrintWriter(file)

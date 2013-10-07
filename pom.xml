@@ -13,6 +13,19 @@
     <scala.plugin.version>2.15.2</scala.plugin.version>
   </properties>
 
+  <repositories>
+    <repository>
+      <id>sonatype-snapshots</id>
+      <name>Sonatype Snapshots</name>
+      <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+    </repository>
+    <repository>
+      <id>sonatype-releases</id>
+      <name>Sonatype Releases</name>
+      <url>https://oss.sonatype.org/content/repositories/releases/</url>
+    </repository>
+  </repositories>
+
   <dependencies>
     <dependency>
       <groupId>org.scala-lang</groupId>
@@ -61,6 +74,13 @@
       <artifactId>jul-to-slf4j</artifactId>
       <version>1.5.8</version>
     </dependency>
+
+    <dependency>
+      <groupId>org.scalanlp</groupId>
+      <artifactId>breeze-math_2.10</artifactId>
+      <version>0.4</version>
+    </dependency>
+
   </dependencies>
 
   <build>

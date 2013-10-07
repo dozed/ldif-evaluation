@@ -67,7 +67,7 @@ case class NewFileDataSource(file: String, lang: Option[Lang] = None, inference:
       case None => RDFDataMgr.loadModel(file)
     }
     if (inference) {
-      val reasoner = ReasonerRegistry.getRDFSReasoner();
+      val reasoner = ReasonerRegistry.getRDFSReasoner
       ModelFactory.createInfModel(reasoner, m)
     } else m
   }

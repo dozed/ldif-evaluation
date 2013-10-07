@@ -1,0 +1,295 @@
+	<owl:Class rdf:about="http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AApple">
+		<rdfs:label>Apple</rdfs:label>
+		<swivt:page rdf:resource="http://wikitaaable.loria.fr/index.php/Category:Apple"/>
+		<rdfs:isDefinedBy rdf:resource="http://wikitaaable.loria.fr/index.php/Special:ExportRDF/Category:Apple"/>
+		<swivt:wikiNamespace rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">14</swivt:wikiNamespace>
+		<property:Compatible_with_diet rdf:resource="&wiki;Category-3AGluten-2Dfree_diet"/>
+		<property:Compatible_with_diet rdf:resource="&wiki;Category-3AVeganism"/>
+		<property:Compatible_with_diet rdf:resource="&wiki;Category-3AVegetarian"/>
+		<property:Has_description rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The apple is the pomaceous fruit of the apple tree, species Malus domestica in the rose family (Rosaceae). It is one of the most widely cultivated tree fruits, and the most widely known of the...</property:Has_description>
+		<property:Has_energy>
+			<swivt:Subject rdf:about="http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AApple-23_cfbc60ed94ff46a0bac6ba9e6daa908d">
+				<swivt:masterPage rdf:resource="&wiki;Category-3AApple"/>
+				<property:Energy_quantity rdf:datatype="http://www.w3.org/2001/XMLSchema#double">52</property:Energy_quantity>
+				<property:Energy_unit rdf:datatype="http://www.w3.org/2001/XMLSchema#string">kcal</property:Energy_unit>
+			</swivt:Subject>
+		</property:Has_energy>
+		<property:Has_external_link rdf:resource="http://en.wikipedia.org/wiki/index.html?curid=18978754"/>
+		<property:Has_generalisation_cost>
+			<swivt:Subject rdf:about="http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AApple-23_dd537db52065221df341c98764078bb1">
+				<swivt:masterPage rdf:resource="&wiki;Category-3AApple"/>
+				<property:Generalisation_class rdf:resource="&wiki;Category-3APome_fruit"/>
+				<property:Generalisation_cost rdf:datatype="http://www.w3.org/2001/XMLSchema#double">0.0040214477211796</property:Generalisation_cost>
+			</swivt:Subject>
+		</property:Has_generalisation_cost>
+		<property:Has_lexical_variant>
+			<swivt:Subject rdf:about="http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AApple-23_87f392fcd415301108a3312f43344183">
+				<swivt:masterPage rdf:resource="&wiki;Category-3AApple"/>
+				<property:Language rdf:datatype="http://www.w3.org/2001/XMLSchema#string">English</property:Language>
+				<property:Plural rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Plural not available</property:Plural>
+				<property:Singular rdf:datatype="http://www.w3.org/2001/XMLSchema#string">apple</property:Singular>
+			</swivt:Subject>
+		</property:Has_lexical_variant>
+		<property:Has_lexical_variant>
+			<swivt:Subject rdf:about="http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AApple-23_f7c768fb7a9dca5a2ead7b7335bee0a3">
+				<swivt:masterPage rdf:resource="&wiki;Category-3AApple"/>
+				<property:Language rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Français</property:Language>
+				<property:Plural rdf:datatype="http://www.w3.org/2001/XMLSchema#string">pommes</property:Plural>
+				<property:Singular rdf:datatype="http://www.w3.org/2001/XMLSchema#string">pomme</property:Singular>
+			</swivt:Subject>
+		</property:Has_lexical_variant>
+		<property:Has_lexical_variant>
+			<swivt:Subject rdf:about="http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AApple-23_742a8a48f5123dacf784b565c05b0323">
+				<swivt:masterPage rdf:resource="&wiki;Category-3AApple"/>
+				<property:Language rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Deutsch</property:Language>
+				<property:Plural rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Plural not available</property:Plural>
+				<property:Singular rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Äpfel</property:Singular>
+			</swivt:Subject>
+		</property:Has_lexical_variant>
+		<property:Has_lexical_variant>
+			<swivt:Subject rdf:about="http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AApple-23_53edba93fe15ed651608a680fcc764f9">
+				<swivt:masterPage rdf:resource="&wiki;Category-3AApple"/>
+				<property:Language rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Español</property:Language>
+				<property:Plural rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Plural not available</property:Plural>
+				<property:Singular rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Manzana</property:Singular>
+			</swivt:Subject>
+		</property:Has_lexical_variant>
+		<property:Has_number_of_cases rdf:datatype="http://www.w3.org/2001/XMLSchema#double">41</property:Has_number_of_cases>
+		<property:Has_nutritional_value>
+			<swivt:Subject rdf:about="http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AApple-23_0943948444eabd588d9476649b1b387b">
+				<swivt:masterPage rdf:resource="&wiki;Category-3AApple"/>
+				<property:Nutritional_fact rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Carbohydrate</property:Nutritional_fact>
+				<property:Nutritional_quantity rdf:datatype="http://www.w3.org/2001/XMLSchema#double">13.81</property:Nutritional_quantity>
+				<property:Nutritional_unit rdf:datatype="http://www.w3.org/2001/XMLSchema#string">g</property:Nutritional_unit>
+			</swivt:Subject>
+		</property:Has_nutritional_value>
+		<property:Has_nutritional_value>
+			<swivt:Subject rdf:about="http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AApple-23_5998a0dce1eb027e79e02c1eb281873e">
+				<swivt:masterPage rdf:resource="&wiki;Category-3AApple"/>
+				<property:Nutritional_fact rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Sugar</property:Nutritional_fact>
+				<property:Nutritional_quantity rdf:datatype="http://www.w3.org/2001/XMLSchema#double">10.39</property:Nutritional_quantity>
+				<property:Nutritional_unit rdf:datatype="http://www.w3.org/2001/XMLSchema#string">g</property:Nutritional_unit>
+			</swivt:Subject>
+		</property:Has_nutritional_value>
+		<property:Has_nutritional_value>
+			<swivt:Subject rdf:about="http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AApple-23_7482c3e2f14edeead3d168d8c4a035fe">
+				<swivt:masterPage rdf:resource="&wiki;Category-3AApple"/>
+				<property:Nutritional_fact rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Dietary fiber</property:Nutritional_fact>
+				<property:Nutritional_quantity rdf:datatype="http://www.w3.org/2001/XMLSchema#double">2.4</property:Nutritional_quantity>
+				<property:Nutritional_unit rdf:datatype="http://www.w3.org/2001/XMLSchema#string">g</property:Nutritional_unit>
+			</swivt:Subject>
+		</property:Has_nutritional_value>
+		<property:Has_nutritional_value>
+			<swivt:Subject rdf:about="http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AApple-23_d81aea573adbb4bd8ed9ec8738ca9698">
+				<swivt:masterPage rdf:resource="&wiki;Category-3AApple"/>
+				<property:Nutritional_fact rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Fat</property:Nutritional_fact>
+				<property:Nutritional_quantity rdf:datatype="http://www.w3.org/2001/XMLSchema#double">0.17</property:Nutritional_quantity>
+				<property:Nutritional_unit rdf:datatype="http://www.w3.org/2001/XMLSchema#string">g</property:Nutritional_unit>
+			</swivt:Subject>
+		</property:Has_nutritional_value>
+		<property:Has_nutritional_value>
+			<swivt:Subject rdf:about="http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AApple-23_61c06ef13dccd5615059ee2c6ca40822">
+				<swivt:masterPage rdf:resource="&wiki;Category-3AApple"/>
+				<property:Nutritional_fact rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Protein</property:Nutritional_fact>
+				<property:Nutritional_quantity rdf:datatype="http://www.w3.org/2001/XMLSchema#double">0.26</property:Nutritional_quantity>
+				<property:Nutritional_unit rdf:datatype="http://www.w3.org/2001/XMLSchema#string">g</property:Nutritional_unit>
+			</swivt:Subject>
+		</property:Has_nutritional_value>
+		<property:Has_nutritional_value>
+			<swivt:Subject rdf:about="http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AApple-23_cead6c287e5825de3e36a7be80857e93">
+				<swivt:masterPage rdf:resource="&wiki;Category-3AApple"/>
+				<property:Nutritional_fact rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Water</property:Nutritional_fact>
+				<property:Nutritional_quantity rdf:datatype="http://www.w3.org/2001/XMLSchema#double">85.56</property:Nutritional_quantity>
+				<property:Nutritional_unit rdf:datatype="http://www.w3.org/2001/XMLSchema#string">g</property:Nutritional_unit>
+			</swivt:Subject>
+		</property:Has_nutritional_value>
+		<property:Has_nutritional_value>
+			<swivt:Subject rdf:about="http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AApple-23_c567f71c7734bf6052b02ed62d66d4c6">
+				<swivt:masterPage rdf:resource="&wiki;Category-3AApple"/>
+				<property:Nutritional_fact rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Vitamin A</property:Nutritional_fact>
+				<property:Nutritional_quantity rdf:datatype="http://www.w3.org/2001/XMLSchema#double">3</property:Nutritional_quantity>
+				<property:Nutritional_unit rdf:datatype="http://www.w3.org/2001/XMLSchema#string">μg</property:Nutritional_unit>
+			</swivt:Subject>
+		</property:Has_nutritional_value>
+		<property:Has_nutritional_value>
+			<swivt:Subject rdf:about="http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AApple-23_42838fdd769e8d2f1eb039dd28e57188">
+				<swivt:masterPage rdf:resource="&wiki;Category-3AApple"/>
+				<property:Nutritional_fact rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Thiamine</property:Nutritional_fact>
+				<property:Nutritional_quantity rdf:datatype="http://www.w3.org/2001/XMLSchema#double">0.017</property:Nutritional_quantity>
+				<property:Nutritional_unit rdf:datatype="http://www.w3.org/2001/XMLSchema#string">mg</property:Nutritional_unit>
+			</swivt:Subject>
+		</property:Has_nutritional_value>
+		<property:Has_nutritional_value>
+			<swivt:Subject rdf:about="http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AApple-23_87c2fabfe3b1cc3abccb6d3939a7d408">
+				<swivt:masterPage rdf:resource="&wiki;Category-3AApple"/>
+				<property:Nutritional_fact rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Riboflavin</property:Nutritional_fact>
+				<property:Nutritional_quantity rdf:datatype="http://www.w3.org/2001/XMLSchema#double">0.026</property:Nutritional_quantity>
+				<property:Nutritional_unit rdf:datatype="http://www.w3.org/2001/XMLSchema#string">mg</property:Nutritional_unit>
+			</swivt:Subject>
+		</property:Has_nutritional_value>
+		<property:Has_nutritional_value>
+			<swivt:Subject rdf:about="http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AApple-23_6010771546bced16b2e5c3b082be3204">
+				<swivt:masterPage rdf:resource="&wiki;Category-3AApple"/>
+				<property:Nutritional_fact rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Niacin</property:Nutritional_fact>
+				<property:Nutritional_quantity rdf:datatype="http://www.w3.org/2001/XMLSchema#double">0.091</property:Nutritional_quantity>
+				<property:Nutritional_unit rdf:datatype="http://www.w3.org/2001/XMLSchema#string">mg</property:Nutritional_unit>
+			</swivt:Subject>
+		</property:Has_nutritional_value>
+		<property:Has_nutritional_value>
+			<swivt:Subject rdf:about="http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AApple-23_55eb703ef0311a43561a53b54c3c3825">
+				<swivt:masterPage rdf:resource="&wiki;Category-3AApple"/>
+				<property:Nutritional_fact rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Pantothenic acid</property:Nutritional_fact>
+				<property:Nutritional_quantity rdf:datatype="http://www.w3.org/2001/XMLSchema#double">0.061</property:Nutritional_quantity>
+				<property:Nutritional_unit rdf:datatype="http://www.w3.org/2001/XMLSchema#string">mg</property:Nutritional_unit>
+			</swivt:Subject>
+		</property:Has_nutritional_value>
+		<property:Has_nutritional_value>
+			<swivt:Subject rdf:about="http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AApple-23_46e16c1d3f8b06c0cd338eb3a24bdaf8">
+				<swivt:masterPage rdf:resource="&wiki;Category-3AApple"/>
+				<property:Nutritional_fact rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Vitamin B6</property:Nutritional_fact>
+				<property:Nutritional_quantity rdf:datatype="http://www.w3.org/2001/XMLSchema#double">0.041</property:Nutritional_quantity>
+				<property:Nutritional_unit rdf:datatype="http://www.w3.org/2001/XMLSchema#string">mg</property:Nutritional_unit>
+			</swivt:Subject>
+		</property:Has_nutritional_value>
+		<property:Has_nutritional_value>
+			<swivt:Subject rdf:about="http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AApple-23_5370f7d2281768c41de5bbbadb8ad7b9">
+				<swivt:masterPage rdf:resource="&wiki;Category-3AApple"/>
+				<property:Nutritional_fact rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Folate</property:Nutritional_fact>
+				<property:Nutritional_quantity rdf:datatype="http://www.w3.org/2001/XMLSchema#double">3</property:Nutritional_quantity>
+				<property:Nutritional_unit rdf:datatype="http://www.w3.org/2001/XMLSchema#string">μg</property:Nutritional_unit>
+			</swivt:Subject>
+		</property:Has_nutritional_value>
+		<property:Has_nutritional_value>
+			<swivt:Subject rdf:about="http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AApple-23_59df73e5c25072ea2607a97a9ba5ee70">
+				<swivt:masterPage rdf:resource="&wiki;Category-3AApple"/>
+				<property:Nutritional_fact rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Vitamin C</property:Nutritional_fact>
+				<property:Nutritional_quantity rdf:datatype="http://www.w3.org/2001/XMLSchema#double">4.6</property:Nutritional_quantity>
+				<property:Nutritional_unit rdf:datatype="http://www.w3.org/2001/XMLSchema#string">mg</property:Nutritional_unit>
+			</swivt:Subject>
+		</property:Has_nutritional_value>
+		<property:Has_nutritional_value>
+			<swivt:Subject rdf:about="http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AApple-23_ac10c85eb2f8eca15e242ec689e82743">
+				<swivt:masterPage rdf:resource="&wiki;Category-3AApple"/>
+				<property:Nutritional_fact rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Calcium</property:Nutritional_fact>
+				<property:Nutritional_quantity rdf:datatype="http://www.w3.org/2001/XMLSchema#double">6</property:Nutritional_quantity>
+				<property:Nutritional_unit rdf:datatype="http://www.w3.org/2001/XMLSchema#string">mg</property:Nutritional_unit>
+			</swivt:Subject>
+		</property:Has_nutritional_value>
+		<property:Has_nutritional_value>
+			<swivt:Subject rdf:about="http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AApple-23_e107d1a996e4368d899c1ab276c86c65">
+				<swivt:masterPage rdf:resource="&wiki;Category-3AApple"/>
+				<property:Nutritional_fact rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Iron</property:Nutritional_fact>
+				<property:Nutritional_quantity rdf:datatype="http://www.w3.org/2001/XMLSchema#double">0.12</property:Nutritional_quantity>
+				<property:Nutritional_unit rdf:datatype="http://www.w3.org/2001/XMLSchema#string">mg</property:Nutritional_unit>
+			</swivt:Subject>
+		</property:Has_nutritional_value>
+		<property:Has_nutritional_value>
+			<swivt:Subject rdf:about="http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AApple-23_67962e8adad5e6873bc53bf85fe6c790">
+				<swivt:masterPage rdf:resource="&wiki;Category-3AApple"/>
+				<property:Nutritional_fact rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Magnesium</property:Nutritional_fact>
+				<property:Nutritional_quantity rdf:datatype="http://www.w3.org/2001/XMLSchema#double">5</property:Nutritional_quantity>
+				<property:Nutritional_unit rdf:datatype="http://www.w3.org/2001/XMLSchema#string">mg</property:Nutritional_unit>
+			</swivt:Subject>
+		</property:Has_nutritional_value>
+		<property:Has_nutritional_value>
+			<swivt:Subject rdf:about="http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AApple-23_093dfa17b5f8edf63c0f06ecd5e133f1">
+				<swivt:masterPage rdf:resource="&wiki;Category-3AApple"/>
+				<property:Nutritional_fact rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Phosphorus</property:Nutritional_fact>
+				<property:Nutritional_quantity rdf:datatype="http://www.w3.org/2001/XMLSchema#double">11</property:Nutritional_quantity>
+				<property:Nutritional_unit rdf:datatype="http://www.w3.org/2001/XMLSchema#string">mg</property:Nutritional_unit>
+			</swivt:Subject>
+		</property:Has_nutritional_value>
+		<property:Has_nutritional_value>
+			<swivt:Subject rdf:about="http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AApple-23_9774fbc4dad049ba24b923097d7c1982">
+				<swivt:masterPage rdf:resource="&wiki;Category-3AApple"/>
+				<property:Nutritional_fact rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Potassium</property:Nutritional_fact>
+				<property:Nutritional_quantity rdf:datatype="http://www.w3.org/2001/XMLSchema#double">107</property:Nutritional_quantity>
+				<property:Nutritional_unit rdf:datatype="http://www.w3.org/2001/XMLSchema#string">mg</property:Nutritional_unit>
+			</swivt:Subject>
+		</property:Has_nutritional_value>
+		<property:Has_nutritional_value>
+			<swivt:Subject rdf:about="http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AApple-23_0aca8bacfc8af35ef80ebb6972e50f51">
+				<swivt:masterPage rdf:resource="&wiki;Category-3AApple"/>
+				<property:Nutritional_fact rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Sodium</property:Nutritional_fact>
+				<property:Nutritional_quantity rdf:datatype="http://www.w3.org/2001/XMLSchema#double">1</property:Nutritional_quantity>
+				<property:Nutritional_unit rdf:datatype="http://www.w3.org/2001/XMLSchema#string">mg</property:Nutritional_unit>
+			</swivt:Subject>
+		</property:Has_nutritional_value>
+		<property:Has_nutritional_value>
+			<swivt:Subject rdf:about="http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AApple-23_94d6e03ce2f0ff3557a2a4504e81c5d2">
+				<swivt:masterPage rdf:resource="&wiki;Category-3AApple"/>
+				<property:Nutritional_fact rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Zinc</property:Nutritional_fact>
+				<property:Nutritional_quantity rdf:datatype="http://www.w3.org/2001/XMLSchema#double">0.04</property:Nutritional_quantity>
+				<property:Nutritional_unit rdf:datatype="http://www.w3.org/2001/XMLSchema#string">mg</property:Nutritional_unit>
+			</swivt:Subject>
+		</property:Has_nutritional_value>
+		<property:Has_picture>
+			<swivt:Subject rdf:about="http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AApple-23_7ab90938ad4cc88fb538caa3eac66c33">
+				<swivt:masterPage rdf:resource="&wiki;Category-3AApple"/>
+				<property:Picture_description rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Koeh-108</property:Picture_description>
+				<property:Picture_file rdf:datatype="http://www.w3.org/2001/XMLSchema#string">File:Apple0.jpg</property:Picture_file>
+			</swivt:Subject>
+		</property:Has_picture>
+		<property:Has_picture>
+			<swivt:Subject rdf:about="http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AApple-23_9222ede9ad0f50e0859358a22d96b92f">
+				<swivt:masterPage rdf:resource="&wiki;Category-3AApple"/>
+				<property:Picture_description rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Red Apple</property:Picture_description>
+				<property:Picture_file rdf:datatype="http://www.w3.org/2001/XMLSchema#string">File:Apple1.jpg</property:Picture_file>
+			</swivt:Subject>
+		</property:Has_picture>
+		<property:Weight_conversion>
+			<swivt:Subject rdf:about="http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AApple-23_48538329bdbf6caf6abc3bdcbe50195f">
+				<swivt:masterPage rdf:resource="&wiki;Category-3AApple"/>
+				<property:Final_quantity rdf:datatype="http://www.w3.org/2001/XMLSchema#double">125</property:Final_quantity>
+				<property:Original_quantity rdf:datatype="http://www.w3.org/2001/XMLSchema#double">1</property:Original_quantity>
+				<property:Original_unit rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c</property:Original_unit>
+				<property:Qualifiers rdf:datatype="http://www.w3.org/2001/XMLSchema#string">quartered.chopped</property:Qualifiers>
+			</swivt:Subject>
+		</property:Weight_conversion>
+		<property:Weight_conversion>
+			<swivt:Subject rdf:about="http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AApple-23_3ccb933bc634f8e10068a8f8d14b44ba">
+				<swivt:masterPage rdf:resource="&wiki;Category-3AApple"/>
+				<property:Final_quantity rdf:datatype="http://www.w3.org/2001/XMLSchema#double">109</property:Final_quantity>
+				<property:Original_quantity rdf:datatype="http://www.w3.org/2001/XMLSchema#double">1</property:Original_quantity>
+				<property:Original_unit rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c</property:Original_unit>
+				<property:Qualifiers rdf:datatype="http://www.w3.org/2001/XMLSchema#string">sliced</property:Qualifiers>
+			</swivt:Subject>
+		</property:Weight_conversion>
+		<property:Weight_conversion>
+			<swivt:Subject rdf:about="http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AApple-23_b5c61be1e0dd6495bb68d05cbcb81c8b">
+				<swivt:masterPage rdf:resource="&wiki;Category-3AApple"/>
+				<property:Final_quantity rdf:datatype="http://www.w3.org/2001/XMLSchema#double">223</property:Final_quantity>
+				<property:Original_quantity rdf:datatype="http://www.w3.org/2001/XMLSchema#double">1</property:Original_quantity>
+				<property:Original_unit rdf:datatype="http://www.w3.org/2001/XMLSchema#string">unit</property:Original_unit>
+				<property:Qualifiers rdf:datatype="http://www.w3.org/2001/XMLSchema#string">large</property:Qualifiers>
+			</swivt:Subject>
+		</property:Weight_conversion>
+		<property:Weight_conversion>
+			<swivt:Subject rdf:about="http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AApple-23_c9916aaf8c45aa9400d252ef6d56038e">
+				<swivt:masterPage rdf:resource="&wiki;Category-3AApple"/>
+				<property:Final_quantity rdf:datatype="http://www.w3.org/2001/XMLSchema#double">182</property:Final_quantity>
+				<property:Original_quantity rdf:datatype="http://www.w3.org/2001/XMLSchema#double">1</property:Original_quantity>
+				<property:Original_unit rdf:datatype="http://www.w3.org/2001/XMLSchema#string">unit</property:Original_unit>
+				<property:Qualifiers rdf:datatype="http://www.w3.org/2001/XMLSchema#string">medium</property:Qualifiers>
+			</swivt:Subject>
+		</property:Weight_conversion>
+		<property:Weight_conversion>
+			<swivt:Subject rdf:about="http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AApple-23_57a725c7f67d8989540c5658b5ff112f">
+				<swivt:masterPage rdf:resource="&wiki;Category-3AApple"/>
+				<property:Final_quantity rdf:datatype="http://www.w3.org/2001/XMLSchema#double">101</property:Final_quantity>
+				<property:Original_quantity rdf:datatype="http://www.w3.org/2001/XMLSchema#double">1</property:Original_quantity>
+				<property:Original_unit rdf:datatype="http://www.w3.org/2001/XMLSchema#string">unit</property:Original_unit>
+				<property:Qualifiers rdf:datatype="http://www.w3.org/2001/XMLSchema#string">small</property:Qualifiers>
+			</swivt:Subject>
+		</property:Weight_conversion>
+		<property:Weight_conversion>
+			<swivt:Subject rdf:about="http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AApple-23_1b44195ff4f09bf31968d7df2d1eb0d3">
+				<swivt:masterPage rdf:resource="&wiki;Category-3AApple"/>
+				<property:Final_quantity rdf:datatype="http://www.w3.org/2001/XMLSchema#double">242</property:Final_quantity>
+				<property:Original_quantity rdf:datatype="http://www.w3.org/2001/XMLSchema#double">1</property:Original_quantity>
+			</swivt:Subject>
+		</property:Weight_conversion>
+		<swivt:wikiPageModificationDate rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2013-04-10T10:02:03Z</swivt:wikiPageModificationDate>
+		<swivt:wikiPageSortKey rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Apple</swivt:wikiPageSortKey>
+		<rdfs:subClassOf rdf:resource="&wiki;Category-3APome_fruit"/>
+	</owl:Class>

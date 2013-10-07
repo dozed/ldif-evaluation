@@ -50,7 +50,7 @@ trait Evaluations {
     "taaable" -> "http://wikitaaable.loria.fr/index.php/Special:URIResolver/"))
 
   implicit val runtimeConfig = RuntimeConfig(executionMethod = ExecutionMethod(),
-    blocking = Blocking(false),
+    blocking = Blocking(true),
     indexingOnly = false,
     useFileCache = false,
     reloadCache = true,

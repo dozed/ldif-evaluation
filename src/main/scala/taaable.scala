@@ -32,7 +32,7 @@ object TaaableMatcher extends App with Evaluations {
   //  val sources = (Source("taaable", NewFileDataSource(f"file:///$base/food.rdf", Some(Lang.RDFXML), true)),
   //    Source("dbpedia", SparqlDataSource("http://lod.openlinksw.com/sparql")))
 
-  val sources = (Source("taaable", NewFileDataSource(f"file:///$base/food.rdf", Some(Lang.RDFXML), true)),
+  val sources = (Source("taaable", NewFileDataSource(f"file:///$base/taaable-food.rdf", Some(Lang.RDFXML), true)),
     Source("dbpedia", NewFileDataSource(f"file:///$base/dbpedia-foods.ttl", Some(Lang.TURTLE))))
 
   val query1 = "?a rdfs:subClassOf taaable:Category-3AFood ."
@@ -113,8 +113,8 @@ object TaaableMatcher extends App with Evaluations {
   }
 
   val entityDescs = linkSpec.entityDescriptions
-  val dbpediaEntities = entities(sources._1, entityDescs._1)
-  val taaableEntities = entities(sources._2, entityDescs._2)
+  val taaableEntities = entities(sources._1, entityDescs._1)
+  val dbpediaEntities = entities(sources._2, entityDescs._2)
 
   taaableEntities foreach println
 

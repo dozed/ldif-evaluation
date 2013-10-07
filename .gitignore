@@ -1,6 +1,10 @@
 *.iml
 .idea
 
+.gitignore~
+
+catalog-v001.xml
+
 geo/dumps/*
 geo/integrated_reegle_geonames.*
 

@@ -26,13 +26,12 @@ import scala.xml.XML
  * Time: 14:54
  * To change this template use File | Settings | File Templates.
  */
-object RunSilk extends App with Evaluations {
+object ReegleMatcher extends App with Evaluations {
 
   // val base = "/home/stefan/Code/diplom-code/ldif-geo"
   val base = "D:/Workspaces/Dev/ldif-evaluation"
 
-  val sources = List(
-    Source("geonames", NewFileDataSource(f"file:///$base/dump/geonames-countries.nt")),
+  val sources = (Source("geonames", NewFileDataSource(f"file:///$base/dump/geonames-countries.nt")),
     Source("reegle", NewFileDataSource(f"file:///$base/dump/reegle.nt")))
 
   val datasets = (Dataset("geonames", "a", SparqlRestriction.fromSparql("a", "?a rdf:type gn:Feature .")),

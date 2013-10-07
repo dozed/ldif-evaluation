@@ -1,5 +1,7 @@
 import com.hp.hpl.jena.query.{QuerySolution, ResultSet, QueryExecutionFactory}
-import com.hp.hpl.jena.rdf.model.{RDFNode, Model}
+import com.hp.hpl.jena.rdf.model.{ModelFactory, RDFNode, Model}
+import com.hp.hpl.jena.reasoner.ReasonerRegistry
+import com.hp.hpl.jena.reasoner.rulesys.RDFSRuleReasonerFactory
 import de.fuberlin.wiwiss.silk.datasource.DataSource
 import de.fuberlin.wiwiss.silk.entity.{Path, SparqlRestriction, EntityDescription}
 import de.fuberlin.wiwiss.silk.util.sparql.{SparqlAggregatePathsCollector, EntityRetriever, Node, SparqlEndpoint}
@@ -57,11 +59,17 @@ class JenaSparqlEndpoint(model: Model) extends SparqlEndpoint {
   }
 }
 
-case class NewFileDataSource(file: String, lang: Option[Lang] = None) extends DataSource {
+case class NewFileDataSource(file: String, lang: Option[Lang] = None, inference: Boolean = false) extends DataSource {
 
-  private lazy val model = lang match {
-    case Some(lang) => RDFDataMgr.loadModel(file, lang)
-    case None => RDFDataMgr.loadModel(file)
+  private lazy val model = {
+    val m = lang match {
+      case Some(lang) => RDFDataMgr.loadModel(file, lang)
+      case None => RDFDataMgr.loadModel(file)
+    }
+    if (inference) {
+      val reasoner = ReasonerRegistry.getRDFSReasoner();
+      ModelFactory.createInfModel(reasoner, m)
+    } else m
   }
 
   private lazy val endpoint = new JenaSparqlEndpoint(model)

@@ -46,7 +46,8 @@ trait Evaluations {
     "faogeo" -> "http://aims.fao.org/aos/geopolitical.owl#",
     "reegle" -> "http://reegle.info/schema#",
     "glossary" -> "http://reegle.info/glossary/",
-    "country" -> "http://reegle.info/countries/"))
+    "country" -> "http://reegle.info/countries/",
+    "taaable" -> "http://wikitaaable.loria.fr/index.php/Special:URIResolver/"))
 
   implicit val runtimeConfig = RuntimeConfig(executionMethod = ExecutionMethod(),
     blocking = Blocking(false),

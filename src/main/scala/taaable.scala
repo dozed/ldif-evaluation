@@ -80,7 +80,7 @@ object TaaableMatcher extends App with Evaluations2 {
 //    runtimeConfig = runtimeConfig
 //  ).apply()
 
-  val metrics2 = List(
+  val measures = List(
     // "substring" -> SubStringDistance(),
     "jaro" -> JaroDistanceMetric(),
     "jaroWinkler" -> JaroWinklerDistance(),
@@ -110,7 +110,7 @@ object TaaableMatcher extends App with Evaluations2 {
 
   var k = 0
   for {
-    (label, metric) <- metrics2
+    (label, measure) <- measures
   } {
     val pw = new PrintWriter(f"sim-$label.csv")
 
@@ -126,9 +126,8 @@ object TaaableMatcher extends App with Evaluations2 {
         val d = for {
           x <- xs
           y <- ys
-          (_, metric) <- metrics2
         } yield {
-          metric.evaluate(x, y)
+          measure.evaluate(x, y)
         }
 
         val m = d.max

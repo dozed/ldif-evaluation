@@ -1,3 +1,6 @@
+import breeze.linalg.{Matrix, DenseMatrix}
+import breeze.linalg._
+import breeze.numerics._
 import de.fuberlin.wiwiss.silk.config.{LinkSpecification, Dataset}
 import de.fuberlin.wiwiss.silk.datasource.Source
 import de.fuberlin.wiwiss.silk.entity.{EntityDescription, Link, Path, SparqlRestriction}
@@ -14,7 +17,7 @@ object TaaableMatcher extends App with Evaluations2 {
 
   val base = "D:/Workspaces/Dev/ldif-evaluation/ldif-taaable"
 
-  // in order to work with data from SPARQL endpoints:
+  // in order to work with data from SPARQL endpoint:
 
   //  CONSTRUCT {
   //    ?b <http://www.w3.org/2000/01/rdf-schema#label> ?v0
@@ -46,17 +49,6 @@ object TaaableMatcher extends App with Evaluations2 {
   val linkSpec = LinkSpecification(
     linkType = "http://www.w3.org/2002/07/owl#sameAs",
     datasets = datasets,
-    //    rule = LinkageRule(Aggregation(
-    //      aggregator = AverageAggregator(),
-    //      operators = Seq(Comparison(
-    //        threshold = 0.2,
-    //        metric = LevenshteinDistance(),
-    //        inputs = inputs
-    //      ), Comparison(
-    //        threshold = 0.2,
-    //        metric = SubStringDistance(),
-    //        inputs = inputs
-    //      )))),
     rule = LinkageRule(Comparison(
       threshold = 0.2,
       metric = QGramsMetric(2),
@@ -72,24 +64,14 @@ object TaaableMatcher extends App with Evaluations2 {
       }
     })))
 
-
-//  new GenerateLinksTask(
-//    sources = List(sources._1, sources._2),
-//    linkSpec = linkSpec,
-//    outputs = linkSpec.outputs,
-//    runtimeConfig = runtimeConfig
-//  ).apply()
-
   val measures = List(
-    // "substring" -> SubStringDistance(),
+    "substring" -> SubStringDistance(),
+    "qgrams2" -> QGramsMetric(q = 2),
     "jaro" -> JaroDistanceMetric(),
     "jaroWinkler" -> JaroWinklerDistance(),
     "levenshtein" -> LevenshteinMetric(),
-    "relaxedEquality" -> new RelaxedEqualityMetric(),
-    "qgrams2" -> QGramsMetric(q = 2)
+    "relaxedEquality" -> new RelaxedEqualityMetric()
   )
-
-  println(QGramsMetric(2).evaluate("Chinese noodle", "Chinese noodles"))
 
   def entities(source: Source, desc: EntityDescription): Map[String, Traversable[String]] = {
     for {
@@ -104,64 +86,71 @@ object TaaableMatcher extends App with Evaluations2 {
     }
   }
 
-  val entityDescs = linkSpec.entityDescriptions
-  val taaableEntities = entities(sources._1, entityDescs._1)
-  val dbpediaEntities = entities(sources._2, entityDescs._2)
+  def createMatrices = {
+    val entityDescs = linkSpec.entityDescriptions
+    val taaableEntities = entities(sources._1, entityDescs._1)
+    val dbpediaEntities = entities(sources._2, entityDescs._2)
 
-  var k = 0
-  for {
-    (label, measure) <- measures
-  } {
-    val pw = new PrintWriter(f"sim-$label.csv")
-
+    var k = 0
     for {
-      ((e1, xs), i) <- taaableEntities.zipWithIndex.par
+      (label, measure) <- measures
     } {
-      val dists = for {
-        ((e2, ys), j) <- dbpediaEntities.zipWithIndex
-      } yield {
-        k += 1
-        if (k % 100000 == 0) println(k)
+      val pw = new PrintWriter(f"sim-$label.csv")
 
-        val d = for {
-          x <- xs
-          y <- ys
+      for {
+        ((e1, xs), i) <- taaableEntities.zipWithIndex.par
+      } {
+        val dists = for {
+          ((e2, ys), j) <- dbpediaEntities.zipWithIndex
         } yield {
-          measure.evaluate(x, y)
+          k += 1
+          if (k % 100000 == 0) println(k)
+
+          val d = for {
+            x <- xs
+            y <- ys
+          } yield {
+            measure.evaluate(x, y)
+          }
+
+          val m = d.max
+
+          if (m < 0.5) {
+            Some((i, j, m))
+          } else {
+            None
+          }
         }
 
-        val m = d.max
-
-        if (m < 0.5) {
-          Some((i, j, m))
-        } else {
-          None
-        }
+        val l = dists.flatten
+        pw.println(l.mkString(","))
       }
 
-      val l = dists.flatten
-      pw.println(l.mkString(","))
+      pw.close()
     }
-
-    pw.close()
   }
 
+  val (label, measure) = measures.head
+
+//  (219,1166,0.4137254901960784),(219,22389,0.33333333333333337),(219,13942,0.27987220447284344),(219,13411,0.0)
+
+  val m = 2165
+  val n = 29212
+  // val s = breeze.linalg.csvread(new java.io.File(f"sim-$label.csv"))
+  // val lines = List("(219,1166,0.4137254901960784),(219,22389,0.33333333333333337),(219,13942,0.27987220447284344),(219,13411,0.0)")
+
+  val sim = DenseMatrix.fill(m, n)(1.0)
 
 
+  for {
+    line <- io.Source.fromFile(f"sim-$label.csv").getLines
+    if (line.size > 0)
+    el <- line.split("""\),?""").map(_.substring(1).split(","))
+  } {
+    val (i, j, v) = (el(0).toInt, el(1).toInt, el(2).toDouble)
+    sim(i, j) = v
+  }
 
-  // Evaluation.eval(evalType, alignmentRef, alignmentOut, alignmentResults)
-
-  //  val xml = XML.loadFile(alignmentResults)
-  //  val prec = (xml \ "output" \ "precision" text).toDouble
-  //  val recall = (xml \ "output" \ "recall" text).toDouble
-  //  (prec, recall)
-
-
-  //  val entityDescs = linkSpec.entityDescriptions
-  //  val entities = sources._1.retrieve(entityDescs._1)
-  //  for (entity <- entities) {
-  //    println(entity)
-  //  }
-  //  println(entities.size)
+  println(sim(675, ::).toDenseVector.toArray.toList.filter(_ < 1.0))
 
 }

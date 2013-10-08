@@ -1,0 +1,3 @@
+class linking_ui {
+
+}

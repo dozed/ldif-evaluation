@@ -1,7 +1,6 @@
 import com.hp.hpl.jena.query.{QuerySolution, ResultSet, QueryExecutionFactory}
 import com.hp.hpl.jena.rdf.model.{ModelFactory, RDFNode, Model}
 import com.hp.hpl.jena.reasoner.ReasonerRegistry
-import com.hp.hpl.jena.reasoner.rulesys.RDFSRuleReasonerFactory
 import de.fuberlin.wiwiss.silk.datasource.DataSource
 import de.fuberlin.wiwiss.silk.entity.{Path, SparqlRestriction, EntityDescription}
 import de.fuberlin.wiwiss.silk.util.sparql.{SparqlAggregatePathsCollector, EntityRetriever, Node, SparqlEndpoint}

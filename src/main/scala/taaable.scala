@@ -1,24 +1,16 @@
-import breeze.linalg.{Matrix, DenseMatrix}
-import breeze.linalg._
-import breeze.numerics._
 import de.fuberlin.wiwiss.silk.config.{LinkSpecification, Dataset}
 import de.fuberlin.wiwiss.silk.datasource.Source
 import de.fuberlin.wiwiss.silk.entity._
 import de.fuberlin.wiwiss.silk.linkagerule.input.PathInput
 import de.fuberlin.wiwiss.silk.linkagerule.LinkageRule
-import de.fuberlin.wiwiss.silk.linkagerule.similarity.{SimpleDistanceMeasure, DistanceMeasure, Comparison}
+import de.fuberlin.wiwiss.silk.linkagerule.similarity.Comparison
 import de.fuberlin.wiwiss.silk.output.{Output, LinkWriter}
-import de.fuberlin.wiwiss.silk.plugins.distance.characterbased._
 import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.JaroDistanceMetric
 import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.JaroWinklerDistance
-import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.LevenshteinMetric
 import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.QGramsMetric
-import de.fuberlin.wiwiss.silk.plugins.distance.equality.RelaxedEqualityMetric
-import java.io.PrintWriter
 import org.apache.jena.riot.Lang
-import scala.Some
 
-object TaaableMatcher extends App with Evaluations2 with SparseDistanceMatrixIO {
+object TaaableMatcher extends App with Evaluations with SparseDistanceMatrixIO {
 
   val base = "D:/Workspaces/Dev/ldif-evaluation/ldif-taaable"
 

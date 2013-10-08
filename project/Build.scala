@@ -31,5 +31,6 @@ object LdifGeoBuild extends Build {
 
   lazy val project = Project("ldif-geo", file("."))
     .settings(mySettings:_*)
+    .settings(net.virtualvoid.sbt.graph.Plugin.graphSettings: _*)
 
 }

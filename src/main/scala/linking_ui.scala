@@ -1,3 +1,6 @@
-class linking_ui {
+
+
+object Launcher extends App {
 
 }
+

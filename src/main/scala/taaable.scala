@@ -9,6 +9,7 @@ import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.JaroDistanceMetri
 import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.JaroWinklerDistance
 import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.QGramsMetric
 import org.apache.jena.riot.Lang
+import scala.collection.mutable.ArrayBuffer
 import SparseDistanceMatrixIO._
 
 trait TaaableEvaluation extends Evaluations {
@@ -52,7 +53,7 @@ trait TaaableEvaluation extends Evaluations {
 object TaaableMatcher extends App with TaaableEvaluation {
 
 
-  val measures = List(
+  val measures2 = List(
 //    "substring" -> SubStringDistance(),
     "qgrams2" -> QGramsMetric(q = 2),
     "jaro" -> JaroDistanceMetric(),
@@ -61,12 +62,12 @@ object TaaableMatcher extends App with TaaableEvaluation {
 //    "relaxedEquality" -> new RelaxedEqualityMetric()
   )
 
-  val entityDescs = linkSpec.entityDescriptions
-  val taaableEntities = entities(sources._1, entityDescs._1)
-  val dbpediaEntities = entities(sources._2, entityDescs._2)
-
-  printToFile("source.lst") { pw => taaableEntities foreach (x => pw.println(x.uri)) }
-  printToFile("target.lst") { pw => dbpediaEntities foreach (x => pw.println(x.uri)) }
+//  val entityDescs = linkSpec.entityDescriptions
+//  val taaableEntities = entities(sources._1, entityDescs._1)
+//  val dbpediaEntities = entities(sources._2, entityDescs._2)
+//
+//  printToFile("source.lst") { pw => taaableEntities foreach (x => pw.println(x.uri)) }
+//  printToFile("target.lst") { pw => dbpediaEntities foreach (x => pw.println(x.uri)) }
 
 //
 //  val writer = writeSparseDistanceMatrix((taaableEntities, dbpediaEntities), 0.4)
@@ -77,6 +78,21 @@ object TaaableMatcher extends App with TaaableEvaluation {
 //  val mat = readSparseDistanceMatrix(new java.io.File("sim-2-levenshtein.sparse"), m, n)
 //  println(mat)
   // val mats = measures.toMap.keys map (l => (l, readMatrix(l)))
+
+//  val entityDescs = linkSpec.entityDescriptions
+//  val sourceEntities = entities(sources._1, entityDescs._1).toList
+//  val targetEntities = entities(sources._2, entityDescs._2).toList
+//
+//  val measures = List("substring", "levenshtein", "relaxedEquality")
+//
+//  val (m, n) = (sourceEntities.size, targetEntities.size)
+//  val mats = measures map (l => readSparseDistanceMatrix(new java.io.File(f"sim-$l.sparse"), m, n))
+//
+//  (measures zip mats) foreach { case (l, m) =>
+//    printToFile(f"sim-$l.dense")
+//    breeze.linalg.csvwrite(new java.io.File(), m)
+//  }
+
 
 }
 

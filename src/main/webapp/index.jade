@@ -2,23 +2,50 @@
 -import de.fuberlin.wiwiss.silk.entity.Entity
 -import breeze.linalg._
 -import breeze.numerics._
+-import scala.collection.mutable.ArrayBuffer
 
 -@ val measures: List[String]
 -@ val mats: List[DenseMatrix[Double]]
--@ val sourceEntities: List[Entity]
--@ val targetEntities: List[Entity]
+-@ val source: List[Entity]
+-@ val target: List[Entity]
+-@ val perf: Seq[(Int, List[(String, Int, Double)])]
+-@ val approx: Seq[(Int, List[(String, Int, Double)])]
+-@ val nomatch: Seq[(Int, List[(String, Int, Double)])]
 
 h1 Overview
+
+h2 Used distance measures
 
 ul
   -for (m <- measures)
     li= m
 
-ul
-  -for (m <- mats)
-    li #{m.rows}x#{m.cols}
-
+h2 Stats
 
 ul
-  -for ((e, i) <- sourceEntities.zipWithIndex)
-    li #{e.values.flatten.mkString(", ")} #{mats(0)(i, ::).findAll(_ < 0.1)}
+  li perfect matches: #{perf.size}
+  li approx matches (t = 0.1): #{approx.size}
+  li no matches: #{nomatch.size}
+
+
+
+h2 Perfect matches
+
+ul
+  -for ((x, ys) <- perf)
+    li
+      =source(x).values.flatten.mkString(", ")
+      ul
+        -for ((label, y, dist) <- ys)
+          li #{target(y).values.flatten.mkString(", ")} #{dist} #{label}
+
+
+h2 Approximative matches
+
+ul
+  -for ((x, ys) <- approx)
+    li
+      =source(x).values.flatten.mkString(", ")
+      ul
+        -for ((label, y, dist) <- ys)
+          li #{target(y).values.flatten.mkString(", ")} #{dist} #{label}

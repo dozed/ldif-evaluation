@@ -9,8 +9,9 @@ import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.JaroDistanceMetri
 import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.JaroWinklerDistance
 import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.QGramsMetric
 import org.apache.jena.riot.Lang
+import SparseDistanceMatrixIO._
 
-object TaaableMatcher extends App with Evaluations with SparseDistanceMatrixIO {
+trait TaaableEvaluation extends Evaluations {
 
   val base = "D:/Workspaces/Dev/ldif-evaluation/ldif-taaable"
 
@@ -46,6 +47,11 @@ object TaaableMatcher extends App with Evaluations with SparseDistanceMatrixIO {
       }
     })))
 
+}
+
+object TaaableMatcher extends App with TaaableEvaluation {
+
+
   val measures = List(
 //    "substring" -> SubStringDistance(),
     "qgrams2" -> QGramsMetric(q = 2),
@@ -55,9 +61,13 @@ object TaaableMatcher extends App with Evaluations with SparseDistanceMatrixIO {
 //    "relaxedEquality" -> new RelaxedEqualityMetric()
   )
 
-//  val entityDescs = linkSpec.entityDescriptions
-//  val taaableEntities = entities(sources._1, entityDescs._1)
-//  val dbpediaEntities = entities(sources._2, entityDescs._2)
+  val entityDescs = linkSpec.entityDescriptions
+  val taaableEntities = entities(sources._1, entityDescs._1)
+  val dbpediaEntities = entities(sources._2, entityDescs._2)
+
+  printToFile("source.lst") { pw => taaableEntities foreach (x => pw.println(x.uri)) }
+  printToFile("target.lst") { pw => dbpediaEntities foreach (x => pw.println(x.uri)) }
+
 //
 //  val writer = writeSparseDistanceMatrix((taaableEntities, dbpediaEntities), 0.4)
 //  measures foreach { case (l, d) => writer(new java.io.File(f"sim-$l.sparse"), d) }

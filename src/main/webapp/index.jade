@@ -1,1 +1,24 @@
-h1 Hi
+-import breeze.linalg._
+-import de.fuberlin.wiwiss.silk.entity.Entity
+-import breeze.linalg._
+-import breeze.numerics._
+
+-@ val measures: List[String]
+-@ val mats: List[DenseMatrix[Double]]
+-@ val sourceEntities: List[Entity]
+-@ val targetEntities: List[Entity]
+
+h1 Overview
+
+ul
+  -for (m <- measures)
+    li= m
+
+ul
+  -for (m <- mats)
+    li #{m.rows}x#{m.cols}
+
+
+ul
+  -for ((e, i) <- sourceEntities.zipWithIndex)
+    li #{e.values.flatten.mkString(", ")} #{mats(0)(i, ::).findAll(_ < 0.1)}

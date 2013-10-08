@@ -5,6 +5,7 @@ import org.eclipse.jetty.webapp.WebAppContext
 import org.scalatra.scalate.ScalateSupport
 import org.scalatra.{ScalatraServlet, LifeCycle}
 import org.scalatra.servlet.ScalatraListener
+import SparseDistanceMatrixIO._
 
 object Launcher extends App {
 
@@ -38,7 +39,16 @@ class Bootstrap extends LifeCycle {
   }
 }
 
-object SimilarityStorage {
+object SimilarityStorage extends TaaableEvaluation {
+
+  val entityDescs = linkSpec.entityDescriptions
+  val sourceEntities = entities(sources._1, entityDescs._1).toList
+  val targetEntities = entities(sources._2, entityDescs._2).toList
+
+  val measures = List("substring", "levenshtein", "relaxedEquality")
+
+  val (m, n) = (2165, 29212)
+  val mats = measures map (l => readSparseDistanceMatrix(new java.io.File(f"sim-$l.sparse"), m, n))
 
 }
 
@@ -49,7 +59,11 @@ class LinkingUI extends ScalatraServlet with ScalateSupport {
   }
 
   get("/") {
-    jade("index.jade")
+    jade("index.jade",
+      "measures" -> SimilarityStorage.measures,
+      "mats" -> SimilarityStorage.mats,
+      "sourceEntities" -> SimilarityStorage.sourceEntities,
+      "targetEntities" -> SimilarityStorage.targetEntities)
   }
 
 }

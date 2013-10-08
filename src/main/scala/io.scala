@@ -5,7 +5,7 @@ import java.io.File
 
 // format: (i, j, d)
 // example: (219,1166,0.4137254901960784),(219,22389,0.33333333333333337),(219,13942,0.27987220447284344),(219,13411,0.0)
-trait SparseDistanceMatrixIO {
+object SparseDistanceMatrixIO {
 
   def writeSparseDistanceMatrix(entities: (Iterable[Entity], Iterable[Entity]), t: Double) = (file: File, measure: DistanceMeasure) => {
     var k = 0

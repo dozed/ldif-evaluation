@@ -5,6 +5,7 @@
 -@ val target: List[Entity]
 -@ val exact: Map[Int, List[Edge]]
 -@ val approx: Map[Int, List[Edge]]
+-@ val nomatches: Map[Int, List[Edge]]
 -@ val threshold: Double
 
 a(href="/match/0") Start matching!
@@ -22,6 +23,7 @@ h2 Stats
 ul
   li exact matches: #{exact.size}
   li approx matches (t = #{threshold}): #{approx.size}
+  li no matches: #{nomatches.size}
 
 
 

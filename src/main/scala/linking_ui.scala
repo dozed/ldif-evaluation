@@ -93,7 +93,8 @@ case class LinkingUI(var res: MatchingResults) extends ScalatraServlet with Scal
       val matches = res.edges.filter(_.from == sourceId)
         .filter(_.sim.exists(_._1 <= threshold))
         .sortBy(_.sim.sortBy(_._1).head)
-      val (exact, approx) = matches.partition(_.sim.exists(_._1 == 0.0))
+      val (exact, temp) = matches.partition(_.sim.exists(_._1 == 0.0))
+      val (approx, nomatches) = temp.partition(_.sim.exists(_._1 <= threshold))
 
       if (skipExact && exact.size > 0) {
         val u = url(f"/match/${sourceId + 1}", Map("threshold" -> threshold, "skipExact" -> skipExact))
@@ -109,7 +110,8 @@ case class LinkingUI(var res: MatchingResults) extends ScalatraServlet with Scal
         "sourceId" -> sourceId,
         "source" -> source,
         "exact" -> exact,
-        "approx" -> approx)
+        "approx" -> approx,
+        "nomatches" -> nomatches)
     }) getOrElse halt(500)
   }
 

@@ -1,4 +1,3 @@
-import breeze.linalg.DenseVector
 import javax.servlet.ServletContext
 import org.eclipse.jetty.server.nio.SelectChannelConnector
 import org.eclipse.jetty.server.Server
@@ -6,7 +5,6 @@ import org.eclipse.jetty.webapp.WebAppContext
 import org.scalatra.scalate.ScalateSupport
 import org.scalatra.{ScalatraServlet, LifeCycle}
 import org.scalatra.servlet.ScalatraListener
-import scala.collection.mutable.ArrayBuffer
 import SparseDistanceMatrixIO._
 
 object Launcher extends App {
@@ -48,44 +46,18 @@ class MatchingResults extends TaaableEvaluation {
   val sourceEntities = entities(sources._1, entityDescs._1).toList
   val targetEntities = entities(sources._2, entityDescs._2).toList
 
-  val measures = List("substring", "levenshtein", "relaxedEquality", "jaro", "jaroWinkler", "qgrams2")
+  val measures = List(
+    "substring",
+    "qgrams2",
+    "jaro",
+    "jaroWinkler",
+    "levenshtein",
+    "relaxedEquality"
+  )
 
   val (m, n) = (sourceEntities.size, targetEntities.size)
-  val mats = measures map (l => readSparseDistanceMatrix(new java.io.File(f"$base/test-$l.sparse"), m, n))
 
-  val t = 0.1
-  val perfect = ArrayBuffer[(Int, List[(String, Int, Double)])]()
-  val approx = ArrayBuffer[(Int, List[(String, Int, Double)])]()
-  val nomatch = ArrayBuffer[(Int, List[(String, Int, Double)])]()
-
-  def extract(rows: List[(String, List[(Int, Double)])], t: Double) = for {
-    (measureLabel, row) <- rows
-    (j, dist) <- row
-    if (dist <= t)
-  } yield (measureLabel, j, dist)
-
-  for (row <- (0 to m - 1)) {
-
-    // extract for a specific source entity a map of results for each distance measure
-    //
-    val rows: List[(String, List[(Int, Double)])] = (for {
-      (measure, mat) <- (measures zip mats)
-    } yield (measure -> mat(row, ::).toDenseVector.iterator.toList))
-    println(row)
-
-    val p = extract(rows, 0.0)
-
-    if (p.size > 0) {
-      perfect += ((row, extract(rows, 0.3)))
-    } else {
-      val a = extract(rows, 0.1)
-      if (a.size > 0) {
-        approx += ((row, extract(rows, 0.3)))
-      } else {
-        nomatch += ((row, extract(rows, 0.3)))
-      }
-    }
-  }
+  val edges = readMergedEdgeLists(measures map (l =>new java.io.File(f"$base/sim-$l.sparse")))
 
 }
 
@@ -95,27 +67,41 @@ case class LinkingUI(var res: MatchingResults) extends ScalatraServlet with Scal
     contentType = "text/html"
   }
 
-
-
   get("/") {
     jade("index.jade",
       "measures" -> res.measures,
-      "mats" -> res.mats,
       "source" -> res.sourceEntities,
       "target" -> res.targetEntities,
-      "perf" -> res.perfect,
-      "approx" -> res.approx,
-      "nomatch" -> res.nomatch
+      "edges" -> res.edges
+      //      "perf" -> res.perfect,
+      //      "approx" -> res.approx,
+      //      "nomatch" -> res.nomatch
     )
   }
 
   get("/match/:sourceId") {
-    params.getAs[Int]("sourceId") match {
-      case Some(sourceId) =>
+    (for {
+      sourceId <- params.getAs[Int]("sourceId")
+      source <- res.sourceEntities.lift(sourceId)
+      threshold <- params.getAs[Double]("threshold").orElse(Some(0.0))
+      skipExact <- params.getAs[Boolean]("skipExact").orElse(Some(false))
+    } yield {
+      val matches = res.edges.filter(_.from == sourceId)
+        .filter(_.sim.exists(_._1 <= threshold))
+        .sortBy(_.sim.sortBy(_._1).head)
+      val (exact, approx) = matches.partition(_.sim.exists(_._1 == 0.0))
 
-        jade("match.jade")
-      case None => halt(404)
-    }
+      jade("match.jade",
+        "measures" -> res.measures,
+        "sourceEntities" -> res.sourceEntities,
+        "targetEntities" -> res.targetEntities,
+        "skipExact" -> skipExact,
+        "threshold" -> threshold,
+        "sourceId" -> sourceId,
+        "source" -> source,
+        "exact" -> exact,
+        "approx" -> approx)
+    }) getOrElse halt(500)
   }
 
 }

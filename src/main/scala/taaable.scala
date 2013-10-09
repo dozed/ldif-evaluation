@@ -24,11 +24,11 @@ trait TaaableEvaluation extends Evaluations {
   // val query2 = "?b dcterms:subject ?x . ?x <http://www.w3.org/2004/02/skos/core#broader>* <http://dbpedia.org/resource/Category:Foods> ."
   // Source("dbpedia", SparqlDataSource("http://lod.openlinksw.com/sparql")))
 
-//  val sources = (Source("taaable", NewFileDataSource(f"file:///$base/taaable-food.rdf", Some(Lang.RDFXML), true)),
-//    Source("dbpedia", NewFileDataSource(f"file:///$base/dbpedia-foods.ttl", Some(Lang.TURTLE))))
+  val sources = (Source("taaable", NewFileDataSource(f"file:///$base/taaable-food.rdf", Some(Lang.RDFXML), true)),
+    Source("dbpedia", NewFileDataSource(f"file:///$base/dbpedia-foods.ttl", Some(Lang.TURTLE))))
 
-  val sources = (Source("taaable", NewFileDataSource(f"file:///$base/test-source.rdf", Some(Lang.RDFXML), true)),
-    Source("dbpedia", NewFileDataSource(f"file:///$base/test-target.ttl", Some(Lang.TURTLE))))
+//  val sources = (Source("taaable", NewFileDataSource(f"file:///$base/test-source.rdf", Some(Lang.RDFXML), true)),
+//    Source("dbpedia", NewFileDataSource(f"file:///$base/test-target.ttl", Some(Lang.TURTLE))))
 
   val query1 = "?a rdfs:subClassOf taaable:Category-3AFood ."
 

@@ -1,0 +1,78 @@
+script(type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js")
+
+-import de.fuberlin.wiwiss.silk.entity.Entity
+-import breeze.linalg._
+-import breeze.numerics._
+-import scala.collection.mutable.ArrayBuffer
+
+-@ val measures: List[String]
+-@ val sourceEntities: List[Entity]
+-@ val targetEntities: List[Entity]
+-@ val source: Entity
+-@ val exact: List[Edge]
+-@ val approx: List[Edge]
+
+-@ val sourceId: Int
+-@ val threshold: Double
+-@ val skipExact: Boolean
+
+a(href={"/match/" + (sourceId - 1)}) back
+a(href={"/match/" + (sourceId + 1)}) next
+
+:!javascript
+  function urlParam(name){
+    var results = new RegExp('[\\?&]' + name + '=([^&#]*)').exec(window.location.href);
+    if (results==null){
+     return null;
+    } else {
+     return results[1] || 0;
+    }
+  }
+
+  function navigateTo(id) {
+    var url = "/match/" + id;
+
+    var t = urlParam("threshold");
+    var skip = urlParam("skipExact");
+
+    if (t != null || skip != null) url += "?";
+    if (t != null) url += "threshold=" + t;
+    if (skip != null) url += "&skipExact=" + skip;
+
+    location.href = url;
+  }
+
+  $(function() {
+    $("body").keydown(function(e) {
+      if(e.keyCode == 37) {
+        navigateTo(#{(sourceId - 1).toString});
+      } else if(e.keyCode == 39) {
+        navigateTo(#{(sourceId + 1).toString});
+      }
+    });
+  });
+
+
+h1 Matching #{source.uri}
+
+ul
+  li
+    | Exact: #{exact.size}
+    ul
+      - for (m <- exact)
+        li
+        | #{targetEntities(m.to)}
+        ul
+          - for ((d, i) <- m.sim)
+            li #{measures(i)}: #{d}
+  li
+    | Approx: #{approx.size}
+    ul
+      - for (m <- approx)
+        li
+        | #{targetEntities(m.to)}
+        ul
+          - for ((d, i) <- m.sim)
+            li #{measures(i)}: #{d}
+
+

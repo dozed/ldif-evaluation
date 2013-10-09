@@ -70,6 +70,14 @@ a(href={"/match/" + (sourceId + 1)}) next
         navigateTo(#{(sourceId + 1).toString});
       }
     });
+
+  $.ajax({
+      type: "GET",
+      url: "/dbpedia/redirect/" + #{sourceId},
+      success: function(data) {
+          $("#redirect").html(data);
+      }
+    });
   });
 
 
@@ -77,6 +85,9 @@ h1 Matching #{source.uri}
 
 p
   | Values: #{source.values.flatten.mkString(", ")}
+  br
+  | DBpedia Redirect:
+  span(id="redirect")
 
 ul
   li

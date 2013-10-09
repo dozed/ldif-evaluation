@@ -127,28 +127,19 @@ case class LinkingUI(res: MatchingResults, system: ActorSystem) extends Scalatra
         redirect(u)
       }
 
-      val token = source.uri.replaceAll("http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3A", "")
-
-      for {
-        xml <- DBpedia.resource(token)
-      } yield {
-        println(xml)
-
-        jade("match.jade",
-          "measures" -> res.measures,
-          "sourceEntities" -> res.sourceEntities,
-          "targetEntities" -> res.targetEntities,
-          "skipExact" -> skipExact,
-          "threshold" -> threshold,
-          "sourceId" -> sourceId,
-          "source" -> source,
-          "exact" -> exact,
-          "accepted" -> accepted,
-          "approx" -> approx,
-          "nomatches" -> nomatches,
-          "res" -> res,
-          "dbpediaSize" -> xml.size)
-      }
+      jade("match.jade",
+        "measures" -> res.measures,
+        "sourceEntities" -> res.sourceEntities,
+        "targetEntities" -> res.targetEntities,
+        "skipExact" -> skipExact,
+        "threshold" -> threshold,
+        "sourceId" -> sourceId,
+        "source" -> source,
+        "exact" -> exact,
+        "accepted" -> accepted,
+        "approx" -> approx,
+        "nomatches" -> nomatches,
+        "res" -> res)
     }) getOrElse halt(500)
   }
 
@@ -175,6 +166,18 @@ case class LinkingUI(res: MatchingResults, system: ActorSystem) extends Scalatra
     } yield {
       println(f"Deleted: $m")
       res.acceptedLinks -= m
+    }) getOrElse halt(500)
+  }
+
+  get("/dbpedia/redirect/:sourceId") {
+    (for {
+      sourceId <- params.getAs[Int]("sourceId")
+      source <- res.sourceEntities.lift(sourceId)
+    } yield {
+      val token = source.uri.replaceAll("http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3A", "")
+      for {
+        redirectUrl <- DBpedia.redirect(token)
+      } yield redirectUrl
     }) getOrElse halt(500)
   }
 

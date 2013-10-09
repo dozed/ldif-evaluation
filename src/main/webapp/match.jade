@@ -1,9 +1,6 @@
 script(type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js")
 
 -import de.fuberlin.wiwiss.silk.entity.Entity
--import breeze.linalg._
--import breeze.numerics._
--import scala.collection.mutable.ArrayBuffer
 
 -@ val measures: List[String]
 -@ val sourceEntities: List[Entity]
@@ -54,6 +51,9 @@ a(href={"/match/" + (sourceId + 1)}) next
 
 
 h1 Matching #{source.uri}
+
+p
+  | Values: #{source.values.flatten.mkString(", ")}
 
 ul
   li

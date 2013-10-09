@@ -68,14 +68,18 @@ case class LinkingUI(var res: MatchingResults) extends ScalatraServlet with Scal
   }
 
   get("/") {
+    val threshold = params.getAsOrElse[Double]("threshold", 0.0)
+    val matches = res.edges.filter(_.sim.exists(_._1 <= threshold))
+      .sortBy(_.sim.sortBy(_._1).head)
+    val (exact, approx) = matches.partition(_.sim.exists(_._1 == 0.0))
+
     jade("index.jade",
       "measures" -> res.measures,
       "source" -> res.sourceEntities,
       "target" -> res.targetEntities,
-      "edges" -> res.edges
-      //      "perf" -> res.perfect,
-      //      "approx" -> res.approx,
-      //      "nomatch" -> res.nomatch
+      "edges" -> res.edges,
+      "exact" -> exact,
+      "approx"-> approx
     )
   }
 
@@ -90,6 +94,11 @@ case class LinkingUI(var res: MatchingResults) extends ScalatraServlet with Scal
         .filter(_.sim.exists(_._1 <= threshold))
         .sortBy(_.sim.sortBy(_._1).head)
       val (exact, approx) = matches.partition(_.sim.exists(_._1 == 0.0))
+
+      if (skipExact && exact.size > 0) {
+        val u = url(f"/match/${sourceId + 1}", Map("threshold" -> threshold, "skipExact" -> skipExact))
+        redirect(u)
+      }
 
       jade("match.jade",
         "measures" -> res.measures,

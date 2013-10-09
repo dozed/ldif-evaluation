@@ -1,16 +1,11 @@
--import breeze.linalg._
 -import de.fuberlin.wiwiss.silk.entity.Entity
--import breeze.linalg._
--import breeze.numerics._
--import scala.collection.mutable.ArrayBuffer
 
 -@ val measures: List[String]
--@ val mats: List[DenseMatrix[Double]]
 -@ val source: List[Entity]
 -@ val target: List[Entity]
--@ val perf: Seq[(Int, List[(String, Int, Double)])]
--@ val approx: Seq[(Int, List[(String, Int, Double)])]
--@ val nomatch: Seq[(Int, List[(String, Int, Double)])]
+-@ val exact: List[Edge]
+-@ val approx: List[Edge]
+-@ val threshold: Double
 
 h1 Overview
 
@@ -23,33 +18,8 @@ ul
 h2 Stats
 
 ul
-  li perfect matches: #{perf.size}
-  li approx matches (t = 0.1): #{approx.size}
-  li
-    | no matches: #{nomatch.size}
-    ul
-      -for (n <- nomatch)
-        li #{source(n._1).uri}
+  li exact matches: #{exact.size}
+  li approx matches (t = #{threshold}): #{approx.size}
 
 
 
-h2 Perfect matches
-
-ul
-  -for ((x, ys) <- perf)
-    li
-      =source(x).values.flatten.mkString(", ")
-      ul
-        -for ((label, y, dist) <- ys)
-          li #{target(y).values.flatten.mkString(", ")} #{dist} #{label}
-
-
-h2 Approximative matches
-
-ul
-  -for ((x, ys) <- approx)
-    li
-      =source(x).values.flatten.mkString(", ")
-      ul
-        -for ((label, y, dist) <- ys)
-          li #{target(y).values.flatten.mkString(", ")} #{dist} #{label}

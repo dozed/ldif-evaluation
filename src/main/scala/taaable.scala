@@ -5,11 +5,14 @@ import de.fuberlin.wiwiss.silk.linkagerule.input.PathInput
 import de.fuberlin.wiwiss.silk.linkagerule.LinkageRule
 import de.fuberlin.wiwiss.silk.linkagerule.similarity.Comparison
 import de.fuberlin.wiwiss.silk.output.{Output, LinkWriter}
+import de.fuberlin.wiwiss.silk.plugins.distance.characterbased._
 import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.JaroDistanceMetric
 import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.JaroWinklerDistance
 import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.QGramsMetric
+import de.fuberlin.wiwiss.silk.plugins.distance.equality.RelaxedEqualityMetric
 import org.apache.jena.riot.Lang
 import scala.collection.mutable.ArrayBuffer
+import scala.Some
 import SparseDistanceMatrixIO._
 
 trait TaaableEvaluation extends Evaluations {
@@ -53,25 +56,24 @@ trait TaaableEvaluation extends Evaluations {
 object TaaableMatcher extends App with TaaableEvaluation {
 
 
-  val measures2 = List(
-//    "substring" -> SubStringDistance(),
+  val measures = List(
+    "substring" -> SubStringDistance(),
     "qgrams2" -> QGramsMetric(q = 2),
     "jaro" -> JaroDistanceMetric(),
-    "jaroWinkler" -> JaroWinklerDistance()
-//    "levenshtein" -> LevenshteinMetric(),
-//    "relaxedEquality" -> new RelaxedEqualityMetric()
+    "jaroWinkler" -> JaroWinklerDistance(),
+    "levenshtein" -> LevenshteinMetric(),
+    "relaxedEquality" -> new RelaxedEqualityMetric()
   )
 
-//  val entityDescs = linkSpec.entityDescriptions
-//  val taaableEntities = entities(sources._1, entityDescs._1)
-//  val dbpediaEntities = entities(sources._2, entityDescs._2)
+  val entityDescs = linkSpec.entityDescriptions
+  val taaableEntities = entities(sources._1, entityDescs._1)
+  val dbpediaEntities = entities(sources._2, entityDescs._2)
 //
 //  printToFile("source.lst") { pw => taaableEntities foreach (x => pw.println(x.uri)) }
 //  printToFile("target.lst") { pw => dbpediaEntities foreach (x => pw.println(x.uri)) }
 
-//
-//  val writer = writeSparseDistanceMatrix((taaableEntities, dbpediaEntities), 0.4)
-//  measures foreach { case (l, d) => writer(new java.io.File(f"sim-$l.sparse"), d) }
+  val writer = writeSparseDistanceMatrix((taaableEntities, dbpediaEntities), 0.4)
+  measures foreach { case (l, d) => writer(new java.io.File(f"$base/sim-$l.sparse"), d) }
 
 
 //  val (m, n) = (2165, 29212)

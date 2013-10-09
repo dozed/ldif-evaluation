@@ -10,6 +10,7 @@ import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.JaroDistanceMetri
 import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.JaroWinklerDistance
 import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.QGramsMetric
 import de.fuberlin.wiwiss.silk.plugins.distance.equality.RelaxedEqualityMetric
+import java.io.File
 import org.apache.jena.riot.Lang
 import scala.collection.mutable.ArrayBuffer
 import scala.Some
@@ -23,8 +24,11 @@ trait TaaableEvaluation extends Evaluations {
   // val query2 = "?b dcterms:subject ?x . ?x <http://www.w3.org/2004/02/skos/core#broader>* <http://dbpedia.org/resource/Category:Foods> ."
   // Source("dbpedia", SparqlDataSource("http://lod.openlinksw.com/sparql")))
 
-  val sources = (Source("taaable", NewFileDataSource(f"file:///$base/taaable-food.rdf", Some(Lang.RDFXML), true)),
-    Source("dbpedia", NewFileDataSource(f"file:///$base/dbpedia-foods.ttl", Some(Lang.TURTLE))))
+//  val sources = (Source("taaable", NewFileDataSource(f"file:///$base/taaable-food.rdf", Some(Lang.RDFXML), true)),
+//    Source("dbpedia", NewFileDataSource(f"file:///$base/dbpedia-foods.ttl", Some(Lang.TURTLE))))
+
+  val sources = (Source("taaable", NewFileDataSource(f"file:///$base/test-source.rdf", Some(Lang.RDFXML), true)),
+    Source("dbpedia", NewFileDataSource(f"file:///$base/test-target.ttl", Some(Lang.TURTLE))))
 
   val query1 = "?a rdfs:subClassOf taaable:Category-3AFood ."
 
@@ -65,26 +69,49 @@ object TaaableMatcher extends App with TaaableEvaluation {
     "relaxedEquality" -> new RelaxedEqualityMetric()
   )
 
-  val entityDescs = linkSpec.entityDescriptions
-  val taaableEntities = entities(sources._1, entityDescs._1)
-  val dbpediaEntities = entities(sources._2, entityDescs._2)
-//
-//  printToFile("source.lst") { pw => taaableEntities foreach (x => pw.println(x.uri)) }
-//  printToFile("target.lst") { pw => dbpediaEntities foreach (x => pw.println(x.uri)) }
-
-  val writer = writeSparseDistanceMatrix((taaableEntities, dbpediaEntities), 0.4)
-  measures foreach { case (l, d) => writer(new java.io.File(f"$base/sim-$l.sparse"), d) }
-
-
-//  val (m, n) = (2165, 29212)
-//  val mat = readSparseDistanceMatrix(new java.io.File("sim-2-levenshtein.sparse"), m, n)
-//  println(mat)
-  // val mats = measures.toMap.keys map (l => (l, readMatrix(l)))
+  def normalize(s: String): Option[String] = {
+    val s1 = s.toLowerCase
+    val s2 = s1.replaceAll("""['\(\)\?]""", "")
+    if (!s2.isEmpty) Some(s2) else None
+  }
 
 //  val entityDescs = linkSpec.entityDescriptions
 //  val sourceEntities = entities(sources._1, entityDescs._1).toList
 //  val targetEntities = entities(sources._2, entityDescs._2).toList
 //
+//  printToFile("source.lst") { pw => taaableEntities foreach (x => pw.println(x.uri)) }
+//  printToFile("target.lst") { pw => dbpediaEntities foreach (x => pw.println(x.uri)) }
+
+//  val writer = writeSparseDistanceMatrix((sourceEntities, targetEntities), 0.4) //, normalize)
+//  measures foreach { case (l, d) => writer(new java.io.File(f"$base/test-$l.sparse"), d) }
+
+
+//  val (m, n) = (2165, 29212)
+//  val mat = readSparseDistanceMatrix(new java.io.File("sim-2-levenshtein.sparse"), m, n)
+//  println(mat)
+//  val mats = measures.toMap.keys map (l => (l, readMatrix(l)))
+
+  val edges = readMergedEdgeLists(measures map { case (l, d) => new java.io.File(f"$base/sim-$l.sparse") })
+
+  println(edges filter (_.from == 1000))
+
+  val a = 1
+
+
+//  val ss = sourceEntities filter { e => e.values.flatten.contains("Jack daniels") }
+//  val ts = targetEntities filter { e => e.values.flatten.contains("Jack Daniel's") }
+//
+//  for {
+//    s <- ss
+//    t <- ts
+//    (label, measure) <- measures
+//  } {
+//    val v1 = s.values.flatten flatMap normalize
+//    val v2 = t.values.flatten flatMap normalize
+//    val sim = measure(v1, v2)
+//    println(f"$label - ${s.uri} - ${t.uri} - $v1 - $v2 - $sim")
+//  }
+
 //  val measures = List("substring", "levenshtein", "relaxedEquality")
 //
 //  val (m, n) = (sourceEntities.size, targetEntities.size)

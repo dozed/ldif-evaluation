@@ -25,7 +25,11 @@ h2 Stats
 ul
   li perfect matches: #{perf.size}
   li approx matches (t = 0.1): #{approx.size}
-  li no matches: #{nomatch.size}
+  li
+    | no matches: #{nomatch.size}
+    ul
+      -for (n <- nomatch)
+        li #{source(n._1).uri}
 
 
 

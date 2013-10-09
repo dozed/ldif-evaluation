@@ -48,10 +48,10 @@ class MatchingResults extends TaaableEvaluation {
   val sourceEntities = entities(sources._1, entityDescs._1).toList
   val targetEntities = entities(sources._2, entityDescs._2).toList
 
-  val measures = List("substring", "levenshtein", "relaxedEquality")
+  val measures = List("substring", "levenshtein", "relaxedEquality", "jaro", "jaroWinkler", "qgrams2")
 
   val (m, n) = (sourceEntities.size, targetEntities.size)
-  val mats = measures map (l => readSparseDistanceMatrix(new java.io.File(f"sim-$l.sparse"), m, n))
+  val mats = measures map (l => readSparseDistanceMatrix(new java.io.File(f"$base/test-$l.sparse"), m, n))
 
   val t = 0.1
   val perfect = ArrayBuffer[(Int, List[(String, Int, Double)])]()
@@ -95,6 +95,8 @@ case class LinkingUI(var res: MatchingResults) extends ScalatraServlet with Scal
     contentType = "text/html"
   }
 
+
+
   get("/") {
     jade("index.jade",
       "measures" -> res.measures,
@@ -105,6 +107,15 @@ case class LinkingUI(var res: MatchingResults) extends ScalatraServlet with Scal
       "approx" -> res.approx,
       "nomatch" -> res.nomatch
     )
+  }
+
+  get("/match/:sourceId") {
+    params.getAs[Int]("sourceId") match {
+      case Some(sourceId) =>
+
+        jade("match.jade")
+      case None => halt(404)
+    }
   }
 
 }

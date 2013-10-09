@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE rdf:RDF[
+	<!ENTITY rdf 'http://www.w3.org/1999/02/22-rdf-syntax-ns#'>
+	<!ENTITY rdfs 'http://www.w3.org/2000/01/rdf-schema#'>
+	<!ENTITY owl 'http://www.w3.org/2002/07/owl#'>
+	<!ENTITY swivt 'http://semantic-mediawiki.org/swivt/1.0#'>
+	<!ENTITY wiki 'http://wikitaaable.loria.fr/index.php/Special:URIResolver/'>
+	<!ENTITY property 'http://wikitaaable.loria.fr/index.php/Special:URIResolver/Property-3A'>
+	<!ENTITY wikiurl 'http://wikitaaable.loria.fr/index.php/'>
+]>
+
+<rdf:RDF
+	xmlns:rdf="&rdf;"
+	xmlns:rdfs="&rdfs;"
+	xmlns:owl ="&owl;"
+	xmlns:swivt="&swivt;"
+	xmlns:wiki="&wiki;"
+	xmlns:property="&property;">
+
+	<owl:Ontology>
+		<swivt:creationDate rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2013-08-30T14:48:59+02:00</swivt:creationDate>
+		<owl:imports rdf:resource="http://semantic-mediawiki.org/swivt/1.0"/>
+	</owl:Ontology>
+	<owl:Class rdf:about="http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AJack_daniels">
+		<rdfs:label>Jack daniels</rdfs:label>
+		<swivt:page rdf:resource="http://wikitaaable.loria.fr/index.php/Category:Jack_daniels"/>
+		<rdfs:isDefinedBy rdf:resource="http://wikitaaable.loria.fr/index.php/Special:ExportRDF/Category:Jack_daniels"/>
+		<swivt:wikiNamespace rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">14</swivt:wikiNamespace>
+		<property:Compatible_with_diet rdf:resource="&wiki;Category-3AVegetarian"/>
+		<property:Has_energy>
+			<swivt:Subject rdf:about="http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AJack_daniels-23_0c72a950927c68bd350e630fc43ef30f">
+				<swivt:masterPage rdf:resource="&wiki;Category-3AJack_daniels"/>
+				<property:Energy_quantity rdf:datatype="http://www.w3.org/2001/XMLSchema#double">250</property:Energy_quantity>
+				<property:Energy_unit rdf:datatype="http://www.w3.org/2001/XMLSchema#string">kcal</property:Energy_unit>
+			</swivt:Subject>
+		</property:Has_energy>
+		<property:Has_generalisation_cost>
+			<swivt:Subject rdf:about="http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AJack_daniels-23_cb25e386e4296260fa6a07f7f3ddd19f">
+				<swivt:masterPage rdf:resource="&wiki;Category-3AJack_daniels"/>
+				<property:Generalisation_class rdf:resource="&wiki;Category-3ASour-2Dmash_whiskey"/>
+				<property:Generalisation_cost rdf:datatype="http://www.w3.org/2001/XMLSchema#double">0</property:Generalisation_cost>
+			</swivt:Subject>
+		</property:Has_generalisation_cost>
+		<property:Has_lexical_variant>
+			<swivt:Subject rdf:about="http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AJack_daniels-23_959725fa38dad44176f6e285b0eaf38f">
+				<swivt:masterPage rdf:resource="&wiki;Category-3AJack_daniels"/>
+				<property:Language rdf:datatype="http://www.w3.org/2001/XMLSchema#string">English</property:Language>
+				<property:Plural rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Plural not available</property:Plural>
+				<property:Singular rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Jack daniels</property:Singular>
+			</swivt:Subject>
+		</property:Has_lexical_variant>
+		<property:Has_number_of_cases rdf:datatype="http://www.w3.org/2001/XMLSchema#double">1</property:Has_number_of_cases>
+		<property:Has_nutritional_value>
+			<swivt:Subject rdf:about="http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AJack_daniels-23_58414dfc5c586a4c69c2d2b27563d3b9">
+				<swivt:masterPage rdf:resource="&wiki;Category-3AJack_daniels"/>
+				<property:Nutritional_fact rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Carbohydrate</property:Nutritional_fact>
+				<property:Nutritional_quantity rdf:datatype="http://www.w3.org/2001/XMLSchema#double">0.1</property:Nutritional_quantity>
+				<property:Nutritional_unit rdf:datatype="http://www.w3.org/2001/XMLSchema#string">g</property:Nutritional_unit>
+			</swivt:Subject>
+		</property:Has_nutritional_value>
+		<property:Has_nutritional_value>
+			<swivt:Subject rdf:about="http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AJack_daniels-23_d704cd3077edb4821d2c4d3d130d9c73">
+				<swivt:masterPage rdf:resource="&wiki;Category-3AJack_daniels"/>
+				<property:Nutritional_fact rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Sugar</property:Nutritional_fact>
+				<property:Nutritional_quantity rdf:datatype="http://www.w3.org/2001/XMLSchema#double">0</property:Nutritional_quantity>
+				<property:Nutritional_unit rdf:datatype="http://www.w3.org/2001/XMLSchema#string">g</property:Nutritional_unit>
+			</swivt:Subject>
+		</property:Has_nutritional_value>
+		<property:Has_nutritional_value>
+			<swivt:Subject rdf:about="http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AJack_daniels-23_ed7136b418389914754befca68d6800a">
+				<swivt:masterPage rdf:resource="&wiki;Category-3AJack_daniels"/>
+				<property:Nutritional_fact rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Dietary fiber</property:Nutritional_fact>
+				<property:Nutritional_quantity rdf:datatype="http://www.w3.org/2001/XMLSchema#double">0</property:Nutritional_quantity>
+				<property:Nutritional_unit rdf:datatype="http://www.w3.org/2001/XMLSchema#string">g</property:Nutritional_unit>
+			</swivt:Subject>
+		</property:Has_nutritional_value>
+		<property:Has_nutritional_value>
+			<swivt:Subject rdf:about="http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AJack_daniels-23_7f1a5b77f4489f4161676887d5220248">
+				<swivt:masterPage rdf:resource="&wiki;Category-3AJack_daniels"/>
+				<property:Nutritional_fact rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Fat</property:Nutritional_fact>
+				<property:Nutritional_quantity rdf:datatype="http://www.w3.org/2001/XMLSchema#double">0</property:Nutritional_quantity>
+				<property:Nutritional_unit rdf:datatype="http://www.w3.org/2001/XMLSchema#string">g</property:Nutritional_unit>
+			</swivt:Subject>
+		</property:Has_nutritional_value>
+		<property:Has_nutritional_value>
+			<swivt:Subject rdf:about="http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AJack_daniels-23_eaadcc9a31b4b704379b1b5c62da1e72">
+				<swivt:masterPage rdf:resource="&wiki;Category-3AJack_daniels"/>
+				<property:Nutritional_fact rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Protein</property:Nutritional_fact>
+				<property:Nutritional_quantity rdf:datatype="http://www.w3.org/2001/XMLSchema#double">0</property:Nutritional_quantity>
+				<property:Nutritional_unit rdf:datatype="http://www.w3.org/2001/XMLSchema#string">g</property:Nutritional_unit>
+			</swivt:Subject>
+		</property:Has_nutritional_value>
+		<property:Has_nutritional_value>
+			<swivt:Subject rdf:about="http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AJack_daniels-23_0298b6fb5b6f134698697d14b73c0203">
+				<swivt:masterPage rdf:resource="&wiki;Category-3AJack_daniels"/>
+				<property:Nutritional_fact rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Water</property:Nutritional_fact>
+				<property:Nutritional_quantity rdf:datatype="http://www.w3.org/2001/XMLSchema#double">63.9</property:Nutritional_quantity>
+				<property:Nutritional_unit rdf:datatype="http://www.w3.org/2001/XMLSchema#string">g</property:Nutritional_unit>
+			</swivt:Subject>
+		</property:Has_nutritional_value>
+		<property:Has_nutritional_value>
+			<swivt:Subject rdf:about="http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AJack_daniels-23_0d595993de5ca73c62b64dc9d26fcf7b">
+				<swivt:masterPage rdf:resource="&wiki;Category-3AJack_daniels"/>
+				<property:Nutritional_fact rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Vitamin A</property:Nutritional_fact>
+				<property:Nutritional_quantity rdf:datatype="http://www.w3.org/2001/XMLSchema#double">0</property:Nutritional_quantity>
+				<property:Nutritional_unit rdf:datatype="http://www.w3.org/2001/XMLSchema#string">μg</property:Nutritional_unit>
+			</swivt:Subject>
+		</property:Has_nutritional_value>
+		<property:Has_nutritional_value>
+			<swivt:Subject rdf:about="http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AJack_daniels-23_6d7c3c4fb690434eb8e19b02b515c707">
+				<swivt:masterPage rdf:resource="&wiki;Category-3AJack_daniels"/>
+				<property:Nutritional_fact rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Thiamine</property:Nutritional_fact>
+				<property:Nutritional_quantity rdf:datatype="http://www.w3.org/2001/XMLSchema#double">0.006</property:Nutritional_quantity>
+				<property:Nutritional_unit rdf:datatype="http://www.w3.org/2001/XMLSchema#string">mg</property:Nutritional_unit>
+			</swivt:Subject>
+		</property:Has_nutritional_value>
+		<property:Has_nutritional_value>
+			<swivt:Subject rdf:about="http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AJack_daniels-23_537ba85b59b1849e2003197c6972e2e8">
+				<swivt:masterPage rdf:resource="&wiki;Category-3AJack_daniels"/>
+				<property:Nutritional_fact rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Riboflavin</property:Nutritional_fact>
+				<property:Nutritional_quantity rdf:datatype="http://www.w3.org/2001/XMLSchema#double">0.004</property:Nutritional_quantity>
+				<property:Nutritional_unit rdf:datatype="http://www.w3.org/2001/XMLSchema#string">mg</property:Nutritional_unit>
+			</swivt:Subject>
+		</property:Has_nutritional_value>
+		<property:Has_nutritional_value>
+			<swivt:Subject rdf:about="http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AJack_daniels-23_a7d5c65197d2432c1cbc8cf7abec5164">
+				<swivt:masterPage rdf:resource="&wiki;Category-3AJack_daniels"/>
+				<property:Nutritional_fact rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Niacin</property:Nutritional_fact>
+				<property:Nutritional_quantity rdf:datatype="http://www.w3.org/2001/XMLSchema#double">0.013</property:Nutritional_quantity>
+				<property:Nutritional_unit rdf:datatype="http://www.w3.org/2001/XMLSchema#string">mg</property:Nutritional_unit>
+			</swivt:Subject>
+		</property:Has_nutritional_value>
+		<property:Has_nutritional_value>
+			<swivt:Subject rdf:about="http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AJack_daniels-23_2e11f21ffb4a45ddf450c243a8651207">
+				<swivt:masterPage rdf:resource="&wiki;Category-3AJack_daniels"/>
+				<property:Nutritional_fact rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Pantothenic acid</property:Nutritional_fact>
+				<property:Nutritional_quantity rdf:datatype="http://www.w3.org/2001/XMLSchema#double">0</property:Nutritional_quantity>
+				<property:Nutritional_unit rdf:datatype="http://www.w3.org/2001/XMLSchema#string">mg</property:Nutritional_unit>
+			</swivt:Subject>
+		</property:Has_nutritional_value>
+		<property:Has_nutritional_value>
+			<swivt:Subject rdf:about="http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AJack_daniels-23_9acdae960ac0b93c92cb2ece477f8fd6">
+				<swivt:masterPage rdf:resource="&wiki;Category-3AJack_daniels"/>
+				<property:Nutritional_fact rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Vitamin B6</property:Nutritional_fact>
+				<property:Nutritional_quantity rdf:datatype="http://www.w3.org/2001/XMLSchema#double">0.001</property:Nutritional_quantity>
+				<property:Nutritional_unit rdf:datatype="http://www.w3.org/2001/XMLSchema#string">mg</property:Nutritional_unit>
+			</swivt:Subject>
+		</property:Has_nutritional_value>
+		<property:Has_nutritional_value>
+			<swivt:Subject rdf:about="http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AJack_daniels-23_87da5449c02f1224550098bbe91cca01">
+				<swivt:masterPage rdf:resource="&wiki;Category-3AJack_daniels"/>
+				<property:Nutritional_fact rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Folate</property:Nutritional_fact>
+				<property:Nutritional_quantity rdf:datatype="http://www.w3.org/2001/XMLSchema#double">0</property:Nutritional_quantity>
+				<property:Nutritional_unit rdf:datatype="http://www.w3.org/2001/XMLSchema#string">μg</property:Nutritional_unit>
+			</swivt:Subject>
+		</property:Has_nutritional_value>
+		<property:Has_nutritional_value>
+			<swivt:Subject rdf:about="http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AJack_daniels-23_6bac1c983f33874a7f2720331a4e2abe">
+				<swivt:masterPage rdf:resource="&wiki;Category-3AJack_daniels"/>
+				<property:Nutritional_fact rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Vitamin C</property:Nutritional_fact>
+				<property:Nutritional_quantity rdf:datatype="http://www.w3.org/2001/XMLSchema#double">0</property:Nutritional_quantity>
+				<property:Nutritional_unit rdf:datatype="http://www.w3.org/2001/XMLSchema#string">mg</property:Nutritional_unit>
+			</swivt:Subject>
+		</property:Has_nutritional_value>
+		<property:Has_nutritional_value>
+			<swivt:Subject rdf:about="http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AJack_daniels-23_a166b96fdd897c8e35a4379edca39514">
+				<swivt:masterPage rdf:resource="&wiki;Category-3AJack_daniels"/>
+				<property:Nutritional_fact rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Calcium</property:Nutritional_fact>
+				<property:Nutritional_quantity rdf:datatype="http://www.w3.org/2001/XMLSchema#double">0</property:Nutritional_quantity>
+				<property:Nutritional_unit rdf:datatype="http://www.w3.org/2001/XMLSchema#string">mg</property:Nutritional_unit>
+			</swivt:Subject>
+		</property:Has_nutritional_value>
+		<property:Has_nutritional_value>
+			<swivt:Subject rdf:about="http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AJack_daniels-23_319f4b3d334a731314353b22ba2c0000">
+				<swivt:masterPage rdf:resource="&wiki;Category-3AJack_daniels"/>
+				<property:Nutritional_fact rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Iron</property:Nutritional_fact>
+				<property:Nutritional_quantity rdf:datatype="http://www.w3.org/2001/XMLSchema#double">0.04</property:Nutritional_quantity>
+				<property:Nutritional_unit rdf:datatype="http://www.w3.org/2001/XMLSchema#string">mg</property:Nutritional_unit>
+			</swivt:Subject>
+		</property:Has_nutritional_value>
+		<property:Has_nutritional_value>
+			<swivt:Subject rdf:about="http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AJack_daniels-23_4131e501b76aed184afc9b6a18cc9138">
+				<swivt:masterPage rdf:resource="&wiki;Category-3AJack_daniels"/>
+				<property:Nutritional_fact rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Magnesium</property:Nutritional_fact>
+				<property:Nutritional_quantity rdf:datatype="http://www.w3.org/2001/XMLSchema#double">0</property:Nutritional_quantity>
+				<property:Nutritional_unit rdf:datatype="http://www.w3.org/2001/XMLSchema#string">mg</property:Nutritional_unit>
+			</swivt:Subject>
+		</property:Has_nutritional_value>
+		<property:Has_nutritional_value>
+			<swivt:Subject rdf:about="http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AJack_daniels-23_4fe910e260342a5f9e74de6a06299cbc">
+				<swivt:masterPage rdf:resource="&wiki;Category-3AJack_daniels"/>
+				<property:Nutritional_fact rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Phosphorus</property:Nutritional_fact>
+				<property:Nutritional_quantity rdf:datatype="http://www.w3.org/2001/XMLSchema#double">4</property:Nutritional_quantity>
+				<property:Nutritional_unit rdf:datatype="http://www.w3.org/2001/XMLSchema#string">mg</property:Nutritional_unit>
+			</swivt:Subject>
+		</property:Has_nutritional_value>
+		<property:Has_nutritional_value>
+			<swivt:Subject rdf:about="http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AJack_daniels-23_c4e758f6502e1927ba10a9682149a4a8">
+				<swivt:masterPage rdf:resource="&wiki;Category-3AJack_daniels"/>
+				<property:Nutritional_fact rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Potassium</property:Nutritional_fact>
+				<property:Nutritional_quantity rdf:datatype="http://www.w3.org/2001/XMLSchema#double">2</property:Nutritional_quantity>
+				<property:Nutritional_unit rdf:datatype="http://www.w3.org/2001/XMLSchema#string">mg</property:Nutritional_unit>
+			</swivt:Subject>
+		</property:Has_nutritional_value>
+		<property:Has_nutritional_value>
+			<swivt:Subject rdf:about="http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AJack_daniels-23_07246dcfd1fa93a39bc1406a67e1693a">
+				<swivt:masterPage rdf:resource="&wiki;Category-3AJack_daniels"/>
+				<property:Nutritional_fact rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Sodium</property:Nutritional_fact>
+				<property:Nutritional_quantity rdf:datatype="http://www.w3.org/2001/XMLSchema#double">1</property:Nutritional_quantity>
+				<property:Nutritional_unit rdf:datatype="http://www.w3.org/2001/XMLSchema#string">mg</property:Nutritional_unit>
+			</swivt:Subject>
+		</property:Has_nutritional_value>
+		<property:Has_nutritional_value>
+			<swivt:Subject rdf:about="http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AJack_daniels-23_6f8e94555c012d8465992eb1dd0a09f5">
+				<swivt:masterPage rdf:resource="&wiki;Category-3AJack_daniels"/>
+				<property:Nutritional_fact rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Zinc</property:Nutritional_fact>
+				<property:Nutritional_quantity rdf:datatype="http://www.w3.org/2001/XMLSchema#double">0.04</property:Nutritional_quantity>
+				<property:Nutritional_unit rdf:datatype="http://www.w3.org/2001/XMLSchema#string">mg</property:Nutritional_unit>
+			</swivt:Subject>
+		</property:Has_nutritional_value>
+		<property:Incompatible_with_diet rdf:resource="&wiki;Category-3AAlcoholic_free"/>
+		<property:Weight_conversion>
+			<swivt:Subject rdf:about="http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AJack_daniels-23_dfc89cc58aef10938bb22b9ba4a3ac2c">
+				<swivt:masterPage rdf:resource="&wiki;Category-3AJack_daniels"/>
+				<property:Final_quantity rdf:datatype="http://www.w3.org/2001/XMLSchema#double">42</property:Final_quantity>
+				<property:Original_quantity rdf:datatype="http://www.w3.org/2001/XMLSchema#double">1</property:Original_quantity>
+				<property:Original_unit rdf:datatype="http://www.w3.org/2001/XMLSchema#string">oz</property:Original_unit>
+			</swivt:Subject>
+		</property:Weight_conversion>
+		<swivt:wikiPageModificationDate rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2012-12-11T15:07:09Z</swivt:wikiPageModificationDate>
+		<swivt:wikiPageSortKey rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Jack daniels</swivt:wikiPageSortKey>
+		<rdfs:subClassOf rdf:resource="&wiki;Category-3AFood"/>
+	</owl:Class>
+	<owl:Class rdf:about="http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ABeurre_manie">
+		<rdfs:label>Beurre manie</rdfs:label>
+		<swivt:page rdf:resource="http://wikitaaable.loria.fr/index.php/Category:Beurre_manie"/>
+		<rdfs:isDefinedBy rdf:resource="http://wikitaaable.loria.fr/index.php/Special:ExportRDF/Category:Beurre_manie"/>
+		<swivt:wikiNamespace rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">14</swivt:wikiNamespace>
+		<property:Compatible_with_diet rdf:resource="&wiki;Category-3AVegetarian"/>
+		<property:Has_generalisation_cost>
+			<swivt:Subject rdf:about="http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ABeurre_manie-23_16d810857fd34eb16d297eed54812594">
+				<swivt:masterPage rdf:resource="&wiki;Category-3ABeurre_manie"/>
+				<property:Generalisation_class rdf:resource="&wiki;Category-3AThickener"/>
+				<property:Generalisation_cost rdf:datatype="http://www.w3.org/2001/XMLSchema#double">0.088471849865952</property:Generalisation_cost>
+			</swivt:Subject>
+		</property:Has_generalisation_cost>
+		<property:Has_lexical_variant>
+			<swivt:Subject rdf:about="http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ABeurre_manie-23_b6167edd1f62dc3dbb2b01e001060446">
+				<swivt:masterPage rdf:resource="&wiki;Category-3ABeurre_manie"/>
+				<property:Language rdf:datatype="http://www.w3.org/2001/XMLSchema#string">English</property:Language>
+				<property:Plural rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Plural not available</property:Plural>
+				<property:Singular rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Beurre manie</property:Singular>
+			</swivt:Subject>
+		</property:Has_lexical_variant>
+		<property:Has_number_of_cases rdf:datatype="http://www.w3.org/2001/XMLSchema#double">0</property:Has_number_of_cases>
+		<swivt:wikiPageModificationDate rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2012-12-11T14:52:45Z</swivt:wikiPageModificationDate>
+		<swivt:wikiPageSortKey rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Beurre manie</swivt:wikiPageSortKey>
+		<rdfs:subClassOf rdf:resource="&wiki;Category-3AFood"/>
+	</owl:Class>
+</rdf:RDF>

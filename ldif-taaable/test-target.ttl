@@ -1,0 +1,15 @@
+@prefix rdfs:	<http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dbpedia:	<http://dbpedia.org/resource/> .
+
+<http://dbpedia.org/resource/Jack_Daniel%27s>	rdfs:label	"Jack Daniel's" ,
+		"Jack Daniel?s" ,
+		"????" .
+
+<http://dbpedia.org/resource/Jack_Daniel\u0027s>	rdfs:label	"Jack Daniel's" .
+
+<http://dbpedia.org/resource/Jack_Daniel\u0027s_Single_Barrel>	rdfs:label	"Jack Daniel's Single Barrel" .
+
+<http://dbpedia.org/resource/Beurre_mani%C3%A9>	rdfs:label	"Beurre mani\u00E9" .
+
+<http://dbpedia.org/resource/Beurre_mont%C3%A9>	rdfs:label	"Beurre mont\u00E9" .
+

@@ -79,7 +79,8 @@ case class LinkingUI(var res: MatchingResults) extends ScalatraServlet with Scal
       "target" -> res.targetEntities,
       "edges" -> res.edges,
       "exact" -> exact,
-      "approx"-> approx
+      "approx"-> approx,
+      "threshold" -> threshold
     )
   }
 

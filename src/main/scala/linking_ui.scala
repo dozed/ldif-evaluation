@@ -69,9 +69,8 @@ case class LinkingUI(var res: MatchingResults) extends ScalatraServlet with Scal
 
   get("/") {
     val threshold = params.getAsOrElse[Double]("threshold", 0.0)
-    val matches = res.edges.filter(_.sim.exists(_._1 <= threshold))
-      .sortBy(_.sim.sortBy(_._1).head)
-    val (exact, approx) = matches.partition(_.sim.exists(_._1 == 0.0))
+    val matches = res.edges.filter(_.sim.exists(_._1 <= threshold)).groupBy(_.from)
+    val (exact, approx) = matches.partition(_._2.exists(_.sim.exists(_._1 == 0.0)))
 
     jade("index.jade",
       "measures" -> res.measures,

@@ -2,11 +2,13 @@ script(type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js")
 
 -import de.fuberlin.wiwiss.silk.entity.Entity
 
+-@ val res: MatchingResults
 -@ val measures: List[String]
 -@ val sourceEntities: List[Entity]
 -@ val targetEntities: List[Entity]
 -@ val source: Entity
 -@ val exact: List[Edge]
+-@ val accepted: List[Edge]
 -@ val approx: List[Edge]
 -@ val nomatches: List[Edge]
 
@@ -40,6 +42,26 @@ a(href={"/match/" + (sourceId + 1)}) next
     location.href = url;
   }
 
+  function acceptMatch(from, to) {
+      $.ajax({
+        type: "POST",
+        url: "/match/" + from + "/" + to,
+        success: function() {
+            location.reload();
+        }
+      });
+  }
+
+    function removeMatch(from, to) {
+        $.ajax({
+          type: "DELETE",
+          url: "/match/" + from + "/" + to,
+          success: function() {
+              location.reload();
+          }
+        });
+    }
+
   $(function() {
     $("body").keydown(function(e) {
       if(e.keyCode == 37) {
@@ -67,11 +89,22 @@ ul
           - for ((d, i) <- m.sim)
             li #{measures(i)}: #{d}
   li
+    | Accepted: #{accepted.size}
+    ul
+      - for (m <- accepted)
+        li
+        | #{targetEntities(m.to)}
+        a(href="#" onclick={"removeMatch(" + m.from + ", " + m.to + ")"}) remove
+        ul
+          - for ((d, i) <- m.sim)
+            li #{measures(i)}: #{d}
+  li
     | Approx: #{approx.size}
     ul
       - for (m <- approx)
         li
-        | #{targetEntities(m.to)}
+        | #{targetEntities(m.to)} (#{m.to.toString})
+        a(href="#" onclick={"acceptMatch(" + m.from + ", " + m.to + ")"}) accept
         ul
           - for ((d, i) <- m.sim)
             li #{measures(i)}: #{d}

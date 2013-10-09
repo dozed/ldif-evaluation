@@ -59,6 +59,14 @@ class MatchingResults extends TaaableEvaluation {
 
   val edges = readMergedEdgeLists(measures map (l =>new java.io.File(f"$base/sim-$l.sparse")))
 
+  def isApproximate(t: Double)(e: Edge) = e.sim.exists(_._1 <= t)
+
+  def isExact = isApproximate(0.0) _
+
+  val acceptedLinks = collection.mutable.Set[Edge]()
+
+  def isAccepted(e: Edge) = acceptedLinks.contains(e)
+
 }
 
 case class LinkingUI(var res: MatchingResults) extends ScalatraServlet with ScalateSupport {
@@ -85,6 +93,12 @@ case class LinkingUI(var res: MatchingResults) extends ScalatraServlet with Scal
     )
   }
 
+  get("/match") {
+    <ul>
+      { for (m <- res.acceptedLinks) yield <li>{f"${m.from} - ${m.to}"}</li> }
+    </ul>
+  }
+
   get("/match/:sourceId") {
     (for {
       sourceId <- params.getAs[Int]("sourceId")
@@ -95,8 +109,9 @@ case class LinkingUI(var res: MatchingResults) extends ScalatraServlet with Scal
       val matches = res.edges.filter(_.from == sourceId)
         .filter(_.sim.exists(_._1 <= threshold))
         .sortBy(_.sim.sortBy(_._1).head)
-      val (exact, temp) = matches.partition(_.sim.exists(_._1 == 0.0))
-      val (approx, nomatches) = temp.partition(_.sim.exists(_._1 <= threshold))
+      val (exact, temp) = matches.partition(res.isExact)
+      val (accepted, temp2) = temp.partition(res.isAccepted)
+      val (approx, nomatches) = temp2.partition(res.isApproximate(threshold))
 
       if (skipExact && exact.size > 0) {
         val u = url(f"/match/${sourceId + 1}", Map("threshold" -> threshold, "skipExact" -> skipExact))
@@ -112,8 +127,34 @@ case class LinkingUI(var res: MatchingResults) extends ScalatraServlet with Scal
         "sourceId" -> sourceId,
         "source" -> source,
         "exact" -> exact,
+        "accepted" -> accepted,
         "approx" -> approx,
-        "nomatches" -> nomatches)
+        "nomatches" -> nomatches,
+        "res" -> res)
+    }) getOrElse halt(500)
+  }
+
+  post("/match/:sourceId/:targetId") {
+    (for {
+      sourceId <- params.getAs[Int]("sourceId")
+      targetId <- params.getAs[Int]("targetId")
+      source <- res.sourceEntities.lift(sourceId)
+      target <- res.targetEntities.lift(targetId)
+      m <- res.edges.filter { e => e.from == sourceId && e.to == targetId } headOption
+    } yield {
+      println(f"Accepted: $m")
+      res.acceptedLinks += m
+    }) getOrElse halt(500)
+  }
+
+  delete("/match/:sourceId/:targetId") {
+    (for {
+      sourceId <- params.getAs[Int]("sourceId")
+      targetId <- params.getAs[Int]("targetId")
+      m <- res.acceptedLinks.filter(e => e.from == sourceId && e.to == targetId) headOption
+    } yield {
+      println(f"Deleted: $m")
+      res.acceptedLinks -= m
     }) getOrElse halt(500)
   }
 

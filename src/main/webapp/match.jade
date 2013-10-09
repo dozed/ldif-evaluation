@@ -103,10 +103,8 @@ ul
     ul
       - for (m <- approx)
         li
-        | #{targetEntities(m.to)} (#{m.to.toString})
-        a(href="#" onclick={"acceptMatch(" + m.from + ", " + m.to + ")"}) accept
-        ul
-          - for ((d, i) <- m.sim)
-            li #{measures(i)}: #{d}
+          - val sims = for ((d, i) <- m.sim.sortBy(_._1)) yield f"${measures(i)}: ${"%1.2f" format d}"
+          | #{targetEntities(m.to).values.flatten.mkString(", ")} (#{sims.mkString(", ")})
+          a(href="#" onclick={"acceptMatch(" + m.from + ", " + m.to + ")"}) accept
 
 

@@ -1,10 +1,13 @@
+import akka.actor.ActorSystem
 import javax.servlet.ServletContext
 import org.eclipse.jetty.server.nio.SelectChannelConnector
 import org.eclipse.jetty.server.Server
 import org.eclipse.jetty.webapp.WebAppContext
+import org.scalatra.akka.AkkaSupport
 import org.scalatra.scalate.ScalateSupport
-import org.scalatra.{ScalatraServlet, LifeCycle}
+import org.scalatra.{FutureSupport, ScalatraServlet, LifeCycle}
 import org.scalatra.servlet.ScalatraListener
+import scala.concurrent.ExecutionContext
 import SparseDistanceMatrixIO._
 
 object Launcher extends App {
@@ -32,7 +35,8 @@ object Launcher extends App {
 class Bootstrap extends LifeCycle {
   override def init(context: ServletContext): Unit = {
     val res = new MatchingResults
-    context.mount(LinkingUI(res), "/*")
+    val system = ActorSystem()
+    context.mount(LinkingUI(res, system), "/*")
   }
 
   override def destroy(context: ServletContext): Unit = {
@@ -57,7 +61,7 @@ class MatchingResults extends TaaableEvaluation {
 
   val (m, n) = (sourceEntities.size, targetEntities.size)
 
-  val edges = readMergedEdgeLists(measures map (l =>new java.io.File(f"$base/sim-$l.sparse")))
+  val edges = readMergedEdgeLists(measures map (l => new java.io.File(f"$base/sim-$l.sparse")))
 
   def isApproximate(t: Double)(e: Edge) = e.sim.exists(_._1 <= t)
 
@@ -69,7 +73,10 @@ class MatchingResults extends TaaableEvaluation {
 
 }
 
-case class LinkingUI(var res: MatchingResults) extends ScalatraServlet with ScalateSupport {
+
+case class LinkingUI(res: MatchingResults, system: ActorSystem) extends ScalatraServlet with ScalateSupport with FutureSupport {
+
+  protected implicit def executor: ExecutionContext = system.dispatcher
 
   before() {
     contentType = "text/html"
@@ -87,7 +94,7 @@ case class LinkingUI(var res: MatchingResults) extends ScalatraServlet with Scal
       "target" -> res.targetEntities,
       "edges" -> res.edges,
       "exact" -> exact,
-      "approx"-> approx,
+      "approx" -> approx,
       "threshold" -> threshold,
       "nomatches" -> nomatches
     )
@@ -95,7 +102,9 @@ case class LinkingUI(var res: MatchingResults) extends ScalatraServlet with Scal
 
   get("/match") {
     <ul>
-      { for (m <- res.acceptedLinks) yield <li>{f"${m.from} - ${m.to}"}</li> }
+      {for (m <- res.acceptedLinks) yield <li>
+      {f"${m.from} - ${m.to}"}
+    </li>}
     </ul>
   }
 
@@ -118,19 +127,28 @@ case class LinkingUI(var res: MatchingResults) extends ScalatraServlet with Scal
         redirect(u)
       }
 
-      jade("match.jade",
-        "measures" -> res.measures,
-        "sourceEntities" -> res.sourceEntities,
-        "targetEntities" -> res.targetEntities,
-        "skipExact" -> skipExact,
-        "threshold" -> threshold,
-        "sourceId" -> sourceId,
-        "source" -> source,
-        "exact" -> exact,
-        "accepted" -> accepted,
-        "approx" -> approx,
-        "nomatches" -> nomatches,
-        "res" -> res)
+      val token = source.uri.replaceAll("http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3A", "")
+
+      for {
+        xml <- DBpedia.resource(token)
+      } yield {
+        println(xml)
+
+        jade("match.jade",
+          "measures" -> res.measures,
+          "sourceEntities" -> res.sourceEntities,
+          "targetEntities" -> res.targetEntities,
+          "skipExact" -> skipExact,
+          "threshold" -> threshold,
+          "sourceId" -> sourceId,
+          "source" -> source,
+          "exact" -> exact,
+          "accepted" -> accepted,
+          "approx" -> approx,
+          "nomatches" -> nomatches,
+          "res" -> res,
+          "dbpediaSize" -> xml.size)
+      }
     }) getOrElse halt(500)
   }
 
@@ -140,7 +158,9 @@ case class LinkingUI(var res: MatchingResults) extends ScalatraServlet with Scal
       targetId <- params.getAs[Int]("targetId")
       source <- res.sourceEntities.lift(sourceId)
       target <- res.targetEntities.lift(targetId)
-      m <- res.edges.filter { e => e.from == sourceId && e.to == targetId } headOption
+      m <- res.edges.filter {
+        e => e.from == sourceId && e.to == targetId
+      } headOption
     } yield {
       println(f"Accepted: $m")
       res.acceptedLinks += m

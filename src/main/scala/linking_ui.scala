@@ -67,8 +67,9 @@ class MatchingResults extends TaaableEvaluation {
 
   def normalize(s: String): Option[String] = {
     val s1 = s.toLowerCase
-    val s2 = s1.replaceAll( """['\(\)\?]""", "")
-    if (!s2.isEmpty) Some(s2) else None
+    val s2 = s1.replaceAll( """['\(\)\?\.\s_\-]""", "")
+    val s3 = s2.trim
+    if (!s3.isEmpty) Some(s3) else None
   }
 
   val distCache = collection.mutable.Map[Int, List[Edge]]()
@@ -78,7 +79,9 @@ class MatchingResults extends TaaableEvaluation {
       val v1 = e1.values.flatten flatMap (s => normalize(s))
       val v2 = e2.values.flatten flatMap (s => normalize(s))
       val m = measure(v1, v2)
-
+      if (m == 0.0) {
+        val a  = 42
+      }
       if (m < t) {
         Some(m)
       } else {
@@ -90,7 +93,7 @@ class MatchingResults extends TaaableEvaluation {
       val e1 = sourceEntities(i)
 
       val d_i = for {
-        (e2, j) <- targetEntities.zipWithIndex
+        (e2, j) <- targetEntities.par.zipWithIndex
       } yield {
 
         val d_ij = for {
@@ -101,7 +104,7 @@ class MatchingResults extends TaaableEvaluation {
         if (d_ij.size > 0) Some(Edge(i, j, d_ij)) else None
       }
 
-      val r = d_i.flatten
+      val r = d_i.flatten.toList
       println(f"found ${r.size} matches for source entity $i")
       distCache(i) = r
     }
@@ -167,7 +170,7 @@ case class LinkingUI(res: MatchingResults, system: ActorSystem) extends Scalatra
       threshold <- params.getAs[Double]("threshold").orElse(Some(0.0))
       skipExact <- params.getAs[Boolean]("skipExact").orElse(Some(false))
     } yield {
-      val matches = res.distances(sourceId, 0.8)
+      val matches = res.distances(sourceId)
         .filter(_.sim.exists(_._1 <= threshold))
         .sortBy(_.sim.sortBy(_._1).head)
       val (exact, temp) = matches.partition(res.isExact)

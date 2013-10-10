@@ -91,11 +91,14 @@ object TaaableMatcher extends App with TaaableEvaluation {
 //  println(mat)
 //  val mats = measures.toMap.keys map (l => (l, readMatrix(l)))
 
-  val edges = readMergedEdgeLists(measures map { case (l, d) => new java.io.File(f"$base/sim-$l.sparse") })
+//  val edges = readMergedEdgeLists(measures map { case (l, d) => new java.io.File(f"$base/sim-$l.sparse") })
+//
+//  println(edges filter (_.from == 1000))
+//
+//  val a = 1
 
-  println(edges filter (_.from == 1000))
-
-  val a = 1
+  val d = SubStringDistance().evaluate("pasta filata", "-")
+  println(d)
 
 
 //  val ss = sourceEntities filter { e => e.values.flatten.contains("Jack daniels") }

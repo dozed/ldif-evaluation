@@ -76,6 +76,8 @@ class MatchingResults extends TaaableEvaluation {
 
 case class LinkingUI(res: MatchingResults, system: ActorSystem) extends ScalatraServlet with ScalateSupport with FutureSupport {
 
+  override protected val defaultLayoutPath = Some("layout.jade")
+
   protected implicit def executor: ExecutionContext = system.dispatcher
 
   before() {

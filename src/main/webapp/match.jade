@@ -103,11 +103,10 @@ ul
     ul
       - for (m <- accepted)
         li
-        | #{targetEntities(m.to)}
-        a(href="#" onclick={"removeMatch(" + m.from + ", " + m.to + ")"}) remove
-        ul
-          - for ((d, i) <- m.sim)
-            li #{measures(i)}: #{d}
+          - val sims = for ((d, i) <- m.sim.sortBy(_._1)) yield f"${measures(i)._1}: ${"%1.2f" format d}"
+          | #{targetEntities(m.to).values.flatten.mkString(", ")} (#{sims.mkString(", ")})
+          a(href="#" onclick={"removeMatch(" + m.from + ", " + m.to + ")"}) remove
+
   li
     | Approx: #{approx.size}
     ul

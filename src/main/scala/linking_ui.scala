@@ -1,9 +1,15 @@
 import akka.actor.ActorSystem
+import de.fuberlin.wiwiss.silk.entity.Entity
+import de.fuberlin.wiwiss.silk.linkagerule.similarity.DistanceMeasure
+import de.fuberlin.wiwiss.silk.plugins.distance.characterbased._
+import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.JaroDistanceMetric
+import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.JaroWinklerDistance
+import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.QGramsMetric
+import de.fuberlin.wiwiss.silk.plugins.distance.equality.RelaxedEqualityMetric
 import javax.servlet.ServletContext
 import org.eclipse.jetty.server.nio.SelectChannelConnector
 import org.eclipse.jetty.server.Server
 import org.eclipse.jetty.webapp.WebAppContext
-import org.scalatra.akka.AkkaSupport
 import org.scalatra.scalate.ScalateSupport
 import org.scalatra.{FutureSupport, ScalatraServlet, LifeCycle}
 import org.scalatra.servlet.ScalatraListener
@@ -51,17 +57,61 @@ class MatchingResults extends TaaableEvaluation {
   val targetEntities = entities(sources._2, entityDescs._2).toList
 
   val measures = List(
-    "substring",
-    "qgrams2",
-    "jaro",
-    "jaroWinkler",
-    "levenshtein",
-    "relaxedEquality"
+    "substring" -> SubStringDistance(),
+    "qgrams2" -> QGramsMetric(q = 2),
+    "jaro" -> JaroDistanceMetric(),
+    "jaroWinkler" -> JaroWinklerDistance(),
+    "levenshtein" -> LevenshteinMetric(),
+    "relaxedEquality" -> new RelaxedEqualityMetric()
   )
 
-  val (m, n) = (sourceEntities.size, targetEntities.size)
+  def normalize(s: String): Option[String] = {
+    val s1 = s.toLowerCase
+    val s2 = s1.replaceAll( """['\(\)\?]""", "")
+    if (!s2.isEmpty) Some(s2) else None
+  }
 
-  val edges = readMergedEdgeLists(measures map (l => new java.io.File(f"$base/sim-$l.sparse")))
+  val distCache = collection.mutable.Map[Int, List[Edge]]()
+
+  def distances(i: Int, t: Double = 0.5) = {
+    def distance(e1: Entity, e2: Entity, measure: DistanceMeasure) = {
+      val v1 = e1.values.flatten flatMap (s => normalize(s))
+      val v2 = e2.values.flatten flatMap (s => normalize(s))
+      val m = measure(v1, v2)
+
+      if (m < t) {
+        Some(m)
+      } else {
+        None
+      }
+    }
+
+    if (!distCache.contains(i)) {
+      val e1 = sourceEntities(i)
+
+      val d_i = for {
+        (e2, j) <- targetEntities.zipWithIndex
+      } yield {
+
+        val d_ij = for {
+          ((label, measure), mi) <- measures.zipWithIndex
+          dist <- distance(e1, e2, measure)
+        } yield (dist, mi)
+
+        if (d_ij.size > 0) Some(Edge(i, j, d_ij)) else None
+      }
+
+      val r = d_i.flatten
+      println(f"found ${r.size} matches for source entity $i")
+      distCache(i) = r
+    }
+
+    distCache(i)
+  }
+
+  lazy val edges = readMergedEdgeLists(measures map (l => new java.io.File(f"$base/sim-$l.sparse")))
+
+  val (m, n) = (sourceEntities.size, targetEntities.size)
 
   def isApproximate(t: Double)(e: Edge) = e.sim.exists(_._1 <= t)
 
@@ -117,7 +167,7 @@ case class LinkingUI(res: MatchingResults, system: ActorSystem) extends Scalatra
       threshold <- params.getAs[Double]("threshold").orElse(Some(0.0))
       skipExact <- params.getAs[Boolean]("skipExact").orElse(Some(false))
     } yield {
-      val matches = res.edges.filter(_.from == sourceId)
+      val matches = res.distances(sourceId, 0.8)
         .filter(_.sim.exists(_._1 <= threshold))
         .sortBy(_.sim.sortBy(_._1).head)
       val (exact, temp) = matches.partition(res.isExact)
@@ -151,7 +201,7 @@ case class LinkingUI(res: MatchingResults, system: ActorSystem) extends Scalatra
       targetId <- params.getAs[Int]("targetId")
       source <- res.sourceEntities.lift(sourceId)
       target <- res.targetEntities.lift(targetId)
-      m <- res.edges.filter {
+      m <- res.distances(sourceId).filter {
         e => e.from == sourceId && e.to == targetId
       } headOption
     } yield {

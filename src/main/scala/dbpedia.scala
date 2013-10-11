@@ -51,7 +51,7 @@ case class SparqlEndpoint(uri: String) {
         if (lines.size == 0 || (lines.size == 1 && lines(0).equals("# Empty NT"))) {
           Stream.empty
         } else {
-          lines.toStream #::: dump(query, pageSize, offset + pageSize)
+          lines.toStream #::: dump(query, pageSize, offset + pageSize, 0)
         }
     }
   }

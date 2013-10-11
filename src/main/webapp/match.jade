@@ -46,7 +46,7 @@ a(href={"/match/" + (sourceId + 1)}) next
         type: "POST",
         url: "/match/" + from + "/" + to,
         success: function() {
-            location.reload();
+            navigateTo(#{(sourceId + 1).toString});
         }
       });
   }

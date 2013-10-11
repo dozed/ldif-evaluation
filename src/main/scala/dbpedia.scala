@@ -77,6 +77,8 @@ object SparqlImporter extends App {
                 |  	SELECT DISTINCT(?x) WHERE { ?x skos:broader* category:Foods . }
                 |  } UNION {
                 |  	SELECT DISTINCT(?x) WHERE { ?x skos:broader* category:Beverages . }
+                |  } UNION {
+                |   SELECT DISTINCT(?x) WHERE { ?x skos:broader* category:Organisms . }
                 |  }
                 |}
                 |""".stripMargin
@@ -88,10 +90,25 @@ object SparqlImporter extends App {
                             |}
                             |""".stripMargin
 
+  val query3 = """CONSTRUCT {
+                 |  ?x rdfs:label ?label ;
+                 |    skos:broader ?broader .
+                 |} WHERE {
+                 |  ?x rdfs:label ?label ;
+                 |    skos:broader ?broader .
+                 |  {
+                 |    SELECT DISTINCT(?x) WHERE { ?x skos:broader* category:Foods . }
+                 |  } UNION {
+                 |    SELECT DISTINCT(?x) WHERE { ?x skos:broader* category:Beverages . }
+                 |#  } UNION {
+                 |#    SELECT DISTINCT(?x) WHERE { ?x skos:broader* category:Organisms . }
+                 |  }
+                 |}""".stripMargin
+
   val endpoint = SparqlEndpoint("http://dbpedia.org/sparql")
 
-  val pw = new java.io.PrintWriter("foods-labels-2.ttl")
-  endpoint.dump(query) foreach { line =>
+  val pw = new java.io.PrintWriter("foods-categories-2.ttl")
+  endpoint.dump(query3) foreach { line =>
     pw.println(line)
   }
   pw.close

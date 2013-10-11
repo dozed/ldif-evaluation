@@ -180,11 +180,13 @@ case class LinkingUI(res: MatchingResults, system: ActorSystem) extends Scalatra
   }
 
   get("/match") {
-    <ul>
-      {for (m <- res.acceptedLinks) yield <li>
-      {f"${m.from} - ${m.to}"}
-    </li>}
-    </ul>
+    <ul>{
+      for {
+        m <- res.acceptedLinks
+        s <- res.sourceEntities.lift(m.from)
+        t <- res.sourceEntities.lift(m.to)
+      } yield <li>{f"${s.uri} - ${s.uri}"}</li>
+    }</ul>
   }
 
   get("/match/:sourceId") {
@@ -197,8 +199,8 @@ case class LinkingUI(res: MatchingResults, system: ActorSystem) extends Scalatra
       val matches = res.distances(sourceId)
         .filter(_.sim.exists(_._1 <= threshold))
         .sortBy(_.sim.sortBy(_._1).head)
-      val (exact, temp) = matches.partition(res.isExact)
-      val (accepted, temp2) = temp.partition(res.isAccepted)
+      val (accepted, temp) = matches.partition(res.isAccepted)
+      val (exact, temp2) = temp.partition(res.isExact)
       val (approx, nomatches) = temp2.partition(res.isApproximate(threshold))
 
       if (skipExact && exact.size > 0) {

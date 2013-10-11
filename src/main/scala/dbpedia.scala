@@ -31,11 +31,14 @@ case class SparqlEndpoint(uri: String) {
 
   val svc = url(uri)
 
-  def dump(query: String, pageSize: Int = 5000, offset: Long = 0, retryCount: Int = 0, retryMax: Int = 10): Stream[String] = {
+  def dump(query: String, pageSize: Int = 10000, offset: Long = 0, retryCount: Int = 0, retryMax: Int = 10): Stream[String] = {
     var q = query
     q += " OFFSET " + offset
     q += " LIMIT " + pageSize
     val qp = Map("query" -> q, "format" -> "text/turtle")
+
+    Thread.sleep(2000)
+    println(q)
 
     def retry(t: Throwable) = {
       if (retryCount < retryMax) {
@@ -71,9 +74,9 @@ object SparqlImporter extends App {
                 |  ?b dcterms:subject ?x .
                 |  { ?b foaf:name ?label . } UNION { ?b rdfs:label ?label . } UNION { ?b dbpprop:name ?label . }
                 |  {
-                |    SELECT ?x WHERE { ?x skos:broader* category:Foods . }
+                |  	SELECT DISTINCT(?x) WHERE { ?x skos:broader* category:Foods . }
                 |  } UNION {
-                |    SELECT ?x WHERE { ?x skos:broader* category:Beverages . }
+                |  	SELECT DISTINCT(?x) WHERE { ?x skos:broader* category:Beverages . }
                 |  }
                 |}
                 |""".stripMargin
@@ -87,12 +90,9 @@ object SparqlImporter extends App {
 
   val endpoint = SparqlEndpoint("http://dbpedia.org/sparql")
 
-  val pw = new java.io.PrintWriter("foods-labels.ttl")
-
+  val pw = new java.io.PrintWriter("foods-labels-2.ttl")
   endpoint.dump(query) foreach { line =>
-    println(line)
     pw.println(line)
-    Thread.sleep(2000)
   }
   pw.close
 

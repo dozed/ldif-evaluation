@@ -48,7 +48,7 @@ case class SparqlEndpoint(uri: String) {
           throw error
         }
       case Right(lines) =>
-        if (lines.size == 0 || (lines.size == 1 && lines(0).equals("# Empty NT"))) {
+        if (lines.size == 0 || (lines.size == 1 && lines(0).startsWith("# Empty"))) {
           Stream.empty
         } else {
           lines.toStream #::: dump(query, pageSize, offset + pageSize, 0)
@@ -61,14 +61,10 @@ case class SparqlEndpoint(uri: String) {
 object SparqlImporter extends App {
 
   val query = """CONSTRUCT {
-                |  ?b rdfs:label ?label .
+                |  ?b rdfs:label ?label
                 |} WHERE {
                 |  ?b dcterms:subject ?x .
-                |  OPTIONAL {
-                |    ?b foaf:name ?label .
-                |    ?b rdfs:label ?label .
-                |    ?b dbpprop:name ?label .
-                |  }
+                |  { ?b foaf:name ?label . } UNION { ?b rdfs:label ?label . } UNION { ?b dbpprop:name ?label . }
                 |  {
                 |    SELECT ?x WHERE { ?x skos:broader* category:Foods . }
                 |  } UNION {
@@ -77,10 +73,10 @@ object SparqlImporter extends App {
                 |}
                 |""".stripMargin
 
-  val pw = new java.io.PrintWriter("foods.nt")
+  val pw = new java.io.PrintWriter("foods2.ttl")
   val endpoint = SparqlEndpoint("http://dbpedia.org/sparql")
   var k = 0
-  endpoint.dump(query, offset = 65000) foreach { line =>
+  endpoint.dump(query) foreach { line =>
     println(line)
     pw.println(line)
   }

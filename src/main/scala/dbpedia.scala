@@ -45,8 +45,6 @@ case class SparqlEndpoint(uri: String) {
       }
     }
 
-    println(q)
-
     val f = Http(svc <<? qp OK as.String) map (_.split("\n").toList) either
 
     allCatch either {
@@ -80,12 +78,21 @@ object SparqlImporter extends App {
                 |}
                 |""".stripMargin
 
-  val pw = new java.io.PrintWriter("foods2.ttl")
+  def query2(r: String) = f"""CONSTRUCT {
+                            |  <$r> rdfs:label ?label
+                            |} WHERE {
+                            |  { <$r> foaf:name ?label . } UNION { <$r> rdfs:label ?label . } UNION { <$r> dbpprop:name ?label . }
+                            |}
+                            |""".stripMargin
+
   val endpoint = SparqlEndpoint("http://dbpedia.org/sparql")
-  var k = 0
+
+  val pw = new java.io.PrintWriter("foods-labels.ttl")
+
   endpoint.dump(query) foreach { line =>
     println(line)
     pw.println(line)
+    Thread.sleep(2000)
   }
   pw.close
 

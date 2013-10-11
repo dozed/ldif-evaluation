@@ -196,11 +196,13 @@ case class LinkingUI(res: MatchingResults, system: ActorSystem) extends Scalatra
       threshold <- params.getAs[Double]("threshold").orElse(Some(0.0))
       skipExact <- params.getAs[Boolean]("skipExact").orElse(Some(false))
     } yield {
-      val matches = res.distances(sourceId)
-        .filter(_.sim.exists(_._1 <= threshold))
+      val matchesRaw = res.distances(sourceId)
+      val accepted = matchesRaw.filter(res.isAccepted)
+
+      val (exact, temp2) = matchesRaw.filter(_.sim.exists(_._1 <= threshold))
+        .filter(e => !res.isAccepted(e))
         .sortBy(_.sim.sortBy(_._1).head)
-      val (accepted, temp) = matches.partition(res.isAccepted)
-      val (exact, temp2) = temp.partition(res.isExact)
+        .partition(res.isExact)
       val (approx, nomatches) = temp2.partition(res.isApproximate(threshold))
 
       if (skipExact && exact.size > 0) {

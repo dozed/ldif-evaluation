@@ -184,8 +184,8 @@ case class LinkingUI(res: MatchingResults, system: ActorSystem) extends Scalatra
       for {
         m <- res.acceptedLinks
         s <- res.sourceEntities.lift(m.from)
-        t <- res.sourceEntities.lift(m.to)
-      } yield <li>{f"${s.uri} - ${s.uri}"}</li>
+        t <- res.targetEntities.lift(m.to)
+      } yield <li>{f"${s.uri} - ${t.uri}"}</li>
     }</ul>
   }
 

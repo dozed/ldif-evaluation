@@ -1,7 +1,8 @@
 import dispatch._, Defaults._
-import scala.concurrent.Await
 import scala.xml.Elem
+import scala.concurrent.Await
 import scala.concurrent.duration._
+import scala.util.control.Exception._
 
 object DBpedia {
 
@@ -30,24 +31,30 @@ case class SparqlEndpoint(uri: String) {
 
   val svc = url(uri)
 
-  def dump(query: String, pageSize: Int = 5000, offset: Long = 0, retry: Int = 0, retryMax: Int = 10): Stream[String] = {
+  def dump(query: String, pageSize: Int = 5000, offset: Long = 0, retryCount: Int = 0, retryMax: Int = 10): Stream[String] = {
     var q = query
     q += " OFFSET " + offset
     q += " LIMIT " + pageSize
     val qp = Map("query" -> q, "format" -> "text/turtle")
 
+    def retry(t: Throwable) = {
+      if (retryCount < retryMax) {
+        dump(query, pageSize, offset, retryCount + 1)
+      } else {
+        throw t
+      }
+    }
+
     println(q)
 
     val f = Http(svc <<? qp OK as.String) map (_.split("\n").toList) either
 
-    Await.result(f, 2 minutes) match {
-      case Left(error) =>
-        if (retry < retryMax) {
-          dump(query, pageSize, offset, retry + 1)
-        } else {
-          throw error
-        }
-      case Right(lines) =>
+    allCatch either {
+      Await.result(f, 2 minutes)
+    } match {
+      case Left(t) => retry(t)
+      case Right(Left(t)) => retry(t)
+      case Right(Right(lines)) =>
         if (lines.size == 0 || (lines.size == 1 && lines(0).startsWith("# Empty"))) {
           Stream.empty
         } else {

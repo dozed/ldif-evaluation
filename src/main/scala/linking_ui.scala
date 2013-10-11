@@ -1,12 +1,18 @@
 import akka.actor.ActorSystem
-import de.fuberlin.wiwiss.silk.entity.Entity
-import de.fuberlin.wiwiss.silk.linkagerule.similarity.DistanceMeasure
+import de.fuberlin.wiwiss.silk.config.{LinkSpecification, Dataset}
+import de.fuberlin.wiwiss.silk.datasource.Source
+import de.fuberlin.wiwiss.silk.entity.{Link, Path, SparqlRestriction, Entity}
+import de.fuberlin.wiwiss.silk.linkagerule.input.PathInput
+import de.fuberlin.wiwiss.silk.linkagerule.LinkageRule
+import de.fuberlin.wiwiss.silk.linkagerule.similarity.{Comparison, DistanceMeasure}
+import de.fuberlin.wiwiss.silk.output.{LinkWriter, Output}
 import de.fuberlin.wiwiss.silk.plugins.distance.characterbased._
 import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.JaroDistanceMetric
 import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.JaroWinklerDistance
 import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.QGramsMetric
 import de.fuberlin.wiwiss.silk.plugins.distance.equality.RelaxedEqualityMetric
 import javax.servlet.ServletContext
+import org.apache.jena.riot.Lang
 import org.eclipse.jetty.server.nio.SelectChannelConnector
 import org.eclipse.jetty.server.Server
 import org.eclipse.jetty.webapp.WebAppContext
@@ -50,7 +56,28 @@ class Bootstrap extends LifeCycle {
   }
 }
 
-class MatchingResults extends TaaableEvaluation {
+class MatchingResults extends Evaluations {
+
+  val base = "D:/Workspaces/Dev/ldif-evaluation/ldif-taaable"
+
+  val sources = (Source("taaable", NewFileDataSource(f"file:///$base/taaable-food.rdf", Some(Lang.RDFXML), true)),
+    Source("dbpedia", NewFileDataSource(f"file:///$base/dbpedia-foods.ttl", Some(Lang.TURTLE))))
+
+  val query1 = "?a rdfs:subClassOf taaable:Category-3AFood ."
+
+  val datasets = (Dataset("taaable", "a", SparqlRestriction.fromSparql("a", query1)),
+    Dataset("dbpedia", "b", SparqlRestriction.empty))
+
+  val inputs = (PathInput(path = Path.parse("?a/rdfs:label")) :: PathInput(path = Path.parse("?b/rdfs:label")) :: Nil) map lc
+
+  val linkSpec = LinkSpecification(
+    linkType = "http://www.w3.org/2002/07/owl#sameAs",
+    datasets = datasets,
+    rule = LinkageRule(Comparison(
+      threshold = 0.2,
+      metric = QGramsMetric(2),
+      inputs = inputs
+    )))
 
   val entityDescs = linkSpec.entityDescriptions
   val sourceEntities = entities(sources._1, entityDescs._1).toList
@@ -79,9 +106,6 @@ class MatchingResults extends TaaableEvaluation {
       val v1 = e1.values.flatten flatMap (s => normalize(s))
       val v2 = e2.values.flatten flatMap (s => normalize(s))
       val m = measure(v1, v2)
-      if (m == 0.0) {
-        val a  = 42
-      }
       if (m < t) {
         Some(m)
       } else {

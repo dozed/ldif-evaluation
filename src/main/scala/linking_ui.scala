@@ -61,7 +61,7 @@ class MatchingResults extends Evaluations {
   val base = "D:/Workspaces/Dev/ldif-evaluation/ldif-taaable"
 
   val sources = (Source("taaable", NewFileDataSource(f"file:///$base/taaable-food.rdf", Some(Lang.RDFXML), true)),
-    Source("dbpedia", NewFileDataSource(f"file:///$base/dbpedia-foods.ttl", Some(Lang.TURTLE))))
+    Source("dbpedia", NewFileDataSource(f"file:///$base/dbpedia-foods-labels.ttl", Some(Lang.TURTLE))))
 
   val query1 = "?a rdfs:subClassOf taaable:Category-3AFood ."
 

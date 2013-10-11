@@ -74,11 +74,11 @@ object SparqlImporter extends App {
                 |  ?b dcterms:subject ?x .
                 |  { ?b foaf:name ?label . } UNION { ?b rdfs:label ?label . } UNION { ?b dbpprop:name ?label . }
                 |  {
-                |  	SELECT DISTINCT(?x) WHERE { ?x skos:broader* category:Foods . }
-                |  } UNION {
-                |  	SELECT DISTINCT(?x) WHERE { ?x skos:broader* category:Beverages . }
-                |  } UNION {
-                |   SELECT DISTINCT(?x) WHERE { ?x skos:broader* category:Organisms . }
+                |#  	SELECT DISTINCT(?x) WHERE { ?x skos:broader* category:Foods . }
+                |#  } UNION {
+                |#  	SELECT DISTINCT(?x) WHERE { ?x skos:broader* category:Beverages . }
+                |#  } UNION {
+                |   SELECT DISTINCT(?x) WHERE { ?x skos:broader* category:Eukaryotes . }
                 |  }
                 |}
                 |""".stripMargin
@@ -105,10 +105,18 @@ object SparqlImporter extends App {
                  |  }
                  |}""".stripMargin
 
+  // relevant categories in hierarchy:
+  //  category:Foods
+  //  category:Beverages -> category:Liquids
+  //  category:Food_and_drink
+  //  category:Animals
+  //  category:Fungi
+  //  category:Plants
+
   val endpoint = SparqlEndpoint("http://dbpedia.org/sparql")
 
-  val pw = new java.io.PrintWriter("foods-categories-2.ttl")
-  endpoint.dump(query3) foreach { line =>
+  val pw = new java.io.PrintWriter("dbpedia-organisms.ttl")
+  endpoint.dump(query) foreach { line =>
     pw.println(line)
   }
   pw.close

@@ -98,6 +98,8 @@ ul
           | #{targetEntities(m.to).values.flatten.mkString(", ")} (#{sims.mkString(", ")})
           a(href="#" onclick={"acceptMatch(" + m.from + ", " + m.to + ")"}) accept
 
+          a(href={targetEntities(m.to).uri}) #{targetEntities(m.to).uri}
+
   li
     | Accepted: #{accepted.size}
     ul
@@ -107,6 +109,8 @@ ul
           | #{targetEntities(m.to).values.flatten.mkString(", ")} (#{sims.mkString(", ")})
           a(href="#" onclick={"removeMatch(" + m.from + ", " + m.to + ")"}) remove
 
+          a(href={targetEntities(m.to).uri}) #{targetEntities(m.to).uri}
+
   li
     | Approx: #{approx.size}
     ul
@@ -115,5 +119,7 @@ ul
           - val sims = for ((d, i) <- m.sim.sortBy(_._1)) yield f"${measures(i)._1}: ${"%1.2f" format d}"
           | #{targetEntities(m.to).values.flatten.mkString(", ")} (#{sims.mkString(", ")})
           a(href="#" onclick={"acceptMatch(" + m.from + ", " + m.to + ")"}) accept
+
+          a(href={targetEntities(m.to).uri}) #{targetEntities(m.to).uri}
 
 

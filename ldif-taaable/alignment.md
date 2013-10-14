@@ -5,6 +5,11 @@ http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AGreen_grape
 http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AEgg_yolk - http://dbpedia.org/resource/Egg_yolk
 http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ATaco_sauce - http://dbpedia.org/resource/Salsa_(sauce)
 http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AParma_ham - http://dbpedia.org/resource/Prosciutto
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AGreen_onion - http://dbpedia.org/resource/Scallion
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AAbricotine - http://fr.dbpedia.org/resource/Abricotine
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ACannellini_bean - http://dbpedia.org/resource/Navy_bean
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3A7spice - http://dbpedia.org/resource/Shichimi
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AWhite_mushroom - http://dbpedia.org/resource/Agaricus_bisporus
 
 http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AStrozzapreti - http://dbpedia.org/resource/Strozzapreti
 http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ARabbit - http://dbpedia.org/resource/Rabbit

@@ -189,6 +189,10 @@ case class LinkingUI(res: MatchingResults, system: ActorSystem) extends Scalatra
     }</ul>
   }
 
+  delete("/match") {
+    res.acceptedLinks.clear
+  }
+
   get("/match/:sourceId") {
     (for {
       sourceId <- params.getAs[Int]("sourceId")

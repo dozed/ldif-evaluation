@@ -1,0 +1,125 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/> 
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX purl: <http://purl.org/dc/elements/1.1/>
+PREFIX dbpedia:  <http://dbpedia.org/resource/>
+PREFIX openei:  <http://en.openei.org/lod/resource/wiki/>
+PREFIX gn:  <http://www.geonames.org/ontology#>
+PREFIX lgd: <http://linkedgeodata.org/>
+PREFIX lgdo: <http://linkedgeodata.org/ontology/>
+PREFIX faogeo: <http://aims.fao.org/aos/geopolitical.owl#>
+PREFIX reegle: <http://reegle.info/schema#>
+PREFIX glossary: <http://reegle.info/glossary/>
+PREFIX country: <http://reegle.info/countries/>
+PREFIX wgs84pos: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+PREFIX geospecies: <http://rdf.geospecies.org/ont/geospecies#>
+PREFIX category: <http://dbpedia.org/resource/Category:>
+
+
+SELECT * WHERE {
+	?p dbpedia-owl:abstract ?abstract .
+	?p dcterms:subject ?cat .
+	?cat skos:broader* category:Foods .
+	FILTER (lang(?abstract) = "en") .
+	FILTER (bif:contains(?abstract , "'pasta sauce'")) .
+}
+
+# 29220
+
+select count(distinct(?b)) {
+	?b dcterms:subject ?x . ?x skos:broader* category:Food_and_drink .	
+}
+
+
+select ?b, ?label, ?name, ?dbpname {
+	?b dcterms:subject ?x . ?x <http://www.w3.org/2004/02/skos/core#broader>* <http://dbpedia.org/resource/Category:Foods> .	
+	OPTIONAL {
+		?b foaf:name ?name .
+		?b rdfs:label ?label .
+		?b dbpprop:name ?dbpname .
+	}
+}
+
+
+
+CONSTRUCT {
+	?b rdfs:label ?label ;
+		foaf:name ?name ;
+		dbpprop:name ?dbpname .
+} WHERE {
+	?b dcterms:subject ?x . ?x <http://www.w3.org/2004/02/skos/core#broader>* <http://dbpedia.org/resource/Category:Foods> .	
+	OPTIONAL {
+		?b foaf:name ?name .
+		?b rdfs:label ?label .
+		?b dbpprop:name ?dbpname .
+	}
+}
+
+CONSTRUCT {
+  ?b rdfs:label ?label
+} WHERE {
+  ?b dcterms:subject ?x .
+  { ?b foaf:name ?label . } UNION { ?b rdfs:label ?label . } UNION { ?b dbpprop:name ?label . }
+  {
+    SELECT ?x WHERE { ?x skos:broader* category:Foods . }
+  } UNION {
+    SELECT ?x WHERE { ?x skos:broader* category:Beverages . }
+  }
+}
+
+
+CONSTRUCT {
+  ?b rdfs:label ?label
+} WHERE {
+  ?b dcterms:subject ?x .
+  { ?b foaf:name ?label . } UNION { ?b rdfs:label ?label . } UNION { ?b dbpprop:name ?label . }
+  {
+  	SELECT DISTINCT(?x) WHERE { ?x skos:broader* category:Foods . }
+  } UNION {
+  	SELECT DISTINCT(?x) WHERE { ?x skos:broader* category:Beverages . }
+  }
+} LIMIT 100 OFFSET 0
+
+
+
+
+CONSTRUCT {
+  dbpedia:Lima_bean rdfs:label ?label .
+} WHERE {
+  dbpedia:Lima_bean dcterms:subject ?x .
+  { dbpedia:Lima_bean foaf:name ?label . }
+  UNION { dbpedia:Lima_bean rdfs:label ?label . }
+  UNION { dbpedia:Lima_bean dbpprop:name ?label . }
+}
+ OFFSET 0 LIMIT 5000
+
+
+SELECT distinct(?label) {
+  { <http://dbpedia.org/resource/2012_Championship_League_Darts> foaf:name ?label . } UNION { <http://dbpedia.org/resource/2012_Championship_League_Darts> rdfs:label ?label . } UNION { <http://dbpedia.org/resource/2012_Championship_League_Darts> dbpprop:name ?label . }
+}
+
+
+{ ?b foaf:name ?label . } UNION { ?b rdfs:label ?label . } UNION { ?b dbpprop:name ?label . }
+
+
+
+
+CONSTRUCT {
+  ?x rdfs:label ?label ;
+    skos:broader ?broader .
+} WHERE {
+  ?x rdfs:label ?label ;
+    skos:broader ?broader .
+  {
+    SELECT DISTINCT(?x) WHERE { ?x skos:broader* category:Foods . }
+  } UNION {
+    SELECT DISTINCT(?x) WHERE { ?x skos:broader* category:Beverages . }
+#  } UNION {
+#    SELECT DISTINCT(?x) WHERE { ?x skos:broader* category:Organisms . }
+  }
+}
+
+OFFSET 0 limit 100

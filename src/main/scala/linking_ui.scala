@@ -268,5 +268,11 @@ case class LinkingUI(res: MatchingResults, system: ActorSystem) extends Scalatra
     }) getOrElse halt(500)
   }
 
+  get("/wikipedia/query") {
+    (for {
+      q <- params.get("query")
+    } yield Wikipedia.search(q)) getOrElse halt(500)
+  }
+
 }
 

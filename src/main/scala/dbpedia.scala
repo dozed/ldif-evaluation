@@ -19,9 +19,29 @@ object DBpedia {
 
   def extractRedirect(x: Elem) = {
     val redirects = for {
-      el <- x  \ "Description" \ "wikiPageRedirects" \ "@{http://www.w3.org/1999/02/22-rdf-syntax-ns#}resource"
+      el <- x \ "Description" \ "wikiPageRedirects" \ "@{http://www.w3.org/1999/02/22-rdf-syntax-ns#}resource"
     } yield el.text
     redirects headOption
+  }
+
+}
+
+object Wikipedia {
+
+  val apiUrl = url("http://en.wikipedia.org/w/api.php")
+
+  def search(query: String) = {
+    for {
+      xml <- Http(apiUrl <<? Map(
+        "action" -> "query",
+        "list" -> "search",
+        "format" -> "xml",
+        "srsearch" -> query) OK as.xml.Elem )
+    } yield {
+      for {
+        p <- xml \\ "p"
+      } yield p
+    }
   }
 
 }
@@ -81,7 +101,7 @@ object SparqlImporter extends App {
                 |   SELECT DISTINCT(?x) WHERE { ?x skos:broader* category:Eukaryotes . }
                 |  }
                 |}
-                |""".stripMargin
+                | """.stripMargin
 
   def query2(r: String) = f"""CONSTRUCT {
                             |  <$r> rdfs:label ?label
@@ -116,8 +136,9 @@ object SparqlImporter extends App {
   val endpoint = SparqlEndpoint("http://dbpedia.org/sparql")
 
   val pw = new java.io.PrintWriter("dbpedia-organisms.ttl")
-  endpoint.dump(query) foreach { line =>
-    pw.println(line)
+  endpoint.dump(query) foreach {
+    line =>
+      pw.println(line)
   }
   pw.close
 

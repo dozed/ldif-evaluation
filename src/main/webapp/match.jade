@@ -19,65 +19,8 @@ a(href={"/match/" + (sourceId - 1)}) back
 a(href={"/match/" + (sourceId + 1)}) next
 
 :!javascript
-  function urlParam(name){
-    var results = new RegExp('[\\?&]' + name + '=([^&#]*)').exec(window.location.href);
-    if (results==null){
-     return null;
-    } else {
-     return results[1] || 0;
-    }
-  }
-
-  function navigateTo(id) {
-    var url = "/match/" + id;
-
-    var t = urlParam("threshold");
-    var skip = urlParam("skipExact");
-
-    if (t != null || skip != null) url += "?";
-    if (t != null) url += "threshold=" + t;
-    if (skip != null) url += "&skipExact=" + skip;
-
-    location.href = url;
-  }
-
-  function acceptMatch(from, to) {
-      $.ajax({
-        type: "POST",
-        url: "/match/" + from + "/" + to,
-        success: function() {
-            navigateTo(#{(sourceId + 1).toString});
-        }
-      });
-  }
-
-    function removeMatch(from, to) {
-        $.ajax({
-          type: "DELETE",
-          url: "/match/" + from + "/" + to,
-          success: function() {
-              location.reload();
-          }
-        });
-    }
-
-  $(function() {
-    $("body").keydown(function(e) {
-      if(e.keyCode == 37) {
-        navigateTo(#{(sourceId - 1).toString});
-      } else if(e.keyCode == 39) {
-        navigateTo(#{(sourceId + 1).toString});
-      }
-    });
-
-  $.ajax({
-      type: "GET",
-      url: "/dbpedia/redirect/" + #{sourceId},
-      success: function(data) {
-          $("#redirect").html(data);
-      }
-    });
-  });
+  val sourceId = #{sourceId};
+  val sourceLabel = "#{source.values.flatten.mkString(", ")}";
 
 
 h1 Matching #{source.uri}

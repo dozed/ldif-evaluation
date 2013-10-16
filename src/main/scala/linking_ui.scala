@@ -15,6 +15,7 @@ import javax.servlet.ServletContext
 import org.apache.jena.riot.Lang
 import org.eclipse.jetty.server.nio.SelectChannelConnector
 import org.eclipse.jetty.server.Server
+import org.eclipse.jetty.servlet.{ServletHolder, DefaultServlet}
 import org.eclipse.jetty.webapp.WebAppContext
 import org.scalatra.scalate.ScalateSupport
 import org.scalatra.{FutureSupport, ScalatraServlet, LifeCycle}
@@ -36,6 +37,11 @@ object Launcher extends App {
   context.setResourceBase(resourceBase)
   context.setEventListeners(Array(new ScalatraListener))
   context.setInitParameter(ScalatraListener.LifeCycleKey, "Bootstrap")
+
+  val defaultServlet = new DefaultServlet()
+  val holder = new ServletHolder(defaultServlet)
+  holder.setInitParameter("useFileMappedBuffer", "false")
+  context.addServlet(holder, "/")
 
   server.setHandler(context)
 

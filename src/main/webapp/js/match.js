@@ -56,7 +56,10 @@ $(function() {
     type: "GET",
     url: "/dbpedia/redirect/" + sourceId,
     success: function(data) {
-      $("#redirect").html(data);
+      if (data.length > 0) {
+        var el = '<a target="_blank" href="' + data + '">' + data + '</a>';
+        $("#redirect").html(el);
+      }
     }
   });
 

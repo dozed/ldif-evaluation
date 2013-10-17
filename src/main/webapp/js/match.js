@@ -73,5 +73,28 @@ $(function() {
       el = "<ul>" + el + "</ul>";
       $("#wikipedia").html(el);
     }
-  })
+  });
+
+  $.ajax({
+    type: "GET",
+    url: "/dbpedia/keywordSearch?query=" + sourceLabel,
+    success: function(data) {
+
+      var transformResult = function(r) {
+        var classes = _.pluck(r.classes, "label").join(", ");
+        var cats = _.pluck(r.categories, "label").join(", ");
+        return '<li><a href="' + r.uri + '">' + r.label + '</a> classes: ' + classes + ' categories: ' + cats + '</li>';
+      }
+
+      console.log(data);
+      var el = _.chain(data.results)
+        .sortBy("refCount")
+        .reverse()
+        .map(transformResult)
+        .value()
+        .join("");
+      el = "<ul>" + el + "</ul>";
+      $("#dbpedia").html(el);
+    }
+  });
 });

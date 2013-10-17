@@ -278,6 +278,12 @@ case class LinkingUI(res: MatchingResults, system: ActorSystem) extends Scalatra
     }) getOrElse halt(500)
   }
 
+  get("/dbpedia/keywordSearch") {
+    (for {
+      q <- params.get("query")
+    } yield DBpedia.keywordSearch(q)) getOrElse halt(500)
+  }
+
   get("/wikipedia/search") {
     (for {
       q <- params.get("query")

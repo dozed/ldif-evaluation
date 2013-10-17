@@ -8,6 +8,8 @@ import scala.util.control.Exception._
 
 object DBpedia {
 
+  val keywordUrl = url("http://lookup.dbpedia.org/api/search.asmx/KeywordSearch")
+
   def resource(token: String) = {
     val svc = url(f"http://dbpedia.org/data/$token.xml") <:< Map("Accept" -> "application/rdf+xml")
     Http(svc OK as.xml.Elem)
@@ -24,6 +26,13 @@ object DBpedia {
       el <- x \ "Description" \ "wikiPageRedirects" \ "@{http://www.w3.org/1999/02/22-rdf-syntax-ns#}resource"
     } yield el.text
     redirects headOption
+  }
+
+
+  def keywordSearch(query: String) = {
+    Http(keywordUrl <:< Map("Accept" -> "application/json") <<? Map(
+      "QueryClass" -> "",
+      "QueryString" -> query) OK as.json4s.Json)
   }
 
 }
@@ -67,6 +76,7 @@ object Wikipedia {
         "srsearch" -> query) OK as.json4s.Json)
     } yield json
   }
+
 
 }
 

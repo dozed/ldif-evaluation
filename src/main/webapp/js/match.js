@@ -46,7 +46,7 @@ function removeMatch(from, to) {
 $(function() {
   $("body").keydown(function(e) {
     if(e.keyCode == 37) {
-      navigateTo(sourceId - 1;
+      navigateTo(sourceId - 1);
     } else if(e.keyCode == 39) {
       navigateTo(sourceId + 1);
     }

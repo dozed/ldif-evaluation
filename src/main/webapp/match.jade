@@ -19,8 +19,8 @@ a(href={"/match/" + (sourceId - 1)}) back
 a(href={"/match/" + (sourceId + 1)}) next
 
 :!javascript
-  val sourceId = #{sourceId};
-  val sourceLabel = "#{source.values.flatten.mkString(", ")}";
+  var sourceId = #{sourceId};
+  var sourceLabel = "#{source.values.flatten.mkString(", ")}";
 
 
 h1 Matching #{source.uri}

@@ -45,6 +45,9 @@ http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ABrain - htt
 http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ASturgeon - http://dbpedia.org/resource/Sturgeon
 http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AFat - http://dbpedia.org/resource/Fat
 http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ACorn - http://dbpedia.org/resource/Maize
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ABlack_cherry - http://dbpedia.org/resource/Prunus_serotina
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AV-2D8_juice - http://dbpedia.org/resource/V8_(beverage)
+
 
 
 
@@ -565,4 +568,20 @@ http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ACheese - ht
 http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ABlended_whiskey - http://dbpedia.org/resource/Blended_whiskey
 http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AJerusalem_artichoke - http://dbpedia.org/resource/Jerusalem_artichoke
 http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AVanilla_extract - http://dbpedia.org/resource/Vanilla_extract
+
+
+
+
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ASalmon - http://dbpedia.org/resource/Salmon
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ASalmon - http://dbpedia.org/resource/Category:Salmon
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ABaking_powder - http://dbpedia.org/resource/Baking_powder
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ACracker - http://dbpedia.org/resource/Category:Crackers_(food)
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ACiabatta - http://dbpedia.org/resource/Ciabatta
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AIodized_salt - http://dbpedia.org/resource/Iodised_salt
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ABaking_powder - http://dbpedia.org/resource/Category:Baking_powder
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AButter_cake - http://dbpedia.org/resource/Butter_cake
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AFish_stock - http://dbpedia.org/resource/Fish_stock_(food)
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ACracker - http://dbpedia.org/resource/Cracker_(food)
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AMuscovado_sugar - http://dbpedia.org/resource/Muscovado
+
 

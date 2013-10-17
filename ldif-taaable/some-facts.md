@@ -10,6 +10,7 @@ Calvados - Calvados (licor)
 Fish stock
   - Stockfish, 干物, Stoccafisso, Stockfisch, Stokvis (voedsel), Таранка, Sztokfisz, Torrfisk, Pescado seco (substring: 0,00, jaro: 0,15, jaroWinkler: 0,15, qgrams2: 0,46) accept http://dbpedia.org/resource/Stockfish
   - Stock ittico, Fish stock (substring: 0,00, qgrams2: 0,00, jaro: 0,00, jaroWinkler: 0,00, levenshtein: 0,00, relaxedEquality: 0,00) accept http://dbpedia.org/resource/Fish_stock
+  - Fish stock (food) (jaroWinkler: 0,06, jaro: 0,10, substring: 0,11, levenshtein: 0,31, qgrams2: 0,40) remove http://dbpedia.org/resource/Fish_stock_(food)
 
 
 manually linked (not in selection or redirection without no label)

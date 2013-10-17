@@ -86,7 +86,7 @@ $(function() {
       var transformResult = function(r) {
         var classes = _.pluck(r.classes, "label").join(", ");
         var cats = _.pluck(r.categories, "label").join(", ");
-        return '<li><a href="' + r.uri + '">' + r.label + '</a> classes: ' + classes + ' categories: ' + cats + '</li>';
+        return '<li><a target="_blank" href="' + r.uri + '">' + r.label + '</a> classes: ' + classes + ' categories: ' + cats + '</li>';
       }
 
       console.log(data);

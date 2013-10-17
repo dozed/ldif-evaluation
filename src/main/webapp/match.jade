@@ -25,19 +25,21 @@ a(href={"/match/" + (sourceId + 1)}) next
 
 h1 Matching #{source.uri}
 
-p
+.row
   | Values: #{source.values.flatten.mkString(", ")}
   br
   | DBpedia Redirect:
   span(id="redirect")
-  br
-  | DBpedia Keyword Search:
-  span(id="dbpedia")
-  br
-  | Wikipedia:
-  span(id="wikipedia")
 
-h2 Infos
+.row
+  .col-md-6
+    | DBpedia Keyword Search:
+    span(id="dbpedia")
+  .col-md-6
+    | Wikipedia:
+    span(id="wikipedia")
+
+h2 Matches
 
 ul
   li

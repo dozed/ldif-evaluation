@@ -3,6 +3,10 @@ String matching fails:
 
 Bacon vodka - Bacon avocado (jaroWinkler: 0,11, jaro: 0,19, levenshtein: 0,42)
 Ice Wine - Rice Wine (jaro: 0,04, jaroWinkler: 0,04, substring: 0,07, levenshtein: 0,13, qgrams2: 0,30)
+Calvados - Calvados (licor)
+	- Calvados (licor), Calvados (napój alkoholowy), Calvados (bebida), Кальвадос (напиток), Calvados (distillato), Calvados (alcool), Calvados (spritdryck), Calvados (drank), カルヴァドス, Calvados (Getränk), Calvados (brandy) (jaroWinkler: 0,08, jaro: 0,13, substring: 0,14, levenshtein: 0,38, qgrams2: 0,47)
+	- Cava (vino), Cava (wino), Cava (Spanish wine), Cava, カバ (ワイン), Кава (игристое вино), Cava (bebida), 卡瓦, Cava (DO) (jaroWinkler: 0,07, jaro: 0,08, levenshtein: 0,25) accept http://dbpedia.org/resource/Cava_(Spanish_wine)
+
 
 
 manually linked (not in selection or redirection without no label)

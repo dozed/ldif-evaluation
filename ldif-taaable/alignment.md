@@ -34,6 +34,9 @@ http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ASweet_peppe
 http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AWater_chestnut - http://dbpedia.org/resource/Eleocharis_dulcis
 http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ABay_scallop - http://dbpedia.org/resource/Argopecten_irradians
 http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ATuber - http://dbpedia.org/resource/Tuber
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AMullet - http://dbpedia.org/resource/Mullet_(fish)
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ANectarine - http://dbpedia.org/resource/Nectarine
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ARed_salmon - http://dbpedia.org/resource/Sockeye_salmon
 
 
 
@@ -474,26 +477,35 @@ http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3APhyllo - ht
 
 
 
-http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AGamay - http://dbpedia.org/resource/Gamay
-http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ABorage - http://dbpedia.org/resource/Borage
-http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AGraham_cracker - http://dbpedia.org/resource/Graham_cracker
-http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AGlycerin - http://dbpedia.org/resource/Glycerol
-http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ARedfish - http://dbpedia.org/resource/Red_drum
-http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AFood_coloring - http://dbpedia.org/resource/Category:Food_colorings
-http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AChocolate - http://dbpedia.org/resource/Chocolate
-http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ASerrano_pepper - http://dbpedia.org/resource/Serrano_pepper
-http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ABrandy - http://dbpedia.org/resource/Brandy
-http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ASunflower_oil - http://dbpedia.org/resource/Sunflower_oil
-http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AChocolate - http://dbpedia.org/resource/Category:Chocolate
-http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ACocoa - http://dbpedia.org/resource/Cocoa_bean
-http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AMaraschino_cherries - http://dbpedia.org/resource/Maraschino_cherry
-http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ASea_salt - http://dbpedia.org/resource/Sea_salt
-http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AFood_coloring - http://dbpedia.org/resource/Food_coloring
-http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ACrabmeat - http://dbpedia.org/resource/Crab_meat
-http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AVinaigrette - http://dbpedia.org/resource/Vinaigrette
-http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AVacherin - http://dbpedia.org/resource/Vacherin
-http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ASalad_dressing - http://dbpedia.org/resource/Category:Salad_dressings
-http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ASour_cream - http://dbpedia.org/resource/Sour_cream
-http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AMustard_seed - http://dbpedia.org/resource/Mustard_seed
-http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3APickled_onions - http://dbpedia.org/resource/Pickled_onion
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AButternut - http://dbpedia.org/resource/Juglans_cinerea
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AChartreuse - http://dbpedia.org/resource/Chartreuse_(liqueur)
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AIda_red_apple - http://dbpedia.org/resource/Idared
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ACaraway - http://dbpedia.org/resource/Caraway
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AGrain - http://dbpedia.org/resource/Category:Grains
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3APasta - http://dbpedia.org/resource/Pasta
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AApple_cider - http://dbpedia.org/resource/Apple_cider
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3APowdered_sugar - http://dbpedia.org/resource/Powdered_sugar
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ACalvados - http://dbpedia.org/resource/Calvados_(brandy)
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ATaro - http://dbpedia.org/resource/Taro
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ACelery - http://dbpedia.org/resource/Celery
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AGlutinous_rice - http://dbpedia.org/resource/Glutinous_rice
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3APortobello_mushroom - http://dbpedia.org/resource/Portobello_mushroom
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ADried_shrimp - http://dbpedia.org/resource/Dried_shrimp
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AJack_daniels - http://dbpedia.org/resource/Jack_Daniel's
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AMonterey_jack - http://dbpedia.org/resource/Monterey_Jack
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AChampagne - http://dbpedia.org/resource/Champagne
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AChicken_wing - http://dbpedia.org/resource/Buffalo_wing
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3A7-27up - http://dbpedia.org/resource/7_Up
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3APot_roast - http://dbpedia.org/resource/Pot_roast
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AVitamin_e - http://dbpedia.org/resource/Vitamin_E
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AWhite_onion - http://dbpedia.org/resource/White_onion
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AChampagne - http://dbpedia.org/resource/Category:Champagne_(wine)
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ADubonnet - http://dbpedia.org/resource/Dubonnet
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3APale_ale - http://dbpedia.org/resource/Pale_ale
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ACranberry_juice - http://dbpedia.org/resource/Cranberry_juice
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AWheat_flour - http://dbpedia.org/resource/Wheat_flour
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ABay - http://dbpedia.org/resource/Bay_leaf
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3APasta - http://dbpedia.org/resource/Category:Pasta
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ACornichon - http://dbpedia.org/resource/Gherkin
+
 

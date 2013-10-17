@@ -28,7 +28,7 @@ function acceptMatch(from, to) {
     type: "POST",
     url: "/match/" + from + "/" + to,
     success: function() {
-        navigateTo(sourceId + 1);
+      navigateTo(sourceId + 1);
     }
   });
 }
@@ -38,7 +38,7 @@ function removeMatch(from, to) {
     type: "DELETE",
     url: "/match/" + from + "/" + to,
     success: function() {
-        location.reload();
+      location.reload();
     }
   });
 }
@@ -64,7 +64,12 @@ $(function() {
     type: "GET",
     url: "/wikipedia/search?query=" + sourceLabel,
     success: function(data) {
-      console.log(data);
+      var el = _.chain(data.query.search)
+        .map(function(r) { return '<li><a target="_blank" href="http://en.wikipedia.org/wiki/' + r.title + '">' + r.title + '</a></li>'; })
+        .value()
+        .join("");
+      el = "<ul>" + el + "</ul>";
+      $("#wikipedia").html(el);
     }
   })
 });

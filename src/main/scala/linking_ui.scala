@@ -17,6 +17,8 @@ import org.eclipse.jetty.server.nio.SelectChannelConnector
 import org.eclipse.jetty.server.Server
 import org.eclipse.jetty.servlet.{ServletHolder, DefaultServlet}
 import org.eclipse.jetty.webapp.WebAppContext
+import org.json4s.DefaultFormats
+import org.scalatra.json.JacksonJsonSupport
 import org.scalatra.scalate.ScalateSupport
 import org.scalatra.{FutureSupport, ScalatraServlet, LifeCycle}
 import org.scalatra.servlet.ScalatraListener
@@ -157,11 +159,13 @@ class MatchingResults extends Evaluations {
 }
 
 
-case class LinkingUI(res: MatchingResults, system: ActorSystem) extends ScalatraServlet with ScalateSupport with FutureSupport with JValueSupport {
+case class LinkingUI(res: MatchingResults, system: ActorSystem) extends ScalatraServlet with ScalateSupport with FutureSupport with JacksonJsonSupport {
 
   override protected val defaultLayoutPath = Some("layout.jade")
 
   protected implicit def executor: ExecutionContext = system.dispatcher
+
+  implicit val jsonFormats = DefaultFormats
 
   before() {
     contentType = "text/html"

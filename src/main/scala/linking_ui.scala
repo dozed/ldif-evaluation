@@ -274,7 +274,7 @@ case class LinkingUI(res: MatchingResults, system: ActorSystem) extends Scalatra
       val token = source.uri.replaceAll("http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3A", "")
       for {
         redirectUrl <- DBpedia.redirect(token)
-      } yield redirectUrl
+      } yield redirectUrl.getOrElse("")
     }) getOrElse halt(500)
   }
 

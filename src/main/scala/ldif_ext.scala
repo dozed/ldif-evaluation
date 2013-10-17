@@ -3,11 +3,11 @@ import com.hp.hpl.jena.rdf.model.{ModelFactory, RDFNode, Model}
 import com.hp.hpl.jena.reasoner.ReasonerRegistry
 import de.fuberlin.wiwiss.silk.datasource.DataSource
 import de.fuberlin.wiwiss.silk.entity.{Path, SparqlRestriction, EntityDescription}
-import de.fuberlin.wiwiss.silk.util.sparql.{SparqlAggregatePathsCollector, EntityRetriever, Node, SparqlEndpoint}
+import de.fuberlin.wiwiss.silk.util.sparql.{SparqlAggregatePathsCollector, EntityRetriever, Node, SparqlEndpoint => SilkSparqlEndpoint}
 import org.apache.jena.riot.{RDFDataMgr, Lang}
 import collection.JavaConversions._
 
-class JenaSparqlEndpoint(model: Model) extends SparqlEndpoint {
+class JenaSparqlEndpoint(model: Model) extends SilkSparqlEndpoint {
   /**
    * Executes a SPARQL SELECT query.
    */

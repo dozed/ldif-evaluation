@@ -7,6 +7,9 @@ Calvados - Calvados (licor)
 	- Calvados (licor), Calvados (napój alkoholowy), Calvados (bebida), Кальвадос (напиток), Calvados (distillato), Calvados (alcool), Calvados (spritdryck), Calvados (drank), カルヴァドス, Calvados (Getränk), Calvados (brandy) (jaroWinkler: 0,08, jaro: 0,13, substring: 0,14, levenshtein: 0,38, qgrams2: 0,47)
 	- Cava (vino), Cava (wino), Cava (Spanish wine), Cava, カバ (ワイン), Кава (игристое вино), Cava (bebida), 卡瓦, Cava (DO) (jaroWinkler: 0,07, jaro: 0,08, levenshtein: 0,25) accept http://dbpedia.org/resource/Cava_(Spanish_wine)
 
+Fish stock
+  - Stockfish, 干物, Stoccafisso, Stockfisch, Stokvis (voedsel), Таранка, Sztokfisz, Torrfisk, Pescado seco (substring: 0,00, jaro: 0,15, jaroWinkler: 0,15, qgrams2: 0,46) accept http://dbpedia.org/resource/Stockfish
+  - Stock ittico, Fish stock (substring: 0,00, qgrams2: 0,00, jaro: 0,00, jaroWinkler: 0,00, levenshtein: 0,00, relaxedEquality: 0,00) accept http://dbpedia.org/resource/Fish_stock
 
 
 manually linked (not in selection or redirection without no label)

@@ -37,6 +37,14 @@ http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ATuber - htt
 http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AMullet - http://dbpedia.org/resource/Mullet_(fish)
 http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ANectarine - http://dbpedia.org/resource/Nectarine
 http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ARed_salmon - http://dbpedia.org/resource/Sockeye_salmon
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ASchinkenwurst - http://de.dbpedia.org/resource/Schinkenwurst
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AVanilla_bean - http://dbpedia.org/resource/Vanilla_bean
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ABacon_and_salt_pork - http://dbpedia.org/resource/Salt_pork
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ATapioca_pearls - http://dbpedia.org/resource/Tapioca_pearls
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ABrain - http://dbpedia.org/resource/Brain
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ASturgeon - http://dbpedia.org/resource/Sturgeon
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AFat - http://dbpedia.org/resource/Fat
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ACorn - http://dbpedia.org/resource/Maize
 
 
 
@@ -508,4 +516,53 @@ http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ABay - http:
 http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3APasta - http://dbpedia.org/resource/Category:Pasta
 http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ACornichon - http://dbpedia.org/resource/Gherkin
 
+
+
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ARutabaga - http://dbpedia.org/resource/Rutabaga
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ARomano - http://dbpedia.org/resource/Romano_cheese
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ARice_cracker - http://dbpedia.org/resource/Rice_cracker
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ASafflower_oil - http://dbpedia.org/resource/Safflower_oil
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ACorn_oil - http://dbpedia.org/resource/Corn_oil
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ALemon_pepper - http://dbpedia.org/resource/Lemon_pepper
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AChinese_noodle - http://dbpedia.org/resource/Category:Chinese_noodles
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ADonut_peach - http://dbpedia.org/resource/Saturn_Peach
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AGouda - http://dbpedia.org/resource/Gouda_cheese
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AGarlic - http://dbpedia.org/resource/Category:Garlic
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AGreen_curry_paste - http://dbpedia.org/resource/Green_curry
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AEnoki_mushroom - http://dbpedia.org/resource/Enokitake
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ARioja - http://dbpedia.org/resource/Rioja_(wine)
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ACreme_de_banane - http://dbpedia.org/resource/Cr%C3%A8me_de_banane
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ASweet_and_sour_sauce - http://dbpedia.org/resource/Sweet_and_sour
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AHollandaise_sauce - http://dbpedia.org/resource/Hollandaise_sauce
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AFlatfish - http://dbpedia.org/resource/Flatfish
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ACorn_salad - http://dbpedia.org/resource/Valerianella_locusta
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AArmagnac - http://dbpedia.org/resource/Armagnac_(brandy)
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ATia_maria - http://dbpedia.org/resource/Tia_Maria
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AEdible_flower - http://dbpedia.org/resource/Edible_flowers
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ARoe - http://dbpedia.org/resource/Category:Roe
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ABaking_mix - http://dbpedia.org/resource/Bakery_mix
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ARoe - http://dbpedia.org/resource/Roe
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AGelatin - http://dbpedia.org/resource/Gelatin
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ACheese - http://dbpedia.org/resource/Cheese
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AChocolate_syrup - http://dbpedia.org/resource/Chocolate_syrup
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AGarlic - http://dbpedia.org/resource/Garlic
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3APine_nut - http://dbpedia.org/resource/Pine_nut
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ARice_cracker - http://dbpedia.org/resource/Category:Rice_crackers
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AKosher_salt - http://dbpedia.org/resource/Kosher_salt
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ABlack_pepper - http://dbpedia.org/resource/Black_pepper
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ACoulommiers - http://dbpedia.org/resource/Coulommiers_cheese
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AChinese_noodle - http://dbpedia.org/resource/Chinese_noodles
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AGoose - http://dbpedia.org/resource/Goose
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AChantilly_cream - http://dbpedia.org/resource/Chantilly_sauce
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AShallot - http://dbpedia.org/resource/Shallot
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ABanana_pepper - http://dbpedia.org/resource/Banana_pepper
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ASerrano_ham - http://dbpedia.org/resource/Jam%C3%B3n_serrano
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AStout - http://dbpedia.org/resource/Stout
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ATurnip - http://dbpedia.org/resource/Turnip
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ACardamom - http://dbpedia.org/resource/Cardamom
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AArmagnac - http://dbpedia.org/resource/Category:Armagnac
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ACheese - http://dbpedia.org/resource/Category:Cheese
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ABlended_whiskey - http://dbpedia.org/resource/Blended_whiskey
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AJerusalem_artichoke - http://dbpedia.org/resource/Jerusalem_artichoke
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AVanilla_extract - http://dbpedia.org/resource/Vanilla_extract
 

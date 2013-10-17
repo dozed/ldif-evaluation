@@ -157,7 +157,7 @@ class MatchingResults extends Evaluations {
 }
 
 
-case class LinkingUI(res: MatchingResults, system: ActorSystem) extends ScalatraServlet with ScalateSupport with FutureSupport {
+case class LinkingUI(res: MatchingResults, system: ActorSystem) extends ScalatraServlet with ScalateSupport with FutureSupport with JValueSupport {
 
   override protected val defaultLayoutPath = Some("layout.jade")
 
@@ -274,7 +274,7 @@ case class LinkingUI(res: MatchingResults, system: ActorSystem) extends Scalatra
     }) getOrElse halt(500)
   }
 
-  get("/wikipedia/query") {
+  get("/wikipedia/search") {
     (for {
       q <- params.get("query")
     } yield Wikipedia.search(q)) getOrElse halt(500)

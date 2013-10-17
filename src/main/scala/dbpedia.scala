@@ -1,4 +1,6 @@
 import dispatch._, Defaults._
+import org.json4s.JsonAST.{JArray, JValue}
+import org.json4s.JsonFormat
 import scala.xml.Elem
 import scala.concurrent.Await
 import scala.concurrent.duration._
@@ -26,22 +28,44 @@ object DBpedia {
 
 }
 
+import org.json4s.DefaultReaders._
+
+case class WikipediaSearchResult(title: String, snippet: String, size: Int)
+
+object AppFormats {
+  implicit object WikipediaSearchResultFormat extends JsonFormat[WikipediaSearchResult] {
+
+    def write(obj: WikipediaSearchResult): JValue = ???
+
+    def read(value: JValue): WikipediaSearchResult = {
+      val q = for {
+        ns <- (value \ "ns").getAs[Int]
+        title <- (value \ "title").getAs[String]
+        snippet <- (value \ "snippet").getAs[String]
+        size <- (value \ "size").getAs[Int]
+        timestamp <- (value \ "timestamp").getAs[String]
+      } yield WikipediaSearchResult(title, snippet, size)
+      q.get
+    }
+
+  }
+}
+
+
 object Wikipedia {
 
   val apiUrl = url("http://en.wikipedia.org/w/api.php")
 
+  import AppFormats._
+
   def search(query: String) = {
     for {
-      xml <- Http(apiUrl <<? Map(
+      json <- Http(apiUrl <<? Map(
         "action" -> "query",
         "list" -> "search",
-        "format" -> "xml",
-        "srsearch" -> query) OK as.xml.Elem )
-    } yield {
-      for {
-        p <- xml \\ "p"
-      } yield p
-    }
+        "format" -> "json",
+        "srsearch" -> query) OK as.json4s.Json)
+    } yield json
   }
 
 }

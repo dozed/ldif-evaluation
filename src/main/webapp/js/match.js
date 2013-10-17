@@ -65,7 +65,9 @@ $(function() {
     url: "/wikipedia/search?query=" + sourceLabel,
     success: function(data) {
       var el = _.chain(data.query.search)
-        .map(function(r) { return '<li><a target="_blank" href="http://en.wikipedia.org/wiki/' + r.title + '">' + r.title + '</a></li>'; })
+        .sortBy("size")
+        .reverse()
+        .map(function(r) { return '<li><a target="_blank" href="http://en.wikipedia.org/wiki/' + r.title + '">' + r.title + ' (' + r.size + ')</a></li>'; })
         .value()
         .join("");
       el = "<ul>" + el + "</ul>";

@@ -13,7 +13,6 @@ Fish stock
   - Fish stock (food) (jaroWinkler: 0,06, jaro: 0,10, substring: 0,11, levenshtein: 0,31, qgrams2: 0,40) remove http://dbpedia.org/resource/Fish_stock_(food)
 
 
-Green cabbage - http://dbpedia.org/resource/Kale
 
 
 http://www.foodsubs.com/
@@ -33,6 +32,9 @@ http://dbpedia.org/page/Egg_white
 http://dbpedia.org/resource/Cura%C3%A7ao_(liqueur)
 http://dbpedia.org/page/Sebastes
 http://dbpedia.org/resource/Rose_fish
+http://dbpedia.org/resource/Cream_of_tartar
+http://dbpedia.org/page/Red_leaf_Lettuce
+http://dbpedia.org/resource/Rattlesnake
 
 
 

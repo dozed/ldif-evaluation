@@ -67,13 +67,15 @@ $(function() {
     type: "GET",
     url: "/dbpedia/" + sourceId + "/usage?limit=1",
     success: function(data) {
-      var g = data["@graph"][0];
-      var pairs = _.pairs(g);
-      var li = _.map(pairs, function(x) {
-        return "<li>" + x[0] + ": " + x[1] + "</li>";
-      }).join("");
-      var el = "<ul>" + li + "</ul>";
-      $("#dbpediaUsage").html(el);
+      if (_.has(data, "@graph")) {
+        var g = data["@graph"][0];
+        var pairs = _.pairs(g);
+        var li = _.map(pairs, function(x) {
+          return "<li>" + x[0] + ": " + x[1] + "</li>";
+        }).join("");
+        var el = "<ul>" + li + "</ul>";
+        $("#dbpediaUsage").html(el);
+      }
     }
   });
 
@@ -81,13 +83,15 @@ $(function() {
     type: "GET",
     url: "/dbpedia/" + sourceId + "/reverseUsage?limit=1",
     success: function(data) {
-      var g = data["@graph"][0];
-      var pairs = _.pairs(g);
-      var li = _.map(pairs, function(x) {
-        return "<li>" + x[0] + ": " + x[1] + "</li>";
-      }).join("");
-      var el = "<ul>" + li + "</ul>";
-      $("#dbpediaReverseUsage").html(el);
+      if (_.has(data, "@graph")) {
+        var g = data["@graph"][0];
+        var pairs = _.pairs(g);
+        var li = _.map(pairs, function(x) {
+          return "<li>" + x[0] + ": " + x[1] + "</li>";
+        }).join("");
+        var el = "<ul>" + li + "</ul>";
+        $("#dbpediaReverseUsage").html(el);
+      }
     }
   });
 

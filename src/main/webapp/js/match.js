@@ -52,14 +52,42 @@ $(function() {
     }
   });
 
+//  $.ajax({
+//    type: "GET",
+//    url: "/dbpedia/redirect/" + sourceId,
+//    success: function(data) {
+//      if (data.length > 0) {
+//        var el = '<a target="_blank" href="' + data + '">' + data + '</a>';
+//        $("#redirect").html(el);
+//      }
+//    }
+//  });
+
   $.ajax({
     type: "GET",
-    url: "/dbpedia/redirect/" + sourceId,
+    url: "/dbpedia/" + sourceId + "/usage?limit=1"
     success: function(data) {
-      if (data.length > 0) {
-        var el = '<a target="_blank" href="' + data + '">' + data + '</a>';
-        $("#redirect").html(el);
-      }
+      var g = data["@graph"][0];
+      var pairs = _.pairs(g);
+      var li = _.map(pairs, function(x) {
+        return "<li>" + x[0] + ": " + x[1] + "</li>";
+      }).join("");
+      var el = "<ul>" + li + "</ul>";
+      $("#dbpediaUsage").html(el);
+    }
+  });
+
+  $.ajax({
+    type: "GET",
+    url: "/dbpedia/" + sourceId + "/reverseUsage?limit=1"
+    success: function(data) {
+      var g = data["@graph"][0];
+      var pairs = _.pairs(g);
+      var li = _.map(pairs, function(x) {
+        return "<li>" + x[0] + ": " + x[1] + "</li>";
+      }).join("");
+      var el = "<ul>" + li + "</ul>";
+      $("#dbpediaReverseUsage").html(el);
     }
   });
 
@@ -100,4 +128,5 @@ $(function() {
       $("#dbpedia").html(el);
     }
   });
+
 });

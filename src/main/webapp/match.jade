@@ -28,16 +28,18 @@ h1 Matching #{source.uri}
 .row
   | Values: #{source.values.flatten.mkString(", ")}
   br
-  | DBpedia Redirect:
-  span(id="redirect")
+  | DBpedia Usage:
+  #dbpediaUsage
+  | DBpedia Reverse Usage:
+  #dbpediaReverseUsage
 
 .row
   .col-md-6
     | DBpedia Keyword Search:
-    span(id="dbpedia")
+    #dbpedia
   .col-md-6
     | Wikipedia:
-    span(id="wikipedia")
+    #wikipedia
 
 h2 Matches
 

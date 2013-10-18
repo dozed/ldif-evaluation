@@ -1,4 +1,5 @@
 import dispatch._, Defaults._
+import org.apache.jena.riot.{RDFLanguages, LangBuilder, Lang}
 import org.json4s.JsonAST.{JArray, JValue}
 import org.json4s.JsonFormat
 import scala.xml.Elem
@@ -9,6 +10,7 @@ import scala.util.control.Exception._
 object DBpedia {
 
   val keywordUrl = url("http://lookup.dbpedia.org/api/search.asmx/KeywordSearch")
+  val sparqlUrl = url("http://dbpedia.org/sparql")
 
   def resource(token: String) = {
     val svc = url(f"http://dbpedia.org/data/$token.xml") <:< Map("Accept" -> "application/rdf+xml")
@@ -33,6 +35,11 @@ object DBpedia {
     Http(keywordUrl <:< Map("Accept" -> "application/json") <<? Map(
       "QueryClass" -> "",
       "QueryString" -> query) OK as.json4s.Json)
+  }
+
+  def sparql(query: String) = {
+    val qp = Map("query" -> query, "format" -> "application/ld+json")
+    Http(sparqlUrl <<? qp OK as.json4s.Json)
   }
 
 }
@@ -80,23 +87,22 @@ object Wikipedia {
 
 }
 
-
 case class SparqlEndpoint(uri: String) {
 
   val svc = url(uri)
 
-  def dump(query: String, pageSize: Int = 10000, offset: Long = 0, retryCount: Int = 0, retryMax: Int = 10): Stream[String] = {
+  def stream(query: String, pageSize: Int = 10000, offset: Long = 0, retryCount: Int = 0, retryMax: Int = 10, lang: Lang = Lang.TURTLE): Stream[String] = {
     var q = query
     q += " OFFSET " + offset
     q += " LIMIT " + pageSize
-    val qp = Map("query" -> q, "format" -> "text/turtle")
+    val qp = Map("query" -> q, "format" -> lang.getContentType.getContentType)
 
     Thread.sleep(2000)
-    println(q)
 
     def retry(t: Throwable) = {
+      println(t.getMessage)
       if (retryCount < retryMax) {
-        dump(query, pageSize, offset, retryCount + 1)
+        stream(query, pageSize, offset, retryCount + 1)
       } else {
         throw t
       }
@@ -113,9 +119,14 @@ case class SparqlEndpoint(uri: String) {
         if (lines.size == 0 || (lines.size == 1 && lines(0).startsWith("# Empty"))) {
           Stream.empty
         } else {
-          lines.toStream #::: dump(query, pageSize, offset + pageSize, 0)
+          lines.toStream #::: stream(query, pageSize, offset + pageSize, 0)
         }
     }
+  }
+
+  def query(query: String, lang: Lang = Lang.TURTLE) = {
+    val qp = Map("query" -> query, "format" -> lang.getContentType.getContentType)
+    Http(svc <<? qp OK as.String)
   }
 
 }
@@ -168,12 +179,20 @@ object SparqlImporter extends App {
   //  category:Plants
 
   val endpoint = SparqlEndpoint("http://dbpedia.org/sparql")
+  val jsonld = LangBuilder.create("JSON-LD", "application/ld+json").build()
+  RDFLanguages.register(jsonld)
 
-  val pw = new java.io.PrintWriter("dbpedia-organisms.ttl")
-  endpoint.dump(query) foreach {
-    line =>
-      pw.println(line)
-  }
-  pw.close
+  endpoint.query("""construct {
+                  |  ?s ?p dbpedia:Ditalini
+                  |} where {
+                  |  ?s ?p dbpedia:Ditalini
+                  |} LIMIT 10""".stripMargin, lang = jsonld) foreach println
+
+//  val pw = new java.io.PrintWriter("dbpedia-organisms.ttl")
+//  endpoint.dump(query) foreach {
+//    line =>
+//      pw.println(line)
+//  }
+//  pw.close
 
 }

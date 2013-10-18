@@ -266,15 +266,35 @@ case class LinkingUI(res: MatchingResults, system: ActorSystem) extends Scalatra
     }) getOrElse halt(500)
   }
 
-  get("/dbpedia/redirect/:sourceId") {
+  get("/dbpedia/:sourceId/usage") {
     (for {
       sourceId <- params.getAs[Int]("sourceId")
       source <- res.sourceEntities.lift(sourceId)
+      limit <- params.getAs[Int]("limit").orElse(Some(5))
     } yield {
       val token = source.uri.replaceAll("http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3A", "")
-      for {
-        redirectUrl <- DBpedia.redirect(token)
-      } yield redirectUrl.getOrElse("")
+      val q = f"""construct {
+                |  dbpedia:$token ?p ?o
+                |} where {
+                |  dbpedia:$token ?p ?o
+                |} LIMIT $limit""".stripMargin
+      DBpedia.sparql(q)
+    }) getOrElse halt(500)
+  }
+
+  get("/dbpedia/:sourceId/reverseUsage") {
+    (for {
+      sourceId <- params.getAs[Int]("sourceId")
+      source <- res.sourceEntities.lift(sourceId)
+      limit <- params.getAs[Int]("limit").orElse(Some(5))
+    } yield {
+      val token = source.uri.replaceAll("http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3A", "")
+      val q = f"""construct {
+                |  ?s ?p dbpedia:$token
+                |} where {
+                |  ?s ?p dbpedia:$token
+                |} LIMIT $limit""".stripMargin
+      DBpedia.sparql(q)
     }) getOrElse halt(500)
   }
 

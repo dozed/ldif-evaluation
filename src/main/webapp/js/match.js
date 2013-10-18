@@ -65,7 +65,7 @@ $(function() {
 
   $.ajax({
     type: "GET",
-    url: "/dbpedia/" + sourceId + "/usage?limit=1"
+    url: "/dbpedia/" + sourceId + "/usage?limit=1",
     success: function(data) {
       var g = data["@graph"][0];
       var pairs = _.pairs(g);
@@ -79,7 +79,7 @@ $(function() {
 
   $.ajax({
     type: "GET",
-    url: "/dbpedia/" + sourceId + "/reverseUsage?limit=1"
+    url: "/dbpedia/" + sourceId + "/reverseUsage?limit=1",
     success: function(data) {
       var g = data["@graph"][0];
       var pairs = _.pairs(g);

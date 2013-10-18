@@ -54,8 +54,13 @@ http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ACoriander_s
 http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ARed-2Dleaf_lettuce - http://dbpedia.org/page/Red_leaf_Lettuce
 http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AMutton - http://dbpedia.org/resource/Mutton
 http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ARattlesnake - http://dbpedia.org/resource/Rattlesnake
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ACrocodile - http://dbpedia.org/resource/Crocodile
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ATurtle - http://dbpedia.org/resource/Turtle
 
 
+
+
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ASalami - http://dbpedia.org/resource/Salami
 http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AStrozzapreti - http://dbpedia.org/resource/Strozzapreti
 http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ARabbit - http://dbpedia.org/resource/Rabbit
 http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3APoppy_seed - http://dbpedia.org/resource/Poppy_seed
@@ -635,10 +640,12 @@ http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AYogurt - ht
 
 http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AVienna_sausage - http://dbpedia.org/resource/Vienna_sausage
 http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AAmerican_cheese - http://dbpedia.org/resource/Category:American_cheeses
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ASaint_paulin_cheese - http://dbpedia.org/resource/Saint-Paulin_cheese
 http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AChinese_mushroom - http://dbpedia.org/resource/Category:Chinese_edible_mushrooms
 http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AJuice - http://dbpedia.org/resource/Category:Juice
 http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AChinese_mushroom - http://dbpedia.org/resource/Chinese_mushroom
 http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AArrowroot - http://dbpedia.org/resource/Arrowroot
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ATruffle_oil - http://dbpedia.org/resource/Truffle_oil
 http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AJuice - http://dbpedia.org/resource/Juice
 http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AMerguez_sausage - http://dbpedia.org/resource/Merguez
 http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ARaw_milk - http://dbpedia.org/resource/Raw_milk
@@ -647,8 +654,8 @@ http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AAmerican_ch
 http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AFruit_butter - http://dbpedia.org/resource/Fruit_butter
 http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ASalt - http://dbpedia.org/resource/Salt
 http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ABing_cherries - http://dbpedia.org/resource/Bing_cherry
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AScone - http://dbpedia.org/resource/Scone
 http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ASnail - http://dbpedia.org/resource/Snail
-
 
 
 

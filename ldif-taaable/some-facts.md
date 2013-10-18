@@ -13,9 +13,10 @@ Fish stock
   - Fish stock (food) (jaroWinkler: 0,06, jaro: 0,10, substring: 0,11, levenshtein: 0,31, qgrams2: 0,40) remove http://dbpedia.org/resource/Fish_stock_(food)
 
 
-
+foods resources:
 
 http://www.foodsubs.com/
+http://recipes.wikia.com/wiki/Avena
 
 
 manually linked (not in selection or redirection without no label)
@@ -35,6 +36,9 @@ http://dbpedia.org/resource/Rose_fish
 http://dbpedia.org/resource/Cream_of_tartar
 http://dbpedia.org/page/Red_leaf_Lettuce
 http://dbpedia.org/resource/Rattlesnake
+http://dbpedia.org/resource/Turtle
+http://dbpedia.org/resource/Crocodile
+http://dbpedia.org/page/Soured_milk
 
 
 

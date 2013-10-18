@@ -47,6 +47,7 @@ http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AFat - http:
 http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ACorn - http://dbpedia.org/resource/Maize
 http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ABlack_cherry - http://dbpedia.org/resource/Prunus_serotina
 http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AV-2D8_juice - http://dbpedia.org/resource/V8_(beverage)
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AGreen_cabbage - http://dbpedia.org/resource/Kale
 
 
 
@@ -85,9 +86,9 @@ http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AThai_basil 
 http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AWhite_flour - http://dbpedia.org/resource/Flour
 http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ADom_perignon - http://dbpedia.org/resource/Dom_P%C3%A9rignon_(wine)
 http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AKasseri - http://dbpedia.org/resource/Kasseri
-
-
-
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ASalsify - http://dbpedia.org/resource/Ditalini
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AVegetable_stock - http://dbpedia.org/resource/Vegetable_stock
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AGreen_bell_pepper - http://dbpedia.org/resource/Green_bell_pepper
 
 
 http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AItalian_dressing - http://dbpedia.org/resource/Italian_dressing
@@ -583,5 +584,8 @@ http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AButter_cake
 http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AFish_stock - http://dbpedia.org/resource/Fish_stock_(food)
 http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ACracker - http://dbpedia.org/resource/Cracker_(food)
 http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AMuscovado_sugar - http://dbpedia.org/resource/Muscovado
+
+
+
 
 

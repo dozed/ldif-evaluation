@@ -13,6 +13,9 @@ Fish stock
   - Fish stock (food) (jaroWinkler: 0,06, jaro: 0,10, substring: 0,11, levenshtein: 0,31, qgrams2: 0,40) remove http://dbpedia.org/resource/Fish_stock_(food)
 
 
+Green cabbage - http://dbpedia.org/resource/Kale
+
+
 manually linked (not in selection or redirection without no label)
 
 http://dbpedia.org/page/Shichimi

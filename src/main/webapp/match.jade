@@ -23,58 +23,58 @@ a(href={"/match/" + (sourceId + 1)}) next
   var sourceLabel = "#{source.values.flatten.mkString(", ")}";
 
 
-h1 Matching #{source.uri}
+h1 Matching
+
+h3
+  a(href={source.uri})= source.uri
+| Values: #{source.values.flatten.mkString(", ")}
 
 .row
-  | Values: #{source.values.flatten.mkString(", ")}
-  br
-  | DBpedia Usage:
-  #dbpediaUsage
-  | DBpedia Reverse Usage:
-  #dbpediaReverseUsage
+  .col-lg-4
+    h2 Infos
 
-.row
-  .col-md-6
+    | DBpedia Usage:
+    #dbpediaUsage
+    | DBpedia Reverse Usage:
+    #dbpediaReverseUsage
     | DBpedia Keyword Search:
     #dbpedia
-  .col-md-6
     | Wikipedia:
     #wikipedia
 
-h2 Matches
+  .col-lg-8
 
-ul
-  li
-    | Exact: #{exact.size}
-    ul
-      - for (m <- exact)
-        li
-          - val sims = for ((d, i) <- m.sim.sortBy(_._1)) yield f"${measures(i)._1}: ${"%1.2f" format d}"
-          | #{targetEntities(m.to).values.flatten.mkString(", ")} (#{sims.mkString(", ")})
-          a(href="#" onclick={"acceptMatch(" + m.from + ", " + m.to + ")"}) accept
+    h2 Matches
 
-          a(href={targetEntities(m.to).uri}) #{targetEntities(m.to).uri}
+    #matches
+      | Exact: #{exact.size}
+      ul
+        - for (m <- exact)
+          li
+            - val sims = for ((d, i) <- m.sim.sortBy(_._1)) yield f"${measures(i)._1}: ${"%1.2f" format d}"
+            | #{targetEntities(m.to).values.flatten.mkString(", ")} (#{sims.mkString(", ")})
+            a(href="#" onclick={"acceptMatch(" + m.from + ", " + m.to + ")"}) accept
 
-  li
-    | Accepted: #{accepted.size}
-    ul
-      - for (m <- accepted)
-        li
-          - val sims = for ((d, i) <- m.sim.sortBy(_._1)) yield f"${measures(i)._1}: ${"%1.2f" format d}"
-          | #{targetEntities(m.to).values.flatten.mkString(", ")} (#{sims.mkString(", ")})
-          a(href="#" onclick={"removeMatch(" + m.from + ", " + m.to + ")"}) remove
+            a(href={targetEntities(m.to).uri}) #{targetEntities(m.to).uri}
 
-          a(href={targetEntities(m.to).uri}) #{targetEntities(m.to).uri}
+      | Accepted: #{accepted.size}
+      ul
+        - for (m <- accepted)
+          li
+            - val sims = for ((d, i) <- m.sim.sortBy(_._1)) yield f"${measures(i)._1}: ${"%1.2f" format d}"
+            | #{targetEntities(m.to).values.flatten.mkString(", ")} (#{sims.mkString(", ")})
+            a(href="#" onclick={"removeMatch(" + m.from + ", " + m.to + ")"}) remove
 
-  li
-    | Approx: #{approx.size}
-    ul
-      - for (m <- approx)
-        li
-          - val sims = for ((d, i) <- m.sim.sortBy(_._1)) yield f"${measures(i)._1}: ${"%1.2f" format d}"
-          | #{targetEntities(m.to).values.flatten.mkString(", ")} (#{sims.mkString(", ")})
-          a(href="#" onclick={"acceptMatch(" + m.from + ", " + m.to + ")"}) accept
+            a(href={targetEntities(m.to).uri}) #{targetEntities(m.to).uri}
 
-          a(href={targetEntities(m.to).uri}) #{targetEntities(m.to).uri}
+      | Approx: #{approx.size}
+      ul
+        - for (m <- approx)
+          li
+            - val sims = for ((d, i) <- m.sim.sortBy(_._1)) yield f"${measures(i)._1}: ${"%1.2f" format d}"
+            | #{targetEntities(m.to).values.flatten.mkString(", ")} (#{sims.mkString(", ")})
+            a(href="#" onclick={"acceptMatch(" + m.from + ", " + m.to + ")"}) accept
+
+            a(href={targetEntities(m.to).uri}) #{targetEntities(m.to).uri}
 
 

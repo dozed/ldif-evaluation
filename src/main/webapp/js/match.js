@@ -10,6 +10,12 @@ function urlParam(name){
   }
 }
 
+if (typeof String.prototype.startsWith != 'function') {
+  String.prototype.startsWith = function (str){
+    return this.slice(0, str.length) == str;
+  };
+}
+
 function navigateTo(id) {
   var url = "/match/" + id;
 
@@ -43,6 +49,27 @@ function removeMatch(from, to) {
   });
 }
 
+function highlightLabels(el) {
+  _.each(sourceLabel.split(" "), function(label) {
+    $(el).highlight(label, { caseSensitive: false, wordsOnly: false });
+  });
+}
+
+function showGraph(data) {
+  if (_.has(data, "@graph")) {
+    var g = data["@graph"][0];
+    var pairs = _.pairs(g);
+    var li = _.map(pairs, function(x) {
+      var value = x[1] + "";
+      if (value.startsWith("http://")) {
+        value = '<a href="' + value + '">' + value + '</a>';
+      }
+      return "<li>" + x[0] + ": " + value + "</li>";
+    }).join("");
+    return "<ul>" + li + "</ul>";
+  } else return "";
+}
+
 $(function() {
   $("body").keydown(function(e) {
     if(e.keyCode == 37) {
@@ -63,19 +90,15 @@ $(function() {
 //    }
 //  });
 
+  highlightLabels("#matches");
+
   $.ajax({
     type: "GET",
     url: "/dbpedia/" + sourceId + "/usage?limit=1",
     success: function(data) {
-      if (_.has(data, "@graph")) {
-        var g = data["@graph"][0];
-        var pairs = _.pairs(g);
-        var li = _.map(pairs, function(x) {
-          return "<li>" + x[0] + ": " + x[1] + "</li>";
-        }).join("");
-        var el = "<ul>" + li + "</ul>";
-        $("#dbpediaUsage").html(el);
-      }
+      var el = showGraph(data);
+      $("#dbpediaUsage").html(el);
+      highlightLabels("#dbpediaUsage");
     }
   });
 
@@ -83,15 +106,9 @@ $(function() {
     type: "GET",
     url: "/dbpedia/" + sourceId + "/reverseUsage?limit=1",
     success: function(data) {
-      if (_.has(data, "@graph")) {
-        var g = data["@graph"][0];
-        var pairs = _.pairs(g);
-        var li = _.map(pairs, function(x) {
-          return "<li>" + x[0] + ": " + x[1] + "</li>";
-        }).join("");
-        var el = "<ul>" + li + "</ul>";
-        $("#dbpediaReverseUsage").html(el);
-      }
+      var el = showGraph(data);
+      $("#dbpediaReverseUsage").html(el);
+      highlightLabels("#dbpediaReverseUsage");
     }
   });
 
@@ -107,6 +124,7 @@ $(function() {
         .join("");
       el = "<ul>" + el + "</ul>";
       $("#wikipedia").html(el);
+      highlightLabels("#wikipedia");
     }
   });
 
@@ -130,6 +148,7 @@ $(function() {
         .join("");
       el = "<ul>" + el + "</ul>";
       $("#dbpedia").html(el);
+      highlightLabels("#dbpedia");
     }
   });
 

@@ -12,7 +12,7 @@ import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.JaroWinklerDistan
 import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.QGramsMetric
 import de.fuberlin.wiwiss.silk.plugins.distance.equality.RelaxedEqualityMetric
 import javax.servlet.ServletContext
-import org.apache.jena.riot.Lang
+import org.apache.jena.riot.{RDFDataMgr, Lang}
 import org.eclipse.jetty.server.nio.SelectChannelConnector
 import org.eclipse.jetty.server.Server
 import org.eclipse.jetty.servlet.{ServletHolder, DefaultServlet}
@@ -107,7 +107,7 @@ class MatchingResults extends Evaluations {
     if (!s3.isEmpty) Some(s3) else None
   }
 
-  val distCache = collection.mutable.Map[Int, List[Edge]]()
+  val distCache = collection.mutable.Map[Int, List[SimEdge]]()
 
   def distances(i: Int, t: Double = 0.5) = {
     def distance(e1: Entity, e2: Entity, measure: DistanceMeasure) = {
@@ -133,7 +133,7 @@ class MatchingResults extends Evaluations {
           dist <- distance(e1, e2, measure)
         } yield (dist, mi)
 
-        if (d_ij.size > 0) Some(Edge(i, j, d_ij)) else None
+        if (d_ij.size > 0) Some(SimEdge(i, j, d_ij)) else None
       }
 
       val r = d_i.flatten.toList
@@ -148,13 +148,13 @@ class MatchingResults extends Evaluations {
 
   val (m, n) = (sourceEntities.size, targetEntities.size)
 
-  def isApproximate(t: Double)(e: Edge) = e.sim.exists(_._1 <= t)
+  def isApproximate(t: Double)(e: SimEdge) = e.sim.exists(_._1 <= t)
 
   def isExact = isApproximate(0.0) _
 
-  val acceptedLinks = collection.mutable.Set[Edge]()
+  val acceptedLinks = collection.mutable.Set[SimEdge]()
 
-  def isAccepted(e: Edge) = acceptedLinks.contains(e)
+  def isAccepted(e: SimEdge) = acceptedLinks.contains(e)
 
 }
 
@@ -308,6 +308,27 @@ case class LinkingUI(res: MatchingResults, system: ActorSystem) extends Scalatra
     (for {
       q <- params.get("query")
     } yield Wikipedia.search(q)) getOrElse halt(500)
+  }
+
+  val taaableBase = "D:/Workspaces/Dev/ldif-evaluation/ldif-taaable"
+  val dbpediaBase = "D:/Dokumente/dbpedia2"
+
+  //  val reasoner = ReasonerRegistry.getRDFSReasoner
+  //  val model = ModelFactory.createDefaultModel()
+
+  val taaableGraph = Graph.fromRDFS(RDFDataMgr.loadModel(f"file:///$taaableBase/taaable-food.rdf", Lang.RDFXML))
+  val dbpediaGraph = Graph.fromSKOS(RDFDataMgr.loadModel(f"file:///$dbpediaBase/skos_categories_en.nt", Lang.NTRIPLES))
+
+  get("/crunch") {
+    taaableGraph.incomingEdges(Node("http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AFood")) foreach println
+    dbpediaGraph.incomingEdges(Node("http://dbpedia.org/resource/Category:Food_and_drink")) foreach println
+
+
+
+
+
+    Alg.test
+    "crunched"
   }
 
 }

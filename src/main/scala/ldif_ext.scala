@@ -11,7 +11,7 @@ class JenaSparqlEndpoint(model: Model) extends SilkSparqlEndpoint {
   /**
    * Executes a SPARQL SELECT query.
    */
-  override def query(sparql: String, limit: Int): Traversable[Map[String, Node]] = {
+  override def query(sparql: String, limit: Int) = {
     val qe = QueryExecutionFactory.create(sparql + " LIMIT " + limit, model)
 
     try {
@@ -60,7 +60,7 @@ class JenaSparqlEndpoint(model: Model) extends SilkSparqlEndpoint {
 
 case class NewFileDataSource(file: String, lang: Option[Lang] = None, inference: Boolean = false) extends DataSource {
 
-  private lazy val model = {
+  val model = {
     val m = lang match {
       case Some(lang) => RDFDataMgr.loadModel(file, lang)
       case None => RDFDataMgr.loadModel(file)

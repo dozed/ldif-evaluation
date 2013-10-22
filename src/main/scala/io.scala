@@ -4,7 +4,7 @@ import de.fuberlin.wiwiss.silk.linkagerule.similarity.DistanceMeasure
 import java.io.File
 import scala.collection.mutable.ArrayBuffer
 
-case class Edge(from: Int, to: Int, sim: List[(Double, Int)])
+case class SimEdge(from: Int, to: Int, sim: List[(Double, Int)])
 
 
 // format: (i, j, d)
@@ -108,7 +108,7 @@ object SparseDistanceMatrixIO {
   }
 
 
-  def readMergedEdgeLists(files: List[File]): List[Edge] = {
+  def readMergedEdgeLists(files: List[File]): List[SimEdge] = {
     val edges = for {
       (file, source) <- files.zipWithIndex
       (edge, label) <- readEdgeList(file)
@@ -116,7 +116,7 @@ object SparseDistanceMatrixIO {
 
     val grouped = for {
       ((from, to), sim) <- edges groupBy (_._1) mapValues(_.map(_._2))
-    } yield Edge(from, to, sim)
+    } yield SimEdge(from, to, sim)
 
     grouped.toList
   }

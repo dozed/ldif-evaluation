@@ -56,6 +56,7 @@ http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AMutton - ht
 http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ARattlesnake - http://dbpedia.org/resource/Rattlesnake
 http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ACrocodile - http://dbpedia.org/resource/Crocodile
 http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ATurtle - http://dbpedia.org/resource/Turtle
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AWhite_basmati_rice - http://dbpedia.org/resource/Basmati_rice
 
 
 

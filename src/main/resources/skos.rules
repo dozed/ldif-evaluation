@@ -1,0 +1,6 @@
+@prefix skos: <http://www.w3.org/2004/02/skos/core#>.
+
+-> table(skos:broader).
+
+[broader1: (?A skos:broader ?B), (?B skos:broader ?C)
+        -> (?A skos:broader ?C) ]

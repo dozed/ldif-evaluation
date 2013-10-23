@@ -318,8 +318,10 @@ case class LinkingUI(res: MatchingResults, system: ActorSystem) extends Scalatra
 
   //val taaableGraph = Graph.fromRDFS(RDFDataMgr.loadModel(f"file:///$taaableBase/taaable-food.rdf", Lang.RDFXML))
   // val dbpediaGraph = Graph.fromSKOS(RDFDataMgr.loadModel(f"file:///$dbpediaBase/skos_categories_en.nt", Lang.NTRIPLES))
-  val model = RDFDataMgr.loadModel(f"file:///D:/Workspaces/Dev/ldif-evaluation/dbpedia-foods-categories-2.nt", Lang.NTRIPLES)
-  val dbpediaGraph = Graph.fromSKOS(model)
+  val dbpediaGraph = {
+    val model = RDFDataMgr.loadModel(f"file:///D:/Workspaces/Dev/ldif-evaluation/dbpedia-foods-categories-2.nt", Lang.NTRIPLES)
+    GraphFactory.fromSKOS(model)
+  }
 
   def n(outer: String) = dbpediaGraph get outer
 

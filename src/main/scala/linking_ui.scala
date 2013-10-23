@@ -316,12 +316,40 @@ case class LinkingUI(res: MatchingResults, system: ActorSystem) extends Scalatra
   //  val reasoner = ReasonerRegistry.getRDFSReasoner
   //  val model = ModelFactory.createDefaultModel()
 
-  val taaableGraph = Graph.fromRDFS(RDFDataMgr.loadModel(f"file:///$taaableBase/taaable-food.rdf", Lang.RDFXML))
-  val dbpediaGraph = Graph.fromSKOS(RDFDataMgr.loadModel(f"file:///$dbpediaBase/skos_categories_en.nt", Lang.NTRIPLES))
+  //val taaableGraph = Graph.fromRDFS(RDFDataMgr.loadModel(f"file:///$taaableBase/taaable-food.rdf", Lang.RDFXML))
+  // val dbpediaGraph = Graph.fromSKOS(RDFDataMgr.loadModel(f"file:///$dbpediaBase/skos_categories_en.nt", Lang.NTRIPLES))
+  val model = RDFDataMgr.loadModel(f"file:///D:/Workspaces/Dev/ldif-evaluation/dbpedia-foods-categories-2.nt", Lang.NTRIPLES)
+  val dbpediaGraph = Graph.fromSKOS(model)
+
+  def n(outer: String) = dbpediaGraph get outer
+
+  get("/dbpedia/path/:from/:to") {
+    (for {
+      from <- params.get("from")
+      to <- params.get("to")
+      s <- dbpediaGraph.find(f"http://dbpedia.org/resource/Category:$from")
+      t <- dbpediaGraph.find(f"http://dbpedia.org/resource/Category:$to")
+      path <- s pathTo t
+    } yield {
+      path
+    }) getOrElse halt(500)
+  }
+
+  get("/dbpedia/shortestPath/:from/:to") {
+    (for {
+      from <- params.get("from")
+      to <- params.get("to")
+      s <- dbpediaGraph.find(f"http://dbpedia.org/resource/Category:$from")
+      t <- dbpediaGraph.find(f"http://dbpedia.org/resource/Category:$to")
+      path <- s shortestPathTo t
+    } yield {
+      path
+    }) getOrElse halt(500)
+  }
 
   get("/crunch") {
-    taaableGraph.incomingEdges(Node("http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AFood")) foreach println
-    dbpediaGraph.incomingEdges(Node("http://dbpedia.org/resource/Category:Food_and_drink")) foreach println
+//    taaableGraph.incomingEdges(Node("http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AFood")) foreach println
+//    dbpediaGraph.incomingEdges(Node("http://dbpedia.org/resource/Category:Food_and_drink")) foreach println
 
 
 

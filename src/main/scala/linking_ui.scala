@@ -331,7 +331,7 @@ case class LinkingUI(res: MatchingResults, system: ActorSystem) extends Scalatra
       t <- dbpediaGraph.find(f"http://dbpedia.org/resource/Category:$to")
       path <- s pathTo t
     } yield {
-      path
+      path.edges
     }) getOrElse halt(500)
   }
 
@@ -343,7 +343,7 @@ case class LinkingUI(res: MatchingResults, system: ActorSystem) extends Scalatra
       t <- dbpediaGraph.find(f"http://dbpedia.org/resource/Category:$to")
       path <- s shortestPathTo t
     } yield {
-      path
+      path.edges
     }) getOrElse halt(500)
   }
 

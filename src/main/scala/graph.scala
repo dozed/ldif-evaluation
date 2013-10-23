@@ -3,72 +3,37 @@ import java.io.PrintWriter
 import org.apache.jena.riot.{Lang, RDFDataMgr}
 import collection.JavaConversions._
 
-case class Node(id: String)
-
-case class Edge(label: String, from: String, to: String)
-
-class Graph {
-
-  val edges = collection.mutable.ArrayBuffer[Edge]()
-  val nodes = collection.mutable.Map[String, Node]()
-
-
-  def addNode(node: Node) {
-    this.nodes(node.id) = node
-  }
-
-  def addEdge(edge: Edge) {
-    this.edges += edge
-  }
-
-  def outgoingNodes(node: Node) = {
-    outgoingEdges(node).flatMap(e => nodes.get(e.to))
-  }
-
-  def outgoingEdges(node: Node) = {
-    edges.filter(_.from.equals(node.id)).toList
-  }
-
-  def incomingNodes(node: Node) = {
-    incomingEdges(node).flatMap(e => nodes.get(e.from))
-  }
-
-  def incomingEdges(node: Node) = {
-    edges.filter(_.to.equals(node.id)).toList
-  }
-
-}
+import scalax.collection.Graph
+import scalax.collection.GraphPredef._, scalax.collection.GraphEdge._
 
 object Graph {
 
-  def fromRDFS(model: Model) = {
-    val graph = new Graph()
-    val subClassOf = model.getProperty("http://www.w3.org/2000/01/rdf-schema#subClassOf")
-
-    for (x <- model.listSubjects) {
-      val s = Node(x.getURI)
-      graph.addNode(s)
-
-      for (st <- model.listStatements(x, subClassOf, null)) {
-        val e = Edge("is-a", s.id, st.getObject.asResource.getURI)
-        graph.addEdge(e)
-      }
-    }
-
-    graph
-  }
+  //  def fromRDFS(model: Model) = {
+  //    val graph = new Graph()
+  //    val subClassOf = model.getProperty("http://www.w3.org/2000/01/rdf-schema#subClassOf")
+  //
+  //    for (x <- model.listSubjects) {
+  //      val s = Node(x.getURI)
+  //      graph.addNode(s)
+  //
+  //      for (st <- model.listStatements(x, subClassOf, null)) {
+  //        val e = Edge("is-a", s.id, st.getObject.asResource.getURI)
+  //        graph.addEdge(e)
+  //      }
+  //    }
+  //
+  //    graph
+  //  }
 
   def fromSKOS(model: Model) = {
-    val graph = new Graph()
+    val graph = scalax.collection.mutable.Graph[String, DiEdge]()
     val broader = model.getProperty("http://www.w3.org/2004/02/skos/core#broader")
 
     for (x <- model.listSubjects) {
-      val s = Node(x.getURI)
-      graph.addNode(s)
+      graph += x.getURI
 
       for (st <- model.listStatements(x, broader, null)) {
-        val e = Edge("is-a", s.id, st.getObject.asResource.getURI)
-        graph.addEdge(e)
+        graph += x.getURI ~> st.getObject.asResource.getURI
       }
     }
 
@@ -118,38 +83,34 @@ object GraphTest extends App {
 
     pw.close
   }
-//  extractHierarchy
+
+  //  extractHierarchy
 
   val model = RDFDataMgr.loadModel(f"file:///D:/Workspaces/Dev/ldif-evaluation/dbpedia-foods-categories-2.nt", Lang.NTRIPLES)
   val graph = Graph.fromSKOS(model)
 
-  def shortestPath(from: Node, to: Node) {
-    val toVisit = collection.mutable.Queue[Node]()
-    val backlinks = collection.mutable.Map[Node, Node]()
+  def n(outer: String) = graph get outer
 
-    def shortestPath0(s: Node) {
-      val outNodes = graph.outgoingNodes(s).toSeq.filterNot(backlinks.contains)
-      toVisit ++= outNodes
+  val path = n("http://dbpedia.org/resource/Category:1144") shortestPathTo n("http://dbpedia.org/resource/Category:Food_and_drink")
+  println(path)
 
-      for (outNode <- outNodes) backlinks(outNode) = s
+  import scalax.collection.io.dot._
 
-      if (!toVisit.isEmpty) {
-        val x = toVisit.dequeue()
-        shortestPath0(x)
-      }
-    }
+  val root = DotRootGraph(directed = true,
+    id = None,
+    kvList = Seq(DotAttr("attr_1", """"one""""),
+      DotAttr("attr_2", "<two>")))
 
-    backlinks(from) = from
-    shortestPath0(from)
-
-    println(backlinks(to))
+  def edgeTransformer(innerEdge: Graph[String, DiEdge]#EdgeT): Option[(DotGraph, DotEdgeStmt)] = {
+    val edge = innerEdge.edge
+    Some(root, DotEdgeStmt(edge.from.toString, edge.to.toString, Nil))
   }
 
-  shortestPath(Node("http://dbpedia.org/resource/Category:1144"),
-    Node("http://dbpedia.org/resource/Category:Food_and_drink"))
+  val str = new Export(graph).toDot(root, edgeTransformer)
+  val pw = new PrintWriter("categories.dot")
+  pw.println(str)
+  pw.close
 
-
-  //  graph.incomingEdges(Node("http://dbpedia.org/resource/Category:Food_and_drink")) foreach println
 
   //  val latch = new CountDownLatch(1)
   //  latch.await

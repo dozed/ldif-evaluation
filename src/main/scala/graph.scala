@@ -118,17 +118,38 @@ object GraphTest extends App {
 
     pw.close
   }
+//  extractHierarchy
 
   val model = RDFDataMgr.loadModel(f"file:///D:/Workspaces/Dev/ldif-evaluation/dbpedia-foods-categories-2.nt", Lang.NTRIPLES)
   val graph = Graph.fromSKOS(model)
 
-  def upperNodes(n: Node) {
-    graph.outgoingEdges(n)
+  def shortestPath(from: Node, to: Node) {
+    val toVisit = collection.mutable.Queue[Node]()
+    val backlinks = collection.mutable.Map[Node, Node]()
 
+    def shortestPath0(s: Node) {
+      val outNodes = graph.outgoingNodes(s).toSeq.filterNot(backlinks.contains)
+      toVisit ++= outNodes
+
+      for (outNode <- outNodes) backlinks(outNode) = s
+
+      if (!toVisit.isEmpty) {
+        val x = toVisit.dequeue()
+        shortestPath0(x)
+      }
+    }
+
+    backlinks(from) = from
+    shortestPath0(from)
+
+    println(backlinks(to))
   }
 
-  graph.incomingEdges(Node("http://dbpedia.org/resource/Category:Food_and_drink")) foreach println
+  shortestPath(Node("http://dbpedia.org/resource/Category:1144"),
+    Node("http://dbpedia.org/resource/Category:Food_and_drink"))
 
+
+  //  graph.incomingEdges(Node("http://dbpedia.org/resource/Category:Food_and_drink")) foreach println
 
   //  val latch = new CountDownLatch(1)
   //  latch.await

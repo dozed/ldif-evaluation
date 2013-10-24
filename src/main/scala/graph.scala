@@ -3,7 +3,8 @@ import java.io.PrintWriter
 import org.apache.jena.riot.{Lang, RDFDataMgr}
 import collection.JavaConversions._
 
-import scalax.collection.Graph
+import scalax.collection.GraphTraversal.VisitorReturn
+import scalax.collection.{GraphEdge, GraphTraversal, Graph}
 import scalax.collection.GraphPredef._, scalax.collection.GraphEdge._
 
 object GraphFactory {
@@ -44,12 +45,39 @@ object GraphFactory {
 
 object Alg {
 
-  def test {
+  def leastCommonSubsumer(g: Graph[String, GraphEdge.DiEdge], s: String, t: String) = {
+    val marked = collection.mutable.Map[String, Boolean]()
 
+    g.get(s).traverse(direction = GraphTraversal.Successors, breadthFirst = true)(nodeVisitor = { n =>
+      marked(n) = true
+      VisitorReturn.Continue
+    })
+
+    var lcs: Option[String] = None
+
+    g.get(t).traverse(direction = GraphTraversal.Successors, breadthFirst = true)(nodeVisitor = { n =>
+      if (marked.contains(n)) {
+        lcs = Some(n)
+        VisitorReturn.Cancel
+      } else VisitorReturn.Continue
+    })
+
+    lcs
+  }
+
+  def test(g: Graph[String, GraphEdge.DiEdge]) {
+    println("lcs")
+    println(leastCommonSubsumer(g, "http://dbpedia.org/resource/Category:Environmental_economics", "http://dbpedia.org/resource/Category:Green_politics"))
+    println(leastCommonSubsumer(g, "http://dbpedia.org/resource/Category:Green_politics", "http://dbpedia.org/resource/Category:Environmental_economics"))
+    println(leastCommonSubsumer(g, "http://dbpedia.org/resource/Category:Food_politics", "http://dbpedia.org/resource/Category:Rural_society"))
+    println(leastCommonSubsumer(g, "http://dbpedia.org/resource/Category:Rural_society", "http://dbpedia.org/resource/Category:Food_politics"))
+    println(leastCommonSubsumer(g, "http://dbpedia.org/resource/Category:Coffee", "http://dbpedia.org/resource/Category:Blue_cheeses"))
+    println(leastCommonSubsumer(g, "http://dbpedia.org/resource/Category:Blue_cheeses", "http://dbpedia.org/resource/Category:Coffee"))
   }
 
 
 }
+
 
 object GraphTest extends App {
 
@@ -121,10 +149,13 @@ object GraphTest extends App {
   println("converting to graph")
   val g = GraphFactory.fromSKOS(model)
 
+  def n(outer: String) = g get outer
+
   println("doing path search")
-  // val s = g.get("http://dbpedia.org/resource/Category:Green_politics")
+  val r = g.get("http://dbpedia.org/resource/Category:Green_politics")
   val s = g.get("http://dbpedia.org/resource/Category:Environmental_economics")
   val t = g.get("http://dbpedia.org/resource/Category:Food_and_drink")
+
 
   val p1 = s pathTo t
   val p2 = s shortestPathTo t
@@ -132,7 +163,53 @@ object GraphTest extends App {
   println(p1)
   println(p2)
 
+  def parentNodes(s: g.NodeT) = {
+    val parents = collection.mutable.ArrayBuffer[g.NodeT]()
 
+    s.traverse(direction = GraphTraversal.Successors, breadthFirst = true)(edgeVisitor = { e =>
+      parents += e._2
+    })
+
+    parents.toList
+  }
+
+  def leastCommonSubsumer(s: g.NodeT, t: g.NodeT) = {
+    val marked = collection.mutable.Map[g.NodeT, Boolean]()
+
+    s.traverse(direction = GraphTraversal.Successors, breadthFirst = true)(nodeVisitor = { n =>
+      marked(n) = true
+      VisitorReturn.Continue
+    })
+
+    var lcs: Option[g.NodeT] = None
+
+    s.traverse(direction = GraphTraversal.Successors, breadthFirst = true)(nodeVisitor = { n =>
+      if (marked(n)) {
+        lcs = Some(n)
+        VisitorReturn.Cancel
+      } else VisitorReturn.Continue
+    })
+
+    lcs
+  }
+
+  println("lcs")
+  println(leastCommonSubsumer(g.get("http://dbpedia.org/resource/Category:Environmental_economics"), g.get("http://dbpedia.org/resource/Category:Green_politics")))
+  println(leastCommonSubsumer(g.get("http://dbpedia.org/resource/Category:Green_politics"), g.get("http://dbpedia.org/resource/Category:Environmental_economics")))
+  println(leastCommonSubsumer(g.get("http://dbpedia.org/resource/Category:Food_politics"), g.get("http://dbpedia.org/resource/Category:Rural_society")))
+  println(leastCommonSubsumer(g.get("http://dbpedia.org/resource/Category:Rural_society"), g.get("http://dbpedia.org/resource/Category:Food_politics")))
+  println(leastCommonSubsumer(g.get("http://dbpedia.org/resource/Category:Coffee"), g.get("http://dbpedia.org/resource/Category:Potatoes")))
+  println(leastCommonSubsumer(g.get("http://dbpedia.org/resource/Category:Potatoes"), g.get("http://dbpedia.org/resource/Category:Coffee")))
+
+
+  //  val pa1 = parentNodes(s)
+//  val pa2 = parentNodes(t)
+//
+//  println("diff")
+//  (pa1 diff pa2) foreach println
+//
+//  println("intersection")
+//  (pa1 intersect pa2) foreach println
 
   //  val g = Graph(1 ~> 2, 2 ~> 3, 3 ~> 4, 3 ~> 5, 5 ~> 6, 6 ~> 7, 4 ~> 7)
   //  val p1 = g.get(1) pathTo g.get(7)

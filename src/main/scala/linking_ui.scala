@@ -318,8 +318,11 @@ case class LinkingUI(res: MatchingResults, system: ActorSystem) extends Scalatra
 
   //val taaableGraph = Graph.fromRDFS(RDFDataMgr.loadModel(f"file:///$taaableBase/taaable-food.rdf", Lang.RDFXML))
   // val dbpediaGraph = Graph.fromSKOS(RDFDataMgr.loadModel(f"file:///$dbpediaBase/skos_categories_en.nt", Lang.NTRIPLES))
+
   val dbpediaGraph = {
+    println("loading triples")
     val model = RDFDataMgr.loadModel(f"file:///D:/Workspaces/Dev/ldif-evaluation/dbpedia-foods-categories-2.nt", Lang.NTRIPLES)
+    println("converting to graph")
     GraphFactory.fromSKOS(model)
   }
 
@@ -349,6 +352,16 @@ case class LinkingUI(res: MatchingResults, system: ActorSystem) extends Scalatra
     }) getOrElse halt(500)
   }
 
+  get("/dbpedia/lcs/:from/:to") {
+    (for {
+      from <- params.get("from")
+      to <- params.get("to")
+      lcs <- Alg.leastCommonSubsumer(dbpediaGraph, f"http://dbpedia.org/resource/Category:$from", f"http://dbpedia.org/resource/Category:$to")
+    } yield {
+      lcs
+    }) getOrElse halt(500)
+  }
+
   get("/crunch") {
 //    taaableGraph.incomingEdges(Node("http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AFood")) foreach println
 //    dbpediaGraph.incomingEdges(Node("http://dbpedia.org/resource/Category:Food_and_drink")) foreach println
@@ -357,7 +370,7 @@ case class LinkingUI(res: MatchingResults, system: ActorSystem) extends Scalatra
 
 
 
-    Alg.test
+    Alg.test(dbpediaGraph)
     "crunched"
   }
 

@@ -45,19 +45,22 @@ object GraphFactory {
 
 object Alg {
 
-  def leastCommonSubsumer(g: Graph[String, GraphEdge.DiEdge], s: String, t: String) = {
-    val marked = collection.mutable.Map[String, Boolean]()
+  def leastCommonSubsumer[N](g: Graph[N, GraphEdge.DiEdge], s: N, t: N) = {
+    val marked = collection.mutable.Map[N, Boolean]()
 
     g.get(s).traverse(direction = GraphTraversal.Successors, breadthFirst = true)(nodeVisitor = { n =>
+      println(f"marking $n")
       marked(n) = true
       VisitorReturn.Continue
     })
 
-    var lcs: Option[String] = None
+    var lcs: Option[N] = None
 
     g.get(t).traverse(direction = GraphTraversal.Successors, breadthFirst = true)(nodeVisitor = { n =>
-      if (marked.contains(n)) {
+      println(f"visiting $n")
+      if (marked.getOrElse(n, false)) {
         lcs = Some(n)
+        println(f"selecting $n")
         VisitorReturn.Cancel
       } else VisitorReturn.Continue
     })
@@ -65,27 +68,73 @@ object Alg {
     lcs
   }
 
-  def test(g: Graph[String, GraphEdge.DiEdge]) {
-    println("lcs")
-    println(leastCommonSubsumer(g, "http://dbpedia.org/resource/Category:Environmental_economics", "http://dbpedia.org/resource/Category:Green_politics"))
-    println(leastCommonSubsumer(g, "http://dbpedia.org/resource/Category:Green_politics", "http://dbpedia.org/resource/Category:Environmental_economics"))
-    println(leastCommonSubsumer(g, "http://dbpedia.org/resource/Category:Food_politics", "http://dbpedia.org/resource/Category:Rural_society"))
-    println(leastCommonSubsumer(g, "http://dbpedia.org/resource/Category:Rural_society", "http://dbpedia.org/resource/Category:Food_politics"))
-    println(leastCommonSubsumer(g, "http://dbpedia.org/resource/Category:Coffee", "http://dbpedia.org/resource/Category:Blue_cheeses"))
-    println(leastCommonSubsumer(g, "http://dbpedia.org/resource/Category:Blue_cheeses", "http://dbpedia.org/resource/Category:Coffee"))
+  def pathsTo[N](g: Graph[N, GraphEdge.DiEdge], s: N, t: N) = {
+    val backlinks = collection.mutable.Map[N, List[N]]()
+
+    println("calculating backlinks")
+
+    g.get(s).traverse(direction = GraphTraversal.Successors, breadthFirst = true)(edgeVisitor = { e =>
+      val from: N = e.from
+      val to: N = e.to
+
+      backlinks(to) = from :: backlinks.getOrElseUpdate(to, List.empty)
+    })
+
+    backlinks(s) = List.empty
+
+    val memo = collection.mutable.Map[N, List[List[(N, N)]]]()
+
+    def paths(v: N, current: List[(N, N)] = List.empty): List[List[(N, N)]] = {
+      if (v == s) List(current)
+      else {
+
+        val l = for {
+          u <- backlinks(v).par
+          e = (u, v)
+          if (!current.contains(e))
+          path <- memo.getOrElseUpdate(u, paths(u, e :: current))
+        } yield path
+
+        l.toList
+
+      }
+    }
+
+    println("building paths")
+    paths(t)
   }
 
+  def exportSubsumers[N](g: Graph[N, GraphEdge.DiEdge], s: N)(implicit m: Manifest[N]) {
+    val g2 = scalax.collection.mutable.Graph[N, DiEdge]()
 
-}
+    g.get(s).traverse(direction = GraphTraversal.Successors, breadthFirst = true)(edgeVisitor = { e =>
+      g2 += e
+    })
 
+    exportAsDot(g)
+  }
 
-object GraphTest extends App {
+  def exportAsDot[N](g: Graph[N, GraphEdge.DiEdge]) {
+    import scalax.collection.io.dot._
 
-  val taaableBase = "D:/Workspaces/Dev/ldif-evaluation/ldif-taaable"
-  val dbpediaBase = "D:/Dokumente/dbpedia2"
+    val root = DotRootGraph(directed = true,
+      id = None,
+      kvList = Seq(DotAttr("attr_1", """"one""""),
+        DotAttr("attr_2", "<two>")))
+
+    def edgeTransformer(innerEdge: Graph[N, DiEdge]#EdgeT): Option[(DotGraph, DotEdgeStmt)] = {
+      val edge = innerEdge.edge
+      Some(root, DotEdgeStmt(edge.from.toString.replace("http://dbpedia.org/resource/Category:", ""), edge.to.toString.replace("http://dbpedia.org/resource/Category:", ""), Nil))
+    }
+
+    val str = new Export(g).toDot(root, edgeTransformer)
+    val pw = new PrintWriter("categories.dot")
+    pw.println(str)
+    pw.close
+  }
 
   def extractHierarchy {
-    val model = RDFDataMgr.loadModel(f"file:///$dbpediaBase/skos_categories_en.nt", Lang.NTRIPLES)
+    val model = RDFDataMgr.loadModel(f"file:///D:/Dokumente/dbpedia2/skos_categories_en.nt", Lang.NTRIPLES)
 
     val broader = model.getProperty("http://www.w3.org/2004/02/skos/core#broader")
     val visited = collection.mutable.Set[Resource]()
@@ -113,113 +162,27 @@ object GraphTest extends App {
     pw.close
   }
 
-  //  extractHierarchy
-
-  def exportAsDot {
-    val model = RDFDataMgr.loadModel(f"file:///D:/Workspaces/Dev/ldif-evaluation/dbpedia-foods-categories-2.nt", Lang.NTRIPLES)
-    val graph = GraphFactory.fromSKOS(model)
-
-    def n(outer: String) = graph get outer
-
-    val path = n("http://dbpedia.org/resource/Category:1144") shortestPathTo n("http://dbpedia.org/resource/Category:Food_and_drink")
-    println(path)
-
-    import scalax.collection.io.dot._
-
-    val root = DotRootGraph(directed = true,
-      id = None,
-      kvList = Seq(DotAttr("attr_1", """"one""""),
-        DotAttr("attr_2", "<two>")))
-
-    def edgeTransformer(innerEdge: Graph[String, DiEdge]#EdgeT): Option[(DotGraph, DotEdgeStmt)] = {
-      val edge = innerEdge.edge
-      Some(root, DotEdgeStmt(edge.from.toString, edge.to.toString, Nil))
-    }
-
-    val str = new Export(graph).toDot(root, edgeTransformer)
-    val pw = new PrintWriter("categories.dot")
-    pw.println(str)
-    pw.close
+  def test(g: Graph[String, GraphEdge.DiEdge]) {
+    pathsTo(g, "http://dbpedia.org/resource/Category:Blue_cheeses", "http://dbpedia.org/resource/Category:Components").take(10) foreach println
   }
 
 
-  println("loading triples")
-  val model = RDFDataMgr.loadModel(f"file:///D:/Workspaces/Dev/ldif-evaluation/dbpedia-foods-categories-2.nt", Lang.NTRIPLES)
-
-  println("converting to graph")
-  val g = GraphFactory.fromSKOS(model)
-
-  def n(outer: String) = g get outer
-
-  println("doing path search")
-  val r = g.get("http://dbpedia.org/resource/Category:Green_politics")
-  val s = g.get("http://dbpedia.org/resource/Category:Environmental_economics")
-  val t = g.get("http://dbpedia.org/resource/Category:Food_and_drink")
+}
 
 
-  val p1 = s pathTo t
-  val p2 = s shortestPathTo t
+object GraphTest extends App {
 
-  println(p1)
-  println(p2)
-
-  def parentNodes(s: g.NodeT) = {
-    val parents = collection.mutable.ArrayBuffer[g.NodeT]()
-
-    s.traverse(direction = GraphTraversal.Successors, breadthFirst = true)(edgeVisitor = { e =>
-      parents += e._2
-    })
-
-    parents.toList
-  }
-
-  def leastCommonSubsumer(s: g.NodeT, t: g.NodeT) = {
-    val marked = collection.mutable.Map[g.NodeT, Boolean]()
-
-    s.traverse(direction = GraphTraversal.Successors, breadthFirst = true)(nodeVisitor = { n =>
-      marked(n) = true
-      VisitorReturn.Continue
-    })
-
-    var lcs: Option[g.NodeT] = None
-
-    s.traverse(direction = GraphTraversal.Successors, breadthFirst = true)(nodeVisitor = { n =>
-      if (marked(n)) {
-        lcs = Some(n)
-        VisitorReturn.Cancel
-      } else VisitorReturn.Continue
-    })
-
-    lcs
-  }
-
-  println("lcs")
-  println(leastCommonSubsumer(g.get("http://dbpedia.org/resource/Category:Environmental_economics"), g.get("http://dbpedia.org/resource/Category:Green_politics")))
-  println(leastCommonSubsumer(g.get("http://dbpedia.org/resource/Category:Green_politics"), g.get("http://dbpedia.org/resource/Category:Environmental_economics")))
-  println(leastCommonSubsumer(g.get("http://dbpedia.org/resource/Category:Food_politics"), g.get("http://dbpedia.org/resource/Category:Rural_society")))
-  println(leastCommonSubsumer(g.get("http://dbpedia.org/resource/Category:Rural_society"), g.get("http://dbpedia.org/resource/Category:Food_politics")))
-  println(leastCommonSubsumer(g.get("http://dbpedia.org/resource/Category:Coffee"), g.get("http://dbpedia.org/resource/Category:Potatoes")))
-  println(leastCommonSubsumer(g.get("http://dbpedia.org/resource/Category:Potatoes"), g.get("http://dbpedia.org/resource/Category:Coffee")))
-
-
-  //  val pa1 = parentNodes(s)
-//  val pa2 = parentNodes(t)
+//  println("loading triples")
+//  val model = RDFDataMgr.loadModel(f"file:///D:/Workspaces/Dev/ldif-evaluation/dbpedia-foods-categories-2.nt", Lang.NTRIPLES)
 //
-//  println("diff")
-//  (pa1 diff pa2) foreach println
+//  println("converting to graph")
+//  val g = GraphFactory.fromSKOS(model)
 //
-//  println("intersection")
-//  (pa1 intersect pa2) foreach println
-
-  //  val g = Graph(1 ~> 2, 2 ~> 3, 3 ~> 4, 3 ~> 5, 5 ~> 6, 6 ~> 7, 4 ~> 7)
-  //  val p1 = g.get(1) pathTo g.get(7)
-  //  val p2 = g.get(1) shortestPathTo g.get(7)
-  //
-  //  println(p1)
-  //  println(p2)
+//  Alg.exportAsDot(g)
 
 
-  //  val latch = new CountDownLatch(1)
-  //  latch.await
+  val g = Graph(1 ~> 2, 1 ~> 3, 2 ~> 3, 2 ~> 4, 3 ~> 5, 4 ~> 6, 5 ~> 2, 5 ~> 6, 7 ~> 4)
+  Alg.pathsTo(g, 1, 6) foreach println
+
 
 }

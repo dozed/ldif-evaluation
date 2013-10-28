@@ -45,58 +45,89 @@ object GraphFactory {
 
 object Alg {
 
-  def leastCommonSubsumer[N](g: Graph[N, GraphEdge.DiEdge], s: N, t: N) = {
-    val marked = collection.mutable.Map[N, Boolean]()
+  def lcsCandidates[N](g: Graph[N, DiEdge], s: N, t: N): List[(N, List[N], List[N])] = {
+    val Q = collection.mutable.Queue[N](s, t)
+    val d = collection.mutable.Map[N, Int](s -> 0, t -> 0)
+    val fromS = collection.mutable.HashSet(s)
+    val fromT = collection.mutable.HashSet(t)
 
-    g.get(s).traverse(direction = GraphTraversal.Successors, breadthFirst = true)(nodeVisitor = { n =>
-      println(f"marking $n")
-      marked(n) = true
-      VisitorReturn.Continue
-    })
+    var maxLcsDist: Option[Int] = None
+    val candidates = collection.mutable.ArrayBuffer[N]()
 
-    var lcs: Option[N] = None
+    val linksS = collection.mutable.Map[N, N]()
+    val linksT = collection.mutable.Map[N, N]()
 
-    g.get(t).traverse(direction = GraphTraversal.Successors, breadthFirst = true)(nodeVisitor = { n =>
-      println(f"visiting $n")
-      if (marked.getOrElse(n, false)) {
-        lcs = Some(n)
-        println(f"selecting $n")
-        VisitorReturn.Cancel
-      } else VisitorReturn.Continue
-    })
+    while (!Q.isEmpty) {
 
-    lcs
+      val u = Q.dequeue()
+
+      for (v <- g.get(u).diSuccessors) {
+        if (!d.contains(v) && maxLcsDist.isEmpty) {  // expand if required
+          d(v) = d(u) + 1
+          Q += v
+        }
+
+        // update backlinks if required
+        if (fromS(u) && !linksS.contains(v)) linksS(v) = u
+        if (fromT(u) && !linksT.contains(v)) linksT(v) = u
+
+        // propagate reachability
+        if (!fromS.contains(v)) fromS(v) = fromS(u)
+        if (!fromT.contains(v)) fromT(v) = fromT(u)
+
+        // reachable from s and t => is a candidate for lcs
+        if (fromS.contains(v) && fromT.contains(u)) {
+
+          // set maximum lcs distance
+          if (maxLcsDist.isEmpty) maxLcsDist = Some(d(v))
+
+          if (d.contains(v) && d(v) <= maxLcsDist.get) candidates += v
+        }
+      }
+
+    }
+
+    def backtrackPath(from: N, to: N, backlinks: Map[N, N]) = {
+      def path0(v: N, path: List[N]): List[N] = {
+        if (v == from) path
+        else path0(backlinks(v), backlinks(v) :: path)
+      }
+      path0(to, List.empty)
+    }
+
+    // candidates.toSet
+    candidates.toSet[N].toList map { v =>
+      (v, backtrackPath(s, v, linksS.toMap), backtrackPath(t, v, linksT.toMap))
+    }
   }
 
   def pathsTo[N](g: Graph[N, GraphEdge.DiEdge], s: N, t: N) = {
     val backlinks = collection.mutable.Map[N, List[N]]()
 
     println("calculating backlinks")
+    g.get(s).traverse(direction = GraphTraversal.Successors, breadthFirst = true)(edgeVisitor = {
+      e =>
+        val from: N = e.from
+        val to: N = e.to
 
-    g.get(s).traverse(direction = GraphTraversal.Successors, breadthFirst = true)(edgeVisitor = { e =>
-      val from: N = e.from
-      val to: N = e.to
-
-      backlinks(to) = from :: backlinks.getOrElseUpdate(to, List.empty)
+        backlinks(to) = from :: backlinks.getOrElseUpdate(to, List.empty)
     })
 
     backlinks(s) = List.empty
 
-    val memo = collection.mutable.Map[N, List[List[(N, N)]]]()
+    var l: Long = 0L
 
-    def paths(v: N, current: List[(N, N)] = List.empty): List[List[(N, N)]] = {
-      if (v == s) List(current)
-      else {
-
-        val l = for {
+    def paths(v: N, current: List[(N, N)] = List.empty) {
+      if (l % 10000 == 0) println(f"$l: $current")
+      l += 1
+      if (v == s) {
+        println(current)
+      } else {
+        for {
           u <- backlinks(v).par
           e = (u, v)
           if (!current.contains(e))
-          path <- memo.getOrElseUpdate(u, paths(u, e :: current))
-        } yield path
-
-        l.toList
-
+        } paths(u, e :: current)
       }
     }
 
@@ -107,8 +138,9 @@ object Alg {
   def exportSubsumers[N](g: Graph[N, GraphEdge.DiEdge], s: N)(implicit m: Manifest[N]) {
     val g2 = scalax.collection.mutable.Graph[N, DiEdge]()
 
-    g.get(s).traverse(direction = GraphTraversal.Successors, breadthFirst = true)(edgeVisitor = { e =>
-      g2 += e
+    g.get(s).traverse(direction = GraphTraversal.Successors, breadthFirst = true)(edgeVisitor = {
+      e =>
+        g2 += e
     })
 
     exportAsDot(g)
@@ -163,26 +195,65 @@ object Alg {
   }
 
   def test(g: Graph[String, GraphEdge.DiEdge]) {
-    pathsTo(g, "http://dbpedia.org/resource/Category:Blue_cheeses", "http://dbpedia.org/resource/Category:Components").take(10) foreach println
+    //pathsTo(g, "http://dbpedia.org/resource/Category:Blue_cheeses", "http://dbpedia.org/resource/Category:Components").take(10) foreach println
   }
-
 
 }
 
 
 object GraphTest extends App {
 
-//  println("loading triples")
-//  val model = RDFDataMgr.loadModel(f"file:///D:/Workspaces/Dev/ldif-evaluation/dbpedia-foods-categories-2.nt", Lang.NTRIPLES)
-//
-//  println("converting to graph")
-//  val g = GraphFactory.fromSKOS(model)
-//
-//  Alg.exportAsDot(g)
+  def wikiTaxonomyToDot {
+    println("loading triples")
+    val model = RDFDataMgr.loadModel(f"file:///D:/Workspaces/Dev/ldif-evaluation/ldif-taaable/wikipediaOntology.ttl", Lang.TURTLE)
 
+    val graph = scalax.collection.mutable.Graph[String, DiEdge]()
+    val subClassOf = model.getProperty("http://www.w3.org/2000/01/rdf-schema#subClassOf")
+    val rdfsLabel = model.getProperty("http://www.w3.org/2000/01/rdf-schema#label")
 
-  val g = Graph(1 ~> 2, 1 ~> 3, 2 ~> 3, 2 ~> 4, 3 ~> 5, 4 ~> 6, 5 ~> 2, 5 ~> 6, 7 ~> 4)
-  Alg.pathsTo(g, 1, 6) foreach println
+    def label(x: Resource) = {
+      model.listStatements(x, rdfsLabel, null).next().getObject.asLiteral().getString
+    }
+
+    println("building graph")
+    for (x <- model.listSubjects) {
+      graph += label(x)
+
+      for (st <- model.listStatements(x, subClassOf, null)) {
+        graph += label(x) ~> label(st.getObject.asResource)
+      }
+    }
+
+    import scalax.collection.io.dot._
+
+    println("exporting as dot")
+    val root = DotRootGraph(directed = true,
+      id = None,
+      kvList = Seq(DotAttr("attr_1", """"one""""),
+        DotAttr("attr_2", "<two>")))
+
+    def edgeTransformer(innerEdge: Graph[String, DiEdge]#EdgeT): Option[(DotGraph, DotEdgeStmt)] = {
+      val edge = innerEdge.edge
+      Some(root, DotEdgeStmt(edge.from.toString, edge.to.toString, Nil))
+    }
+
+    val str = new Export(graph).toDot(root, edgeTransformer)
+    val pw = new PrintWriter("wikiTaxonomy.dot")
+    pw.println(str)
+    pw.close
+  }
+
+//  wikiTaxonomyToDot
+//  val g = Graph(1 ~> 2, 1 ~> 3, 2 ~> 4, 3 ~> 4, 4 ~> 7, 7 ~> 8, 5 ~> 6, 6 ~> 4, 6 ~> 1, 6 ~> 8, 2 ~> 8)
+//  println(Alg.lcsCandidates(g, 1, 5))
+
+  println("loading triples")
+  val model = RDFDataMgr.loadModel(f"file:///D:/Workspaces/Dev/ldif-evaluation/dbpedia-foods-categories-2.nt", Lang.NTRIPLES)
+
+  println("converting to graph")
+  val g = GraphFactory.fromSKOS(model)
+
+  println(Alg.lcsCandidates(g, "http://dbpedia.org/resource/Category:Blue_cheeses", "http://dbpedia.org/resource/Category:Potatoes"))
 
 
 }

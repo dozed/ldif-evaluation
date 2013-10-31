@@ -99,7 +99,7 @@ object Alg {
     candidates.toSet[N].toList map {
       v =>
         (v, backtrackPath(s, v, linksS.toMap), backtrackPath(t, v, linksT.toMap))
-    } sortBy (l => l._2.size + l._3.size)
+    }
   }
 
   def lcs[N](g: Graph[N, DiEdge], s: N, t: N): Option[(N, List[N], List[N])] = {
@@ -280,11 +280,39 @@ object GraphTest extends App {
   //      println(f"$v - $q1 - $q2 - $p1 - $p2")
   //    }
 
-//  println("loading triples")
-//  val model = RDFDataMgr.loadModel(f"file:///D:/Workspaces/Dev/ldif-evaluation/dbpedia-foods-categories-2.nt", Lang.NTRIPLES)
-//
-//  println("converting to graph")
-//  val g = GraphFactory.fromSKOS(model)
+  println("loading triples")
+  val model = RDFDataMgr.loadModel(f"file:///D:/Workspaces/Dev/ldif-evaluation/dbpedia-foods-categories-2.nt", Lang.NTRIPLES)
+
+  println("converting to graph")
+  val g = GraphFactory.fromSKOS(model)
+
+  var min = 100000
+  var max = 0
+
+  val dist = collection.mutable.Map[Int, Int]()
+
+  for {
+    s <- g.nodes.par
+    t <- g.nodes
+    (v, p1, p2) <- Alg.lcsCandidates(g, s.toString, t.toString)
+  } yield {
+    val len = p1.size + p2.size
+    dist(len) = dist.getOrElseUpdate(len, 0) + 1
+    if (len < min) {
+      println(f"new minimum: $len - $v - $p1 - $p2")
+      min = len
+      println(dist)
+    }
+    if (len > max) {
+      println(f"new maximum: $len - $v - $p1 - $p2")
+      max = len
+      println(dist)
+    }
+  }
+
+  println(f"min: $min max: $max")
+  println(dist)
+
 //
 //  val s = "http://dbpedia.org/resource/Category:Blue_cheeses"
 //  val t = "http://dbpedia.org/resource/Category:Milk"
@@ -295,6 +323,8 @@ object GraphTest extends App {
 //      val q2 = g.get(t) shortestPathTo g.get(v)
 //      println(f"$v - $q1 - $q2 - $p1 - $p2")
 //  }
+
+
 
 
 }

@@ -51,7 +51,6 @@ object Alg {
     val fromS = collection.mutable.HashSet(s)
     val fromT = collection.mutable.HashSet(t)
 
-    var maxLcsDist: Option[Int] = None
     val candidates = collection.mutable.ArrayBuffer[N]()
 
     val linksS = collection.mutable.Map[N, N]()
@@ -62,9 +61,19 @@ object Alg {
       val u = Q.dequeue()
 
       for (v <- g.get(u).diSuccessors) {
-        if (!d.contains(v) && maxLcsDist.isEmpty) {  // expand if required
+        if (!d.contains(v)) {
+          // expand if required
           d(v) = d(u) + 1
           Q += v
+        }
+
+        // reachable from s and t => is a candidate for lcs
+        // ignore transitive visits
+        val stReachable1 = fromT.contains(v) && (fromS.contains(u) && !fromT.contains(u))
+        val stReachable2 = fromS.contains(v) && (!fromS.contains(u) && fromT.contains(u))
+
+        if (stReachable1 || stReachable2) {
+          candidates += v
         }
 
         // update backlinks if required
@@ -74,15 +83,6 @@ object Alg {
         // propagate reachability
         if (!fromS.contains(v)) fromS(v) = fromS(u)
         if (!fromT.contains(v)) fromT(v) = fromT(u)
-
-        // reachable from s and t => is a candidate for lcs
-        if (fromS.contains(v) && fromT.contains(u)) {
-
-          // set maximum lcs distance
-          if (maxLcsDist.isEmpty) maxLcsDist = Some(d(v))
-
-          if (d.contains(v) && d(v) <= maxLcsDist.get) candidates += v
-        }
       }
 
     }
@@ -96,15 +96,19 @@ object Alg {
     }
 
     // candidates.toSet
-    candidates.toSet[N].toList map { v =>
-      (v, backtrackPath(s, v, linksS.toMap), backtrackPath(t, v, linksT.toMap))
-    }
+    candidates.toSet[N].toList map {
+      v =>
+        (v, backtrackPath(s, v, linksS.toMap), backtrackPath(t, v, linksT.toMap))
+    } sortBy (l => l._2.size + l._3.size)
   }
 
-  def pathsTo[N](g: Graph[N, GraphEdge.DiEdge], s: N, t: N) = {
+  def lcs[N](g: Graph[N, DiEdge], s: N, t: N): Option[(N, List[N], List[N])] = {
+    lcsCandidates(g, s, t).headOption
+  }
+
+  def pathsTo[N](g: Graph[N, DiEdge], s: N, t: N): List[List[(N, N)]] = {
     val backlinks = collection.mutable.Map[N, List[N]]()
 
-    println("calculating backlinks")
     g.get(s).traverse(direction = GraphTraversal.Successors, breadthFirst = true)(edgeVisitor = {
       e =>
         val from: N = e.from
@@ -115,27 +119,26 @@ object Alg {
 
     backlinks(s) = List.empty
 
-    var l: Long = 0L
+    val buf = collection.mutable.ArrayBuffer[List[(N, N)]]()
 
-    def paths(v: N, current: List[(N, N)] = List.empty) {
-      if (l % 10000 == 0) println(f"$l: $current")
-      l += 1
+    def backtrackPaths(v: N, current: List[(N, N)] = List.empty) {
       if (v == s) {
-        println(current)
+        buf += current
       } else {
         for {
           u <- backlinks(v).par
           e = (u, v)
           if (!current.contains(e))
-        } paths(u, e :: current)
+        } backtrackPaths(u, e :: current)
       }
     }
 
-    println("building paths")
-    paths(t)
+    backtrackPaths(t)
+
+    buf.toList
   }
 
-  def exportSubsumers[N](g: Graph[N, GraphEdge.DiEdge], s: N)(implicit m: Manifest[N]) {
+  def exportSubsumers[N](g: Graph[N, DiEdge], s: N)(implicit m: Manifest[N]) {
     val g2 = scalax.collection.mutable.Graph[N, DiEdge]()
 
     g.get(s).traverse(direction = GraphTraversal.Successors, breadthFirst = true)(edgeVisitor = {
@@ -146,7 +149,7 @@ object Alg {
     exportAsDot(g)
   }
 
-  def exportAsDot[N](g: Graph[N, GraphEdge.DiEdge]) {
+  def exportAsDot[N](g: Graph[N, DiEdge]) {
     import scalax.collection.io.dot._
 
     val root = DotRootGraph(directed = true,
@@ -163,6 +166,17 @@ object Alg {
     val pw = new PrintWriter("categories.dot")
     pw.println(str)
     pw.close
+  }
+
+  def extractEnvironment[N](g: Graph[N, DiEdge], s: N, maxDepth: Int)(implicit m: Manifest[N]) = {
+    val g2 = scalax.collection.mutable.Graph[N, DiEdge]()
+
+    g.get(s).traverse(direction = GraphTraversal.Successors, breadthFirst = true, maxDepth = maxDepth)(edgeVisitor = {
+      e =>
+        g2 += e
+    })
+
+    g2
   }
 
   def extractHierarchy {
@@ -194,8 +208,11 @@ object Alg {
     pw.close
   }
 
-  def test(g: Graph[String, GraphEdge.DiEdge]) {
+  def test(g: Graph[String, DiEdge]) {
     //pathsTo(g, "http://dbpedia.org/resource/Category:Blue_cheeses", "http://dbpedia.org/resource/Category:Components").take(10) foreach println
+    //    val e1 = extractEnvironment(g, "http://dbpedia.org/resource/Category:Blue_cheeses", 5)
+    //    val e2 = extractEnvironment(g, "http://dbpedia.org/resource/Category:Potatoes", 5)
+    //    exportAsDot(e1 ++ e2)
   }
 
 }
@@ -243,17 +260,41 @@ object GraphTest extends App {
     pw.close
   }
 
-//  wikiTaxonomyToDot
-//  val g = Graph(1 ~> 2, 1 ~> 3, 2 ~> 4, 3 ~> 4, 4 ~> 7, 7 ~> 8, 5 ~> 6, 6 ~> 4, 6 ~> 1, 6 ~> 8, 2 ~> 8)
-//  println(Alg.lcsCandidates(g, 1, 5))
+  //  wikiTaxonomyToDot
+  //  val g = Graph(1 ~> 2, 1 ~> 3, 2 ~> 4, 3 ~> 4, 4 ~> 7, 7 ~> 8, 5 ~> 6, 6 ~> 4, 6 ~> 1, 6 ~> 8, 2 ~> 8)
+  //  println(Alg.lcsCandidates(g, 1, 5))
 
-  println("loading triples")
-  val model = RDFDataMgr.loadModel(f"file:///D:/Workspaces/Dev/ldif-evaluation/dbpedia-foods-categories-2.nt", Lang.NTRIPLES)
+  //  val g = Graph(1 ~> 3, 1 ~> 4, 2 ~> 5, 2 ~> 12, 3 ~> 6, 4 ~> 7, 5 ~> 8, 6 ~> 9, 7 ~> 11, 8 ~> 11, 9 ~> 12, 10 ~> 12, 11 ~> 10)
+  //  println(Alg.lcsCandidates(g, 1, 2))
+  //  println(Alg.pathsTo(g, 1, 12))
+  //  println(Alg.pathsTo(g, 2, 12))
 
-  println("converting to graph")
-  val g = GraphFactory.fromSKOS(model)
+  // val g = Graph(1 ~> 3, 1 ~> 4, 2 ~> 4, 3 ~> 5, 4 ~> 6, 5 ~> 7, 6 ~> 8, 7 ~> 8)
+  //  val g = Graph(1 ~> 3, 2 ~> 4, 3 ~> 4, 4 ~> 5, 4 ~> 6, 6 ~> 7, 6 ~> 8, 8 ~> 9)
+  //    val g = Graph(1 ~> 3, 2 ~> 4, 3 ~> 4, 4 ~> 5, 4 ~> 6, 6 ~> 7, 6 ~> 8, 8 ~> 9,
+  //      1 ~> 20, 20 ~> 21, 21 ~> 22, 22 ~> 23, 23 ~> 24, 24 ~> 25, 25 ~> 26, 26 ~> 27, 27 ~> 28, 28 ~> 29, 29 ~> 30, 30 ~> 42,
+  //      42 ~> 7, 42 ~> 8, 42 ~> 9)
+  //    Alg.lcsCandidates(g, 1, 2) map { case (v, p1, p2) =>
+  //      val q1 = g.get(1) shortestPathTo g.get(v)
+  //      val q2 = g.get(2) shortestPathTo g.get(v)
+  //      println(f"$v - $q1 - $q2 - $p1 - $p2")
+  //    }
 
-  println(Alg.lcsCandidates(g, "http://dbpedia.org/resource/Category:Blue_cheeses", "http://dbpedia.org/resource/Category:Potatoes"))
+//  println("loading triples")
+//  val model = RDFDataMgr.loadModel(f"file:///D:/Workspaces/Dev/ldif-evaluation/dbpedia-foods-categories-2.nt", Lang.NTRIPLES)
+//
+//  println("converting to graph")
+//  val g = GraphFactory.fromSKOS(model)
+//
+//  val s = "http://dbpedia.org/resource/Category:Blue_cheeses"
+//  val t = "http://dbpedia.org/resource/Category:Milk"
+//
+//  Alg.lcsCandidates(g, s, t) map {
+//    case (v, p1, p2) =>
+//      val q1 = g.get(s) shortestPathTo g.get(v)
+//      val q2 = g.get(t) shortestPathTo g.get(v)
+//      println(f"$v - $q1 - $q2 - $p1 - $p2")
+//  }
 
 
 }

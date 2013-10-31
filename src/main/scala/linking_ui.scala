@@ -357,7 +357,7 @@ case class LinkingUI(res: MatchingResults, system: ActorSystem) extends Scalatra
       from <- params.get("from")
       to <- params.get("to")
     } yield {
-      val lcs = Alg.lcsCandidates(dbpediaGraph, f"http://dbpedia.org/resource/Category:$from", f"http://dbpedia.org/resource/Category:$to")
+      val lcs = Alg.lcsCandidates(dbpediaGraph, f"http://dbpedia.org/resource/Category:$from", f"http://dbpedia.org/resource/Category:$to").sortBy(l => l._2.size + l._3.size)
       lcs foreach println
       lcs map (_._1)
     }) getOrElse halt(500)

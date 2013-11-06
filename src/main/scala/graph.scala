@@ -11,7 +11,36 @@ import scalax.collection.{GraphEdge, GraphTraversal, Graph}
 import scalax.collection.GraphPredef._, scalax.collection.GraphEdge._
 import sun.misc.GC
 
+object PrefixHelper {
+
+  val defaultPrefixes = Map(
+    "category" -> "http://dbpedia.org/resource/Category:",
+    "dbpedia" -> "http://dbpedia.org/resource/"
+  )
+
+  def shortenUri(fullUri: String): String = {
+    defaultPrefixes filter {
+      case (_, uriPrefix) => fullUri.startsWith(uriPrefix)
+    } headOption match {
+      case Some((shortPrefix, uriPrefix)) => shortPrefix + ":" + fullUri.replaceAll(uriPrefix, "")
+      case None => fullUri
+    }
+  }
+
+  def fullUri(shortUri: String): String = {
+    defaultPrefixes filter {
+      case (shortPrefix, _) => shortUri.startsWith(shortPrefix + ":")
+    } headOption match {
+      case Some((shortPrefix, uriPrefix)) => uriPrefix + shortUri.replaceAll(shortPrefix + ":", "")
+      case None => shortUri
+    }
+  }
+
+}
+
 object GraphFactory {
+
+  import PrefixHelper._
 
   def fromRDFS(model: Model) = {
     val graph = scalax.collection.mutable.Graph[String, DiEdge]()
@@ -29,31 +58,19 @@ object GraphFactory {
     graph
   }
 
-  val defaultPrefixes = Map(
-    "http://dbpedia.org/resource/Category:" -> "category:"
-  )
-
-  def fromSKOS(model: Model, prefixes: Map[String, String] = defaultPrefixes) = {
-    def shortenUri(uri: String): String = {
-      defaultPrefixes filter {
-        case (p, s) => uri.contains(p)
-      } headOption match {
-        case Some((p, s)) => uri.replaceAll(p, s)
-        case None => uri
-      }
-    }
-
+  def fromDbpedia(model: Model) = {
     val graph = scalax.collection.mutable.Graph[String, DiEdge]()
-    val broader = model.getProperty("http://www.w3.org/2004/02/skos/core#broader")
+    val predicates = List(
+      model.getProperty("http://www.w3.org/2004/02/skos/core#broader"),
+      model.getProperty("http://purl.org/dc/terms/subject"))
 
-    for (x <- model.listSubjects) {
-      val e1 = shortenUri(x.getURI)
-      graph += e1
-
-      for (st <- model.listStatements(x, broader, null)) {
-        val e2 = shortenUri(st.getObject.asResource.getURI)
-        graph += e1 ~> e2
-      }
+    predicates foreach {
+      p =>
+        for (st <- model.listStatements(null, p, null)) {
+          val e1 = shortenUri(st.getSubject.asResource.getURI)
+          val e2 = shortenUri(st.getObject.asResource.getURI)
+          graph += e1 ~> e2
+        }
     }
 
     graph
@@ -229,7 +246,7 @@ object Alg {
     buf.toList
   }
 
-  def exportAsDot[N](g: Graph[N, DiEdge]) {
+  def exportAsDot[N](g: Graph[N, DiEdge]): String = {
     import scalax.collection.io.dot._
 
     val root = DotRootGraph(directed = true,
@@ -242,10 +259,7 @@ object Alg {
       Some(root, DotEdgeStmt(edge.from.toString.replace("http://dbpedia.org/resource/Category:", ""), edge.to.toString.replace("http://dbpedia.org/resource/Category:", ""), Nil))
     }
 
-    val str = new Export(g).toDot(root, edgeTransformer)
-    val pw = new PrintWriter("categories.dot")
-    pw.println(str)
-    pw.close
+    new Export(g).toDot(root, edgeTransformer)
   }
 
   def extractEnvironment[N](g: Graph[N, DiEdge], s: N, maxDepth: Int)(implicit m: Manifest[N]) = {
@@ -269,6 +283,8 @@ object Alg {
 }
 
 object TestDataSet {
+
+  import PrefixHelper._
 
   def extractTypes(subjects: List[String]): Map[String, Set[String]] = {
 
@@ -313,15 +329,16 @@ object TestDataSet {
     )
 
     println("extracting instance types")
-    val typeMap = TestDataSet.extractTypes(instances).map { case (k, v) =>
-      (k.replaceAll("http://dbpedia.org/resource/", "dbpedia:"), v.map(_.replaceAll("http://dbpedia.org/resource/Category:", "category:")))
+    val typeMap = TestDataSet.extractTypes(instances).map {
+      case (k, v) =>
+        (k.replaceAll("http://dbpedia.org/resource/", "dbpedia:"), v.map(_.replaceAll("http://dbpedia.org/resource/Category:", "category:")))
     }
 
     println("loading hierarchy triples")
     val model = RDFDataMgr.loadModel(f"file:///D:/Dokumente/dbpedia2/skos_categories_en.nt", Lang.NTRIPLES)
 
     println("converting hierarchy to graph")
-    val g = GraphFactory.fromSKOS(model)
+    val g = GraphFactory.fromDbpedia(model)
 
     println("extracting transitive types")
     val transitiveTypes = collection.mutable.HashSet[(String, String)]()
@@ -339,19 +356,19 @@ object TestDataSet {
 
     val pw = new PrintWriter("test-cellery.nt")
 
+    def write(s: String, p: String, o: String) {
+      val ls = f"<${fullUri(s)}> <$p> <${fullUri(o)}> ."
+      println(ls)
+      pw.println(ls)
+    }
+
     typeMap foreach {
-      case (x, xs) =>
-        xs foreach {
-          t =>
-            println(f"<$x> <http://purl.org/dc/terms/subject> <$t> .")
-            pw.println(f"<$x> <http://purl.org/dc/terms/subject> <$t> .")
-        }
+      case (x, ys) =>
+        ys foreach (y => write(x, "http://purl.org/dc/terms/subject", y))
     }
 
     transitiveTypes foreach {
-      case (u, v) =>
-        println(f"<$u> <http://www.w3.org/2004/02/skos/core#broader> <$v> .")
-        pw.println(f"<$u> <http://www.w3.org/2004/02/skos/core#broader> <$v> .")
+      case (x, y) => write(x, "http://www.w3.org/2004/02/skos/core#broader", y)
     }
 
     pw.close
@@ -424,9 +441,42 @@ object GraphTest extends App {
 
 
 
+  val instances = List(
+    "http://dbpedia.org/resource/Celery",
+    "http://dbpedia.org/resource/Cel-Ray",
+    "http://dbpedia.org/resource/Celery_salt",
+    "http://dbpedia.org/resource/Celery_Victor",
+    "http://dbpedia.org/resource/Celery_cabbage",
+    "http://dbpedia.org/resource/Celeriac",
+    "http://dbpedia.org/resource/Celebrity_(tomato)"
+  )
 
-  TestDataSet.generate
 
+  val model = RDFDataMgr.loadModel("file:///D:/Workspaces/Dev/ldif-evaluation/test-cellery.nt", Lang.NTRIPLES)
+  val g = GraphFactory.fromDbpedia(model)
+
+  for {
+    x <- instances
+    y <- instances
+  } {
+    val s = Alg.structuralCotopic(g, x, y)
+    println(f"$x - $y - $s")
+  }
+
+  // TestDataSet.generate
+//  val model = RDFDataMgr.loadModel("file:///D:/Workspaces/Dev/ldif-evaluation/test-cellery.nt", Lang.NTRIPLES)
+//  val g = GraphFactory.fromDbpedia(model)
+//
+//  val g2 = scalax.collection.mutable.Graph[String, DiEdge]()
+//
+//  g.get("category:Foods").traverse(direction = GraphTraversal.Predecessors, breadthFirst = true)(edgeVisitor = {
+//    e => g2 += e
+//  })
+//
+//  val s = Alg.exportAsDot(g2)
+//  val pw = new PrintWriter("test-cellery-2.dot")
+//  pw.println(s)
+//  pw.close
 
 
   //  var min = 100000

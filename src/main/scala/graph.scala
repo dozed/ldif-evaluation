@@ -459,7 +459,7 @@ object GraphTest extends App {
     x <- instances
     y <- instances
   } {
-    val s = Alg.structuralCotopic(g, x, y)
+    val s = Alg.structuralCotopic(g, PrefixHelper.shortenUri(x), PrefixHelper.shortenUri(y))
     println(f"$x - $y - $s")
   }
 

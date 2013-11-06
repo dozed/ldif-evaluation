@@ -13,30 +13,31 @@ import sun.misc.GC
 
 object GraphFactory {
 
-  //  def fromRDFS(model: Model) = {
-  //    val graph = new Graph()
-  //    val subClassOf = model.getProperty("http://www.w3.org/2000/01/rdf-schema#subClassOf")
-  //
-  //    for (x <- model.listSubjects) {
-  //      val s = Node(x.getURI)
-  //      graph.addNode(s)
-  //
-  //      for (st <- model.listStatements(x, subClassOf, null)) {
-  //        val e = Edge("is-a", s.id, st.getObject.asResource.getURI)
-  //        graph.addEdge(e)
-  //      }
-  //    }
-  //
-  //    graph
-  //  }
+  def fromRDFS(model: Model) = {
+    val graph = scalax.collection.mutable.Graph[String, DiEdge]()
+    val subClassOf = model.getProperty("http://www.w3.org/2000/01/rdf-schema#subClassOf")
+
+    for (x <- model.listSubjects) {
+      val e1 = x.getURI
+
+      for (st <- model.listStatements(x, subClassOf, null)) {
+        val e2 = st.getObject.asResource.getURI
+        graph += e1 ~> e2
+      }
+    }
+
+    graph
+  }
 
   val defaultPrefixes = Map(
     "http://dbpedia.org/resource/Category:" -> "category:"
   )
 
   def fromSKOS(model: Model, prefixes: Map[String, String] = defaultPrefixes) = {
-    def shortenUri(uri: String) = {
-      defaultPrefixes filter { case (p, s) => uri.contains(p) } headOption match {
+    def shortenUri(uri: String): String = {
+      defaultPrefixes filter {
+        case (p, s) => uri.contains(p)
+      } headOption match {
         case Some((p, s)) => uri.replaceAll(p, s)
         case None => uri
       }
@@ -56,6 +57,46 @@ object GraphFactory {
     }
 
     graph
+  }
+
+  def fromWikiTaxonomy: Graph[String, DiEdge] = {
+    val model = RDFDataMgr.loadModel(f"file:///D:/Workspaces/Dev/ldif-evaluation/ldif-taaable/wikipediaOntology.ttl", Lang.TURTLE)
+
+    val graph = scalax.collection.mutable.Graph[String, DiEdge]()
+    val subClassOf = model.getProperty("http://www.w3.org/2000/01/rdf-schema#subClassOf")
+    val rdfsLabel = model.getProperty("http://www.w3.org/2000/01/rdf-schema#label")
+
+    def label(x: Resource) = {
+      model.listStatements(x, rdfsLabel, null).next().getObject.asLiteral().getString
+    }
+
+    for (x <- model.listSubjects) {
+      graph += label(x)
+
+      for (st <- model.listStatements(x, subClassOf, null)) {
+        graph += label(x) ~> label(st.getObject.asResource)
+      }
+    }
+
+    graph
+
+    //    import scalax.collection.io.dot._
+
+    //    println("exporting as dot")
+    //    val root = DotRootGraph(directed = true,
+    //      id = None,
+    //      kvList = Seq(DotAttr("attr_1", """"one""""),
+    //        DotAttr("attr_2", "<two>")))
+    //
+    //    def edgeTransformer(innerEdge: Graph[String, DiEdge]#EdgeT): Option[(DotGraph, DotEdgeStmt)] = {
+    //      val edge = innerEdge.edge
+    //      Some(root, DotEdgeStmt(edge.from.toString, edge.to.toString, Nil))
+    //    }
+    //
+    //    val str = new Export(graph).toDot(root, edgeTransformer)
+    //    val pw = new PrintWriter("wikiTaxonomy.dot")
+    //    pw.println(str)
+    //    pw.close
   }
 
 }
@@ -118,7 +159,7 @@ object Alg {
     candidates.toSet[N].toList map {
       v =>
         (v, backtrackPath(s, v, linksS.toMap), backtrackPath(t, v, linksT.toMap))
-    } sortBy(l => l._2.size + l._3.size)
+    } sortBy (l => l._2.size + l._3.size)
   }
 
   def lcs[N](g: Graph[N, DiEdge], s: N, t: N): Option[(N, List[N], List[N])] = {
@@ -218,35 +259,6 @@ object Alg {
     g2
   }
 
-  def extractHierarchy {
-    val model = RDFDataMgr.loadModel(f"file:///D:/Dokumente/dbpedia2/skos_categories_en.nt", Lang.NTRIPLES)
-
-    val broader = model.getProperty("http://www.w3.org/2004/02/skos/core#broader")
-    val visited = collection.mutable.Set[Resource]()
-    val pw = new PrintWriter("dbpedia-foods-categories-3.nt")
-
-    def followBroaderInverse(x: Resource) {
-      for (st <- model.listStatements(null, broader, x)) {
-        val s = st.getSubject.asResource
-        val o = st.getObject.asResource
-
-        val str = f"<${s.getURI}> <http://www.w3.org/2004/02/skos/core#broader> <${o.getURI}> ."
-        println(str)
-        pw.println(str)
-
-        if (!visited.contains(s)) {
-          visited += s
-          followBroaderInverse(s)
-        }
-      }
-    }
-
-    val x = model.getResource("http://dbpedia.org/resource/Category:Food_and_drink")
-    followBroaderInverse(x)
-
-    pw.close
-  }
-
   def test(g: Graph[String, DiEdge]) {
     //pathsTo(g, "http://dbpedia.org/resource/Category:Blue_cheeses", "http://dbpedia.org/resource/Category:Components").take(10) foreach println
     //    val e1 = extractEnvironment(g, "http://dbpedia.org/resource/Category:Blue_cheeses", 5)
@@ -258,7 +270,7 @@ object Alg {
 
 object TestDataSet {
 
-  def extractTypes(subjects: List[String]) : Map[String, Set[String]] = {
+  def extractTypes(subjects: List[String]): Map[String, Set[String]] = {
 
     val typeMap = collection.mutable.Map[String, Set[String]]()
 
@@ -274,8 +286,11 @@ object TestDataSet {
       }
 
       def handleNamespace(p1: String, p2: String) {}
+
       def handleComment(p1: String) {}
+
       def startRDF() {}
+
       def endRDF() {}
     })
 
@@ -304,34 +319,38 @@ object TestDataSet {
     val model = RDFDataMgr.loadModel(f"file:///D:/Dokumente/dbpedia2/skos_categories_en.nt", Lang.NTRIPLES)
 
     println("converting hierarchy to graph")
-    val g = GraphFactory.fromSKOS(model)
+    val g = GraphFactory.fromSKOS(model, Map.empty)
 
     val transitiveTypes = collection.mutable.HashSet[(String, String)]()
 
     println("extracting transitive types")
-    typeMap.map(_._2).flatten foreach { x =>
-      g.get(x).traverse(direction = GraphTraversal.Successors, breadthFirst = true)(edgeVisitor = {
-        e =>
-          val u: String = e._1
-          val v: String = e._2
-          if (!transitiveTypes.contains((u, v))) {
-            transitiveTypes += ((u, v))
-          }
-      })
+    typeMap.map(_._2).flatten foreach {
+      x =>
+        g.get(x).traverse(direction = GraphTraversal.Successors, breadthFirst = true)(edgeVisitor = {
+          e =>
+            val u: String = e._1
+            val v: String = e._2
+            if (!transitiveTypes.contains((u, v))) {
+              transitiveTypes += ((u, v))
+            }
+        })
     }
 
     val pw = new PrintWriter("test-cellery.nt")
 
-    typeMap foreach { case (x, xs) =>
-      xs foreach { t =>
-        println(f"<$x> <http://purl.org/dc/terms/subject> <$t> .")
-        pw.println(f"<$x> <http://purl.org/dc/terms/subject> <$t> .")
-      }
+    typeMap foreach {
+      case (x, xs) =>
+        xs foreach {
+          t =>
+            println(f"<$x> <http://purl.org/dc/terms/subject> <$t> .")
+            pw.println(f"<$x> <http://purl.org/dc/terms/subject> <$t> .")
+        }
     }
 
-    transitiveTypes foreach { case (u, v) =>
-      println(f"<$u> <http://www.w3.org/2004/02/skos/core#broader> <$v> .")
-      pw.println(f"<$u> <http://www.w3.org/2004/02/skos/core#broader> <$v> .")
+    transitiveTypes foreach {
+      case (u, v) =>
+        println(f"<$u> <http://www.w3.org/2004/02/skos/core#broader> <$v> .")
+        pw.println(f"<$u> <http://www.w3.org/2004/02/skos/core#broader> <$v> .")
     }
 
     pw.close
@@ -409,43 +428,43 @@ object GraphTest extends App {
 
 
 
-//  var min = 100000
-//  var max = 0
-//
-//  val dist = collection.mutable.Map[Int, Int]()
-//
-//  for {
-//    s <- g.nodes.par
-//    t <- g.nodes
-//    (v, p1, p2) <- Alg.lcsCandidates(g, s.toString, t.toString)
-//  } yield {
-//    val len = p1.size + p2.size
-//    dist(len) = dist.getOrElseUpdate(len, 0) + 1
-//    if (len < min) {
-//      println(f"new minimum: $len - $v - $p1 - $p2")
-//      min = len
-//      println(dist)
-//    }
-//    if (len > max) {
-//      println(f"new maximum: $len - $v - $p1 - $p2")
-//      max = len
-//      println(dist)
-//    }
-//  }
-//
-//  println(f"min: $min max: $max")
-//  println(dist)
+  //  var min = 100000
+  //  var max = 0
+  //
+  //  val dist = collection.mutable.Map[Int, Int]()
+  //
+  //  for {
+  //    s <- g.nodes.par
+  //    t <- g.nodes
+  //    (v, p1, p2) <- Alg.lcsCandidates(g, s.toString, t.toString)
+  //  } yield {
+  //    val len = p1.size + p2.size
+  //    dist(len) = dist.getOrElseUpdate(len, 0) + 1
+  //    if (len < min) {
+  //      println(f"new minimum: $len - $v - $p1 - $p2")
+  //      min = len
+  //      println(dist)
+  //    }
+  //    if (len > max) {
+  //      println(f"new maximum: $len - $v - $p1 - $p2")
+  //      max = len
+  //      println(dist)
+  //    }
+  //  }
+  //
+  //  println(f"min: $min max: $max")
+  //  println(dist)
 
-//  System.gc()
-//
-//  val s = "category:Blue_cheeses"
-//  val t = "category:Milk"
-//
-//  Alg.lcsCandidates(g, s, t) map {
-//    case (v, p1, p2) =>
-//      val q1 = g.get(s) shortestPathTo g.get(v)
-//      val q2 = g.get(t) shortestPathTo g.get(v)
-//      println(f"$v - $q1 - $q2 - $p1 - $p2")
-//  }
+  //  System.gc()
+  //
+  //  val s = "category:Blue_cheeses"
+  //  val t = "category:Milk"
+  //
+  //  Alg.lcsCandidates(g, s, t) map {
+  //    case (v, p1, p2) =>
+  //      val q1 = g.get(s) shortestPathTo g.get(v)
+  //      val q2 = g.get(t) shortestPathTo g.get(v)
+  //      println(f"$v - $q1 - $q2 - $p1 - $p2")
+  //  }
 
 }

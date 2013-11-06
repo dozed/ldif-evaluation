@@ -313,17 +313,18 @@ object TestDataSet {
     )
 
     println("extracting instance types")
-    val typeMap = TestDataSet.extractTypes(instances)
+    val typeMap = TestDataSet.extractTypes(instances).map { case (k, v) =>
+      (k.replaceAll("http://dbpedia.org/resource/", "dbpedia:"), v.map(_.replaceAll("http://dbpedia.org/resource/Category:", "category:")))
+    }
 
     println("loading hierarchy triples")
     val model = RDFDataMgr.loadModel(f"file:///D:/Dokumente/dbpedia2/skos_categories_en.nt", Lang.NTRIPLES)
 
     println("converting hierarchy to graph")
-    val g = GraphFactory.fromSKOS(model, Map.empty)
-
-    val transitiveTypes = collection.mutable.HashSet[(String, String)]()
+    val g = GraphFactory.fromSKOS(model)
 
     println("extracting transitive types")
+    val transitiveTypes = collection.mutable.HashSet[(String, String)]()
     typeMap.map(_._2).flatten foreach {
       x =>
         g.get(x).traverse(direction = GraphTraversal.Successors, breadthFirst = true)(edgeVisitor = {

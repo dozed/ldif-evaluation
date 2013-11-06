@@ -1,11 +1,15 @@
 import com.hp.hpl.jena.rdf.model.{Resource, Model}
-import java.io.PrintWriter
+import java.io.{BufferedInputStream, FileInputStream, PrintWriter}
+import org.apache.any23.io.nquads.NQuadsParser
 import org.apache.jena.riot.{Lang, RDFDataMgr}
 import collection.JavaConversions._
 
+import org.openrdf.model.Statement
+import org.openrdf.rio.RDFHandler
 import scalax.collection.GraphTraversal.VisitorReturn
 import scalax.collection.{GraphEdge, GraphTraversal, Graph}
 import scalax.collection.GraphPredef._, scalax.collection.GraphEdge._
+import sun.misc.GC
 
 object GraphFactory {
 
@@ -26,15 +30,28 @@ object GraphFactory {
   //    graph
   //  }
 
-  def fromSKOS(model: Model) = {
+  val defaultPrefixes = Map(
+    "http://dbpedia.org/resource/Category:" -> "category:"
+  )
+
+  def fromSKOS(model: Model, prefixes: Map[String, String] = defaultPrefixes) = {
+    def shortenUri(uri: String) = {
+      defaultPrefixes filter { case (p, s) => uri.contains(p) } headOption match {
+        case Some((p, s)) => uri.replaceAll(p, s)
+        case None => uri
+      }
+    }
+
     val graph = scalax.collection.mutable.Graph[String, DiEdge]()
     val broader = model.getProperty("http://www.w3.org/2004/02/skos/core#broader")
 
     for (x <- model.listSubjects) {
-      graph += x.getURI
+      val e1 = shortenUri(x.getURI)
+      graph += e1
 
       for (st <- model.listStatements(x, broader, null)) {
-        graph += x.getURI ~> st.getObject.asResource.getURI
+        val e2 = shortenUri(st.getObject.asResource.getURI)
+        graph += e1 ~> e2
       }
     }
 
@@ -44,6 +61,8 @@ object GraphFactory {
 }
 
 object Alg {
+
+  val maxDistance = 77
 
   def lcsCandidates[N](g: Graph[N, DiEdge], s: N, t: N): List[(N, List[N], List[N])] = {
     val Q = collection.mutable.Queue[N](s, t)
@@ -99,11 +118,42 @@ object Alg {
     candidates.toSet[N].toList map {
       v =>
         (v, backtrackPath(s, v, linksS.toMap), backtrackPath(t, v, linksT.toMap))
-    }
+    } sortBy(l => l._2.size + l._3.size)
   }
 
   def lcs[N](g: Graph[N, DiEdge], s: N, t: N): Option[(N, List[N], List[N])] = {
     lcsCandidates(g, s, t).headOption
+  }
+
+  def structuralCotopic[N](g: Graph[N, DiEdge], s: N, t: N): Double = {
+    lcs(g, s, t) match {
+      case Some((_, p1, p2)) => p1.size + p2.size
+      case None => 100000
+    }
+  }
+
+  def structuralCotopicNormalized[N](g: Graph[N, DiEdge], s: N, t: N): Double = {
+    structuralCotopic(g, s, t) / maxDistance
+  }
+
+  def subsumers[N](g: Graph[N, DiEdge], x: N): Set[N] = {
+    val subs = new collection.mutable.HashSet[N]()
+    g.get(x).traverse(direction = GraphTraversal.Successors, breadthFirst = true)(nodeVisitor = {
+      n =>
+        subs += n
+        VisitorReturn.Continue
+    })
+    subs.toSet
+  }
+
+  def subsumerGraph[N](g: Graph[N, DiEdge], x: N)(implicit m: Manifest[N]): Graph[N, DiEdge] = {
+    val g2 = scalax.collection.mutable.Graph[N, DiEdge]()
+
+    g.get(x).traverse(direction = GraphTraversal.Successors, breadthFirst = true)(edgeVisitor = {
+      e => g2 += e
+    })
+
+    g2
   }
 
   def pathsTo[N](g: Graph[N, DiEdge], s: N, t: N): List[List[(N, N)]] = {
@@ -136,17 +186,6 @@ object Alg {
     backtrackPaths(t)
 
     buf.toList
-  }
-
-  def exportSubsumers[N](g: Graph[N, DiEdge], s: N)(implicit m: Manifest[N]) {
-    val g2 = scalax.collection.mutable.Graph[N, DiEdge]()
-
-    g.get(s).traverse(direction = GraphTraversal.Successors, breadthFirst = true)(edgeVisitor = {
-      e =>
-        g2 += e
-    })
-
-    exportAsDot(g)
   }
 
   def exportAsDot[N](g: Graph[N, DiEdge]) {
@@ -217,6 +256,89 @@ object Alg {
 
 }
 
+object TestDataSet {
+
+  def extractTypes(subjects: List[String]) : Map[String, Set[String]] = {
+
+    val typeMap = collection.mutable.Map[String, Set[String]]()
+
+    val parser = new NQuadsParser()
+    parser.setRDFHandler(new RDFHandler {
+      def handleStatement(p1: Statement) {
+        val s = p1.getSubject.stringValue
+        if (subjects.contains(s)) {
+          val p = p1.getPredicate.stringValue
+          val o = p1.getObject.stringValue
+          typeMap(s) = typeMap.getOrElseUpdate(s, Set.empty) + o
+        }
+      }
+
+      def handleNamespace(p1: String, p2: String) {}
+      def handleComment(p1: String) {}
+      def startRDF() {}
+      def endRDF() {}
+    })
+
+    val in = new BufferedInputStream(new FileInputStream("D:/Dokumente/dbpedia2/article_categories_en.nt"))
+    parser.parse(in, "http://dbpedia.org/resource/")
+
+    typeMap.toMap
+  }
+
+  def generate = {
+
+    val instances = List(
+      "http://dbpedia.org/resource/Celery",
+      "http://dbpedia.org/resource/Cel-Ray",
+      "http://dbpedia.org/resource/Celery_salt",
+      "http://dbpedia.org/resource/Celery_Victor",
+      "http://dbpedia.org/resource/Celery_cabbage",
+      "http://dbpedia.org/resource/Celeriac",
+      "http://dbpedia.org/resource/Celebrity_(tomato)"
+    )
+
+    println("extracting instance types")
+    val typeMap = TestDataSet.extractTypes(instances)
+
+    println("loading hierarchy triples")
+    val model = RDFDataMgr.loadModel(f"file:///D:/Dokumente/dbpedia2/skos_categories_en.nt", Lang.NTRIPLES)
+
+    println("converting hierarchy to graph")
+    val g = GraphFactory.fromSKOS(model)
+
+    val transitiveTypes = collection.mutable.HashSet[(String, String)]()
+
+    println("extracting transitive types")
+    typeMap.map(_._2).flatten foreach { x =>
+      g.get(x).traverse(direction = GraphTraversal.Successors, breadthFirst = true)(edgeVisitor = {
+        e =>
+          val u: String = e._1
+          val v: String = e._2
+          if (!transitiveTypes.contains((u, v))) {
+            transitiveTypes += ((u, v))
+          }
+      })
+    }
+
+    val pw = new PrintWriter("test-cellery.nt")
+
+    typeMap foreach { case (x, xs) =>
+      xs foreach { t =>
+        println(f"<$x> <http://purl.org/dc/terms/subject> <$t> .")
+        pw.println(f"<$x> <http://purl.org/dc/terms/subject> <$t> .")
+      }
+    }
+
+    transitiveTypes foreach { case (u, v) =>
+      println(f"<$u> <http://www.w3.org/2004/02/skos/core#broader> <$v> .")
+      pw.println(f"<$u> <http://www.w3.org/2004/02/skos/core#broader> <$v> .")
+    }
+
+    pw.close
+
+  }
+
+}
 
 object GraphTest extends App {
 
@@ -280,42 +402,44 @@ object GraphTest extends App {
   //      println(f"$v - $q1 - $q2 - $p1 - $p2")
   //    }
 
-  println("loading triples")
-  val model = RDFDataMgr.loadModel(f"file:///D:/Workspaces/Dev/ldif-evaluation/dbpedia-foods-categories-2.nt", Lang.NTRIPLES)
 
-  println("converting to graph")
-  val g = GraphFactory.fromSKOS(model)
 
-  var min = 100000
-  var max = 0
 
-  val dist = collection.mutable.Map[Int, Int]()
+  TestDataSet.generate
 
-  for {
-    s <- g.nodes.par
-    t <- g.nodes
-    (v, p1, p2) <- Alg.lcsCandidates(g, s.toString, t.toString)
-  } yield {
-    val len = p1.size + p2.size
-    dist(len) = dist.getOrElseUpdate(len, 0) + 1
-    if (len < min) {
-      println(f"new minimum: $len - $v - $p1 - $p2")
-      min = len
-      println(dist)
-    }
-    if (len > max) {
-      println(f"new maximum: $len - $v - $p1 - $p2")
-      max = len
-      println(dist)
-    }
-  }
 
-  println(f"min: $min max: $max")
-  println(dist)
 
+//  var min = 100000
+//  var max = 0
 //
-//  val s = "http://dbpedia.org/resource/Category:Blue_cheeses"
-//  val t = "http://dbpedia.org/resource/Category:Milk"
+//  val dist = collection.mutable.Map[Int, Int]()
+//
+//  for {
+//    s <- g.nodes.par
+//    t <- g.nodes
+//    (v, p1, p2) <- Alg.lcsCandidates(g, s.toString, t.toString)
+//  } yield {
+//    val len = p1.size + p2.size
+//    dist(len) = dist.getOrElseUpdate(len, 0) + 1
+//    if (len < min) {
+//      println(f"new minimum: $len - $v - $p1 - $p2")
+//      min = len
+//      println(dist)
+//    }
+//    if (len > max) {
+//      println(f"new maximum: $len - $v - $p1 - $p2")
+//      max = len
+//      println(dist)
+//    }
+//  }
+//
+//  println(f"min: $min max: $max")
+//  println(dist)
+
+//  System.gc()
+//
+//  val s = "category:Blue_cheeses"
+//  val t = "category:Milk"
 //
 //  Alg.lcsCandidates(g, s, t) map {
 //    case (v, p1, p2) =>
@@ -323,8 +447,5 @@ object GraphTest extends App {
 //      val q2 = g.get(t) shortestPathTo g.get(v)
 //      println(f"$v - $q1 - $q2 - $p1 - $p2")
 //  }
-
-
-
 
 }

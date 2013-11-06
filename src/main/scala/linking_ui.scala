@@ -11,6 +11,7 @@ import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.JaroDistanceMetri
 import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.JaroWinklerDistance
 import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.QGramsMetric
 import de.fuberlin.wiwiss.silk.plugins.distance.equality.RelaxedEqualityMetric
+import java.io.PrintWriter
 import javax.servlet.ServletContext
 import org.apache.jena.riot.{RDFDataMgr, Lang}
 import org.eclipse.jetty.server.nio.SelectChannelConnector
@@ -319,7 +320,7 @@ case class LinkingUI(res: MatchingResults, system: ActorSystem) extends Scalatra
   //val taaableGraph = Graph.fromRDFS(RDFDataMgr.loadModel(f"file:///$taaableBase/taaable-food.rdf", Lang.RDFXML))
   // val dbpediaGraph = Graph.fromSKOS(RDFDataMgr.loadModel(f"file:///$dbpediaBase/skos_categories_en.nt", Lang.NTRIPLES))
 
-  val dbpediaGraph = {
+  lazy val dbpediaGraph = {
     println("loading triples")
     val model = RDFDataMgr.loadModel(f"file:///D:/Workspaces/Dev/ldif-evaluation/dbpedia-foods-categories-2.nt", Lang.NTRIPLES)
     println("converting to graph")
@@ -332,8 +333,8 @@ case class LinkingUI(res: MatchingResults, system: ActorSystem) extends Scalatra
     (for {
       from <- params.get("from")
       to <- params.get("to")
-      s <- dbpediaGraph.find(f"http://dbpedia.org/resource/Category:$from")
-      t <- dbpediaGraph.find(f"http://dbpedia.org/resource/Category:$to")
+      s <- dbpediaGraph.find(f"category:$from")
+      t <- dbpediaGraph.find(f"category:$to")
       path <- s pathTo t
     } yield {
       path.edges
@@ -344,8 +345,8 @@ case class LinkingUI(res: MatchingResults, system: ActorSystem) extends Scalatra
     (for {
       from <- params.get("from")
       to <- params.get("to")
-      s <- dbpediaGraph.find(f"http://dbpedia.org/resource/Category:$from")
-      t <- dbpediaGraph.find(f"http://dbpedia.org/resource/Category:$to")
+      s <- dbpediaGraph.find(f"category:$from")
+      t <- dbpediaGraph.find(f"category:$to")
       path <- s shortestPathTo t
     } yield {
       path.edges
@@ -357,7 +358,7 @@ case class LinkingUI(res: MatchingResults, system: ActorSystem) extends Scalatra
       from <- params.get("from")
       to <- params.get("to")
     } yield {
-      val lcs = Alg.lcsCandidates(dbpediaGraph, f"http://dbpedia.org/resource/Category:$from", f"http://dbpedia.org/resource/Category:$to").sortBy(l => l._2.size + l._3.size)
+      val lcs = Alg.lcsCandidates(dbpediaGraph, f"category:$from", f"category:$to")
       <ul>{
         lcs map { case (v, p1, p2) =>
           <li>{v} {p1.size + p2.size}</li>
@@ -366,15 +367,50 @@ case class LinkingUI(res: MatchingResults, system: ActorSystem) extends Scalatra
     }) getOrElse halt(500)
   }
 
+  get("/dbpedia/structuralCotopic/:from/:to") {
+    (for {
+      from <- params.get("from")
+      to <- params.get("to")
+      s <- dbpediaGraph.find(f"category:$from")
+      t <- dbpediaGraph.find(f"category:$to")
+    } yield {
+      Alg.structuralCotopic[String](dbpediaGraph, s, t)
+    }) getOrElse halt(500)
+  }
+
+  get("/dbpedia/structuralCotopicNormalized/:from/:to") {
+    (for {
+      from <- params.get("from")
+      to <- params.get("to")
+      s <- dbpediaGraph.find(f"category:$from")
+      t <- dbpediaGraph.find(f"category:$to")
+    } yield {
+      Alg.structuralCotopicNormalized[String](dbpediaGraph, s, t)
+    }) getOrElse halt(500)
+  }
+
+  def writeTo(file: String)(f: PrintWriter => Unit) {
+    val pw = new PrintWriter(file)
+    f(pw)
+    pw.close
+  }
+
   get("/crunch") {
 //    taaableGraph.incomingEdges(Node("http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AFood")) foreach println
-//    dbpediaGraph.incomingEdges(Node("http://dbpedia.org/resource/Category:Food_and_drink")) foreach println
+//    dbpediaGraph.incomingEdges(Node("category:Food_and_drink")) foreach println
 
 
 
+    writeTo("ent-taaable.lst") { pw =>
+      res.sourceEntities.zipWithIndex foreach { case (e, i) => pw.println(f"$i,${e.uri}") }
+    }
+
+    writeTo("ent-dbpedia.lst") { pw =>
+      res.targetEntities.zipWithIndex foreach { case (e, i) => pw.println(f"$i,${e.uri}") }
+    }
 
 
-    Alg.test(dbpediaGraph)
+    // Alg.test(dbpediaGraph)
     "crunched"
   }
 

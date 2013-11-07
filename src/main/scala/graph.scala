@@ -477,15 +477,15 @@ object GraphTest extends App {
   val taaable = GraphFactory.from(RDFDataMgr.loadModel("file:///D:/Workspaces/Dev/ldif-evaluation/ldif-taaable/taaable-food.ttl", Lang.TURTLE))
   val dbpedia = GraphFactory.from(RDFDataMgr.loadModel("file:///D:/Workspaces/Dev/ldif-evaluation/ldif-taaable/test-celery.nt", Lang.NTRIPLES))
 
-  def unify(s: String, t: String) = {
+  def merge(s: String, t: String) = {
     List((s ~> t % 0), (t ~> s % 0))
   }
 
   val g = dbpedia ++ taaable ++
-    unify("taaable:Food", "common:Food_and_drink") ++
-    unify("taaable:Vegetable", "category:Vegetables") ++
-    unify("taaable:Stalk_vegetable", "category:Stem_vegetables") ++
-    unify("taaable:Leaf_vegetable", "category:Leaf_vegetables") +
+    merge("taaable:Food", "common:Food_and_drink") ++
+    merge("taaable:Vegetable", "category:Vegetables") ++
+    merge("taaable:Stalk_vegetable", "category:Stem_vegetables") ++
+    merge("taaable:Leaf_vegetable", "category:Leaf_vegetables") +
     ("category:Food_and_drink" ~> "common:Root" % 1) + ("taaable:Food" ~> "common:Root" % 1)
 
   val x = "http://dbpedia.org/resource/Cel-Ray"
@@ -498,6 +498,10 @@ object GraphTest extends App {
   //  val (l, p1, p2) = lcs(g, "taaable:Celery", shortenUri(x)).get
   //  println(f"$x $dist (via $l - $p1 - $p2)")
 
+
+
+  println(shortestPath(g, "taaable:Celery", "category:Gastronomy"))
+  println(shortestPath(g, "dbpedia:Cel-Ray", "category:Gastronomy"))
 
   //  for {
   //    x <- instances

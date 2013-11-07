@@ -114,6 +114,10 @@ object Alg {
 
   // type DiHyperEdgeLikeIn[N] = DiHyperEdgeLike[N] with EdgeCopy[DiHyperEdgeLike] with EdgeIn[N,DiHyperEdgeLike]
 
+  def merge[N](s: N, t: N) = {
+    List((s ~> t % 0), (t ~> s % 0))
+  }
+
   def weight[N](p: List[(N, Long)]): Long = p.foldLeft[Long](0)(_ + _._2)
 
   def shortestPath[N, E[N] <: DiHyperEdgeLikeIn[N]](g: Graph[N, E], s: N, t: N): List[(N, Long)] = {
@@ -466,7 +470,7 @@ object GraphTest extends App {
 
   val instances = List(
     "http://dbpedia.org/resource/Celery",
-    "http://dbpedia.org/resource/Cel-Ray",
+//    "http://dbpedia.org/resource/Cel-Ray",
     "http://dbpedia.org/resource/Celery_salt",
     "http://dbpedia.org/resource/Celery_Victor",
     "http://dbpedia.org/resource/Celery_cabbage",
@@ -475,45 +479,42 @@ object GraphTest extends App {
   )
 
   val taaable = GraphFactory.from(RDFDataMgr.loadModel("file:///D:/Workspaces/Dev/ldif-evaluation/ldif-taaable/taaable-food.ttl", Lang.TURTLE))
-  val dbpedia = GraphFactory.from(RDFDataMgr.loadModel("file:///D:/Workspaces/Dev/ldif-evaluation/ldif-taaable/test-celery.nt", Lang.NTRIPLES))
+  val dbpedia = GraphFactory.from(RDFDataMgr.loadModel("file:///D:/Workspaces/Dev/ldif-evaluation/ldif-taaable/celery/test-celery.nt", Lang.NTRIPLES))
 
-  def merge(s: String, t: String) = {
-    List((s ~> t % 0), (t ~> s % 0))
-  }
+  val dbpedia2 = scalax.collection.mutable.Graph[String, WDiEdge]()
+  dbpedia.get("category:Foods").traverse(direction = GraphTraversal.Predecessors, breadthFirst = true)(edgeVisitor = {
+    e => dbpedia2 += e
+  })
 
-  val g = dbpedia ++ taaable ++
-    merge("taaable:Food", "common:Food_and_drink") ++
+  val taaable2 = scalax.collection.mutable.Graph[String, WDiEdge]()
+  taaable.get("taaable:Celery").traverse(direction = GraphTraversal.Successors, breadthFirst = true)(edgeVisitor = {
+    e => taaable2 += e
+  })
+
+  val g = dbpedia2 ++ taaable2 ++
+    merge("taaable:Food", "category:Food_and_drink") ++
     merge("taaable:Vegetable", "category:Vegetables") ++
     merge("taaable:Stalk_vegetable", "category:Stem_vegetables") ++
     merge("taaable:Leaf_vegetable", "category:Leaf_vegetables") +
     ("category:Food_and_drink" ~> "common:Root" % 1) + ("taaable:Food" ~> "common:Root" % 1)
 
-  val x = "http://dbpedia.org/resource/Cel-Ray"
-  lcsCandidates(g, "taaable:Celery", shortenUri(x)) take (3) foreach {
-    case (l, p1, p2) =>
-      val dist = weight(p1) + weight(p2)
-      println(f"$x $dist (via $l - $p1 - $p2)")
-  }
-  //  val dist = structuralCotopic(g, "taaable:Celery", shortenUri(x))
-  //  val (l, p1, p2) = lcs(g, "taaable:Celery", shortenUri(x)).get
-  //  println(f"$x $dist (via $l - $p1 - $p2)")
+    val s = exportAsDot(g)
+    val pw = new PrintWriter("test-celery-merged.dot")
+    pw.println(s)
+    pw.close
 
+//  for {
+//    x <- instances
+//  } {
+//    val dist = structuralCotopic(g, "taaable:Celery", shortenUri(x))
+//    val (l, p1, p2) = lcs(g, "taaable:Celery", shortenUri(x)).get
+//    println(f"$x $dist (via $l - $p1 - $p2)")
+//  }
 
-
-  println(shortestPath(g, "taaable:Celery", "category:Gastronomy"))
-  println(shortestPath(g, "dbpedia:Cel-Ray", "category:Gastronomy"))
-
-  //  for {
-  //    x <- instances
-  //  } {
-  //    val dist = structuralCotopic(g, "taaable:Celery", shortenUri(x))
-  //    val (l, p1, p2) = lcs(g, "taaable:Celery", shortenUri(x)).get
-  //    println(f"$x $dist (via $l - $p1 - $p2)")
-  //  }
 
   // TestDataSet.generate
   //  val model = RDFDataMgr.loadModel("file:///D:/Workspaces/Dev/ldif-evaluation/test-cellery.nt", Lang.NTRIPLES)
-  //  val g = GraphFactory.fromDbpedia(model)
+  //  val g = from(model)
   //
   //  val g2 = scalax.collection.mutable.Graph[String, WDiEdge]()
   //
@@ -521,7 +522,7 @@ object GraphTest extends App {
   //    e => g2 += e
   //  })
   //
-  //  val s = Alg.exportAsDot(g2)
+  //  val s = exportAsDot(g2)
   //  val pw = new PrintWriter("test-cellery-2.dot")
   //  pw.println(s)
   //  pw.close
@@ -535,7 +536,7 @@ object GraphTest extends App {
   //  for {
   //    s <- g.nodes.par
   //    t <- g.nodes
-  //    (v, p1, p2) <- Alg.lcsCandidates(g, s.toString, t.toString)
+  //    (v, p1, p2) <- lcsCandidates(g, s.toString, t.toString)
   //  } yield {
   //    val len = p1.size + p2.size
   //    dist(len) = dist.getOrElseUpdate(len, 0) + 1
@@ -554,12 +555,10 @@ object GraphTest extends App {
   //  println(f"min: $min max: $max")
   //  println(dist)
 
-  //  System.gc()
-  //
   //  val s = "category:Blue_cheeses"
   //  val t = "category:Milk"
   //
-  //  Alg.lcsCandidates(g, s, t) map {
+  //  lcsCandidates(g, s, t) map {
   //    case (v, p1, p2) =>
   //      val q1 = g.get(s) shortestPathTo g.get(v)
   //      val q2 = g.get(t) shortestPathTo g.get(v)

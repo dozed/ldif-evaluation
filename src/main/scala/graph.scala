@@ -120,9 +120,10 @@ object Alg {
 
   def weight[N](p: List[(N, Long)]): Long = p.foldLeft[Long](0)(_ + _._2)
 
-  def shortestPath[N, E[N] <: DiHyperEdgeLikeIn[N]](g: Graph[N, E], s: N, t: N): List[(N, Long)] = {
+  def shortestPath[N, E[N] <: DiHyperEdgeLikeIn[N]](g: Graph[N, E], s: N, t: N): Option[List[(N, Long)]] = {
     val (_, backlinks) = shortestPaths(g, s)
-    backtrackPath0(s, t, backlinks)
+    if (backlinks.contains(t)) Some(backtrackPath0(s, t, backlinks))
+    else None
   }
 
   def shortestPaths[N, E[N] <: DiHyperEdgeLikeIn[N]](g: Graph[N, E], s: N): (Map[N, Long], Map[N, (N, Long)]) = {
@@ -217,10 +218,17 @@ object Alg {
     structuralCotopic(g, s, t) / maxDistance
   }
 
-  def wuPalmer[N](g: Graph[N, WDiEdge], s: N, t: N): Double = {
+  def wuPalmer[N](g: Graph[N, WDiEdge], root: N, s: N, t: N): Double = {
     val (l, p1, p2) = lcs(g, s, t).get
 
-    0.0
+    shortestPath(g, l, root) match {
+      case Some(p) =>
+        val w1 = weight(p1)
+        val w2 = weight(p2)
+        val wl = weight(p)
+        2.0 * wl / (w1 + w2 + 2 * wl)
+      case None => 100000
+    }
   }
 
   def subsumers[N](g: Graph[N, WDiEdge], x: N): Set[N] = {
@@ -481,35 +489,21 @@ object GraphTest extends App {
   val taaable = GraphFactory.from(RDFDataMgr.loadModel("file:///D:/Workspaces/Dev/ldif-evaluation/ldif-taaable/taaable-food.ttl", Lang.TURTLE))
   val dbpedia = GraphFactory.from(RDFDataMgr.loadModel("file:///D:/Workspaces/Dev/ldif-evaluation/ldif-taaable/celery/test-celery.nt", Lang.NTRIPLES))
 
-  val dbpedia2 = scalax.collection.mutable.Graph[String, WDiEdge]()
-  dbpedia.get("category:Foods").traverse(direction = GraphTraversal.Predecessors, breadthFirst = true)(edgeVisitor = {
-    e => dbpedia2 += e
-  })
-
-  val taaable2 = scalax.collection.mutable.Graph[String, WDiEdge]()
-  taaable.get("taaable:Celery").traverse(direction = GraphTraversal.Successors, breadthFirst = true)(edgeVisitor = {
-    e => taaable2 += e
-  })
-
-  val g = dbpedia2 ++ taaable2 ++
+  val g = dbpedia ++ taaable ++
     merge("taaable:Food", "category:Food_and_drink") ++
     merge("taaable:Vegetable", "category:Vegetables") ++
     merge("taaable:Stalk_vegetable", "category:Stem_vegetables") ++
     merge("taaable:Leaf_vegetable", "category:Leaf_vegetables") +
     ("category:Food_and_drink" ~> "common:Root" % 1) + ("taaable:Food" ~> "common:Root" % 1)
 
-    val s = exportAsDot(g)
-    val pw = new PrintWriter("test-celery-merged.dot")
-    pw.println(s)
-    pw.close
-
-//  for {
-//    x <- instances
-//  } {
-//    val dist = structuralCotopic(g, "taaable:Celery", shortenUri(x))
-//    val (l, p1, p2) = lcs(g, "taaable:Celery", shortenUri(x)).get
-//    println(f"$x $dist (via $l - $p1 - $p2)")
-//  }
+  for {
+    x <- instances
+  } {
+    val d1 = structuralCotopic(g, "taaable:Celery", shortenUri(x))
+    val d2 = 1.0 - wuPalmer(g, "common:Root", "taaable:Celery", shortenUri(x))
+    val (l, p1, p2) = lcs(g, "taaable:Celery", shortenUri(x)).get
+    println(f"$x $d1 $d2 (via $l - $d1 - $d2)")
+  }
 
 
   // TestDataSet.generate

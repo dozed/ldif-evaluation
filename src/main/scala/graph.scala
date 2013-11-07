@@ -114,7 +114,7 @@ object Alg {
 
   // type DiHyperEdgeLikeIn[N] = DiHyperEdgeLike[N] with EdgeCopy[DiHyperEdgeLike] with EdgeIn[N,DiHyperEdgeLike]
 
-  def shortestPath[N, E[N] <: DiHyperEdgeLikeIn[N]](g: Graph[N, E], s: N, t: N) = { //: List[(N, Long)] = {
+  def shortestPath[N, E[N] <: DiHyperEdgeLikeIn[N]](g: Graph[N, E], s: N, t: N): List[(N, Long)] = {
     val d = collection.mutable.Map[N, Long]()
     val Q = collection.mutable.PriorityQueue[N]()(Ordering.by(d.apply))
     val backlinks = collection.mutable.Map[N, (N, Long)]()
@@ -138,31 +138,30 @@ object Alg {
       }
     }
 
-    def backtrackPath(from: N, to: N, backlinks: Map[N, (N, Long)]) = {
-      def path0(v: N, path: List[(N, Long)]): List[(N, Long)] = {
-        if (v == from) path
-        else {
-          val (u, weight) = backlinks(v)
-          path0(u, (u, weight) :: path)
-        }
+    backtrackPath0(s, t, backlinks.toMap)
+  }
+
+  private def backtrackPath0[N](from: N, to: N, backlinks: Map[N, (N, Long)]): List[(N, Long)] = {
+    def path0(v: N, path: List[(N, Long)]): List[(N, Long)] = {
+      if (v == from) path
+      else {
+        val (u, weight) = backlinks(v)
+        path0(u, (u, weight) :: path)
       }
-      path0(to, List.empty)
     }
-
-    backtrackPath(s, t, backlinks.toMap)
-
+    path0(to, List.empty)
   }
 
   def lcsCandidates[N, E[N] <: WDiEdge[N]](g: Graph[N, E], s: N, t: N): List[(N, List[(N, Long)], List[(N, Long)])] = {
-    val Q = collection.mutable.Queue[N](s, t)
     val d = collection.mutable.Map[N, Long](s -> 0, t -> 0)
+    val Q = collection.mutable.PriorityQueue[N](s, t)(Ordering.by(d.apply))
     val fromS = collection.mutable.HashSet(s)
     val fromT = collection.mutable.HashSet(t)
 
     val candidates = collection.mutable.ArrayBuffer[N]()
 
-    val linksS = collection.mutable.Map[N, E[N]]()
-    val linksT = collection.mutable.Map[N, E[N]]()
+    val linksS = collection.mutable.Map[N, (N, Long)]()
+    val linksT = collection.mutable.Map[N, (N, Long)]()
 
     while (!Q.isEmpty) {
 
@@ -170,26 +169,30 @@ object Alg {
 
       for (e <- g.get(u).outgoing) {
         val v = e._2
+        val alt = d(u) + e.weight
 
-        if (!d.contains(v)) {
+        if (!d.contains(v) || alt < d(v)) {
           // expand if required
 
-          d(v) = d(u) + e.weight // we use weights here, which allows to follow equivalence links without increasing the distance
-          Q += v
+          d(v) = alt // we use weights here, which allows to follow equivalence links without increasing the distance
+          Q.remove(v)
+          Q.enqueue(v)
+
+          // update backlinks if required
+          if (fromS(u)) linksS(v) = (u, e.weight)
+          if (fromT(u)) linksT(v) = (u, e.weight)
         }
 
         // reachable from s and t => is a candidate for lcs
         // ignore transitive visits
-        val stReachable1 = fromT.contains(v) && (fromS.contains(u) && !fromT.contains(u))
-        val stReachable2 = fromS.contains(v) && (!fromS.contains(u) && fromT.contains(u))
+        if (!candidates.contains(v)) {
+          val stReachable1 = fromT.contains(v) && (fromS.contains(u) && !fromT.contains(u))
+          val stReachable2 = fromS.contains(v) && (!fromS.contains(u) && fromT.contains(u))
 
-        if (stReachable1 || stReachable2) {
-          candidates += v
+          if (stReachable1 || stReachable2) {
+            candidates += v
+          }
         }
-
-        // update backlinks if required
-        if (fromS(u) && !linksS.contains(v)) linksS(v) = e.toEdgeIn
-        if (fromT(u) && !linksT.contains(v)) linksT(v) = e.toEdgeIn
 
         // propagate reachability
         if (!fromS.contains(v)) fromS(v) = fromS(u)
@@ -198,20 +201,14 @@ object Alg {
 
     }
 
-    def backtrackPath(from: N, to: N, backlinks: Map[N, E[N]]) = {
-      def path0(v: N, path: List[(N, Long)]): List[(N, Long)] = {
-        if (v == from) path
-        else {
-          val b = backlinks(v)
-          path0(b._1, (b._1, b.weight) :: path)
-        }
-      }
-      path0(to, List.empty)
-    }
+    println(linksS)
+    println(linksT)
+
+    println(candidates)
 
     // candidates.toSet
     candidates.toSet[N].toList map { v =>
-      (v, backtrackPath(s, v, linksS.toMap), backtrackPath(t, v, linksT.toMap))
+      (v, backtrackPath0(s, v, linksS.toMap), backtrackPath0(t, v, linksT.toMap))
     } sortBy (l => l._2.size + l._3.size)
   }
 
@@ -517,11 +514,8 @@ object GraphTest extends App {
     //  println(f"$x $dist (via $l - $p1 - $p2)")
   }
 
-  implicit def defaultEdgeWeight[N](e: DiEdge[N]): WDiEdge[N] = e % 1
-
-  val edges = List(1 ~> 3, 1 ~> 4, 2 ~> 5, 2 ~> 6, 3 ~> 6, 4 ~> 6, 5 ~> 4).map(_ % 1)
-  val g = Graph(edges:_*)
-//  shortestPath(g, 1, 6)
+  val g = Graph(1 ~> 3 % 1, 1 ~> 4 % 1, 2 ~> 5 % 1, 2 ~> 6 % 1, 3 ~> 6 % 1, 4 ~> 6 % 0, 5 ~> 4 % 1)
+  //  shortestPath(g, 1, 6)
   lcsCandidates(g, 1, 2) foreach println
 
 //  for {

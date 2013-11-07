@@ -478,7 +478,7 @@ object GraphTest extends App {
 
   val instances = List(
     "http://dbpedia.org/resource/Celery",
-//    "http://dbpedia.org/resource/Cel-Ray",
+    "http://dbpedia.org/resource/Cel-Ray",
     "http://dbpedia.org/resource/Celery_salt",
     "http://dbpedia.org/resource/Celery_Victor",
     "http://dbpedia.org/resource/Celery_cabbage",
@@ -497,7 +497,7 @@ object GraphTest extends App {
     ("category:Food_and_drink" ~> "common:Root" % 1) + ("taaable:Food" ~> "common:Root" % 1)
 
   for {
-    x <- instances
+    x <- instances.par
   } {
     val d1 = structuralCotopic(g, "taaable:Celery", shortenUri(x))
     val d2 = 1.0 - wuPalmer(g, "common:Root", "taaable:Celery", shortenUri(x))

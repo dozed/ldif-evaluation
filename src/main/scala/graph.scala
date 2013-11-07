@@ -115,6 +115,11 @@ object Alg {
   // type DiHyperEdgeLikeIn[N] = DiHyperEdgeLike[N] with EdgeCopy[DiHyperEdgeLike] with EdgeIn[N,DiHyperEdgeLike]
 
   def shortestPath[N, E[N] <: DiHyperEdgeLikeIn[N]](g: Graph[N, E], s: N, t: N): List[(N, Long)] = {
+    val (_, backlinks) = shortestPaths(g, s)
+    backtrackPath0(s, t, backlinks)
+  }
+
+  def shortestPaths[N, E[N] <: DiHyperEdgeLikeIn[N]](g: Graph[N, E], s: N): (Map[N, Long], Map[N, (N, Long)]) = {
     val d = collection.mutable.Map[N, Long]()
     val Q = collection.mutable.PriorityQueue[N]()(Ordering.by(d.apply))
     val backlinks = collection.mutable.Map[N, (N, Long)]()
@@ -138,7 +143,7 @@ object Alg {
       }
     }
 
-    backtrackPath0(s, t, backlinks.toMap)
+    (d.toMap, backlinks.toMap)
   }
 
   private def backtrackPath0[N](from: N, to: N, backlinks: Map[N, (N, Long)]): List[(N, Long)] = {

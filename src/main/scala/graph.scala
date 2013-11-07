@@ -112,7 +112,46 @@ object Alg {
 
   val maxDistance = 77
 
-  type DiHyperEdgeLikeIn[N] = DiHyperEdgeLike[N] with EdgeCopy[DiHyperEdgeLike] with EdgeIn[N,DiHyperEdgeLike]
+  // type DiHyperEdgeLikeIn[N] = DiHyperEdgeLike[N] with EdgeCopy[DiHyperEdgeLike] with EdgeIn[N,DiHyperEdgeLike]
+
+  def shortestPath[N, E[N] <: DiHyperEdgeLikeIn[N]](g: Graph[N, E], s: N, t: N) = { //: List[(N, Long)] = {
+    val d = collection.mutable.Map[N, Long]()
+    val Q = collection.mutable.PriorityQueue[N]()(Ordering.by(d.apply))
+    val backlinks = collection.mutable.Map[N, (N, Long)]()
+
+    Q += s
+    d(s) = 0
+
+    while (!Q.isEmpty) {
+      val u = Q.dequeue
+
+      for (e <- g.get(u).outgoing) {
+        val v = e.toEdgeIn._2
+        val alt = d(u) + e.weight
+
+        if (!d.contains(v) || alt < d(v)) {
+          backlinks(v) = (u, e.weight)
+          d(v) = alt
+          Q.remove(v)
+          Q.enqueue(v)
+        }
+      }
+    }
+
+    def backtrackPath(from: N, to: N, backlinks: Map[N, (N, Long)]) = {
+      def path0(v: N, path: List[(N, Long)]): List[(N, Long)] = {
+        if (v == from) path
+        else {
+          val (u, weight) = backlinks(v)
+          path0(u, (u, weight) :: path)
+        }
+      }
+      path0(to, List.empty)
+    }
+
+    backtrackPath(s, t, backlinks.toMap)
+
+  }
 
   def lcsCandidates[N, E[N] <: WDiEdge[N]](g: Graph[N, E], s: N, t: N): List[(N, List[(N, Long)], List[(N, Long)])] = {
     val Q = collection.mutable.Queue[N](s, t)
@@ -442,42 +481,48 @@ object GraphTest extends App {
   //      println(f"$v - $q1 - $q2 - $p1 - $p2")
   //    }
 
+  def similarity = {
+    val instances = List(
+      "http://dbpedia.org/resource/Celery",
+      "http://dbpedia.org/resource/Cel-Ray",
+      "http://dbpedia.org/resource/Celery_salt",
+      "http://dbpedia.org/resource/Celery_Victor",
+      "http://dbpedia.org/resource/Celery_cabbage",
+      "http://dbpedia.org/resource/Celeriac",
+      "http://dbpedia.org/resource/Celebrity_(tomato)"
+    )
 
-  val instances = List(
-    "http://dbpedia.org/resource/Celery",
-    "http://dbpedia.org/resource/Cel-Ray",
-    "http://dbpedia.org/resource/Celery_salt",
-    "http://dbpedia.org/resource/Celery_Victor",
-    "http://dbpedia.org/resource/Celery_cabbage",
-    "http://dbpedia.org/resource/Celeriac",
-    "http://dbpedia.org/resource/Celebrity_(tomato)"
-  )
+    val taaable = GraphFactory.from(RDFDataMgr.loadModel("file:///D:/Workspaces/Dev/ldif-evaluation/ldif-taaable/taaable-food.ttl", Lang.TURTLE))
+    val dbpedia = GraphFactory.from(RDFDataMgr.loadModel("file:///D:/Workspaces/Dev/ldif-evaluation/ldif-taaable/test-celery.nt", Lang.NTRIPLES))
 
-  val taaable = GraphFactory.from(RDFDataMgr.loadModel("file:///D:/Workspaces/Dev/ldif-evaluation/ldif-taaable/taaable-food.ttl", Lang.TURTLE))
-  val dbpedia = GraphFactory.from(RDFDataMgr.loadModel("file:///D:/Workspaces/Dev/ldif-evaluation/ldif-taaable/test-celery.nt", Lang.NTRIPLES))
+    def unify(s: String, t: String) = {
+      List((s ~> t % 0), (t ~> s % 0))
+    }
 
-  
-  def unify(s: String, t: String) = {
-    List((s ~> t % 0), (t ~> s % 0))
+    val g = dbpedia ++ taaable ++
+      unify("taaable:Food", "common:Food_and_drink") ++
+      unify("taaable:Vegetable", "category:Vegetables") ++
+      unify("taaable:Stalk_vegetable", "category:Stem_vegetables") ++
+      unify("taaable:Leaf_vegetable", "category:Leaf_vegetables") +
+      ("category:Food_and_drink" ~> "common:Root" % 1) + ("taaable:Food" ~> "common:Root" % 1)
+
+    val x = "http://dbpedia.org/resource/Cel-Ray"
+    lcsCandidates(g, "taaable:Celery", shortenUri(x)) take(3) foreach {
+      case (l, p1, p2) =>
+        val dist = p1.foldLeft[Long](0)(_ + _._2) + p2.foldLeft[Long](0)(_ + _._2)
+        println(f"$x $dist (via $l - $p1 - $p2)")
+    }
+    //  val dist = structuralCotopic(g, "taaable:Celery", shortenUri(x))
+    //  val (l, p1, p2) = lcs(g, "taaable:Celery", shortenUri(x)).get
+    //  println(f"$x $dist (via $l - $p1 - $p2)")
   }
 
-  val g = dbpedia ++ taaable ++
-    unify("taaable:Food", "common:Food_and_drink") ++
-    unify("taaable:Vegetable", "category:Vegetables") ++
-    unify("taaable:Stalk_vegetable", "category:Stem_vegetables") ++
-    unify("taaable:Leaf_vegetable", "category:Leaf_vegetables") +
-    ("category:Food_and_drink" ~> "common:Root" % 1) + ("taaable:Food" ~> "common:Root" % 1)
+  implicit def defaultEdgeWeight[N](e: DiEdge[N]): WDiEdge[N] = e % 1
 
-  val x = "http://dbpedia.org/resource/Cel-Ray"
-  lcsCandidates(g, "taaable:Celery", shortenUri(x)) take(3) foreach {
-    case (l, p1, p2) =>
-      val dist = p1.foldLeft[Long](0)(_ + _._2) + p2.foldLeft[Long](0)(_ + _._2)
-      println(f"$x $dist (via $l - $p1 - $p2)")
-  }
-//  val dist = structuralCotopic(g, "taaable:Celery", shortenUri(x))
-//  val (l, p1, p2) = lcs(g, "taaable:Celery", shortenUri(x)).get
-//  println(f"$x $dist (via $l - $p1 - $p2)")
-
+  val edges = List(1 ~> 3, 1 ~> 4, 2 ~> 5, 2 ~> 6, 3 ~> 6, 4 ~> 6, 5 ~> 4).map(_ % 1)
+  val g = Graph(edges:_*)
+//  shortestPath(g, 1, 6)
+  lcsCandidates(g, 1, 2) foreach println
 
 //  for {
 //    x <- instances

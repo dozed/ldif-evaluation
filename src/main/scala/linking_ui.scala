@@ -324,7 +324,7 @@ case class LinkingUI(res: MatchingResults, system: ActorSystem) extends Scalatra
     println("loading triples")
     val model = RDFDataMgr.loadModel(f"file:///D:/Workspaces/Dev/ldif-evaluation/dbpedia-foods-categories-2.nt", Lang.NTRIPLES)
     println("converting to graph")
-    GraphFactory.fromDbpedia(model)
+    GraphFactory.from(model)
   }
 
   def n(outer: String) = dbpediaGraph get outer

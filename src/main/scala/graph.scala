@@ -6,16 +6,21 @@ import collection.JavaConversions._
 
 import org.openrdf.model.Statement
 import org.openrdf.rio.RDFHandler
+
+import scalax.collection.Graph
+import scalax.collection.GraphTraversal
 import scalax.collection.GraphTraversal.VisitorReturn
-import scalax.collection.{GraphEdge, GraphTraversal, Graph}
-import scalax.collection.GraphPredef._, scalax.collection.GraphEdge._
-import sun.misc.GC
+import scalax.collection.GraphPredef._
+import scalax.collection.GraphEdge._
+import scalax.collection.edge.WDiEdge
+import scalax.collection.edge.Implicits._
 
 object PrefixHelper {
 
   val defaultPrefixes = Map(
     "category" -> "http://dbpedia.org/resource/Category:",
-    "dbpedia" -> "http://dbpedia.org/resource/"
+    "dbpedia" -> "http://dbpedia.org/resource/",
+    "taaable" -> "http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3A"
   )
 
   def shortenUri(fullUri: String): String = {
@@ -42,34 +47,19 @@ object GraphFactory {
 
   import PrefixHelper._
 
-  def fromRDFS(model: Model) = {
-    val graph = scalax.collection.mutable.Graph[String, DiEdge]()
-    val subClassOf = model.getProperty("http://www.w3.org/2000/01/rdf-schema#subClassOf")
-
-    for (x <- model.listSubjects) {
-      val e1 = x.getURI
-
-      for (st <- model.listStatements(x, subClassOf, null)) {
-        val e2 = st.getObject.asResource.getURI
-        graph += e1 ~> e2
-      }
-    }
-
-    graph
-  }
-
-  def fromDbpedia(model: Model) = {
-    val graph = scalax.collection.mutable.Graph[String, DiEdge]()
+  def from(model: Model): Graph[String, WDiEdge] = {
+    val graph = scalax.collection.mutable.Graph[String, WDiEdge]()
     val predicates = List(
       model.getProperty("http://www.w3.org/2004/02/skos/core#broader"),
-      model.getProperty("http://purl.org/dc/terms/subject"))
+      model.getProperty("http://purl.org/dc/terms/subject"),
+      model.getProperty("http://www.w3.org/2000/01/rdf-schema#subClassOf"))
 
     predicates foreach {
       p =>
         for (st <- model.listStatements(null, p, null)) {
           val e1 = shortenUri(st.getSubject.asResource.getURI)
           val e2 = shortenUri(st.getObject.asResource.getURI)
-          graph += e1 ~> e2
+          graph += e1 ~> e2 % 1
         }
     }
 
@@ -122,25 +112,30 @@ object Alg {
 
   val maxDistance = 77
 
-  def lcsCandidates[N](g: Graph[N, DiEdge], s: N, t: N): List[(N, List[N], List[N])] = {
+  type DiHyperEdgeLikeIn[N] = DiHyperEdgeLike[N] with EdgeCopy[DiHyperEdgeLike] with EdgeIn[N,DiHyperEdgeLike]
+
+  def lcsCandidates[N, E[N] <: WDiEdge[N]](g: Graph[N, E], s: N, t: N): List[(N, List[(N, Long)], List[(N, Long)])] = {
     val Q = collection.mutable.Queue[N](s, t)
-    val d = collection.mutable.Map[N, Int](s -> 0, t -> 0)
+    val d = collection.mutable.Map[N, Long](s -> 0, t -> 0)
     val fromS = collection.mutable.HashSet(s)
     val fromT = collection.mutable.HashSet(t)
 
     val candidates = collection.mutable.ArrayBuffer[N]()
 
-    val linksS = collection.mutable.Map[N, N]()
-    val linksT = collection.mutable.Map[N, N]()
+    val linksS = collection.mutable.Map[N, E[N]]()
+    val linksT = collection.mutable.Map[N, E[N]]()
 
     while (!Q.isEmpty) {
 
       val u = Q.dequeue()
 
-      for (v <- g.get(u).diSuccessors) {
+      for (e <- g.get(u).outgoing) {
+        val v = e._2
+
         if (!d.contains(v)) {
           // expand if required
-          d(v) = d(u) + 1
+
+          d(v) = d(u) + e.weight // we use weights here, which allows to follow equivalence links without increasing the distance
           Q += v
         }
 
@@ -154,8 +149,8 @@ object Alg {
         }
 
         // update backlinks if required
-        if (fromS(u) && !linksS.contains(v)) linksS(v) = u
-        if (fromT(u) && !linksT.contains(v)) linksT(v) = u
+        if (fromS(u) && !linksS.contains(v)) linksS(v) = e.toEdgeIn
+        if (fromT(u) && !linksT.contains(v)) linksT(v) = e.toEdgeIn
 
         // propagate reachability
         if (!fromS.contains(v)) fromS(v) = fromS(u)
@@ -164,37 +159,45 @@ object Alg {
 
     }
 
-    def backtrackPath(from: N, to: N, backlinks: Map[N, N]) = {
-      def path0(v: N, path: List[N]): List[N] = {
+    def backtrackPath(from: N, to: N, backlinks: Map[N, E[N]]) = {
+      def path0(v: N, path: List[(N, Long)]): List[(N, Long)] = {
         if (v == from) path
-        else path0(backlinks(v), backlinks(v) :: path)
+        else {
+          val b = backlinks(v)
+          path0(b._1, (b._1, b.weight) :: path)
+        }
       }
       path0(to, List.empty)
     }
 
     // candidates.toSet
-    candidates.toSet[N].toList map {
-      v =>
-        (v, backtrackPath(s, v, linksS.toMap), backtrackPath(t, v, linksT.toMap))
+    candidates.toSet[N].toList map { v =>
+      (v, backtrackPath(s, v, linksS.toMap), backtrackPath(t, v, linksT.toMap))
     } sortBy (l => l._2.size + l._3.size)
   }
 
-  def lcs[N](g: Graph[N, DiEdge], s: N, t: N): Option[(N, List[N], List[N])] = {
+  def lcs[N](g: Graph[N, WDiEdge], s: N, t: N): Option[(N, List[(N, Long)], List[(N, Long)])] = {
     lcsCandidates(g, s, t).headOption
   }
 
-  def structuralCotopic[N](g: Graph[N, DiEdge], s: N, t: N): Double = {
+  def structuralCotopic[N](g: Graph[N, WDiEdge], s: N, t: N): Double = {
     lcs(g, s, t) match {
-      case Some((_, p1, p2)) => p1.size + p2.size
+      case Some((_, p1, p2)) => p1.foldLeft[Long](0)(_ + _._2) + p2.foldLeft[Long](0)(_ + _._2)
       case None => 100000
     }
   }
 
-  def structuralCotopicNormalized[N](g: Graph[N, DiEdge], s: N, t: N): Double = {
+  def structuralCotopicNormalized[N](g: Graph[N, WDiEdge], s: N, t: N): Double = {
     structuralCotopic(g, s, t) / maxDistance
   }
 
-  def subsumers[N](g: Graph[N, DiEdge], x: N): Set[N] = {
+  def wuPalmer[N](g: Graph[N, WDiEdge], s: N, t: N): Double = {
+    val (l, p1, p2) = lcs(g, s, t).get
+
+    0.0
+  }
+
+  def subsumers[N](g: Graph[N, WDiEdge], x: N): Set[N] = {
     val subs = new collection.mutable.HashSet[N]()
     g.get(x).traverse(direction = GraphTraversal.Successors, breadthFirst = true)(nodeVisitor = {
       n =>
@@ -204,8 +207,8 @@ object Alg {
     subs.toSet
   }
 
-  def subsumerGraph[N](g: Graph[N, DiEdge], x: N)(implicit m: Manifest[N]): Graph[N, DiEdge] = {
-    val g2 = scalax.collection.mutable.Graph[N, DiEdge]()
+  def subsumerGraph[N](g: Graph[N, WDiEdge], x: N)(implicit m: Manifest[N]): Graph[N, WDiEdge] = {
+    val g2 = scalax.collection.mutable.Graph[N, WDiEdge]()
 
     g.get(x).traverse(direction = GraphTraversal.Successors, breadthFirst = true)(edgeVisitor = {
       e => g2 += e
@@ -214,7 +217,7 @@ object Alg {
     g2
   }
 
-  def pathsTo[N](g: Graph[N, DiEdge], s: N, t: N): List[List[(N, N)]] = {
+  def pathsTo[N](g: Graph[N, WDiEdge], s: N, t: N): List[List[(N, N)]] = {
     val backlinks = collection.mutable.Map[N, List[N]]()
 
     g.get(s).traverse(direction = GraphTraversal.Successors, breadthFirst = true)(edgeVisitor = {
@@ -246,15 +249,12 @@ object Alg {
     buf.toList
   }
 
-  def exportAsDot[N](g: Graph[N, DiEdge]): String = {
+  def exportAsDot[N](g: Graph[N, WDiEdge]): String = {
     import scalax.collection.io.dot._
 
-    val root = DotRootGraph(directed = true,
-      id = None,
-      kvList = Seq(DotAttr("attr_1", """"one""""),
-        DotAttr("attr_2", "<two>")))
+    val root = DotRootGraph(directed = true, id = None)
 
-    def edgeTransformer(innerEdge: Graph[N, DiEdge]#EdgeT): Option[(DotGraph, DotEdgeStmt)] = {
+    def edgeTransformer(innerEdge: Graph[N, WDiEdge]#EdgeT): Option[(DotGraph, DotEdgeStmt)] = {
       val edge = innerEdge.edge
       Some(root, DotEdgeStmt(edge.from.toString.replace("http://dbpedia.org/resource/Category:", ""), edge.to.toString.replace("http://dbpedia.org/resource/Category:", ""), Nil))
     }
@@ -262,8 +262,8 @@ object Alg {
     new Export(g).toDot(root, edgeTransformer)
   }
 
-  def extractEnvironment[N](g: Graph[N, DiEdge], s: N, maxDepth: Int)(implicit m: Manifest[N]) = {
-    val g2 = scalax.collection.mutable.Graph[N, DiEdge]()
+  def extractEnvironment[N](g: Graph[N, WDiEdge], s: N, maxDepth: Int)(implicit m: Manifest[N]) = {
+    val g2 = scalax.collection.mutable.Graph[N, WDiEdge]()
 
     g.get(s).traverse(direction = GraphTraversal.Successors, breadthFirst = true, maxDepth = maxDepth)(edgeVisitor = {
       e =>
@@ -273,7 +273,7 @@ object Alg {
     g2
   }
 
-  def test(g: Graph[String, DiEdge]) {
+  def test(g: Graph[String, WDiEdge]) {
     //pathsTo(g, "http://dbpedia.org/resource/Category:Blue_cheeses", "http://dbpedia.org/resource/Category:Components").take(10) foreach println
     //    val e1 = extractEnvironment(g, "http://dbpedia.org/resource/Category:Blue_cheeses", 5)
     //    val e2 = extractEnvironment(g, "http://dbpedia.org/resource/Category:Potatoes", 5)
@@ -338,7 +338,7 @@ object TestDataSet {
     val model = RDFDataMgr.loadModel(f"file:///D:/Dokumente/dbpedia2/skos_categories_en.nt", Lang.NTRIPLES)
 
     println("converting hierarchy to graph")
-    val g = GraphFactory.fromDbpedia(model)
+    val g = GraphFactory.from(model)
 
     println("extracting transitive types")
     val transitiveTypes = collection.mutable.HashSet[(String, String)]()
@@ -379,11 +379,14 @@ object TestDataSet {
 
 object GraphTest extends App {
 
+  import PrefixHelper._
+  import Alg._
+
   def wikiTaxonomyToDot {
     println("loading triples")
     val model = RDFDataMgr.loadModel(f"file:///D:/Workspaces/Dev/ldif-evaluation/ldif-taaable/wikipediaOntology.ttl", Lang.TURTLE)
 
-    val graph = scalax.collection.mutable.Graph[String, DiEdge]()
+    val graph = scalax.collection.mutable.Graph[String, WDiEdge]()
     val subClassOf = model.getProperty("http://www.w3.org/2000/01/rdf-schema#subClassOf")
     val rdfsLabel = model.getProperty("http://www.w3.org/2000/01/rdf-schema#label")
 
@@ -396,7 +399,7 @@ object GraphTest extends App {
       graph += label(x)
 
       for (st <- model.listStatements(x, subClassOf, null)) {
-        graph += label(x) ~> label(st.getObject.asResource)
+        graph += label(x) ~> label(st.getObject.asResource) % 1
       }
     }
 
@@ -408,7 +411,7 @@ object GraphTest extends App {
       kvList = Seq(DotAttr("attr_1", """"one""""),
         DotAttr("attr_2", "<two>")))
 
-    def edgeTransformer(innerEdge: Graph[String, DiEdge]#EdgeT): Option[(DotGraph, DotEdgeStmt)] = {
+    def edgeTransformer(innerEdge: Graph[String, WDiEdge]#EdgeT): Option[(DotGraph, DotEdgeStmt)] = {
       val edge = innerEdge.edge
       Some(root, DotEdgeStmt(edge.from.toString, edge.to.toString, Nil))
     }
@@ -440,7 +443,6 @@ object GraphTest extends App {
   //    }
 
 
-
   val instances = List(
     "http://dbpedia.org/resource/Celery",
     "http://dbpedia.org/resource/Cel-Ray",
@@ -451,32 +453,54 @@ object GraphTest extends App {
     "http://dbpedia.org/resource/Celebrity_(tomato)"
   )
 
+  val taaable = GraphFactory.from(RDFDataMgr.loadModel("file:///D:/Workspaces/Dev/ldif-evaluation/ldif-taaable/taaable-food.ttl", Lang.TURTLE))
+  val dbpedia = GraphFactory.from(RDFDataMgr.loadModel("file:///D:/Workspaces/Dev/ldif-evaluation/ldif-taaable/test-celery.nt", Lang.NTRIPLES))
 
-  val model = RDFDataMgr.loadModel("file:///D:/Workspaces/Dev/ldif-evaluation/test-cellery.nt", Lang.NTRIPLES)
-  val g = GraphFactory.fromDbpedia(model)
-
-  for {
-    x <- instances
-    y <- instances
-  } {
-    val s = Alg.structuralCotopic(g, PrefixHelper.shortenUri(x), PrefixHelper.shortenUri(y))
-    println(f"$x - $y - $s")
+  
+  def unify(s: String, t: String) = {
+    List((s ~> t % 0), (t ~> s % 0))
   }
 
+  val g = dbpedia ++ taaable ++
+    unify("taaable:Food", "common:Food_and_drink") ++
+    unify("taaable:Vegetable", "category:Vegetables") ++
+    unify("taaable:Stalk_vegetable", "category:Stem_vegetables") ++
+    unify("taaable:Leaf_vegetable", "category:Leaf_vegetables") +
+    ("category:Food_and_drink" ~> "common:Root" % 1) + ("taaable:Food" ~> "common:Root" % 1)
+
+  val x = "http://dbpedia.org/resource/Cel-Ray"
+  lcsCandidates(g, "taaable:Celery", shortenUri(x)) take(3) foreach {
+    case (l, p1, p2) =>
+      val dist = p1.foldLeft[Long](0)(_ + _._2) + p2.foldLeft[Long](0)(_ + _._2)
+      println(f"$x $dist (via $l - $p1 - $p2)")
+  }
+//  val dist = structuralCotopic(g, "taaable:Celery", shortenUri(x))
+//  val (l, p1, p2) = lcs(g, "taaable:Celery", shortenUri(x)).get
+//  println(f"$x $dist (via $l - $p1 - $p2)")
+
+
+//  for {
+//    x <- instances
+//  } {
+//    val dist = structuralCotopic(g, "taaable:Celery", shortenUri(x))
+//    val (l, p1, p2) = lcs(g, "taaable:Celery", shortenUri(x)).get
+//    println(f"$x $dist (via $l - $p1 - $p2)")
+//  }
+
   // TestDataSet.generate
-//  val model = RDFDataMgr.loadModel("file:///D:/Workspaces/Dev/ldif-evaluation/test-cellery.nt", Lang.NTRIPLES)
-//  val g = GraphFactory.fromDbpedia(model)
-//
-//  val g2 = scalax.collection.mutable.Graph[String, DiEdge]()
-//
-//  g.get("category:Foods").traverse(direction = GraphTraversal.Predecessors, breadthFirst = true)(edgeVisitor = {
-//    e => g2 += e
-//  })
-//
-//  val s = Alg.exportAsDot(g2)
-//  val pw = new PrintWriter("test-cellery-2.dot")
-//  pw.println(s)
-//  pw.close
+  //  val model = RDFDataMgr.loadModel("file:///D:/Workspaces/Dev/ldif-evaluation/test-cellery.nt", Lang.NTRIPLES)
+  //  val g = GraphFactory.fromDbpedia(model)
+  //
+  //  val g2 = scalax.collection.mutable.Graph[String, WDiEdge]()
+  //
+  //  g.get("category:Foods").traverse(direction = GraphTraversal.Predecessors, breadthFirst = true)(edgeVisitor = {
+  //    e => g2 += e
+  //  })
+  //
+  //  val s = Alg.exportAsDot(g2)
+  //  val pw = new PrintWriter("test-cellery-2.dot")
+  //  pw.println(s)
+  //  pw.close
 
 
   //  var min = 100000

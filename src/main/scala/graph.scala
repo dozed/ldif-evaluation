@@ -320,14 +320,24 @@ object Alg {
     g2
   }
 
-  def subsumedLeafs[N](g: Graph[N, WDiEdge], e: N): List[N] = {
-    val leafs = collection.mutable.ArrayBuffer[N]()
+  def subsumedLeafs[N](g: Graph[N, WDiEdge], e: N): Set[N] = {
+    val leafs = collection.mutable.HashSet[N]()
     g.get(e).traverse(direction = GraphTraversal.Predecessors)(nodeVisitor = {
       n =>
         if (n.inDegree == 0) leafs += n
         VisitorReturn.Continue
     })
-    leafs.toList
+    leafs.toSet
+  }
+
+  def subsumedConcepts[N](g: Graph[N, WDiEdge], e: N): Set[N] = {
+    val concepts = collection.mutable.HashSet[N]()
+    g.get(e).traverse(direction = GraphTraversal.Predecessors)(nodeVisitor = {
+      n =>
+        concepts += n
+        VisitorReturn.Continue
+    })
+    concepts.toSet
   }
 
   def pathsTo[N](g: Graph[N, WDiEdge], s: N, t: N): List[List[(N, N)]] = {
@@ -575,72 +585,95 @@ object GraphTest extends App {
     "relaxedEquality" -> new RelaxedEqualityMetric()
   )
 
-  println("reading taaable")
-  val taaableHierarchy = fromQuads(new FileInputStream("D:/Workspaces/Dev/ldif-evaluation/ldif-taaable/taaable-food.nq"))
-  val taaableLabels = labelsFromQuads(new FileInputStream("D:/Workspaces/Dev/ldif-evaluation/ldif-taaable/taaable-food.nq"))
-
-  val grainEntities = subsumedLeafs(taaableHierarchy, "taaable:Grain")
-  val grainLabels = taaableLabels filterKeys grainEntities.contains
-
-  println("reading dbpedia")
-//  val (dbpediaHierarchy, dbpediaLabels) = fromQuads(new SequenceInputStream(new FileInputStream("D:/Dokumente/dbpedia2/labels_en.nt"),
-//    new FileInputStream("D:/Dokumente/dbpedia2/category_labels_en.nt")))
-
-  def distance(sourceLabels: Set[String], targetLabel: String): (Double, String) = {
+  def distance(sourceLabels: Set[String], targetLabels: Set[String]): (Double, String) = {
     val dists = for {
       (_, measure) <- measures
       sourceLabel <- sourceLabels
+      targetLabel <- targetLabels
     } yield {
       (measure.evaluate(sourceLabel, targetLabel), targetLabel)
     }
     dists.minBy(_._1)
   }
 
+  //
+
+  println("reading taaable")
+  val taaableHierarchy = fromQuads(new FileInputStream("D:/Workspaces/Dev/ldif-evaluation/ldif-taaable/taaable-food.nq"))
+  val taaableLabels = labelsFromQuads(new FileInputStream("D:/Workspaces/Dev/ldif-evaluation/ldif-taaable/taaable-food.nq"))
+
+  val grainEntities = subsumedConcepts(taaableHierarchy, "taaable:Grain")
+  val grainLabels = taaableLabels filterKeys grainEntities.contains
+
+  println("reading dbpedia")
+  val dbpediaLabels = labelsFromQuads(new SequenceInputStream(new FileInputStream("D:/Dokumente/dbpedia2/labels_en.nt"),
+      new FileInputStream("D:/Dokumente/dbpedia2/category_labels_en.nt")))
+
   val similarConcepts = collection.mutable.Map[String, List[(String, Double, String)]]()
-  val threshold = 0.1
-  val pw1 = new PrintWriter("grain.txt")
 
-  val parser = new NQuadsParser()
-  parser.setRDFHandler(new RDFHandler {
-    def handleStatement(p1: Statement) {
-      val p = p1.getPredicate.stringValue
-
-      if (labelPredicates.contains(p)) {
-        val s = shortenUri(p1.getSubject.stringValue)
-        val o = shortenUri(p1.getObject.stringValue)
-
-        grainLabels.par foreach { case (k, sourceLabels) =>
-          val (dist, targetLabel) = distance(sourceLabels, o)
-          if (dist < threshold) {
-            println(f"$sourceLabels - $targetLabel - $dist")
-            similarConcepts(k) = (s, dist, targetLabel) :: similarConcepts.getOrElse(k, List.empty)
-            pw1.println(f"$k - $s - $o - $sourceLabels - $targetLabel - $dist")
-          }
-        }
-      } else {
-        println(f"not a label predicate: $p")
+  for {
+    threshold <- List(0.1, 0.2, 0.3, 0.05, 0.15)
+  } {
+    println(f"calculating similar concepts for t=$threshold")
+    val pw2 = new PrintWriter(f"grain-dbpedia-concepts-$threshold.txt")
+    for {
+      (source, sourceLabels) <- grainLabels.par
+      (target, targetLabels) <- dbpediaLabels
+    } {
+      val (dist, targetLabel) = distance(sourceLabels, targetLabels)
+      if (dist < threshold) {
+        println(f"$sourceLabels - $targetLabel - $dist")
+        pw2.println(f"$source - $target - $sourceLabels - $targetLabels - $dist")
       }
     }
-
-    def handleNamespace(p1: String, p2: String) {}
-
-    def handleComment(p1: String) {}
-
-    def startRDF() {}
-
-    def endRDF() {}
-  })
-
-  parser.parse(new SequenceInputStream(new FileInputStream("D:/Dokumente/dbpedia2/labels_en.nt"),
-        new FileInputStream("D:/Dokumente/dbpedia2/category_labels_en.nt")), "")
-
-  pw1.close
-
-  val pw2 = new PrintWriter("grain-dbpedia-concepts.txt")
-  similarConcepts foreach { case (k, xs) =>
-    pw2.println(f"$k - $xs")
+    pw2.close
   }
-  pw2.close
+
+//  val similarConcepts = collection.mutable.Map[String, List[(String, Double, String)]]()
+//  val threshold = 0.1
+//  val pw1 = new PrintWriter("grain.txt")
+//
+//  val parser = new NQuadsParser()
+//  parser.setRDFHandler(new RDFHandler {
+//    def handleStatement(p1: Statement) {
+//      val p = p1.getPredicate.stringValue
+//
+//      if (labelPredicates.contains(p)) {
+//        val s = shortenUri(p1.getSubject.stringValue)
+//        val o = shortenUri(p1.getObject.stringValue)
+//
+//        grainLabels.par foreach { case (k, sourceLabels) =>
+//          val (dist, targetLabel) = distance(sourceLabels, o)
+//          if (dist < threshold) {
+//            println(f"$sourceLabels - $targetLabel - $dist")
+//            similarConcepts(k) = (s, dist, targetLabel) :: similarConcepts.getOrElse(k, List.empty)
+//            pw1.println(f"$k - $s - $o - $sourceLabels - $targetLabel - $dist")
+//          }
+//        }
+//      } else {
+//        println(f"not a label predicate: $p")
+//      }
+//    }
+//
+//    def handleNamespace(p1: String, p2: String) {}
+//
+//    def handleComment(p1: String) {}
+//
+//    def startRDF() {}
+//
+//    def endRDF() {}
+//  })
+//
+//  parser.parse(new SequenceInputStream(new FileInputStream("D:/Dokumente/dbpedia2/labels_en.nt"),
+//        new FileInputStream("D:/Dokumente/dbpedia2/category_labels_en.nt")), "")
+//
+//  pw1.close
+//
+//  val pw2 = new PrintWriter("grain-dbpedia-concepts.txt")
+//  similarConcepts foreach { case (k, xs) =>
+//    pw2.println(f"$k - $xs")
+//  }
+//  pw2.close
 
 
 

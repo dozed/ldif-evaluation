@@ -1,5 +1,10 @@
 import com.hp.hpl.jena.rdf.model.{Resource, Model}
-import java.io.{BufferedInputStream, FileInputStream, PrintWriter}
+import de.fuberlin.wiwiss.silk.plugins.distance.characterbased._
+import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.JaroDistanceMetric
+import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.JaroWinklerDistance
+import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.QGramsMetric
+import de.fuberlin.wiwiss.silk.plugins.distance.equality.RelaxedEqualityMetric
+import java.io._
 import org.apache.any23.io.nquads.NQuadsParser
 import org.apache.jena.riot.{Lang, RDFDataMgr}
 import collection.JavaConversions._
@@ -47,14 +52,20 @@ object GraphFactory {
 
   import PrefixHelper._
 
+  val taxonomicPredicates = List(
+    "http://www.w3.org/2004/02/skos/core#broader",
+    "http://purl.org/dc/terms/subject",
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf")
+
+  val labelPredicates = List(
+    "http://www.w3.org/2000/01/rdf-schema#label",
+    "http://xmlns.com/foaf/0.1/name",
+    "http://dbpedia.org/property/name")
+
   def from(model: Model): Graph[String, WDiEdge] = {
     val graph = scalax.collection.mutable.Graph[String, WDiEdge]()
-    val predicates = List(
-      model.getProperty("http://www.w3.org/2004/02/skos/core#broader"),
-      model.getProperty("http://purl.org/dc/terms/subject"),
-      model.getProperty("http://www.w3.org/2000/01/rdf-schema#subClassOf"))
 
-    predicates foreach {
+    taxonomicPredicates map model.getProperty foreach {
       p =>
         for (st <- model.listStatements(null, p, null)) {
           val e1 = shortenUri(st.getSubject.asResource.getURI)
@@ -104,6 +115,64 @@ object GraphFactory {
     //    val pw = new PrintWriter("wikiTaxonomy.dot")
     //    pw.println(str)
     //    pw.close
+  }
+
+  def fromQuads(in: InputStream): Graph[String, WDiEdge] = {
+    val g = scalax.collection.mutable.Graph[String, WDiEdge]()
+
+    val parser = new NQuadsParser()
+    parser.setRDFHandler(new RDFHandler {
+      def handleStatement(p1: Statement) {
+        val p = p1.getPredicate.stringValue
+
+        if (taxonomicPredicates.contains(p)) {
+          val s = shortenUri(p1.getSubject.stringValue)
+          val o = shortenUri(p1.getObject.stringValue)
+          g += s ~> o % 1
+        }
+      }
+
+      def handleNamespace(p1: String, p2: String) {}
+
+      def handleComment(p1: String) {}
+
+      def startRDF() {}
+
+      def endRDF() {}
+    })
+
+    parser.parse(in, "")
+
+    g
+  }
+
+  def labelsFromQuads(in: InputStream): Map[String, Set[String]] = {
+    val labelMap = collection.mutable.Map[String, Set[String]]()
+
+    val parser = new NQuadsParser()
+    parser.setRDFHandler(new RDFHandler {
+      def handleStatement(p1: Statement) {
+        val p = p1.getPredicate.stringValue
+
+        if (labelPredicates.contains(p)) {
+          val s = shortenUri(p1.getSubject.stringValue)
+          val o = shortenUri(p1.getObject.stringValue)
+          labelMap(s) = labelMap.getOrElse(s, Set.empty) + o
+        }
+      }
+
+      def handleNamespace(p1: String, p2: String) {}
+
+      def handleComment(p1: String) {}
+
+      def startRDF() {}
+
+      def endRDF() {}
+    })
+
+    parser.parse(in, "")
+
+    labelMap.toMap
   }
 
 }
@@ -429,7 +498,7 @@ object TestDataSet {
     for {
       s <- g.nodes.par
       t <- g.nodes
-      (v, p1, p2) <- lcsCandidates(g, s.toString, t.toString)
+      (v, p1, p2) <- lcsCandidates[N, WDiEdge](g, s, t)
     } yield {
       val len = p1.size + p2.size
       dist(len) = dist.getOrElseUpdate(len, 0) + 1
@@ -494,9 +563,85 @@ object TestDataSet {
 object GraphTest extends App {
 
   import PrefixHelper._
+  import GraphFactory._
   import Alg._
 
-  // TestDataSet.generate
+  val measures = List(
+    "substring" -> SubStringDistance(),
+    "qgrams2" -> QGramsMetric(q = 2),
+    "jaro" -> JaroDistanceMetric(),
+    "jaroWinkler" -> JaroWinklerDistance(),
+    "levenshtein" -> LevenshteinMetric(),
+    "relaxedEquality" -> new RelaxedEqualityMetric()
+  )
+
+  println("reading taaable")
+  val taaableHierarchy = fromQuads(new FileInputStream("D:/Workspaces/Dev/ldif-evaluation/ldif-taaable/taaable-food.nq"))
+  val taaableLabels = labelsFromQuads(new FileInputStream("D:/Workspaces/Dev/ldif-evaluation/ldif-taaable/taaable-food.nq"))
+
+  val grainEntities = subsumedLeafs(taaableHierarchy, "taaable:Grain")
+  val grainLabels = taaableLabels filterKeys grainEntities.contains
+
+  println("reading dbpedia")
+//  val (dbpediaHierarchy, dbpediaLabels) = fromQuads(new SequenceInputStream(new FileInputStream("D:/Dokumente/dbpedia2/labels_en.nt"),
+//    new FileInputStream("D:/Dokumente/dbpedia2/category_labels_en.nt")))
+
+  def distance(sourceLabels: Set[String], targetLabel: String): (Double, String) = {
+    val dists = for {
+      (_, measure) <- measures
+      sourceLabel <- sourceLabels
+    } yield {
+      (measure.evaluate(sourceLabel, targetLabel), targetLabel)
+    }
+    dists.minBy(_._1)
+  }
+
+  val similarConcepts = collection.mutable.Map[String, List[(String, Double, String)]]()
+  val threshold = 0.1
+  val pw1 = new PrintWriter("grain.txt")
+
+  val parser = new NQuadsParser()
+  parser.setRDFHandler(new RDFHandler {
+    def handleStatement(p1: Statement) {
+      val p = p1.getPredicate.stringValue
+
+      if (labelPredicates.contains(p)) {
+        val s = shortenUri(p1.getSubject.stringValue)
+        val o = shortenUri(p1.getObject.stringValue)
+
+        grainLabels.par foreach { case (k, sourceLabels) =>
+          val (dist, targetLabel) = distance(sourceLabels, o)
+          if (dist < threshold) {
+            println(f"$sourceLabels - $targetLabel - $dist")
+            similarConcepts(k) = (s, dist, targetLabel) :: similarConcepts.getOrElse(k, List.empty)
+            pw1.println(f"$k - $s - $o - $sourceLabels - $targetLabel - $dist")
+          }
+        }
+      } else {
+        println(f"not a label predicate: $p")
+      }
+    }
+
+    def handleNamespace(p1: String, p2: String) {}
+
+    def handleComment(p1: String) {}
+
+    def startRDF() {}
+
+    def endRDF() {}
+  })
+
+  parser.parse(new SequenceInputStream(new FileInputStream("D:/Dokumente/dbpedia2/labels_en.nt"),
+        new FileInputStream("D:/Dokumente/dbpedia2/category_labels_en.nt")), "")
+
+  pw1.close
+
+  val pw2 = new PrintWriter("grain-dbpedia-concepts.txt")
+  similarConcepts foreach { case (k, xs) =>
+    pw2.println(f"$k - $xs")
+  }
+  pw2.close
+
 
 
 }

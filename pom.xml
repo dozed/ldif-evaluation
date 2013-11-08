@@ -135,6 +135,12 @@
       <version>1.7.0</version>
     </dependency>
 
+    <dependency>
+      <groupId>fr.lgi2p.kid</groupId>
+      <artifactId>slib-sml</artifactId>
+      <version>0.7.1</version>
+    </dependency>
+
     <!--
     <dependency>
       <groupId>org.scala-lang</groupId>

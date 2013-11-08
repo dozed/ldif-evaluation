@@ -251,6 +251,15 @@ object Alg {
     g2
   }
 
+  def subsumedLeafs[N](g: Graph[N, WDiEdge], e: N): List[N] = {
+    val leafs = collection.mutable.ArrayBuffer[N]()
+    g.get(e).traverse(direction = GraphTraversal.Predecessors)(nodeVisitor = { n =>
+      if (n.inDegree == 0) leafs += n
+      VisitorReturn.Continue
+    })
+    leafs.toList
+  }
+
   def pathsTo[N](g: Graph[N, WDiEdge], s: N, t: N): List[List[(N, N)]] = {
     val backlinks = collection.mutable.Map[N, List[N]]()
 

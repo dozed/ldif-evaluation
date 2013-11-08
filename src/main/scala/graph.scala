@@ -253,9 +253,10 @@ object Alg {
 
   def subsumedLeafs[N](g: Graph[N, WDiEdge], e: N): List[N] = {
     val leafs = collection.mutable.ArrayBuffer[N]()
-    g.get(e).traverse(direction = GraphTraversal.Predecessors)(nodeVisitor = { n =>
-      if (n.inDegree == 0) leafs += n
-      VisitorReturn.Continue
+    g.get(e).traverse(direction = GraphTraversal.Predecessors)(nodeVisitor = {
+      n =>
+        if (n.inDegree == 0) leafs += n
+        VisitorReturn.Continue
     })
     leafs.toList
   }
@@ -327,6 +328,7 @@ object Alg {
 
 object TestDataSet {
 
+  import Alg._
   import PrefixHelper._
 
   def extractTypes(subjects: List[String]): Map[String, Set[String]] = {
@@ -418,12 +420,34 @@ object TestDataSet {
 
   }
 
-}
+  def graphStatistics[N](g: Graph[N, WDiEdge]) = {
+    var min = 100000
+    var max = 0
 
-object GraphTest extends App {
+    val dist = collection.mutable.Map[Int, Int]()
 
-  import PrefixHelper._
-  import Alg._
+    for {
+      s <- g.nodes.par
+      t <- g.nodes
+      (v, p1, p2) <- lcsCandidates(g, s.toString, t.toString)
+    } yield {
+      val len = p1.size + p2.size
+      dist(len) = dist.getOrElseUpdate(len, 0) + 1
+      if (len < min) {
+        println(f"new minimum: $len - $v - $p1 - $p2")
+        min = len
+        println(dist)
+      }
+      if (len > max) {
+        println(f"new maximum: $len - $v - $p1 - $p2")
+        max = len
+        println(dist)
+      }
+    }
+
+    println(f"min: $min max: $max")
+    println(dist)
+  }
 
   def wikiTaxonomyToDot {
     println("loading triples")
@@ -465,107 +489,14 @@ object GraphTest extends App {
     pw.close
   }
 
-  //  wikiTaxonomyToDot
-  //  val g = Graph(1 ~> 2, 1 ~> 3, 2 ~> 4, 3 ~> 4, 4 ~> 7, 7 ~> 8, 5 ~> 6, 6 ~> 4, 6 ~> 1, 6 ~> 8, 2 ~> 8)
-  //  println(Alg.lcsCandidates(g, 1, 5))
+}
 
-  //  val g = Graph(1 ~> 3, 1 ~> 4, 2 ~> 5, 2 ~> 12, 3 ~> 6, 4 ~> 7, 5 ~> 8, 6 ~> 9, 7 ~> 11, 8 ~> 11, 9 ~> 12, 10 ~> 12, 11 ~> 10)
-  //  println(Alg.lcsCandidates(g, 1, 2))
-  //  println(Alg.pathsTo(g, 1, 12))
-  //  println(Alg.pathsTo(g, 2, 12))
+object GraphTest extends App {
 
-  // val g = Graph(1 ~> 3, 1 ~> 4, 2 ~> 4, 3 ~> 5, 4 ~> 6, 5 ~> 7, 6 ~> 8, 7 ~> 8)
-  //  val g = Graph(1 ~> 3, 2 ~> 4, 3 ~> 4, 4 ~> 5, 4 ~> 6, 6 ~> 7, 6 ~> 8, 8 ~> 9)
-  //    val g = Graph(1 ~> 3, 2 ~> 4, 3 ~> 4, 4 ~> 5, 4 ~> 6, 6 ~> 7, 6 ~> 8, 8 ~> 9,
-  //      1 ~> 20, 20 ~> 21, 21 ~> 22, 22 ~> 23, 23 ~> 24, 24 ~> 25, 25 ~> 26, 26 ~> 27, 27 ~> 28, 28 ~> 29, 29 ~> 30, 30 ~> 42,
-  //      42 ~> 7, 42 ~> 8, 42 ~> 9)
-  //    Alg.lcsCandidates(g, 1, 2) map { case (v, p1, p2) =>
-  //      val q1 = g.get(1) shortestPathTo g.get(v)
-  //      val q2 = g.get(2) shortestPathTo g.get(v)
-  //      println(f"$v - $q1 - $q2 - $p1 - $p2")
-  //    }
-
-  val instances = List(
-    "http://dbpedia.org/resource/Celery",
-    "http://dbpedia.org/resource/Cel-Ray",
-    "http://dbpedia.org/resource/Celery_salt",
-    "http://dbpedia.org/resource/Celery_Victor",
-    "http://dbpedia.org/resource/Celery_cabbage",
-    "http://dbpedia.org/resource/Celeriac",
-    "http://dbpedia.org/resource/Celebrity_(tomato)"
-  )
-
-  val taaable = GraphFactory.from(RDFDataMgr.loadModel("file:///D:/Workspaces/Dev/ldif-evaluation/ldif-taaable/taaable-food.ttl", Lang.TURTLE))
-  val dbpedia = GraphFactory.from(RDFDataMgr.loadModel("file:///D:/Workspaces/Dev/ldif-evaluation/ldif-taaable/celery/test-celery.nt", Lang.NTRIPLES))
-
-  val g = dbpedia ++ taaable ++
-    merge("taaable:Food", "category:Food_and_drink") ++
-    merge("taaable:Vegetable", "category:Vegetables") ++
-    merge("taaable:Stalk_vegetable", "category:Stem_vegetables") ++
-    merge("taaable:Leaf_vegetable", "category:Leaf_vegetables") +
-    ("category:Food_and_drink" ~> "common:Root" % 1) + ("taaable:Food" ~> "common:Root" % 1)
-
-  for {
-    x <- instances.par
-  } {
-    val d1 = structuralCotopic(g, "taaable:Celery", shortenUri(x))
-    val d2 = 1.0 - wuPalmer(g, "common:Root", "taaable:Celery", shortenUri(x))
-    val (l, p1, p2) = lcs(g, "taaable:Celery", shortenUri(x)).get
-    println(f"$x $d1 $d2 (via $l - $d1 - $d2)")
-  }
-
+  import PrefixHelper._
+  import Alg._
 
   // TestDataSet.generate
-  //  val model = RDFDataMgr.loadModel("file:///D:/Workspaces/Dev/ldif-evaluation/test-cellery.nt", Lang.NTRIPLES)
-  //  val g = from(model)
-  //
-  //  val g2 = scalax.collection.mutable.Graph[String, WDiEdge]()
-  //
-  //  g.get("category:Foods").traverse(direction = GraphTraversal.Predecessors, breadthFirst = true)(edgeVisitor = {
-  //    e => g2 += e
-  //  })
-  //
-  //  val s = exportAsDot(g2)
-  //  val pw = new PrintWriter("test-cellery-2.dot")
-  //  pw.println(s)
-  //  pw.close
 
-
-  //  var min = 100000
-  //  var max = 0
-  //
-  //  val dist = collection.mutable.Map[Int, Int]()
-  //
-  //  for {
-  //    s <- g.nodes.par
-  //    t <- g.nodes
-  //    (v, p1, p2) <- lcsCandidates(g, s.toString, t.toString)
-  //  } yield {
-  //    val len = p1.size + p2.size
-  //    dist(len) = dist.getOrElseUpdate(len, 0) + 1
-  //    if (len < min) {
-  //      println(f"new minimum: $len - $v - $p1 - $p2")
-  //      min = len
-  //      println(dist)
-  //    }
-  //    if (len > max) {
-  //      println(f"new maximum: $len - $v - $p1 - $p2")
-  //      max = len
-  //      println(dist)
-  //    }
-  //  }
-  //
-  //  println(f"min: $min max: $max")
-  //  println(dist)
-
-  //  val s = "category:Blue_cheeses"
-  //  val t = "category:Milk"
-  //
-  //  lcsCandidates(g, s, t) map {
-  //    case (v, p1, p2) =>
-  //      val q1 = g.get(s) shortestPathTo g.get(v)
-  //      val q2 = g.get(t) shortestPathTo g.get(v)
-  //      println(f"$v - $q1 - $q2 - $p1 - $p2")
-  //  }
 
 }

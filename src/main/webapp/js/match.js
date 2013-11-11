@@ -190,6 +190,7 @@ $(function() {
 
       popup = pre;
 
+      $(".autosuggest").remove();
       $(document.body).append(popup);
     }
   });

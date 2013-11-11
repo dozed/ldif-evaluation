@@ -219,7 +219,7 @@ case class LinkingUI(res: MatchingResults, system: ActorSystem) extends Scalatra
       val u = shortenUri(e.uri)
       (("e" -> u) ~ ("i" -> idx), o * u.length)
     }
-    val jv: JValue = l sortBy (_._2) map (_._1)
+    val jv: JValue = l sortBy (_._2) map (_._1) take 10
     jv
   }
 

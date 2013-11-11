@@ -1,19 +1,48 @@
+import java.io.File
 import org.apache.jena.riot.{Lang, RDFDataMgr}
-import scala.util.matching.Regex
+
+case class Matching(e1: String, e2: String, p: Double) {
+  def contains(e: String) = if (e1.equals(e)) true else e2.equals(e)
+}
+
+case class Alignment(matchings: List[Matching]) {
+  def size = matchings.size
+
+  def contains(e: String) = matchings.exists(m => m.contains(e))
+
+  def left: Set[String] = matchings.map(_.e1).toSet
+  def right: Set[String] = matchings.map(_.e2).toSet
+}
 
 object Align extends App {
 
   import PrefixHelper._
   import Alg._
 
-  def fromMd: Map[String, String] = {
+  def fromMd(md: File): Alignment = {
     val r1 = """(.+?)\s-\s(.+?)""".r
 
-    // load partial alignment
-    io.Source.fromFile("ldif-taaable/alignment.md").getLines.toList flatMap {
-      case r1(a, b) => Some((shortenUri(a), shortenUri(b)))
+    val matchings = io.Source.fromFile(md).getLines.toList flatMap {
+      case r1(a, b) => Some(Matching(shortenUri(a), shortenUri(b), 1.0))
       case _ => None
-    } toMap
+    }
+
+    Alignment(matchings)
+  }
+
+  def fromLst(lst: File): Alignment = {
+    val r1 = """\((.+?)\s*?,\s*?(.+)\s*?,\s*?(\d\.\d+?)\)""".r
+
+    val matchings = io.Source.fromFile(lst).getLines.toList flatMap {
+      case r1(a, b, p) => Some(Matching(a, b, p.toDouble))
+      case _ => None
+    }
+
+    Alignment(matchings)
+  }
+
+  def printAlignment(a: Alignment) {
+    a.matchings foreach (m => println(f"(${m.e1}, ${m.e2}, ${m.p})"))
   }
 
   // print info about the current state of the reference alignment
@@ -24,7 +53,7 @@ object Align extends App {
     val r2 = """(\d+?),(.+?)""".r
 
     // load partial alignment
-    val alignment = fromMd
+    val alignment = fromMd(new File("ldif-taaable/alignment.md"))
 
     val alignedEntities = io.Source.fromFile("ldif-taaable/ent-taaable.lst").getLines.toList.take(maxIdx) flatMap {
       case r2(i, uri) => Some(shortenUri(uri))

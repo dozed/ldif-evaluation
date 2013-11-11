@@ -8,9 +8,9 @@
     settings: {
       url: '/search',
       param: 'query',
-      dom_id: '#results',
       delay: 100,
-      loading_css: '#loading'
+      loading_css: '#loading',
+      success: function() {}
     },
 
     loading: function() {
@@ -33,7 +33,7 @@
       if (params) query_string = [params.replace('&amp;', '&'), query].join('&')
 
       $.get([base, '?', query_string].join(''), function(data) {
-        $($.searchbox.settings.dom_id).html(data)
+        $.searchbox.settings.success(data);
       })
     },
 

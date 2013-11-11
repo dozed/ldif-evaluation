@@ -154,12 +154,50 @@ function matchPage(sourceId, sourceLabel) {
 
 $(function() {
 
+  var popup = null;
+
   $("#taaableEntitySearch").searchbox({
     url: "/taaable/search",
     param: "query",
-    dom_id: "#taaableEntitySearchResults",
     delay: 250,
-    loading_css: "#spinner"
+    loading_css: "#spinner",
+    success: function(data) {
+      var items = _.map(data, function(e) {
+        return '<li><a href="/match/' + e.i + '"><span class="tl"> </span><span class="tr"> </span><span>' + e.e + '</span></a></li>';
+      }).join("");
+
+      var pos = $("#taaableEntitySearch").offset();
+      var width = $("#taaableEntitySearch").outerWidth();
+      var height = $("#taaableEntitySearch").outerHeight();
+
+      var left = pos.left + (width / 2);
+      left = 280;
+      var top = pos.top + height + 2;
+
+      var pre = '<div class="autosuggest" style="left: ' + left + 'px; top: ' + top + 'px; width: 200px;">';
+      pre += '    <div class="as_header">';
+      pre += '        <div class="as_corner"></div>';
+      pre += '        <div class="as_bar"></div>';
+      pre += '    </div>';
+      pre += '    <ul id="as_ul">';
+      pre += items;
+      pre += '    </ul>';
+      pre += '    <div class="as_footer">';
+      pre += '        <div class="as_corner"></div>';
+      pre += '        <div class="as_bar"></div>';
+      pre += '    </div>';
+      pre += '</div>';
+
+      popup = pre;
+
+      $(document.body).append(popup);
+    }
+  });
+
+  $(document.body).keyup(function(e) {
+    if (e.which == 27) {
+      $(".autosuggest").remove();
+    }
   });
 
 });

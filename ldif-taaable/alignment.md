@@ -153,7 +153,6 @@ http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AColby - htt
 http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AVermicelli - http://dbpedia.org/resource/Vermicelli
 http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ACassava - http://dbpedia.org/resource/Cassava
 http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3APort - http://dbpedia.org/resource/Port_wine
-http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AConverted_rice - http://dbpedia.org/resource/Parboiled_rice
 http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AGranny_smith_apple - http://dbpedia.org/resource/Granny_Smith
 http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AAnise_liqueur - http://dbpedia.org/resource/Category:Anise_liqueurs_and_spirits
 http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ASoy_sauce - http://dbpedia.org/resource/Soy_sauce

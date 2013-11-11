@@ -607,22 +607,23 @@ object GraphTest extends App {
   val dbpediaLabels = labelsFromQuads(new SequenceInputStream(new FileInputStream("D:/Dokumente/dbpedia2/labels_en.nt"),
       new FileInputStream("D:/Dokumente/dbpedia2/category_labels_en.nt")))
 
+  val thresholds = List(0.1, 0.2, 0.3, 0.05, 0.15)
+  val writers = thresholds map (t => new PrintWriter(f"grain-dbpedia-concepts-t.txt"))
+
   for {
-    threshold <- List(0.1, 0.2, 0.3, 0.05, 0.15)
+    (source, sourceLabels) <- grainLabels.par
+    (target, targetLabels) <- dbpediaLabels
   } {
-    println(f"calculating similar concepts for t=$threshold")
-    val pw2 = new PrintWriter(f"grain-dbpedia-concepts-$threshold.txt")
+    val (dist, targetLabel) = distance(sourceLabels, targetLabels)
+    if (dist < 0.1) println(f"$sourceLabels - $targetLabel - $dist")
     for {
-      (source, sourceLabels) <- grainLabels.par
-      (target, targetLabels) <- dbpediaLabels
+      (threshold, pw) <- thresholds zip writers
+      if (dist < threshold)
     } {
-      val (dist, targetLabel) = distance(sourceLabels, targetLabels)
-      if (dist < threshold) {
-        println(f"$sourceLabels - $targetLabel - $dist")
-        pw2.println(f"$source - $target - $sourceLabels - $targetLabels - $dist")
-      }
+      pw.println(f"$source - $target - $sourceLabels - $targetLabels - $dist")
     }
-    pw2.close
   }
+
+  writers foreach (_.close)
 
 }

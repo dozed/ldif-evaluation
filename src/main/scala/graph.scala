@@ -637,7 +637,7 @@ object GraphTest extends App {
   val grainEntities = subsumedConcepts(taaableHierarchy, "taaable:Grain")
   val grainLabels = taaableLabels filterKeys grainEntities.contains
 
-  val alignment = fromLst(new File("ldif-taaable/align-taaable-ref.lst"))
+  val alignment = fromLst(new File("ldif-taaable/align-grain-ref.lst"))
   val (matched, notMatched) = grainEntities.partition(alignment.contains)
 
   println("matched:")

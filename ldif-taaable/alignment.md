@@ -60,6 +60,42 @@ http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ATurtle - ht
 
 
 
+
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AGrain - http://dbpedia.org/resource/Category:Grains
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ABuckwheat - http://dbpedia.org/resource/Buckwheat
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ABarley - http://dbpedia.org/resource/Category:Barley
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AWheat - http://dbpedia.org/resource/Wheat
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AMillet - http://dbpedia.org/resource/Category:Millets
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ABulgur - http://dbpedia.org/resource/Bulgur
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ARice - http://dbpedia.org/resource/Rice
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AGlutinous_rice - http://dbpedia.org/resource/Glutinous_rice
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3APopcorn - http://dbpedia.org/resource/Category:Popcorn
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3APopcorn - http://dbpedia.org/resource/Popcorn
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AWheat - http://dbpedia.org/resource/Category:Wheat
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AWhite_rice - http://dbpedia.org/resource/White_rice
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AArborio - http://dbpedia.org/resource/Arborio_rice
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ABasmati_rice - http://dbpedia.org/resource/Basmati
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ABarley - http://dbpedia.org/resource/Barley
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AOat - http://dbpedia.org/resource/Oat
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AKasha - http://dbpedia.org/resource/Kasha
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AWild_rice - http://dbpedia.org/resource/Wild_rice
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AInstant_rice - http://dbpedia.org/resource/Instant_rice
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AConverted_rice - http://dbpedia.org/resource/Parboiled_rice
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AJapanese_rice - http://dbpedia.org/resource/Japanese_rice
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AJasmine_rice - http://dbpedia.org/resource/Jasmine_rice
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ABrown_rice - http://dbpedia.org/resource/Brown_rice
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3APuffed_rice - http://dbpedia.org/resource/Puffed_rice
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AAmaranth - http://dbpedia.org/resource/Amaranth_grain
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AOat - http://dbpedia.org/resource/Category:Oats
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ARolled_oat - http://dbpedia.org/resource/Rolled_oats
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ASpelt - http://dbpedia.org/resource/Spelt
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ARice - http://dbpedia.org/resource/Category:Rice
+http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AMillet - http://dbpedia.org/resource/Millet
+
+
+
+
+
 http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ASalami - http://dbpedia.org/resource/Salami
 http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AStrozzapreti - http://dbpedia.org/resource/Strozzapreti
 http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ARabbit - http://dbpedia.org/resource/Rabbit

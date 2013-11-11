@@ -630,17 +630,20 @@ object GraphTest extends App {
   import Alg._
   import Align._
 
-
   println("reading taaable")
-  val taaableHierarchy = fromQuads(new FileInputStream("D:/Workspaces/Dev/ldif-evaluation/ldif-taaable/taaable-food.nq"))
-  val taaableLabels = labelsFromQuads(new FileInputStream("D:/Workspaces/Dev/ldif-evaluation/ldif-taaable/taaable-food.nq"))
+  val taaableHierarchy = fromQuads(new FileInputStream("ldif-taaable/taaable-food.nq"))
+  val taaableLabels = labelsFromQuads(new FileInputStream("ldif-taaable/taaable-food.nq"))
 
   val grainEntities = subsumedConcepts(taaableHierarchy, "taaable:Grain")
   val grainLabels = taaableLabels filterKeys grainEntities.contains
 
   val alignment = fromLst(new File("ldif-taaable/align-taaable-ref.lst"))
   val (matched, notMatched) = grainEntities.partition(alignment.contains)
-  println(matched)
-  println(notMatched)
+
+  println("matched:")
+  matched foreach (m => println(m + ": " + alignment.all(m)))
+
+  println("not matched:")
+  notMatched foreach println
 
 }

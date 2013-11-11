@@ -6,9 +6,12 @@ case class Matching(e1: String, e2: String, p: Double) {
 }
 
 case class Alignment(matchings: List[Matching]) {
-  def size = matchings.size
+  def size: Int = matchings.size
 
-  def contains(e: String) = matchings.exists(m => m.contains(e))
+  def contains(e: String): Boolean = matchings.exists(m => m.contains(e))
+  def get(e: String): Matching = opt(e).get
+  def opt(e: String): Option[Matching] = all(e).headOption
+  def all(e: String): List[Matching] = matchings.filter(m => m.contains(e))
 
   def entities: Set[String] = left ++ right
   def left: Set[String] = matchings.map(_.e1).toSet

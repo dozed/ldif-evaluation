@@ -56,7 +56,6 @@ http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AMutton - ht
 http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ARattlesnake - http://dbpedia.org/resource/Rattlesnake
 http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ACrocodile - http://dbpedia.org/resource/Crocodile
 http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ATurtle - http://dbpedia.org/resource/Turtle
-http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AWhite_basmati_rice - http://dbpedia.org/resource/Basmati_rice
 
 
 
@@ -183,7 +182,6 @@ http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ABeurre_mani
 http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ACatfish - http://dbpedia.org/resource/Crayfish_(food)
 http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ACacha-C3-A7a - http://dbpedia.org/resource/Cacha%C3%A7a
 http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AMiso - http://dbpedia.org/resource/Miso
-http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ABuckwheat - http://dbpedia.org/resource/Buckwheat
 http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3AEgg - http://dbpedia.org/resource/Egg_(food)
 http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ABleu_de_bresse - http://dbpedia.org/resource/Bleu_de_Bresse
 http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3ALime - http://dbpedia.org/resource/Lime_(fruit)

@@ -208,7 +208,7 @@ case class LinkingUI(res: MatchingResults, system: ActorSystem) extends Scalatra
     }</ul>
   }
 
-  post("/taaable/search") {
+  get("/taaable/search") {
     contentType = "application/json"
     val l = for {
       (e, idx) <- res.sourceEntities.zipWithIndex

@@ -88,7 +88,7 @@ function matchPage(sourceId, sourceLabel) {
 //    }
 //  });
 
-  highlightLabels("#matches", sourceLabel);
+  highlightText("#matches", sourceLabel);
 
   $.ajax({
     type: "GET",
@@ -96,7 +96,7 @@ function matchPage(sourceId, sourceLabel) {
     success: function(data) {
       var el = showGraph(data);
       $("#dbpediaUsage").html(el);
-      highlightLabels("#dbpediaUsage");
+      highlightText("#dbpediaUsage", sourceLabel);
     }
   });
 
@@ -106,7 +106,7 @@ function matchPage(sourceId, sourceLabel) {
     success: function(data) {
       var el = showGraph(data);
       $("#dbpediaReverseUsage").html(el);
-      highlightLabels("#dbpediaReverseUsage");
+      highlightText("#dbpediaReverseUsage", sourceLabel);
     }
   });
 
@@ -122,7 +122,7 @@ function matchPage(sourceId, sourceLabel) {
         .join("");
       el = "<ul>" + el + "</ul>";
       $("#wikipedia").html(el);
-      highlightLabels("#wikipedia");
+      highlightText("#wikipedia", sourceLabel);
     }
   });
 
@@ -146,8 +146,20 @@ function matchPage(sourceId, sourceLabel) {
         .join("");
       el = "<ul>" + el + "</ul>";
       $("#dbpedia").html(el);
-      highlightLabels("#dbpedia");
+      highlightText("#dbpedia", sourceLabel);
     }
+  });
+
+}
+
+$(function() {
+
+  $("#taaableEntitySearch").searchbox({
+    url: "/taaable/search",
+    param: "query",
+    dom_id: "#taaableEntitySearchResults",
+    delay: 250,
+    loading_css: "#spinner"
   });
 
 });

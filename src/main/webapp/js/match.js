@@ -162,6 +162,10 @@ $(function() {
     delay: 250,
     loading_css: "#spinner",
     success: function(data) {
+      $(".autosuggest").remove();
+
+      if (data.length == 0) return;
+
       var items = _.map(data, function(e) {
         return '<li><a href="/match/' + e.i + '"><span class="tl"> </span><span class="tr"> </span><span>' + e.e + '</span></a></li>';
       }).join("");
@@ -170,8 +174,7 @@ $(function() {
       var width = $("#taaableEntitySearch").outerWidth();
       var height = $("#taaableEntitySearch").outerHeight();
 
-      var left = pos.left + (width / 2);
-      left = 280;
+      var left = pos.left + (width / 2) - 100;
       var top = pos.top + height + 2;
 
       var pre = '<div class="autosuggest" style="left: ' + left + 'px; top: ' + top + 'px; width: 200px;">';
@@ -190,8 +193,11 @@ $(function() {
 
       popup = pre;
 
-      $(".autosuggest").remove();
       $(document.body).append(popup);
+    }
+  }).keyup(function(e) {
+    if (e.which == 27) {
+      $("#taaableEntitySearch").val("");
     }
   });
 

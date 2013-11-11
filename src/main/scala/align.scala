@@ -85,9 +85,4 @@ object Align extends App {
     }
   }
 
-  def buildAlignmentFromStreamedProcessing0 {
-
-  }
-
-
 }

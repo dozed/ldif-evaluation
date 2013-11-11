@@ -79,7 +79,7 @@ a(href={"/match/" + (sourceId + 1)}) next
           li
             - val sims = for ((d, i) <- m.sim.sortBy(_._1)) yield f"${measures(i)._1}: ${"%1.2f" format d}"
             | #{targetEntities(m.to).values.flatten.mkString(", ")} (#{sims.mkString(", ")})
-            a(href="#" onclick={"acceptMatch(" + m.from + ", " + m.to + ")"}) accept
+            a(href="#" onclick={"acceptMatch(" + m.from + ", " + m.to + ", " + sourceId + ")"}) accept
 
             a(href={targetEntities(m.to).uri}) #{targetEntities(m.to).uri}
 

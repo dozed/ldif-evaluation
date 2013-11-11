@@ -167,7 +167,7 @@ $(function() {
       if (data.length == 0) return;
 
       var items = _.map(data, function(e) {
-        return '<li><a href="/match/' + e.i + '"><span class="tl"> </span><span class="tr"> </span><span>' + e.e + '</span></a></li>';
+        return '<li><a href="javascript:navigateTo(' + e.i + ')"><span class="tl"> </span><span class="tr"> </span><span>' + e.e + '</span></a></li>';
       }).join("");
 
       var pos = $("#taaableEntitySearch").offset();

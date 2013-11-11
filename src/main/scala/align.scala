@@ -10,6 +10,7 @@ case class Alignment(matchings: List[Matching]) {
 
   def contains(e: String) = matchings.exists(m => m.contains(e))
 
+  def entities: Set[String] = left ++ right
   def left: Set[String] = matchings.map(_.e1).toSet
   def right: Set[String] = matchings.map(_.e2).toSet
 }
@@ -67,9 +68,16 @@ object Align extends App {
 
     def partialHierarchyLeafCoverage(e: String) = {
       val leafEntities = subsumedLeafs(taaableGraph, e)
-      val alignedLeafEntities = leafEntities filter alignedEntities.contains
-      val matchedLeafEntities = leafEntities filter alignment.contains
+      val alignedLeafEntities = leafEntities intersect alignedEntities.toSet
+      val matchedLeafEntities = leafEntities intersect alignment.entities
       println(f"$e\t${matchedLeafEntities.size} / ${alignedLeafEntities.size} / ${leafEntities.size}\t${matchedLeafEntities.size.toDouble / alignedLeafEntities.size.toDouble}\t${alignedLeafEntities.size.toDouble / leafEntities.size.toDouble}")
+    }
+
+    def partialHierarchyCoverage(e: String) = {
+      val subsumed = subsumedConcepts(taaableGraph, e)
+      val alignedSubsumed = subsumed intersect alignedEntities.toSet
+      val matchedSubsumed = subsumed intersect alignment.entities
+      println(f"$e\t${matchedSubsumed.size} / ${alignedSubsumed.size} / ${subsumed.size}\t${matchedSubsumed.size.toDouble / alignedSubsumed.size.toDouble}\t${alignedSubsumed.size.toDouble / subsumed.size.toDouble}")
     }
 
     taaableGraph.get("taaable:Food").inNeighbors foreach { n =>

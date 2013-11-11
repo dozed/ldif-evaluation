@@ -19,15 +19,20 @@ a(href={"/match/" + (sourceId - 1)}) back
 a(href={"/match/" + (sourceId + 1)}) next
 
 :!javascript
-  var sourceId = #{sourceId};
-  var sourceLabel = "#{source.values.flatten.mkString(", ")}";
+  $(function() {
+    var sourceId = #{sourceId};
+    var sourceLabel = "#{source.values.flatten.mkString(", ")}";
 
+    matchPage(sourceId, sourceLabel);
+  });
 
-h1 Matching
+.row
+  .col-lg-12
+    h1 Matching
 
-h3
-  a(href={source.uri})= source.uri
-| Values: #{source.values.flatten.mkString(", ")}
+    h3
+      a(href={source.uri})= source.uri
+    | Values: #{source.values.flatten.mkString(", ")}
 
 .row
   .col-lg-4
@@ -53,7 +58,7 @@ h3
           li
             - val sims = for ((d, i) <- m.sim.sortBy(_._1)) yield f"${measures(i)._1}: ${"%1.2f" format d}"
             | #{targetEntities(m.to).values.flatten.mkString(", ")} (#{sims.mkString(", ")})
-            a(href="#" onclick={"acceptMatch(" + m.from + ", " + m.to + ")"}) accept
+            a(href="#" onclick={"acceptMatch(" + m.from + ", " + m.to + ", " + sourceId + ")"}) accept
 
             a(href={targetEntities(m.to).uri}) #{targetEntities(m.to).uri}
 
@@ -63,7 +68,7 @@ h3
           li
             - val sims = for ((d, i) <- m.sim.sortBy(_._1)) yield f"${measures(i)._1}: ${"%1.2f" format d}"
             | #{targetEntities(m.to).values.flatten.mkString(", ")} (#{sims.mkString(", ")})
-            a(href="#" onclick={"removeMatch(" + m.from + ", " + m.to + ")"}) remove
+            a(href="#" onclick={"removeMatch(" + m.from + ", " + m.to + ", " + sourceId + ")"}) remove
 
             a(href={targetEntities(m.to).uri}) #{targetEntities(m.to).uri}
 

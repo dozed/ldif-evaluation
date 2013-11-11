@@ -6,6 +6,7 @@ html
     script(type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js")
     script(type="text/javascript" src="/js/underscore-min.js")
     script(type="text/javascript" src="/js/jquery.highlight.js")
+    script(type="text/javascript" src="/js/jquery.searchbox.js")
     script(type="text/javascript" src="/js/match.js")
 
     link(rel="stylesheet" type="text/css" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" media="screen")
@@ -19,4 +20,9 @@ html
 
   body
     .container
+      .row
+        .col-lg-12
+          | Search:
+          input(type="text")
+
       !~~ body

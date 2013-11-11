@@ -1,5 +1,3 @@
-// val sourceId = 0;
-// val sourceLabel = "";
 
 function urlParam(name){
   var results = new RegExp('[\\?&]' + name + '=([^&#]*)').exec(window.location.href);
@@ -29,12 +27,12 @@ function navigateTo(id) {
   location.href = url;
 }
 
-function acceptMatch(from, to) {
+function acceptMatch(from, to, nextId) {
   $.ajax({
     type: "POST",
     url: "/match/" + from + "/" + to,
     success: function() {
-      navigateTo(sourceId + 1);
+      navigateTo(nextId);
     }
   });
 }
@@ -49,9 +47,9 @@ function removeMatch(from, to) {
   });
 }
 
-function highlightLabels(el) {
-  _.each(sourceLabel.split(" "), function(label) {
-    $(el).highlight(label, { caseSensitive: false, wordsOnly: false });
+function highlightText(el, txt) {
+  _.each(txt.split(" "), function(t) {
+    $(el).highlight(t, { caseSensitive: false, wordsOnly: false });
   });
 }
 
@@ -70,7 +68,7 @@ function showGraph(data) {
   } else return "";
 }
 
-$(function() {
+function matchPage(sourceId, sourceLabel) {
   $("body").keydown(function(e) {
     if(e.keyCode == 37) {
       navigateTo(sourceId - 1);
@@ -90,7 +88,7 @@ $(function() {
 //    }
 //  });
 
-  highlightLabels("#matches");
+  highlightLabels("#matches", sourceLabel);
 
   $.ajax({
     type: "GET",

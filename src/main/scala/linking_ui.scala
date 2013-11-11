@@ -14,15 +14,21 @@ import de.fuberlin.wiwiss.silk.plugins.distance.equality.RelaxedEqualityMetric
 import java.io.PrintWriter
 import javax.servlet.ServletContext
 import org.apache.jena.riot.{RDFDataMgr, Lang}
+
 import org.eclipse.jetty.server.nio.SelectChannelConnector
 import org.eclipse.jetty.server.Server
 import org.eclipse.jetty.servlet.{ServletHolder, DefaultServlet}
 import org.eclipse.jetty.webapp.WebAppContext
-import org.json4s.DefaultFormats
+
 import org.scalatra.json.JacksonJsonSupport
 import org.scalatra.scalate.ScalateSupport
 import org.scalatra.{FutureSupport, ScalatraServlet, LifeCycle}
 import org.scalatra.servlet.ScalatraListener
+
+import org.json4s.DefaultFormats
+import org.json4s._
+import org.json4s.JsonDSL._
+
 import scala.concurrent.ExecutionContext
 import SparseDistanceMatrixIO._
 
@@ -162,6 +168,8 @@ class MatchingResults extends Evaluations {
 
 case class LinkingUI(res: MatchingResults, system: ActorSystem) extends ScalatraServlet with ScalateSupport with FutureSupport with JacksonJsonSupport {
 
+  import PrefixHelper._
+
   override protected val defaultLayoutPath = Some("layout.jade")
 
   protected implicit def executor: ExecutionContext = system.dispatcher
@@ -198,6 +206,21 @@ case class LinkingUI(res: MatchingResults, system: ActorSystem) extends Scalatra
         t <- res.targetEntities.lift(m.to)
       } yield <li>{f"${s.uri} - ${t.uri}"}</li>
     }</ul>
+  }
+
+  post("/taaable/search") {
+    contentType = "application/json"
+    val l = for {
+      (e, idx) <- res.sourceEntities.zipWithIndex
+      query <- params.get("query")
+      o = e.uri.toLowerCase.indexOf(query.toLowerCase)
+      if (o > -1)
+    } yield {
+      val u = shortenUri(e.uri)
+      (("e" -> u) ~ ("i" -> idx), o * u.length)
+    }
+    val jv: JValue = l sortBy (_._2) map (_._1)
+    jv
   }
 
   delete("/match") {

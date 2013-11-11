@@ -46,8 +46,8 @@ object Align extends App {
     a.matchings foreach (m => println(f"(${m.e1}, ${m.e2}, ${m.p})"))
   }
 
-  // print info about the current state of the reference alignment
-  // for example: how much percent of each partial hierarchy is covered already
+  // print info about the state of an alignment
+  // for example: how much percent of each partial hierarchy is covered by the reference alignment already
   def statistics {
     val maxIdx = 909
 

@@ -52,6 +52,16 @@ a(href={"/match/" + (sourceId + 1)}) next
     h2 Matches
 
     #matches
+      | Accepted: #{accepted.size}
+      ul
+        - for (m <- accepted)
+          li
+            - val sims = for ((d, i) <- m.sim.sortBy(_._1)) yield f"${measures(i)._1}: ${"%1.2f" format d}"
+            | #{targetEntities(m.to).values.flatten.mkString(", ")} (#{sims.mkString(", ")})
+            a(href="#" onclick={"removeMatch(" + m.from + ", " + m.to + ", " + sourceId + ")"}) remove
+
+            a(href={targetEntities(m.to).uri}) #{targetEntities(m.to).uri}
+
       | Exact: #{exact.size}
       ul
         - for (m <- exact)
@@ -62,15 +72,6 @@ a(href={"/match/" + (sourceId + 1)}) next
 
             a(href={targetEntities(m.to).uri}) #{targetEntities(m.to).uri}
 
-      | Accepted: #{accepted.size}
-      ul
-        - for (m <- accepted)
-          li
-            - val sims = for ((d, i) <- m.sim.sortBy(_._1)) yield f"${measures(i)._1}: ${"%1.2f" format d}"
-            | #{targetEntities(m.to).values.flatten.mkString(", ")} (#{sims.mkString(", ")})
-            a(href="#" onclick={"removeMatch(" + m.from + ", " + m.to + ", " + sourceId + ")"}) remove
-
-            a(href={targetEntities(m.to).uri}) #{targetEntities(m.to).uri}
 
       | Approx: #{approx.size}
       ul

@@ -476,7 +476,11 @@ object TestDataset {
   def generateTestDataset(instances: List[String]): (Map[String, Set[String]], Set[(String, String)], Map[String, Set[String]]) = {
     println("extracting instance types")
     val articleTypes = extractArticleTypes(instances)
+
+    println("extracting upper hierarchy")
     val categoryTypes = extractUpperCategories(articleTypes.values.flatten.toSet)
+
+    println("extracting concept labels")
     val concepts = instances.toSet union categoryTypes.flatMap(t => Set(t._1, t._2))
     val conceptLabels = extractConceptLabels(concepts)
 
@@ -513,10 +517,8 @@ object TestDataset {
   }
 
   def extractUpperCategories(categories: Set[String]): Set[(String, String)] = {
-    println("loading hierarchy graph")
     val g = fromQuads(new FileInputStream(DBpediaFiles.categories))
 
-    println("extracting transitive types")
     val conceptTypes = collection.mutable.HashSet[(String, String)]()
     categories foreach {
       x =>

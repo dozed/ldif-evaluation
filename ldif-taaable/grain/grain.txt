@@ -1,0 +1,1625 @@
+taaable:Amaranth - dbpedia:Amaranth - Amaranth - Set(Amaranth) - Amaranth - 0.0
+taaable:Amaranth - dbpedia:Amara_Sinha - Amara Sinha - Set(Amaranth) - Amara Sinha - 0.09772727272727277
+taaable:Hominy_grit - dbpedia:Hominy - Hominy - Set(Hominy grit) - Hominy - 0.09090909090909088
+taaable:Japanese_rice - dbpedia:JapaneseAnime - JapaneseAnime - Set(Japanese rice) - JapaneseAnime - 0.09230769230769231
+taaable:Japanese_rice - dbpedia:Japanese_cuisine - Japanese cuisine - Set(Japanese rice) - Japanese cuisine - 0.08205128205128202
+taaable:Japanese_rice - dbpedia:Japanese - Japanese - Set(Japanese rice) - Japanese - 0.07692307692307691
+taaable:Kasha - dbpedia:Kashubians - Kashubians - Set(Kasha) - Kashubians - 0.09999999999999998
+taaable:Millet - dbpedia:Mullet - Mullet - Set(Millet) - Mullet - 0.09999999999999995
+taaable:Millet - dbpedia:Mile - Mile - Set(Millet) - Mile - 0.0777777777777778
+taaable:Quinoa - dbpedia:Quoin - Quoin - Set(Quinoa) - Quoin - 0.0977777777777777
+taaable:Millet - dbpedia:Miller_test - Miller test - Set(Millet) - Miller test - 0.09090909090909088
+taaable:Japanese_rice - dbpedia:Japanese_yen - Japanese yen - Set(Japanese rice) - Japanese yen - 0.07948717948717947
+taaable:Kasha - dbpedia:Akasha - Akasha - Set(Kasha) - Akasha - 0.09090909090909094
+taaable:White_rice - dbpedia:White_cane - White cane - Set(White rice) - White cane - 0.07999999999999999
+taaable:Millet - dbpedia:Millet - Millet - Set(Millet) - Millet - 0.0
+taaable:Brown_rice - dbpedia:Brown - Brown - Set(Brown rice) - Brown - 0.09999999999999998
+taaable:Rolled_oat - dbpedia:Rollo - Rollo - Set(Rolled oat) - Rollo - 0.09999999999999998
+taaable:White_rice - dbpedia:White_noise - White noise - Set(White rice) - White noise - 0.09454545454545456
+taaable:Rye - dbpedia:Rye - Rye - Set(Rye) - Rye - 0.0
+taaable:Japanese_rice - dbpedia:Japanese_relocation - Japanese relocation - Set(Japanese rice) - Japanese relocation - 0.07854251012145744
+taaable:White_rice - dbpedia:White_perch - White perch - Set(White rice) - White perch - 0.07858585858585858
+taaable:Japanese_rice - dbpedia:Japanese_chess - Japanese chess - Set(Japanese rice) - Japanese chess - 0.07362637362637363
+taaable:Quick_oat - dbpedia:Quick - Quick - Set(Quick oat) - Quick - 0.08888888888888895
+taaable:Quinoa - dbpedia:Quinoa - Quinoa - Set(Quinoa) - Quinoa - 0.0
+taaable:Wild_rice - dbpedia:Wildfire - Wildfire - Set(Wild rice) - Wildfire - 0.09801587301587301
+taaable:Japanese_rice - dbpedia:Japanese_Sea - Japanese Sea - Set(Japanese rice) - Japanese Sea - 0.07948717948717947
+taaable:Millet - dbpedia:Millerton - Millerton - Set(Millet) - Millerton - 0.0666666666666667
+taaable:Amaranth - dbpedia:Amariah - Amariah - Set(Amaranth) - Amariah - 0.07857142857142856
+taaable:Millet - dbpedia:Millimetre - Millimetre - Set(Millet) - Millimetre - 0.07999999999999999
+taaable:Millet - dbpedia:Millimeter - Millimeter - Set(Millet) - Millimeter - 0.07999999999999999
+taaable:Brown_rice - dbpedia:Brown_Dipper - Brown Dipper - Set(Brown rice) - Brown Dipper - 0.09222222222222226
+taaable:Amaranth - dbpedia:Amarna - Amarna - Set(Amaranth) - Amarna - 0.0833333333333333
+taaable:Japanese_rice - dbpedia:Japanese_companies - Japanese companies - Set(Japanese rice) - Japanese companies - 0.0987179487179487
+taaable:Barley - dbpedia:Barfly - Barfly - Set(Barley) - Barfly - 0.07777777777777772
+taaable:Barley - dbpedia:Barley_wine - Barley wine - Set(Barley) - Barley wine - 0.09090909090909088
+taaable:Jasmine_rice - dbpedia:Jasmine - Jasmine - Set(Jasmine rice) - Jasmine - 0.0833333333333333
+taaable:Rolled_oat - dbpedia:Roller_coaster - Roller coaster - Set(Rolled oat) - Roller coaster - 0.09142857142857144
+taaable:Millet - dbpedia:Millerite - Millerite - Set(Millet) - Millerite - 0.0666666666666667
+taaable:Japanese_rice - dbpedia:Japanese_Music - Japanese Music - Set(Japanese rice) - Japanese Music - 0.07362637362637363
+taaable:Japanese_rice - dbpedia:Japanese_archery - Japanese archery - Set(Japanese rice) - Japanese archery - 0.06538461538461535
+taaable:Barley - dbpedia:Batley - Batley - Set(Barley) - Batley - 0.08888888888888884
+taaable:Japanese_rice - dbpedia:Japanese_Archery - Japanese Archery - Set(Japanese rice) - Japanese Archery - 0.06538461538461535
+taaable:Japanese_rice - dbpedia:Japanese_name - Japanese name - Set(Japanese rice) - Japanese name - 0.09230769230769231
+taaable:Millet - dbpedia:Mill - Mill - Set(Millet) - Mill - 0.0666666666666667
+taaable:Japanese_rice - dbpedia:Japanese_Culture - Japanese Culture - Set(Japanese rice) - Japanese Culture - 0.09326923076923077
+taaable:White_rice - dbpedia:White_Stripes - White Stripes - Set(White rice) - White Stripes - 0.0815384615384615
+taaable:Instant_rice - dbpedia:Instance - Instance - Set(Instant rice) - Instance - 0.0666666666666667
+taaable:Japanese_rice - dbpedia:Japanese_music - Japanese music - Set(Japanese rice) - Japanese music - 0.07362637362637363
+taaable:Japanese_rice - dbpedia:Japanese_cinema - Japanese cinema - Set(Japanese rice) - Japanese cinema - 0.07205128205128206
+taaable:Japanese_rice - dbpedia:Japanese_calendar - Japanese calendar - Set(Japanese rice) - Japanese calendar - 0.09087481146304677
+taaable:Spelt - dbpedia:Spell - Spell - Set(Spelt) - Spell - 0.07999999999999999
+taaable:Japanese_rice - dbpedia:Japanese_culture - Japanese culture - Set(Japanese rice) - Japanese culture - 0.08205128205128202
+taaable:Rolled_oat - dbpedia:Rolle - Rolle - Set(Rolled oat) - Rolle - 0.09999999999999998
+taaable:White_rice - dbpedia:White_Nile - White Nile - Set(White rice) - White Nile - 0.07999999999999999
+taaable:Japanese_rice - dbpedia:Japanese_army - Japanese army - Set(Japanese rice) - Japanese army - 0.09230769230769231
+taaable:Japanese_rice - dbpedia:Japanese_Diet - Japanese Diet - Set(Japanese rice) - Japanese Diet - 0.061538461538461514
+taaable:Glutinous_rice - dbpedia:Glutinous_rice - Glutinous rice - Set(Glutinous rice) - Glutinous rice - 0.0
+taaable:Japanese_rice - dbpedia:Japanese_cruiser_Nachi - Japanese cruiser Nachi - Set(Japanese rice) - Japanese cruiser Nachi - 0.09720279720279713
+taaable:Barley - dbpedia:Barnsley - Barnsley - Set(Barley) - Barnsley - 0.058333333333333355
+taaable:Instant_rice - dbpedia:Instant_coffee - Instant coffee - Set(Instant rice) - Instant coffee - 0.09047619047619049
+taaable:Barley - dbpedia:Bare - Bare - Set(Barley) - Bare - 0.0777777777777778
+taaable:Brown_rice - dbpedia:Brown_dipper - Brown dipper - Set(Brown rice) - Brown dipper - 0.09222222222222226
+taaable:Japanese_rice - dbpedia:Japanese_proverb - Japanese proverb - Set(Japanese rice) - Japanese proverb - 0.09326923076923077
+taaable:Amaranth - dbpedia:Amaravathi - Amaravathi - Set(Amaranth) - Amaravathi - 0.08499999999999996
+taaable:Japanese_rice - dbpedia:Japanese_art - Japanese art - Set(Japanese rice) - Japanese art - 0.07948717948717947
+taaable:Popcorn - dbpedia:Popcorn - Popcorn - Set(Popcorn) - Popcorn - 0.0
+taaable:Japanese_rice - dbpedia:Japanese_era - Japanese era - Set(Japanese rice) - Japanese era - 0.06561771561771562
+taaable:Japanese_rice - dbpedia:Japanese_Empire - Japanese Empire - Set(Japanese rice) - Japanese Empire - 0.07205128205128206
+taaable:Amaranth - dbpedia:Amaranthaceae - Amaranthaceae - Set(Amaranth) - Amaranthaceae - 0.07692307692307691
+taaable:Quinoa - dbpedia:Quintal - Quintal - Set(Quinoa) - Quintal - 0.09047619047619049
+taaable:Instant_rice - dbpedia:Instant_camera - Instant camera - Set(Instant rice) - Instant camera - 0.07770562770562775
+taaable:Barley - dbpedia:Bailey - Bailey - Set(Barley) - Bailey - 0.08888888888888884
+taaable:Brown_rice - dbpedia:Brownie - Brownie - Set(Brown rice) - Brownie - 0.059999999999999984
+taaable:Arborio - dbpedia:Arbois - Arbois - Set(Arborio) - Arbois - 0.09047619047619049
+taaable:White_rice - dbpedia:White_River - White River - Set(White rice) - White River - 0.07858585858585858
+taaable:Wild_rice - dbpedia:Wild_children - Wild children - Set(Wild rice) - Wild children - 0.08376068376068384
+taaable:Japanese_rice - dbpedia:Japanese_Cuisine - Japanese Cuisine - Set(Japanese rice) - Japanese Cuisine - 0.09326923076923077
+taaable:White_rice - dbpedia:White_race - White race - Set(White rice) - White race - 0.040000000000000056
+taaable:Arborio - dbpedia:Arborist - Arborist - Set(Arborio) - Arborist - 0.07857142857142856
+taaable:Quinoa - dbpedia:Quizno - Quizno - Set(Quinoa) - Quizno - 0.07777777777777772
+taaable:Barley - dbpedia:Barney - Barney - Set(Barley) - Barney - 0.07777777777777772
+taaable:Quinoa - dbpedia:Quino - Quino - Set(Quinoa) - Quino - 0.033333333333333284
+taaable:Kasha - dbpedia:Kashima - Kashima - Set(Kasha) - Kashima - 0.057142857142857134
+taaable:Kasha - dbpedia:Kashgaria - Kashgaria - Set(Kasha) - Kashgaria - 0.08888888888888895
+taaable:Quinoa - dbpedia:Quinone - Quinone - Set(Quinoa) - Quinone - 0.09047619047619049
+taaable:White_rice - dbpedia:White_tie - White tie - Set(White rice) - White tie - 0.06222222222222218
+taaable:Kasha - dbpedia:Kalash - Kalash - Set(Kasha) - Kalash - 0.0977777777777777
+taaable:Japanese_rice - dbpedia:Japanese_architecture - Japanese architecture - Set(Japanese rice) - Japanese architecture - 0.09157509157509158
+taaable:Japanese_rice - dbpedia:Japanese_dialects - Japanese dialects - Set(Japanese rice) - Japanese dialects - 0.09087481146304677
+taaable:Barley - dbpedia:Bradley - Bradley - Set(Barley) - Bradley - 0.09285714285714283
+taaable:Japanese_rice - dbpedia:Japanese_rap_music - Japanese rap music - Set(Japanese rice) - Japanese rap music - 0.08205128205128202
+taaable:Barley - dbpedia:Barel - Barel - Set(Barley) - Barel - 0.08555555555555548
+taaable:Millet - dbpedia:Mitel - Mitel - Set(Millet) - Mitel - 0.0977777777777777
+taaable:Rye - dbpedia:Ryde - Ryde - Set(Rye) - Ryde - 0.0666666666666667
+taaable:Japanese_rice - dbpedia:Japanese_robin - Japanese robin - Set(Japanese rice) - Japanese robin - 0.07362637362637363
+taaable:Spelt - dbpedia:Speleothem - Speleothem - Set(Spelt) - Speleothem - 0.09999999999999998
+taaable:Brown_rice - dbpedia:Brown_Shrike - Brown Shrike - Set(Brown rice) - Brown Shrike - 0.07
+taaable:Brown_rice - dbpedia:Brown_shrike - Brown shrike - Set(Brown rice) - Brown shrike - 0.07
+taaable:Kasha - dbpedia:Kassa - Kassa - Set(Kasha) - Kassa - 0.09333333333333331
+taaable:Barley - dbpedia:Bramley - Bramley - Set(Barley) - Bramley - 0.09285714285714283
+taaable:Barley - dbpedia:Barleywine - Barleywine - Set(Barley) - Barleywine - 0.07999999999999999
+taaable:White_rice - dbpedia:White_armies - White armies - Set(White rice) - White armies - 0.07
+taaable:Brown_rice - dbpedia:Brownian_ratchet - Brownian ratchet - Set(Brown rice) - Brownian ratchet - 0.09499999999999999
+taaable:Japanese_rice - dbpedia:Japanese_cedar - Japanese cedar - Set(Japanese rice) - Japanese cedar - 0.06062271062271067
+taaable:Brown_rice - dbpedia:Brown_rice - Brown rice - Set(Brown rice) - Brown rice - 0.0
+taaable:Instant_rice - dbpedia:Instar - Instar - Set(Instant rice) - Instar - 0.09999999999999998
+taaable:Kasha - dbpedia:Kashubia - Kashubia - Set(Kasha) - Kashubia - 0.075
+taaable:White_rice - dbpedia:White_Star_Line - White Star Line - Set(White rice) - White Star Line - 0.09999999999999998
+taaable:Spelt - dbpedia:Spelthorne - Spelthorne - Set(Spelt) - Spelthorne - 0.09999999999999998
+taaable:Kasha - dbpedia:Kashkaval - Kashkaval - Set(Kasha) - Kashkaval - 0.08888888888888895
+taaable:Arborio - dbpedia:Arbor_Low - Arbor Low - Set(Arborio) - Arbor Low - 0.09523809523809523
+taaable:Japanese_rice - dbpedia:Japanese_Quince - Japanese Quince - Set(Japanese rice) - Japanese Quince - 0.055384615384615386
+taaable:Japanese_rice - dbpedia:Japanese_macaque - Japanese macaque - Set(Japanese rice) - Japanese macaque - 0.09326923076923077
+taaable:Quinoa - dbpedia:Quinary - Quinary - Set(Quinoa) - Quinary - 0.09047619047619049
+taaable:Wild_rice - dbpedia:Wild_rose - Wild rose - Set(Wild rice) - Wild rose - 0.08888888888888895
+taaable:Japanese_rice - dbpedia:Japanese_ceramics - Japanese ceramics - Set(Japanese rice) - Japanese ceramics - 0.07782805429864252
+taaable:Jasmine_rice - dbpedia:Jasmine_Trias - Jasmine Trias - Set(Jasmine rice) - Jasmine Trias - 0.07948717948717947
+taaable:Japanese_rice - dbpedia:Japanese_cutlery - Japanese cutlery - Set(Japanese rice) - Japanese cutlery - 0.08205128205128202
+taaable:Japanese_rice - dbpedia:Japanese_counters - Japanese counters - Set(Japanese rice) - Japanese counters - 0.09087481146304677
+taaable:White_rice - dbpedia:White_Tree - White Tree - Set(White rice) - White Tree - 0.07999999999999999
+taaable:Millet - dbpedia:Mille - Mille - Set(Millet) - Mille - 0.033333333333333284
+taaable:Japanese_rice - dbpedia:Japanese_rock_garden - Japanese rock garden - Set(Japanese rice) - Japanese rock garden - 0.09538461538461537
+taaable:Spelt - dbpedia:Spe - Spe - Set(Spelt) - Spe - 0.09333333333333331
+taaable:Millet - dbpedia:... - ... - Set(Millet) - ... - 0.0
+taaable:Japanese_rice - dbpedia:... - ... - Set(Japanese rice) - ... - 0.0
+taaable:Wild_rice - dbpedia:... - ... - Set(Wild rice) - ... - 0.0
+taaable:Amaranth - dbpedia:... - ... - Set(Amaranth) - ... - 0.0
+taaable:Brown_rice - dbpedia:... - ... - Set(Brown rice) - ... - 0.0
+taaable:Whole_kernel_corn - dbpedia:... - ... - Set(Whole kernel corn) - ... - 0.0
+taaable:Kasha - dbpedia:... - ... - Set(Kasha) - ... - 0.0
+taaable:Cream_of_rice - dbpedia:... - ... - Set(Cream of rice) - ... - 0.0
+taaable:Glutinous_rice - dbpedia:... - ... - Set(Glutinous rice) - ... - 0.0
+taaable:Quick_oat - dbpedia:... - ... - Set(Quick oat) - ... - 0.0
+taaable:Arborio - dbpedia:... - ... - Set(Arborio) - ... - 0.0
+taaable:Hominy_grit - dbpedia:... - ... - Set(Hominy grit) - ... - 0.0
+taaable:Short-2Dgrain_brown_rice - dbpedia:... - ... - Set(Short-grain brown rice) - ... - 0.0
+taaable:Jasmine_rice - dbpedia:... - ... - Set(Jasmine rice) - ... - 0.0
+taaable:Fine_bulgur - dbpedia:... - ... - Set(Fine bulgur) - ... - 0.0
+taaable:Long-2Dgrain_white_rice - dbpedia:... - ... - Set(Long-grain white rice) - ... - 0.0
+taaable:Spelt - dbpedia:... - ... - Set(Spelt) - ... - 0.0
+taaable:White_basmati_rice - dbpedia:... - ... - Set(White basmati rice) - ... - 0.0
+taaable:Cracked_wheat - dbpedia:... - ... - Set(Cracked wheat) - ... - 0.0
+taaable:White_rice - dbpedia:... - ... - Set(White rice) - ... - 0.0
+taaable:Barley - dbpedia:... - ... - Set(Barley) - ... - 0.0
+taaable:Rolled_oat - dbpedia:... - ... - Set(Rolled oat) - ... - 0.0
+taaable:Puffed_rice - dbpedia:... - ... - Set(Puffed rice) - ... - 0.0
+taaable:Quinoa - dbpedia:... - ... - Set(Quinoa) - ... - 0.0
+taaable:Popcorn - dbpedia:... - ... - Set(Popcorn) - ... - 0.0
+taaable:Rye - dbpedia:... - ... - Set(Rye) - ... - 0.0
+taaable:Brown_basmati_rice - dbpedia:... - ... - Set(Brown basmati rice) - ... - 0.0
+taaable:Whole_wheat - dbpedia:... - ... - Set(Whole wheat) - ... - 0.0
+taaable:Instant_rice - dbpedia:... - ... - Set(Instant rice) - ... - 0.0
+taaable:Converted_rice - dbpedia:... - ... - Set(Converted rice) - ... - 0.0
+taaable:Amaranth - dbpedia:Amarant - Amarant - Set(Amaranth) - Amarant - 0.024999999999999977
+taaable:Barley - dbpedia:Burley - Burley - Set(Barley) - Burley - 0.09999999999999995
+taaable:Quinoa - dbpedia:Quindio - Quindio - Set(Quinoa) - Quindio - 0.09047619047619049
+taaable:Whole_wheat - dbpedia:Whole_rest - Whole rest - Set(Whole wheat) - Whole rest - 0.09454545454545456
+taaable:Wild_rice - dbpedia:-- - -- - Set(Wild rice) - -- - 0.0
+taaable:Millet - dbpedia:-- - -- - Set(Millet) - -- - 0.0
+taaable:Japanese_rice - dbpedia:-- - -- - Set(Japanese rice) - -- - 0.0
+taaable:Amaranth - dbpedia:-- - -- - Set(Amaranth) - -- - 0.0
+taaable:Kasha - dbpedia:-- - -- - Set(Kasha) - -- - 0.0
+taaable:Brown_rice - dbpedia:-- - -- - Set(Brown rice) - -- - 0.0
+taaable:Cream_of_rice - dbpedia:-- - -- - Set(Cream of rice) - -- - 0.0
+taaable:Whole_kernel_corn - dbpedia:-- - -- - Set(Whole kernel corn) - -- - 0.0
+taaable:Arborio - dbpedia:-- - -- - Set(Arborio) - -- - 0.0
+taaable:Glutinous_rice - dbpedia:-- - -- - Set(Glutinous rice) - -- - 0.0
+taaable:Hominy_grit - dbpedia:-- - -- - Set(Hominy grit) - -- - 0.0
+taaable:Quick_oat - dbpedia:-- - -- - Set(Quick oat) - -- - 0.0
+taaable:Fine_bulgur - dbpedia:-- - -- - Set(Fine bulgur) - -- - 0.0
+taaable:Short-2Dgrain_brown_rice - dbpedia:-- - -- - Set(Short-grain brown rice) - -- - 0.0
+taaable:White_basmati_rice - dbpedia:-- - -- - Set(White basmati rice) - -- - 0.0
+taaable:Long-2Dgrain_white_rice - dbpedia:-- - -- - Set(Long-grain white rice) - -- - 0.0
+taaable:Jasmine_rice - dbpedia:-- - -- - Set(Jasmine rice) - -- - 0.0
+taaable:Spelt - dbpedia:-- - -- - Set(Spelt) - -- - 0.0
+taaable:Rolled_oat - dbpedia:-- - -- - Set(Rolled oat) - -- - 0.0
+taaable:White_rice - dbpedia:-- - -- - Set(White rice) - -- - 0.0
+taaable:Cracked_wheat - dbpedia:-- - -- - Set(Cracked wheat) - -- - 0.0
+taaable:Barley - dbpedia:-- - -- - Set(Barley) - -- - 0.0
+taaable:Puffed_rice - dbpedia:-- - -- - Set(Puffed rice) - -- - 0.0
+taaable:Quinoa - dbpedia:-- - -- - Set(Quinoa) - -- - 0.0
+taaable:Rye - dbpedia:-- - -- - Set(Rye) - -- - 0.0
+taaable:Popcorn - dbpedia:-- - -- - Set(Popcorn) - -- - 0.0
+taaable:Brown_basmati_rice - dbpedia:-- - -- - Set(Brown basmati rice) - -- - 0.0
+taaable:Whole_wheat - dbpedia:-- - -- - Set(Whole wheat) - -- - 0.0
+taaable:Instant_rice - dbpedia:-- - -- - Set(Instant rice) - -- - 0.0
+taaable:Converted_rice - dbpedia:-- - -- - Set(Converted rice) - -- - 0.0
+taaable:White_rice - dbpedia:White_mica - White mica - Set(White rice) - White mica - 0.07999999999999999
+taaable:White_rice - dbpedia:White_(race) - White (race) - Set(White rice) - White (race) - 0.07
+taaable:Barley - dbpedia:Bale - Bale - Set(Barley) - Bale - 0.08888888888888893
+taaable:White_rice - dbpedia:White_stripes - White stripes - Set(White rice) - White stripes - 0.0815384615384615
+taaable:Amaranth - dbpedia:Amara - Amara - Set(Amaranth) - Amara - 0.075
+taaable:Kasha - dbpedia:Kashiwa - Kashiwa - Set(Kasha) - Kashiwa - 0.057142857142857134
+taaable:Amaranth - dbpedia:Amaranthus - Amaranthus - Set(Amaranth) - Amaranthus - 0.040000000000000056
+taaable:Japanese_rice - dbpedia:Japanese_red_pine - Japanese red pine - Set(Japanese rice) - Japanese red pine - 0.09087481146304677
+taaable:White_rice - dbpedia:White_rice - White rice - Set(White rice) - White rice - 0.0
+taaable:Popcorn - dbpedia:Corn_Pops - Corn Pops - Set(Popcorn) - Corn Pops - 0.06666666666666665
+taaable:Japanese_rice - dbpedia:Japanese_witch_hazel - Japanese witch hazel - Set(Japanese rice) - Japanese witch hazel - 0.09538461538461537
+taaable:Japanese_rice - dbpedia:Japanese_witch-hazel - Japanese witch-hazel - Set(Japanese rice) - Japanese witch-hazel - 0.09538461538461537
+taaable:Popcorn - dbpedia:Pop_icon - Pop icon - Set(Popcorn) - Pop icon - 0.09166666666666665
+taaable:Japanese_rice - dbpedia:Japanese_Burial - Japanese Burial - Set(Japanese rice) - Japanese Burial - 0.08410256410256414
+taaable:Japanese_rice - dbpedia:Japanese_burial - Japanese burial - Set(Japanese rice) - Japanese burial - 0.08410256410256414
+taaable:Millet - dbpedia:Mallet - Mallet - Set(Millet) - Mallet - 0.09999999999999995
+taaable:Japanese_rice - dbpedia:Japanese_studies - Japanese studies - Set(Japanese rice) - Japanese studies - 0.09326923076923077
+taaable:Brown_rice - dbpedia:Brown_Hare - Brown Hare - Set(Brown rice) - Brown Hare - 0.07999999999999999
+taaable:Rye - dbpedia:Ryes - Ryes - Set(Rye) - Ryes - 0.058333333333333355
+taaable:White_rice - dbpedia:White_witch - White witch - Set(White rice) - White witch - 0.09454545454545456
+taaable:Japanese_rice - dbpedia:Japanese_archipelago - Japanese archipelago - Set(Japanese rice) - Japanese archipelago - 0.08538461538461542
+taaable:Wild_rice - dbpedia:Wild_rice - Wild rice - Set(Wild rice) - Wild rice - 0.0
+taaable:White_rice - dbpedia:White_Witch - White Witch - Set(White rice) - White Witch - 0.09454545454545456
+taaable:Japanese_rice - dbpedia:Japanese_Engrish - Japanese Engrish - Set(Japanese rice) - Japanese Engrish - 0.09326923076923077
+taaable:Brown_rice - dbpedia:Brownies - Brownies - Set(Brown rice) - Brownies - 0.08499999999999996
+taaable:Japanese_rice - dbpedia:Japanese_Terrier - Japanese Terrier - Set(Japanese rice) - Japanese Terrier - 0.08205128205128202
+taaable:Japanese_rice - dbpedia:Japanese_Whispers - Japanese Whispers - Set(Japanese rice) - Japanese Whispers - 0.09087481146304677
+taaable:Barley - dbpedia:Baler - Baler - Set(Barley) - Baler - 0.0977777777777777
+taaable:Whole_wheat - dbpedia:Whole_wheat - Whole wheat - Set(Whole wheat) - Whole wheat - 0.0
+taaable:Japanese_rice - dbpedia:Japanese_garden - Japanese garden - Set(Japanese rice) - Japanese garden - 0.08410256410256414
+taaable:Japanese_rice - dbpedia:Japanese_religion - Japanese religion - Set(Japanese rice) - Japanese religion - 0.09087481146304677
+taaable:Brown_rice - dbpedia:Brown_field - Brown field - Set(Brown rice) - Brown field - 0.09454545454545456
+taaable:White_rice - dbpedia:White_bread - White bread - Set(White rice) - White bread - 0.09454545454545456
+taaable:White_rice - dbpedia:White_pride - White pride - Set(White rice) - White pride - 0.056363636363636324
+taaable:Quick_oat - dbpedia:Quick_oats - Quick oats - Set(Quick oat) - Quick oats - 0.019999999999999997
+taaable:Japanese_rice - dbpedia:Japanese_Proficiency_Test - Japanese Proficiency Test - Set(Japanese rice) - Japanese Proficiency Test - 0.09600000000000002
+taaable:Japanese_rice - dbpedia:Japanese_kitchen - Japanese kitchen - Set(Japanese rice) - Japanese kitchen - 0.06538461538461535
+taaable:Spelt - dbpedia:Spelt - Spelt - Set(Spelt) - Spelt - 0.0
+taaable:Amaranth - dbpedia:Amara_Tenoh - Amara Tenoh - Set(Amaranth) - Amara Tenoh - 0.09772727272727277
+taaable:Japanese_rice - dbpedia:Japanese_Kitchen - Japanese Kitchen - Set(Japanese rice) - Japanese Kitchen - 0.06538461538461535
+taaable:White_rice - dbpedia:White_Creek - White Creek - Set(White rice) - White Creek - 0.09454545454545456
+taaable:Quick_oat - dbpedia:Quick_Clot - Quick Clot - Set(Quick oat) - Quick Clot - 0.06222222222222218
+taaable:Wild_rice - dbpedia:Wild_Fire - Wild Fire - Set(Wild rice) - Wild Fire - 0.06944444444444448
+taaable:Barley - dbpedia:Brawley - Brawley - Set(Barley) - Brawley - 0.09285714285714283
+taaable:Japanese_rice - dbpedia:Japanese_rock - Japanese rock - Set(Japanese rice) - Japanese rock - 0.061538461538461514
+taaable:Kasha - dbpedia:Kaysha - Kaysha - Set(Kasha) - Kaysha - 0.04444444444444438
+taaable:Barley - dbpedia:Barleycove - Barleycove - Set(Barley) - Barleycove - 0.07999999999999999
+taaable:Japanese_rice - dbpedia:Japanese_parliament - Japanese parliament - Set(Japanese rice) - Japanese parliament - 0.08906882591093115
+taaable:Barley - dbpedia:Barleycorn - Barleycorn - Set(Barley) - Barleycorn - 0.07999999999999999
+taaable:Kasha - dbpedia:Kasai - Kasai - Set(Kasha) - Kasai - 0.09333333333333331
+taaable:Quick_oat - dbpedia:Quick_sort - Quick sort - Set(Quick oat) - Quick sort - 0.06222222222222218
+taaable:White_rice - dbpedia:White_Horse - White Horse - Set(White rice) - White Horse - 0.09454545454545456
+taaable:White_rice - dbpedia:White_horse - White horse - Set(White rice) - White horse - 0.09454545454545456
+taaable:White_rice - dbpedia:White_birch - White birch - Set(White rice) - White birch - 0.07858585858585858
+taaable:Wild_rice - dbpedia:Wild_Rice - Wild Rice - Set(Wild rice) - Wild Rice - 0.0
+taaable:Amaranth - dbpedia:Amaran - Amaran - Set(Amaranth) - Amaran - 0.050000000000000024
+taaable:Amaranth - dbpedia:Amarah - Amarah - Set(Amaranth) - Amarah - 0.050000000000000024
+taaable:White_rice - dbpedia:White_wine - White wine - Set(White rice) - White wine - 0.07999999999999999
+taaable:Instant_rice - dbpedia:Instant_film - Instant film - Set(Instant rice) - Instant film - 0.09999999999999998
+taaable:Japanese_rice - dbpedia:Japanese_idol - Japanese idol - Set(Japanese rice) - Japanese idol - 0.09230769230769231
+taaable:Japanese_rice - dbpedia:Japanese_red_fox - Japanese red fox - Set(Japanese rice) - Japanese red fox - 0.09326923076923077
+taaable:Japanese_rice - dbpedia:Japanese_cruiser_My%C5%8Dk%C5%8D - Japanese cruiser Myōkō - Set(Japanese rice) - Japanese cruiser Myōkō - 0.09720279720279713
+taaable:White_rice - dbpedia:White_rhinoceros - White rhinoceros - Set(White rice) - White rhinoceros - 0.075
+taaable:Converted_rice - dbpedia:Concerted_reaction - Concerted reaction - Set(Converted rice) - Concerted reaction - 0.09943019943019951
+taaable:Barley - dbpedia:Bareilly - Bareilly - Set(Barley) - Bareilly - 0.09722222222222218
+taaable:Barley - dbpedia:Blarney - Blarney - Set(Barley) - Blarney - 0.09285714285714283
+taaable:White_rice - dbpedia:White_rhino - White rhino - Set(White rice) - White rhino - 0.09454545454545456
+taaable:Japanese_rice - dbpedia:Japanese_porn - Japanese porn - Set(Japanese rice) - Japanese porn - 0.09230769230769231
+taaable:Japanese_rice - dbpedia:Japanese_Honorifics - Japanese Honorifics - Set(Japanese rice) - Japanese Honorifics - 0.08906882591093115
+taaable:Kasha - dbpedia:Kashubian - Kashubian - Set(Kasha) - Kashubian - 0.08888888888888895
+taaable:Japanese_rice - dbpedia:Japanese_Toilet - Japanese Toilet - Set(Japanese rice) - Japanese Toilet - 0.08410256410256414
+taaable:Millet - dbpedia:Millerstown - Millerstown - Set(Millet) - Millerstown - 0.09090909090909088
+taaable:Japanese_rice - dbpedia:Japanese_toilets - Japanese toilets - Set(Japanese rice) - Japanese toilets - 0.09326923076923077
+taaable:Japanese_rice - dbpedia:Japanese_Chin - Japanese Chin - Set(Japanese rice) - Japanese Chin - 0.09230769230769231
+taaable:Barley - dbpedia:Arley - Arley - Set(Barley) - Arley - 0.09090909090909094
+taaable:Barley - dbpedia:Barye - Barye - Set(Barley) - Barye - 0.08555555555555548
+taaable:Kasha - dbpedia:Kasbah - Kasbah - Set(Kasha) - Kasbah - 0.08555555555555548
+taaable:Quick_oat - dbpedia:Quick_match - Quick match - Set(Quick oat) - Quick match - 0.07676767676767682
+taaable:Japanese_rice - dbpedia:Japanese_war_crimes - Japanese war crimes - Set(Japanese rice) - Japanese war crimes - 0.07854251012145744
+taaable:Wild_rice - dbpedia:Wild_liquorice - Wild liquorice - Set(Wild rice) - Wild liquorice - 0.09365079365079369
+taaable:Barley - dbpedia:Bayle - Bayle - Set(Barley) - Bayle - 0.0977777777777777
+taaable:Jasmine_rice - dbpedia:Jasmine_tea - Jasmine tea - Set(Jasmine rice) - Jasmine tea - 0.08636363636363635
+taaable:Quick_oat - dbpedia:QuickSort - QuickSort - Set(Quick oat) - QuickSort - 0.08888888888888895
+taaable:Japanese_rice - dbpedia:Japanese_poet - Japanese poet - Set(Japanese rice) - Japanese poet - 0.09230769230769231
+taaable:Japanese_rice - dbpedia:Japanese_Rose - Japanese Rose - Set(Japanese rice) - Japanese Rose - 0.09230769230769231
+taaable:White_rice - dbpedia:White_Perch - White Perch - Set(White rice) - White Perch - 0.07858585858585858
+taaable:Popcorn - dbpedia:Pop_corn - Pop corn - Set(Popcorn) - Pop corn - 0.0
+taaable:Japanese_rice - dbpedia:Japanese_Art - Japanese Art - Set(Japanese rice) - Japanese Art - 0.07948717948717947
+taaable:Japanese_rice - dbpedia:Japanese_serow - Japanese serow - Set(Japanese rice) - Japanese serow - 0.0918081918081918
+taaable:Converted_rice - dbpedia:Converter - Converter - Set(Converted rice) - Converter - 0.07142857142857144
+taaable:White_rice - dbpedia:White_lie - White lie - Set(White rice) - White lie - 0.06222222222222218
+taaable:Japanese_rice - dbpedia:Japanese_drum - Japanese drum - Set(Japanese rice) - Japanese drum - 0.09230769230769231
+taaable:Japanese_rice - dbpedia:Japanese_quince - Japanese quince - Set(Japanese rice) - Japanese quince - 0.055384615384615386
+taaable:White_rice - dbpedia:White_crappie - White crappie - Set(White rice) - White crappie - 0.06615384615384617
+taaable:Japanese_rice - dbpedia:Japanese_Army - Japanese Army - Set(Japanese rice) - Japanese Army - 0.09230769230769231
+taaable:Popcorn - dbpedia:Popcorn_(play) - Popcorn (play) - Set(Popcorn) - Popcorn (play) - 0.09999999999999998
+taaable:Japanese_rice - dbpedia:Japanese_apricot - Japanese apricot - Set(Japanese rice) - Japanese apricot - 0.06538461538461535
+taaable:Converted_rice - dbpedia:Convertible_debt - Convertible debt - Set(Converted rice) - Convertible debt - 0.09523809523809523
+taaable:Japanese_rice - dbpedia:Japanese_empire - Japanese empire - Set(Japanese rice) - Japanese empire - 0.07205128205128206
+taaable:Japanese_rice - dbpedia:Japanese_clan - Japanese clan - Set(Japanese rice) - Japanese clan - 0.09230769230769231
+taaable:Kasha - dbpedia:Kasthuba - Kasthuba - Set(Kasha) - Kasthuba - 0.0875
+taaable:White_rice - dbpedia:White_Cracker - White Cracker - Set(White rice) - White Cracker - 0.0815384615384615
+taaable:Rolled_oat - dbpedia:Roller_coasters - Roller coasters - Set(Rolled oat) - Roller coasters - 0.09999999999999998
+taaable:Millet - dbpedia:Millimetres - Millimetres - Set(Millet) - Millimetres - 0.09090909090909088
+taaable:White_rice - dbpedia:White_wines - White wines - Set(White rice) - White wines - 0.09454545454545456
+taaable:Millet - dbpedia:Millimeters - Millimeters - Set(Millet) - Millimeters - 0.09090909090909088
+taaable:White_rice - dbpedia:White_Pine - White Pine - Set(White rice) - White Pine - 0.07999999999999999
+taaable:Brown_rice - dbpedia:Brown_Line - Brown Line - Set(Brown rice) - Brown Line - 0.07999999999999999
+taaable:Kasha - dbpedia:Kashan - Kashan - Set(Kasha) - Kashan - 0.033333333333333284
+taaable:Japanese_rice - dbpedia:Japanese_movie - Japanese movie - Set(Japanese rice) - Japanese movie - 0.07362637362637363
+taaable:White_rice - dbpedia:White_bicycles - White bicycles - Set(White rice) - White bicycles - 0.09142857142857144
+taaable:Arborio - dbpedia:Arbormon - Arbormon - Set(Arborio) - Arbormon - 0.07857142857142856
+taaable:Barley - dbpedia:Bagley - Bagley - Set(Barley) - Bagley - 0.08888888888888884
+taaable:White_rice - dbpedia:White_Armies - White Armies - Set(White rice) - White Armies - 0.07
+taaable:Japanese_rice - dbpedia:Japanese_Cabinet - Japanese Cabinet - Set(Japanese rice) - Japanese Cabinet - 0.09326923076923077
+taaable:Kasha - dbpedia:Kasha - Kasha - Set(Kasha) - Kasha - 0.0
+taaable:Instant_rice - dbpedia:Instant_Fish - Instant Fish - Set(Instant rice) - Instant Fish - 0.09999999999999998
+taaable:Kasha - dbpedia:Kashiba - Kashiba - Set(Kasha) - Kashiba - 0.057142857142857134
+taaable:Kasha - dbpedia:Kashihara - Kashihara - Set(Kasha) - Kashihara - 0.08888888888888895
+taaable:White_rice - dbpedia:White_Lie - White Lie - Set(White rice) - White Lie - 0.06222222222222218
+taaable:White_rice - dbpedia:White_cake - White cake - Set(White rice) - White cake - 0.07999999999999999
+taaable:White_rice - dbpedia:White_Hurricane - White Hurricane - Set(White rice) - White Hurricane - 0.0666666666666667
+taaable:Japanese_rice - dbpedia:Japanese_radio - Japanese radio - Set(Japanese rice) - Japanese radio - 0.07362637362637363
+taaable:Millet - dbpedia:Midlet - Midlet - Set(Millet) - Midlet - 0.08888888888888884
+taaable:Amaranth - dbpedia:Amaranthoideae - Amaranthoideae - Set(Amaranth) - Amaranthoideae - 0.08571428571428574
+taaable:Instant_rice - dbpedia:Instant_replay - Instant replay - Set(Instant rice) - Instant replay - 0.09047619047619049
+taaable:Kasha - dbpedia:Kashani - Kashani - Set(Kasha) - Kashani - 0.057142857142857134
+taaable:Kasha - dbpedia:Kastha - Kastha - Set(Kasha) - Kastha - 0.03888888888888883
+taaable:White_rice - dbpedia:Whitney_trick - Whitney trick - Set(White rice) - Whitney trick - 0.0815384615384615
+taaable:Popcorn - dbpedia:POPCORN - POPCORN - Set(Popcorn) - POPCORN - 0.0
+taaable:White_rice - dbpedia:White's_bridge - White's bridge - Set(White rice) - White's bridge - 0.09142857142857144
+taaable:White_rice - dbpedia:White_tigers - White tigers - Set(White rice) - White tigers - 0.09222222222222226
+taaable:Instant_rice - dbpedia:Instances - Instances - Set(Instant rice) - Instances - 0.08888888888888895
+taaable:White_rice - dbpedia:White_Tiger - White Tiger - Set(White rice) - White Tiger - 0.07858585858585858
+taaable:White_rice - dbpedia:White_Tigers - White Tigers - Set(White rice) - White Tigers - 0.09222222222222226
+taaable:Barley - dbpedia:Barline - Barline - Set(Barley) - Barline - 0.09047619047619049
+taaable:Japanese_rice - dbpedia:Japanese_interment - Japanese interment - Set(Japanese rice) - Japanese interment - 0.0987179487179487
+taaable:Japanese_rice - dbpedia:Japanese_Spaniel - Japanese Spaniel - Set(Japanese rice) - Japanese Spaniel - 0.09326923076923077
+taaable:Millet - dbpedia:Millie - Millie - Set(Millet) - Millie - 0.06666666666666662
+taaable:Amaranth - dbpedia:Marana_tha - Marana tha - Set(Amaranth) - Marana tha - 0.05882352941176472
+taaable:White_rice - dbpedia:White_privilege - White privilege - Set(White rice) - White privilege - 0.09999999999999998
+taaable:Puffed_rice - dbpedia:Puffer - Puffer - Set(Puffed rice) - Puffer - 0.09090909090909088
+taaable:Instant_rice - dbpedia:Instantiate - Instantiate - Set(Instant rice) - Instantiate - 0.08636363636363635
+taaable:Barley - dbpedia:Barlee - Barlee - Set(Barley) - Barlee - 0.06666666666666662
+taaable:Arborio - dbpedia:Arborg - Arborg - Set(Arborio) - Arborg - 0.09047619047619049
+taaable:Arborio - dbpedia:Arborimus - Arborimus - Set(Arborio) - Arborimus - 0.09523809523809523
+taaable:White_rice - dbpedia:White_Mischief - White Mischief - Set(White rice) - White Mischief - 0.09142857142857144
+taaable:Brown_rice - dbpedia:Brown_rice_syrup - Brown rice syrup - Set(Brown rice) - Brown rice syrup - 0.075
+taaable:Quick_oat - dbpedia:Quick_Shot_Ed - Quick Shot Ed - Set(Quick oat) - Quick Shot Ed - 0.09914529914529917
+taaable:Cream_of_rice - dbpedia:Cream_pie - Cream pie - Set(Cream of rice) - Cream pie - 0.09914529914529917
+taaable:Barley - dbpedia:Birley - Birley - Set(Barley) - Birley - 0.09999999999999995
+taaable:White_rice - dbpedia:Whitemud_drive - Whitemud drive - Set(White rice) - Whitemud drive - 0.09142857142857144
+taaable:Wild_rice - dbpedia:Wild_garlic - Wild garlic - Set(Wild rice) - Wild garlic - 0.07676767676767682
+taaable:White_rice - dbpedia:White_Squire - White Squire - Set(White rice) - White Squire - 0.09222222222222226
+taaable:Quinoa - dbpedia:Quionga - Quionga - Set(Quinoa) - Quionga - 0.07222222222222219
+taaable:White_rice - dbpedia:White_sauce - White sauce - Set(White rice) - White sauce - 0.09454545454545456
+taaable:Kasha - dbpedia:Kanash - Kanash - Set(Kasha) - Kanash - 0.0977777777777777
+taaable:White_rice - dbpedia:White_cider - White cider - Set(White rice) - White cider - 0.038181818181818164
+taaable:White_rice - dbpedia:White_Cider - White Cider - Set(White rice) - White Cider - 0.07858585858585858
+taaable:Rye - dbpedia:Ryle - Ryle - Set(Rye) - Ryle - 0.0666666666666667
+taaable:Puffed_rice - dbpedia:Puffed_grain - Puffed grain - Set(Puffed rice) - Puffed grain - 0.08636363636363635
+taaable:Japanese_rice - dbpedia:Japanese_writing - Japanese writing - Set(Japanese rice) - Japanese writing - 0.09326923076923077
+taaable:White_rice - dbpedia:White_Horde - White Horde - Set(White rice) - White Horde - 0.09454545454545456
+taaable:Japanese_rice - dbpedia:Japanese_castle - Japanese castle - Set(Japanese rice) - Japanese castle - 0.08410256410256414
+taaable:Japanese_rice - dbpedia:Japanese_Wisteria - Japanese Wisteria - Set(Japanese rice) - Japanese Wisteria - 0.09087481146304677
+taaable:White_rice - dbpedia:White_Fire - White Fire - Set(White rice) - White Fire - 0.06222222222222218
+taaable:Millet - dbpedia:Millerettids - Millerettids - Set(Millet) - Millerettids - 0.09999999999999998
+taaable:Japanese_rice - dbpedia:Japanese_Agriculture - Japanese Agriculture - Set(Japanese rice) - Japanese Agriculture - 0.07
+taaable:Wild_rice - dbpedia:Wild_rye - Wild rye - Set(Wild rice) - Wild rye - 0.06944444444444448
+taaable:Japanese_rice - dbpedia:Japanese_year - Japanese year - Set(Japanese rice) - Japanese year - 0.07972027972027976
+taaable:Arborio - dbpedia:Arbor - Arbor - Set(Arborio) - Arbor - 0.057142857142857134
+taaable:Arborio - dbpedia:Arbour - Arbour - Set(Arborio) - Arbour - 0.09047619047619049
+taaable:Quinoa - dbpedia:Quinara - Quinara - Set(Quinoa) - Quinara - 0.09047619047619049
+taaable:Kasha - dbpedia:Kashida - Kashida - Set(Kasha) - Kashida - 0.057142857142857134
+taaable:Japanese_rice - dbpedia:Japanese_cruiser_%C5%8Cyodo - Japanese cruiser Ōyodo - Set(Japanese rice) - Japanese cruiser Ōyodo - 0.09720279720279713
+taaable:Whole_wheat - dbpedia:Wholewheat - Wholewheat - Set(Whole wheat) - Wholewheat - 0.0
+taaable:Whole_wheat - dbpedia:Whole-wheat - Whole-wheat - Set(Whole wheat) - Whole-wheat - 0.0
+taaable:Whole_wheat - dbpedia:Whole_meal - Whole meal - Set(Whole wheat) - Whole meal - 0.09454545454545456
+taaable:Kasha - dbpedia:Kashta - Kashta - Set(Kasha) - Kashta - 0.033333333333333284
+taaable:Whole_wheat - dbpedia:Whole_oat - Whole oat - Set(Whole wheat) - Whole oat - 0.07676767676767682
+taaable:Whole_wheat - dbpedia:Whole_oats - Whole oats - Set(Whole wheat) - Whole oats - 0.09454545454545456
+taaable:White_rice - dbpedia:White_pine - White pine - Set(White rice) - White pine - 0.07999999999999999
+taaable:Kasha - dbpedia:Kaschau - Kaschau - Set(Kasha) - Kaschau - 0.06666666666666665
+taaable:Quinoa - dbpedia:Quinua - Quinua - Set(Quinoa) - Quinua - 0.06666666666666662
+taaable:Spelt - dbpedia:Spellotape - Spellotape - Set(Spelt) - Spellotape - 0.09999999999999998
+taaable:Amaranth - dbpedia:Amarkantak - Amarkantak - Set(Amaranth) - Amarkantak - 0.08499999999999996
+taaable:Kasha - dbpedia:Kas - Kas - Set(Kasha) - Kas - 0.09333333333333331
+taaable:Millet - dbpedia:Miller - Miller - Set(Millet) - Miller - 0.06666666666666662
+taaable:White_rice - dbpedia:White_Side - White Side - Set(White rice) - White Side - 0.07999999999999999
+taaable:Japanese_rice - dbpedia:Japanese_Braille - Japanese Braille - Set(Japanese rice) - Japanese Braille - 0.06538461538461535
+taaable:White_rice - dbpedia:White_spruce - White spruce - Set(White rice) - White spruce - 0.07
+taaable:Instant_rice - dbpedia:Instant_Star - Instant Star - Set(Instant rice) - Instant Star - 0.09999999999999998
+taaable:Barley - dbpedia:Baarle - Baarle - Set(Barley) - Baarle - 0.08888888888888884
+taaable:White_rice - dbpedia:White_arsenic - White arsenic - Set(White rice) - White arsenic - 0.06615384615384617
+taaable:Wild_rice - dbpedia:Wild_Garlic - Wild Garlic - Set(Wild rice) - Wild Garlic - 0.07676767676767682
+taaable:Japanese_rice - dbpedia:Japanese_spindle - Japanese spindle - Set(Japanese rice) - Japanese spindle - 0.09326923076923077
+taaable:Barley - dbpedia:Barleythorpe - Barleythorpe - Set(Barley) - Barleythorpe - 0.09999999999999998
+taaable:Kasha - dbpedia:Kasaa - Kasaa - Set(Kasha) - Kasaa - 0.09333333333333331
+taaable:White_rice - dbpedia:White_finger - White finger - Set(White rice) - White finger - 0.09222222222222226
+taaable:Japanese_rice - dbpedia:Japanese_Garden - Japanese Garden - Set(Japanese rice) - Japanese Garden - 0.08410256410256414
+taaable:Amaranth - dbpedia:Amaravathy - Amaravathy - Set(Amaranth) - Amaravathy - 0.08499999999999996
+taaable:Popcorn - dbpedia:Popcorn_Shrimp - Popcorn Shrimp - Set(Popcorn) - Popcorn Shrimp - 0.09999999999999998
+taaable:Kasha - dbpedia:Kasan - Kasan - Set(Kasha) - Kasan - 0.09333333333333331
+taaable:Japanese_rice - dbpedia:Japanese_medicine - Japanese medicine - Set(Japanese rice) - Japanese medicine - 0.09087481146304677
+taaable:White_rice - dbpedia:White_fir - White fir - Set(White rice) - White fir - 0.08722222222222215
+taaable:Japanese_rice - dbpedia:Japanese_Zero - Japanese Zero - Set(Japanese rice) - Japanese Zero - 0.07972027972027976
+taaable:Brown_rice - dbpedia:Byron_Price - Byron Price - Set(Brown rice) - Byron Price - 0.0845454545454545
+taaable:Barley - dbpedia:Barley-corn - Barley-corn - Set(Barley) - Barley-corn - 0.09090909090909088
+taaable:White_rice - dbpedia:White_riot - White riot - Set(White rice) - White riot - 0.07999999999999999
+taaable:Japanese_rice - dbpedia:Japanese_hardcore - Japanese hardcore - Set(Japanese rice) - Japanese hardcore - 0.07420814479638009
+taaable:Amaranth - dbpedia:Amarantha_blitum - Amarantha blitum - Set(Amaranth) - Amarantha blitum - 0.09999999999999998
+taaable:White_rice - dbpedia:White_Pride - White Pride - Set(White rice) - White Pride - 0.056363636363636324
+taaable:White_rice - dbpedia:White_Music - White Music - Set(White rice) - White Music - 0.09454545454545456
+taaable:Millet - dbpedia:Mellite - Mellite - Set(Millet) - Mellite - 0.09285714285714283
+taaable:Japanese_rice - dbpedia:Japanese_carpentry - Japanese carpentry - Set(Japanese rice) - Japanese carpentry - 0.0987179487179487
+taaable:Japanese_rice - dbpedia:Japanese_chisel - Japanese chisel - Set(Japanese rice) - Japanese chisel - 0.07205128205128206
+taaable:Japanese_rice - dbpedia:Japanese_honorific - Japanese honorific - Set(Japanese rice) - Japanese honorific - 0.08205128205128202
+taaable:Barley - dbpedia:Barmaley - Barmaley - Set(Barley) - Barmaley - 0.058333333333333355
+taaable:Millet - dbpedia:Millets - Millets - Set(Millet) - Millets - 0.028571428571428536
+taaable:Japanese_rice - dbpedia:Japanese_Torreya - Japanese Torreya - Set(Japanese rice) - Japanese Torreya - 0.09326923076923077
+taaable:Japanese_rice - dbpedia:Japanese_surname - Japanese surname - Set(Japanese rice) - Japanese surname - 0.09326923076923077
+taaable:White_rice - dbpedia:White_rose - White rose - Set(White rice) - White rose - 0.07999999999999999
+taaable:Japanese_rice - dbpedia:Japanese_pickles - Japanese pickles - Set(Japanese rice) - Japanese pickles - 0.06538461538461535
+taaable:Popcorn - dbpedia:Popcorn_tree - Popcorn tree - Set(Popcorn) - Popcorn tree - 0.0833333333333333
+taaable:Brown_rice - dbpedia:Brown_Noise - Brown Noise - Set(Brown rice) - Brown Noise - 0.09454545454545456
+taaable:Barley - dbpedia:Barlowe - Barlowe - Set(Barley) - Barlowe - 0.09047619047619049
+taaable:White_rice - dbpedia:White_Sanicle - White Sanicle - Set(White rice) - White Sanicle - 0.0815384615384615
+taaable:Barley - dbpedia:Borley - Borley - Set(Barley) - Borley - 0.09999999999999995
+taaable:White_rice - dbpedia:White_American - White American - Set(White rice) - White American - 0.09714285714285713
+taaable:White_rice - dbpedia:White_Noise - White Noise - Set(White rice) - White Noise - 0.09454545454545456
+taaable:Japanese_rice - dbpedia:Japanese_Deer - Japanese Deer - Set(Japanese rice) - Japanese Deer - 0.07972027972027976
+taaable:Amaranth - dbpedia:Amar - Amar - Set(Amaranth) - Amar - 0.09999999999999998
+taaable:Kasha - dbpedia:Khasa - Khasa - Set(Kasha) - Khasa - 0.06000000000000009
+taaable:Arborio - dbpedia:Arborite - Arborite - Set(Arborio) - Arborite - 0.07857142857142856
+taaable:Quick_oat - dbpedia:Quicker_sort - Quicker sort - Set(Quick oat) - Quicker sort - 0.08888888888888895
+taaable:Quick_oat - dbpedia:Quick-er_sort - Quick-er sort - Set(Quick oat) - Quick-er sort - 0.09914529914529917
+taaable:Millet - dbpedia:Milt - Milt - Set(Millet) - Milt - 0.0777777777777778
+taaable:Japanese_rice - dbpedia:Japanese_rice - Japanese rice - Set(Japanese rice) - Japanese rice - 0.0
+taaable:Japanese_rice - dbpedia:Japanese_gardens - Japanese gardens - Set(Japanese rice) - Japanese gardens - 0.09326923076923077
+taaable:Japanese_rice - dbpedia:Japanese_gardening - Japanese gardening - Set(Japanese rice) - Japanese gardening - 0.0987179487179487
+taaable:Wild_rice - dbpedia:Wild_chervil - Wild chervil - Set(Wild rice) - Wild chervil - 0.09444444444444446
+taaable:Wild_rice - dbpedia:Willard_Price - Willard Price - Set(Wild rice) - Willard Price - 0.09772079772079781
+taaable:Quinoa - dbpedia:Quinton - Quinton - Set(Quinoa) - Quinton - 0.09047619047619049
+taaable:Japanese_rice - dbpedia:Japanese_honorifics - Japanese honorifics - Set(Japanese rice) - Japanese honorifics - 0.08906882591093115
+taaable:Millet - dbpedia:Millerston - Millerston - Set(Millet) - Millerston - 0.07999999999999999
+taaable:Japanese_rice - dbpedia:Japanese_diet - Japanese diet - Set(Japanese rice) - Japanese diet - 0.061538461538461514
+taaable:Jasmine_rice - dbpedia:Jasminocereus - Jasminocereus - Set(Jasmine rice) - Jasminocereus - 0.09948717948717946
+taaable:Japanese_rice - dbpedia:Japanese_sculpture - Japanese sculpture - Set(Japanese rice) - Japanese sculpture - 0.0987179487179487
+taaable:Barley - dbpedia:Barile - Barile - Set(Barley) - Barile - 0.07777777777777772
+taaable:Japanese_rice - dbpedia:Japanese_Yew - Japanese Yew - Set(Japanese rice) - Japanese Yew - 0.07948717948717947
+taaable:Rolled_oat - dbpedia:Rolled_oats - Rolled oats - Set(Rolled oat) - Rolled oats - 0.018181818181818167
+taaable:Barley - dbpedia:Badley - Badley - Set(Barley) - Badley - 0.08888888888888884
+taaable:Japanese_rice - dbpedia:Japanese_amberjack - Japanese amberjack - Set(Japanese rice) - Japanese amberjack - 0.0987179487179487
+taaable:Japanese_rice - dbpedia:Japanese_cruiser_Kuma - Japanese cruiser Kuma - Set(Japanese rice) - Japanese cruiser Kuma - 0.09157509157509158
+taaable:Converted_rice - dbpedia:Converted - Converted - Set(Converted rice) - Converted - 0.07142857142857144
+taaable:White_rice - dbpedia:White_scale - White scale - Set(White rice) - White scale - 0.09454545454545456
+taaable:Japanese_rice - dbpedia:Japanese_cruiser_Naka - Japanese cruiser Naka - Set(Japanese rice) - Japanese cruiser Naka - 0.09157509157509158
+taaable:Wild_rice - dbpedia:Wild_licorice - Wild licorice - Set(Wild rice) - Wild licorice - 0.08376068376068384
+taaable:Japanese_rice - dbpedia:Japanese_particles - Japanese particles - Set(Japanese rice) - Japanese particles - 0.05555555555555553
+taaable:Puffed_rice - dbpedia:Puffed_rice - Puffed rice - Set(Puffed rice) - Puffed rice - 0.0
+taaable:Millet - dbpedia:Millileter - Millileter - Set(Millet) - Millileter - 0.07999999999999999
+taaable:Rye - dbpedia:Roye - Roye - Set(Rye) - Roye - 0.07500000000000004
+taaable:White_rice - dbpedia:White_Times - White Times - Set(White rice) - White Times - 0.09454545454545456
+taaable:Quinoa - dbpedia:Quinag - Quinag - Set(Quinoa) - Quinag - 0.06666666666666662
+taaable:Quick_oat - dbpedia:Quick_Stop - Quick Stop - Set(Quick oat) - Quick Stop - 0.08722222222222215
+taaable:Cream_of_rice - dbpedia:Cream_rinse - Cream rinse - Set(Cream of rice) - Cream rinse - 0.09790209790209792
+taaable:White_rice - dbpedia:White_Tie - White Tie - Set(White rice) - White Tie - 0.06222222222222218
+taaable:Amaranth - dbpedia:Amaranthus_albus - Amaranthus albus - Set(Amaranth) - Amaranthus albus - 0.09999999999999998
+taaable:Japanese_rice - dbpedia:Japanese_prisons - Japanese prisons - Set(Japanese rice) - Japanese prisons - 0.09326923076923077
+taaable:Japanese_rice - dbpedia:Japanese_Prisons - Japanese Prisons - Set(Japanese rice) - Japanese Prisons - 0.09326923076923077
+taaable:Japanese_rice - dbpedia:Japanese_Trench - Japanese Trench - Set(Japanese rice) - Japanese Trench - 0.07205128205128206
+taaable:Barley - dbpedia:Barley-Break - Barley-Break - Set(Barley) - Barley-Break - 0.09999999999999998
+taaable:Barley - dbpedia:Barley-break - Barley-break - Set(Barley) - Barley-break - 0.09999999999999998
+taaable:Barley - dbpedia:Barley_break - Barley break - Set(Barley) - Barley break - 0.09999999999999998
+taaable:Japanese_rice - dbpedia:Japanese_police - Japanese police - Set(Japanese rice) - Japanese police - 0.055384615384615386
+taaable:Japanese_rice - dbpedia:Japanese_Police - Japanese Police - Set(Japanese rice) - Japanese Police - 0.055384615384615386
+taaable:Japanese_rice - dbpedia:Japanese_larch - Japanese larch - Set(Japanese rice) - Japanese larch - 0.07362637362637363
+taaable:White_rice - dbpedia:White_Crappie - White Crappie - Set(White rice) - White Crappie - 0.0815384615384615
+taaable:Whole_wheat - dbpedia:Whole_Earth - Whole Earth - Set(Whole wheat) - Whole Earth - 0.09494949494949498
+taaable:Japanese_rice - dbpedia:Japanese_province - Japanese province - Set(Japanese rice) - Japanese province - 0.0470588235294118
+taaable:Kasha - dbpedia:Kaushal - Kaushal - Set(Kasha) - Kaushal - 0.07619047619047618
+taaable:Kasha - dbpedia:Kaishia - Kaishia - Set(Kasha) - Kaishia - 0.07619047619047618
+taaable:Japanese_rice - dbpedia:Japanese_cruiser_Agano - Japanese cruiser Agano - Set(Japanese rice) - Japanese cruiser Agano - 0.09720279720279713
+taaable:Popcorn - dbpedia:Popcorn_popper - Popcorn popper - Set(Popcorn) - Popcorn popper - 0.09999999999999998
+taaable:Japanese_rice - dbpedia:Japanese_Yen - Japanese Yen - Set(Japanese rice) - Japanese Yen - 0.07948717948717947
+taaable:Kasha - dbpedia:Kashk - Kashk - Set(Kasha) - Kashk - 0.07999999999999999
+taaable:Barley - dbpedia:Barlby - Barlby - Set(Barley) - Barlby - 0.06666666666666662
+taaable:Millet - dbpedia:Milet - Milet - Set(Millet) - Milet - 0.03888888888888883
+taaable:White_rice - dbpedia:White_America - White America - Set(White rice) - White America - 0.08615384615384618
+taaable:White_rice - dbpedia:White_Lies - White Lies - Set(White rice) - White Lies - 0.07999999999999999
+taaable:Quinoa - dbpedia:Quind%C3%ADo - Quindío - Set(Quinoa) - Quindío - 0.09047619047619049
+taaable:Rolled_oat - dbpedia:Rolled_R - Rolled R - Set(Rolled oat) - Rolled R - 0.08499999999999996
+taaable:Japanese_rice - dbpedia:Japanese_anime - Japanese anime - Set(Japanese rice) - Japanese anime - 0.07362637362637363
+taaable:Japanese_rice - dbpedia:Japanese_wrestling - Japanese wrestling - Set(Japanese rice) - Japanese wrestling - 0.0987179487179487
+taaable:Rolled_oat - dbpedia:Rolled/Oats - Rolled/Oats - Set(Rolled oat) - Rolled/Oats - 0.05999999999999994
+taaable:Quick_oat - dbpedia:Quick_ratio - Quick ratio - Set(Quick oat) - Quick ratio - 0.05858585858585858
+taaable:Japanese_rice - dbpedia:Japanese_unit - Japanese unit - Set(Japanese rice) - Japanese unit - 0.09230769230769231
+taaable:Amaranth - dbpedia:Amaranto - Amaranto - Set(Amaranth) - Amaranto - 0.050000000000000024
+taaable:White_rice - dbpedia:White_Hare - White Hare - Set(White rice) - White Hare - 0.07999999999999999
+taaable:Quick_oat - dbpedia:Quickload - Quickload - Set(Quick oat) - Quickload - 0.08888888888888895
+taaable:Japanese_rice - dbpedia:Japanese_hare - Japanese hare - Set(Japanese rice) - Japanese hare - 0.061538461538461514
+taaable:Japanese_rice - dbpedia:Japanese_rhinoceros_beetle - Japanese rhinoceros beetle - Set(Japanese rice) - Japanese rhinoceros beetle - 0.09999999999999998
+taaable:Quinoa - dbpedia:Quinoxaline - Quinoxaline - Set(Quinoa) - Quinoxaline - 0.09090909090909088
+taaable:Quick_oat - dbpedia:Quick_Sort - Quick Sort - Set(Quick oat) - Quick Sort - 0.06222222222222218
+taaable:Japanese_rice - dbpedia:Japanese_wisteria - Japanese wisteria - Set(Japanese rice) - Japanese wisteria - 0.09087481146304677
+taaable:Japanese_rice - dbpedia:Japanese_spaniel - Japanese spaniel - Set(Japanese rice) - Japanese spaniel - 0.09326923076923077
+taaable:Japanese_rice - dbpedia:Japanese_curry - Japanese curry - Set(Japanese rice) - Japanese curry - 0.0918081918081918
+taaable:Japanese_rice - dbpedia:Japanese_porcelain - Japanese porcelain - Set(Japanese rice) - Japanese porcelain - 0.07094017094017085
+taaable:Japanese_rice - dbpedia:Japanese_agriculture - Japanese agriculture - Set(Japanese rice) - Japanese agriculture - 0.07
+taaable:Brown_rice - dbpedia:Brown's_Chicken - Brown's Chicken - Set(Brown rice) - Brown's Chicken - 0.09999999999999998
+taaable:Amaranth - dbpedia:.... - .... - Set(Amaranth) - .... - 0.0
+taaable:Wild_rice - dbpedia:.... - .... - Set(Wild rice) - .... - 0.0
+taaable:Millet - dbpedia:.... - .... - Set(Millet) - .... - 0.0
+taaable:Japanese_rice - dbpedia:.... - .... - Set(Japanese rice) - .... - 0.0
+taaable:Cream_of_rice - dbpedia:.... - .... - Set(Cream of rice) - .... - 0.0
+taaable:Kasha - dbpedia:.... - .... - Set(Kasha) - .... - 0.0
+taaable:Brown_rice - dbpedia:.... - .... - Set(Brown rice) - .... - 0.0
+taaable:Whole_kernel_corn - dbpedia:.... - .... - Set(Whole kernel corn) - .... - 0.0
+taaable:Hominy_grit - dbpedia:.... - .... - Set(Hominy grit) - .... - 0.0
+taaable:Arborio - dbpedia:.... - .... - Set(Arborio) - .... - 0.0
+taaable:Glutinous_rice - dbpedia:.... - .... - Set(Glutinous rice) - .... - 0.0
+taaable:Quick_oat - dbpedia:.... - .... - Set(Quick oat) - .... - 0.0
+taaable:Long-2Dgrain_white_rice - dbpedia:.... - .... - Set(Long-grain white rice) - .... - 0.0
+taaable:Fine_bulgur - dbpedia:.... - .... - Set(Fine bulgur) - .... - 0.0
+taaable:Short-2Dgrain_brown_rice - dbpedia:.... - .... - Set(Short-grain brown rice) - .... - 0.0
+taaable:Jasmine_rice - dbpedia:.... - .... - Set(Jasmine rice) - .... - 0.0
+taaable:White_rice - dbpedia:.... - .... - Set(White rice) - .... - 0.0
+taaable:White_basmati_rice - dbpedia:.... - .... - Set(White basmati rice) - .... - 0.0
+taaable:Cracked_wheat - dbpedia:.... - .... - Set(Cracked wheat) - .... - 0.0
+taaable:Spelt - dbpedia:.... - .... - Set(Spelt) - .... - 0.0
+taaable:Rolled_oat - dbpedia:.... - .... - Set(Rolled oat) - .... - 0.0
+taaable:Puffed_rice - dbpedia:.... - .... - Set(Puffed rice) - .... - 0.0
+taaable:Quinoa - dbpedia:.... - .... - Set(Quinoa) - .... - 0.0
+taaable:Barley - dbpedia:.... - .... - Set(Barley) - .... - 0.0
+taaable:Rye - dbpedia:.... - .... - Set(Rye) - .... - 0.0
+taaable:Brown_basmati_rice - dbpedia:.... - .... - Set(Brown basmati rice) - .... - 0.0
+taaable:Whole_wheat - dbpedia:.... - .... - Set(Whole wheat) - .... - 0.0
+taaable:Popcorn - dbpedia:.... - .... - Set(Popcorn) - .... - 0.0
+taaable:Instant_rice - dbpedia:.... - .... - Set(Instant rice) - .... - 0.0
+taaable:Converted_rice - dbpedia:.... - .... - Set(Converted rice) - .... - 0.0
+taaable:Kasha - dbpedia:Kashmar - Kashmar - Set(Kasha) - Kashmar - 0.057142857142857134
+taaable:Amaranth - dbpedia:Amaranth_(dye) - Amaranth (dye) - Set(Amaranth) - Amaranth (dye) - 0.08571428571428574
+taaable:Instant_rice - dbpedia:Instant_Clarity - Instant Clarity - Set(Instant rice) - Instant Clarity - 0.09999999999999998
+taaable:Japanese_rice - dbpedia:Japanese_men - Japanese men - Set(Japanese rice) - Japanese men - 0.07948717948717947
+taaable:Quick_oat - dbpedia:Quicksort - Quicksort - Set(Quick oat) - Quicksort - 0.08888888888888895
+taaable:Jasmine_rice - dbpedia:Jasmine_rice - Jasmine rice - Set(Jasmine rice) - Jasmine rice - 0.0
+taaable:Amaranth - dbpedia:Amariyah - Amariyah - Set(Amaranth) - Amariyah - 0.09999999999999998
+taaable:Japanese_rice - dbpedia:Japanese_castles - Japanese castles - Set(Japanese rice) - Japanese castles - 0.09326923076923077
+taaable:Kasha - dbpedia:Kasza - Kasza - Set(Kasha) - Kasza - 0.09333333333333331
+taaable:Millet - dbpedia:Milleretta - Milleretta - Set(Millet) - Milleretta - 0.07999999999999999
+taaable:Millet - dbpedia:Millett_Hall - Millett Hall - Set(Millet) - Millett Hall - 0.09999999999999998
+taaable:Japanese_rice - dbpedia:Japanese_Tit - Japanese Tit - Set(Japanese rice) - Japanese Tit - 0.07948717948717947
+taaable:Japanese_rice - dbpedia:Japanese_atrocities - Japanese atrocities - Set(Japanese rice) - Japanese atrocities - 0.07854251012145744
+taaable:Arborio - dbpedia:Arborio_rice - Arborio rice - Set(Arborio) - Arborio rice - 0.0833333333333333
+taaable:Kasha - dbpedia:Kashaya - Kashaya - Set(Kasha) - Kashaya - 0.057142857142857134
+taaable:Kasha - dbpedia:Kashia - Kashia - Set(Kasha) - Kashia - 0.033333333333333284
+taaable:Japanese_rice - dbpedia:Japanese_artichoke - Japanese artichoke - Set(Japanese rice) - Japanese artichoke - 0.05555555555555553
+taaable:Popcorn - dbpedia:Popcorn_(song) - Popcorn (song) - Set(Popcorn) - Popcorn (song) - 0.09999999999999998
+taaable:Kasha - dbpedia:Kashau - Kashau - Set(Kasha) - Kashau - 0.033333333333333284
+taaable:Japanese_rice - dbpedia:Japanese_knives - Japanese knives - Set(Japanese rice) - Japanese knives - 0.08410256410256414
+taaable:Quick_oat - dbpedia:QuickScat - QuickScat - Set(Quick oat) - QuickScat - 0.08888888888888895
+taaable:Jasmine_rice - dbpedia:Jasmine_Birtles - Jasmine Birtles - Set(Jasmine rice) - Jasmine Birtles - 0.08818181818181818
+taaable:Brown_rice - dbpedia:Brown_Tortoise - Brown Tortoise - Set(Brown rice) - Brown Tortoise - 0.09142857142857144
+taaable:Japanese_rice - dbpedia:Japanese_film - Japanese film - Set(Japanese rice) - Japanese film - 0.09230769230769231
+taaable:Millet - dbpedia:Mille_Atoll - Mille Atoll - Set(Millet) - Mille Atoll - 0.09090909090909088
+taaable:Japanese_rice - dbpedia:Japanese_title - Japanese title - Set(Japanese rice) - Japanese title - 0.07362637362637363
+taaable:Japanese_rice - dbpedia:Japanese_elm - Japanese elm - Set(Japanese rice) - Japanese elm - 0.07948717948717947
+taaable:Japanese_rice - dbpedia:-.- - -.- - Set(Japanese rice) - -.- - 0.0
+taaable:Amaranth - dbpedia:-.- - -.- - Set(Amaranth) - -.- - 0.0
+taaable:Wild_rice - dbpedia:-.- - -.- - Set(Wild rice) - -.- - 0.0
+taaable:Millet - dbpedia:-.- - -.- - Set(Millet) - -.- - 0.0
+taaable:Whole_kernel_corn - dbpedia:-.- - -.- - Set(Whole kernel corn) - -.- - 0.0
+taaable:Cream_of_rice - dbpedia:-.- - -.- - Set(Cream of rice) - -.- - 0.0
+taaable:Kasha - dbpedia:-.- - -.- - Set(Kasha) - -.- - 0.0
+taaable:Brown_rice - dbpedia:-.- - -.- - Set(Brown rice) - -.- - 0.0
+taaable:Quick_oat - dbpedia:-.- - -.- - Set(Quick oat) - -.- - 0.0
+taaable:Hominy_grit - dbpedia:-.- - -.- - Set(Hominy grit) - -.- - 0.0
+taaable:Arborio - dbpedia:-.- - -.- - Set(Arborio) - -.- - 0.0
+taaable:Glutinous_rice - dbpedia:-.- - -.- - Set(Glutinous rice) - -.- - 0.0
+taaable:Jasmine_rice - dbpedia:-.- - -.- - Set(Jasmine rice) - -.- - 0.0
+taaable:Long-2Dgrain_white_rice - dbpedia:-.- - -.- - Set(Long-grain white rice) - -.- - 0.0
+taaable:Fine_bulgur - dbpedia:-.- - -.- - Set(Fine bulgur) - -.- - 0.0
+taaable:Cracked_wheat - dbpedia:-.- - -.- - Set(Cracked wheat) - -.- - 0.0
+taaable:Short-2Dgrain_brown_rice - dbpedia:-.- - -.- - Set(Short-grain brown rice) - -.- - 0.0
+taaable:White_rice - dbpedia:-.- - -.- - Set(White rice) - -.- - 0.0
+taaable:White_basmati_rice - dbpedia:-.- - -.- - Set(White basmati rice) - -.- - 0.0
+taaable:Rolled_oat - dbpedia:-.- - -.- - Set(Rolled oat) - -.- - 0.0
+taaable:Spelt - dbpedia:-.- - -.- - Set(Spelt) - -.- - 0.0
+taaable:Puffed_rice - dbpedia:-.- - -.- - Set(Puffed rice) - -.- - 0.0
+taaable:Quinoa - dbpedia:-.- - -.- - Set(Quinoa) - -.- - 0.0
+taaable:Popcorn - dbpedia:-.- - -.- - Set(Popcorn) - -.- - 0.0
+taaable:Brown_basmati_rice - dbpedia:-.- - -.- - Set(Brown basmati rice) - -.- - 0.0
+taaable:Rye - dbpedia:-.- - -.- - Set(Rye) - -.- - 0.0
+taaable:Whole_wheat - dbpedia:-.- - -.- - Set(Whole wheat) - -.- - 0.0
+taaable:Instant_rice - dbpedia:-.- - -.- - Set(Instant rice) - -.- - 0.0
+taaable:Barley - dbpedia:-.- - -.- - Set(Barley) - -.- - 0.0
+taaable:Converted_rice - dbpedia:-.- - -.- - Set(Converted rice) - -.- - 0.0
+taaable:Japanese_rice - dbpedia:Japanese_rice_lager - Japanese rice lager - Set(Japanese rice) - Japanese rice lager - 0.06315789473684211
+taaable:White_rice - dbpedia:White_cell - White cell - Set(White rice) - White cell - 0.07999999999999999
+taaable:Amaranth - dbpedia:Amanah - Amanah - Set(Amaranth) - Amanah - 0.09722222222222218
+taaable:Millet - dbpedia:Milliyet - Milliyet - Set(Millet) - Milliyet - 0.050000000000000024
+taaable:Japanese_rice - dbpedia:Japanese_river_otter - Japanese river otter - Set(Japanese rice) - Japanese river otter - 0.09538461538461537
+taaable:Kasha - dbpedia:Kasra - Kasra - Set(Kasha) - Kasra - 0.09333333333333331
+taaable:Japanese_rice - dbpedia:Japanese_Gothic - Japanese Gothic - Set(Japanese rice) - Japanese Gothic - 0.08410256410256414
+taaable:Japanese_rice - dbpedia:Japanese_screens - Japanese screens - Set(Japanese rice) - Japanese screens - 0.08205128205128202
+taaable:Japanese_rice - dbpedia:Japanese_screen - Japanese screen - Set(Japanese rice) - Japanese screen - 0.07205128205128206
+taaable:Japanese_rice - dbpedia:Japanese_cruiser_Asama - Japanese cruiser Asama - Set(Japanese rice) - Japanese cruiser Asama - 0.09720279720279713
+taaable:Japanese_rice - dbpedia:Japanese_cruiser_Izumo - Japanese cruiser Izumo - Set(Japanese rice) - Japanese cruiser Izumo - 0.09720279720279713
+taaable:Japanese_rice - dbpedia:Japanese_cruiser_Iwate - Japanese cruiser Iwate - Set(Japanese rice) - Japanese cruiser Iwate - 0.09720279720279713
+taaable:Brown_rice - dbpedia:Brown_Pike - Brown Pike - Set(Brown rice) - Brown Pike - 0.07999999999999999
+taaable:Rolled_oat - dbpedia:Roller_Coaster - Roller Coaster - Set(Rolled oat) - Roller Coaster - 0.09142857142857144
+taaable:Kasha - dbpedia:Kasa - Kasa - Set(Kasha) - Kasa - 0.04666666666666673
+taaable:Popcorn - dbpedia:Popcorn_lung - Popcorn lung - Set(Popcorn) - Popcorn lung - 0.0833333333333333
+taaable:Japanese_rice - dbpedia:Japanese_character - Japanese character - Set(Japanese rice) - Japanese character - 0.0987179487179487
+taaable:Japanese_rice - dbpedia:Japanese_Creeper - Japanese Creeper - Set(Japanese rice) - Japanese Creeper - 0.09326923076923077
+taaable:Kasha - dbpedia:Kashatriya - Kashatriya - Set(Kasha) - Kashatriya - 0.09999999999999998
+taaable:Japanese_rice - dbpedia:Japanese_script - Japanese script - Set(Japanese rice) - Japanese script - 0.07205128205128206
+taaable:Kasha - dbpedia:Kadisha - Kadisha - Set(Kasha) - Kadisha - 0.07619047619047618
+taaable:Japanese_rice - dbpedia:Japanese_Dream - Japanese Dream - Set(Japanese rice) - Japanese Dream - 0.07362637362637363
+taaable:White_rice - dbpedia:Whiter - Whiter - Set(White rice) - Whiter - 0.07999999999999999
+taaable:Instant_rice - dbpedia:Instant_Life - Instant Life - Set(Instant rice) - Instant Life - 0.06666666666666662
+taaable:Japanese_rice - dbpedia:Japanese_cruiser_Atago - Japanese cruiser Atago - Set(Japanese rice) - Japanese cruiser Atago - 0.09720279720279713
+taaable:Japanese_rice - dbpedia:Japanese_cruiser_Maya - Japanese cruiser Maya - Set(Japanese rice) - Japanese cruiser Maya - 0.09157509157509158
+taaable:White_rice - dbpedia:White_Lines - White Lines - Set(White rice) - White Lines - 0.09454545454545456
+taaable:Amaranth - dbpedia:Amanra - Amanra - Set(Amaranth) - Amanra - 0.09722222222222218
+taaable:Jasmine_rice - dbpedia:Jamieson_Price - Jamieson Price - Set(Jasmine rice) - Jamieson Price - 0.08253968253968251
+taaable:Japanese_rice - dbpedia:Japanese_comedy - Japanese comedy - Set(Japanese rice) - Japanese comedy - 0.08410256410256414
+taaable:Rolled_oat - dbpedia:Rolled_oat - Rolled oat - Set(Rolled oat) - Rolled oat - 0.0
+taaable:Millet - dbpedia:Milled - Milled - Set(Millet) - Milled - 0.06666666666666662
+taaable:Popcorn - dbpedia:Popcorn_Zen - Popcorn Zen - Set(Popcorn) - Popcorn Zen - 0.07272727272727272
+taaable:Rolled_oat - dbpedia:Rolled_%22R%22 - Rolled R - Set(Rolled oat) - Rolled R - 0.08499999999999996
+taaable:Millet - dbpedia:Millett - Millett - Set(Millet) - Millett - 0.028571428571428536
+taaable:Quinoa - dbpedia:Quinoid - Quinoid - Set(Quinoa) - Quinoid - 0.09047619047619049
+taaable:Japanese_rice - dbpedia:Japanese_Wineberry - Japanese Wineberry - Set(Japanese rice) - Japanese Wineberry - 0.0987179487179487
+taaable:Millet - dbpedia:Millewa - Millewa - Set(Millet) - Millewa - 0.09047619047619049
+taaable:Japanese_rice - dbpedia:Japanese_cruiser_Yura - Japanese cruiser Yura - Set(Japanese rice) - Japanese cruiser Yura - 0.09157509157509158
+taaable:Quinoa - dbpedia:Quinlan - Quinlan - Set(Quinoa) - Quinlan - 0.09047619047619049
+taaable:Japanese_rice - dbpedia:Japanese_Noise - Japanese Noise - Set(Japanese rice) - Japanese Noise - 0.07362637362637363
+taaable:Brown_rice - dbpedia:Brown_Crake - Brown Crake - Set(Brown rice) - Brown Crake - 0.09454545454545456
+taaable:Japanese_rice - dbpedia:Japanese_creeper - Japanese creeper - Set(Japanese rice) - Japanese creeper - 0.08205128205128202
+taaable:Japanese_rice - dbpedia:Japanese_ivy - Japanese ivy - Set(Japanese rice) - Japanese ivy - 0.07948717948717947
+taaable:Japanese_rice - dbpedia:Japanese_yew - Japanese yew - Set(Japanese rice) - Japanese yew - 0.07948717948717947
+taaable:Japanese_rice - dbpedia:Japanese_Micronesia - Japanese Micronesia - Set(Japanese rice) - Japanese Micronesia - 0.07854251012145744
+taaable:Japanese_rice - dbpedia:Japanese_robotics - Japanese robotics - Set(Japanese rice) - Japanese robotics - 0.07420814479638009
+taaable:Barley - dbpedia:Barley_bree - Barley bree - Set(Barley) - Barley bree - 0.09090909090909088
+taaable:Millet - dbpedia:Millicent - Millicent - Set(Millet) - Millicent - 0.0666666666666667
+taaable:Kasha - dbpedia:Kashatagh - Kashatagh - Set(Kasha) - Kashatagh - 0.08888888888888895
+taaable:White_rice - dbpedia:White_Serbia - White Serbia - Set(White rice) - White Serbia - 0.09222222222222226
+taaable:Kasha - dbpedia:Kashtan - Kashtan - Set(Kasha) - Kashtan - 0.057142857142857134
+taaable:Japanese_rice - dbpedia:Japanese_mackerel - Japanese mackerel - Set(Japanese rice) - Japanese mackerel - 0.09087481146304677
+taaable:Wild_rice - dbpedia:Wildcore - Wildcore - Set(Wild rice) - Wildcore - 0.09801587301587301
+taaable:Hominy_grit - dbpedia:Hominy_Grits - Hominy Grits - Set(Hominy grit) - Hominy Grits - 0.02857142857142858
+taaable:Millet - dbpedia:Milnet - Milnet - Set(Millet) - Milnet - 0.07777777777777772
+taaable:Brown_rice - dbpedia:Ulric_Browne - Ulric Browne - Set(Brown rice) - Ulric Browne - 0.09999999999999998
+taaable:Wild_rice - dbpedia:Wild_Frontier - Wild Frontier - Set(Wild rice) - Wild Frontier - 0.09914529914529917
+taaable:Kasha - dbpedia:Kashan_rug - Kashan rug - Set(Kasha) - Kashan rug - 0.09999999999999998
+taaable:Kasha - dbpedia:Kashinka - Kashinka - Set(Kasha) - Kashinka - 0.075
+taaable:Jasmine_rice - dbpedia:Jasmine_Byrne - Jasmine Byrne - Set(Jasmine rice) - Jasmine Byrne - 0.07948717948717947
+taaable:Quick_oat - dbpedia:Quicken_Loans - Quicken Loans - Set(Quick oat) - Quicken Loans - 0.09914529914529917
+taaable:Barley - dbpedia:Barley_sugar - Barley sugar - Set(Barley) - Barley sugar - 0.09999999999999998
+taaable:Wild_rice - dbpedia:...---... - ...---... - Set(Wild rice) - ...---... - 0.0
+taaable:Millet - dbpedia:...---... - ...---... - Set(Millet) - ...---... - 0.0
+taaable:Japanese_rice - dbpedia:...---... - ...---... - Set(Japanese rice) - ...---... - 0.0
+taaable:Amaranth - dbpedia:...---... - ...---... - Set(Amaranth) - ...---... - 0.0
+taaable:Kasha - dbpedia:...---... - ...---... - Set(Kasha) - ...---... - 0.0
+taaable:Brown_rice - dbpedia:...---... - ...---... - Set(Brown rice) - ...---... - 0.0
+taaable:Whole_kernel_corn - dbpedia:...---... - ...---... - Set(Whole kernel corn) - ...---... - 0.0
+taaable:Cream_of_rice - dbpedia:...---... - ...---... - Set(Cream of rice) - ...---... - 0.0
+taaable:Arborio - dbpedia:...---... - ...---... - Set(Arborio) - ...---... - 0.0
+taaable:Glutinous_rice - dbpedia:...---... - ...---... - Set(Glutinous rice) - ...---... - 0.0
+taaable:Quick_oat - dbpedia:...---... - ...---... - Set(Quick oat) - ...---... - 0.0
+taaable:Hominy_grit - dbpedia:...---... - ...---... - Set(Hominy grit) - ...---... - 0.0
+taaable:Fine_bulgur - dbpedia:...---... - ...---... - Set(Fine bulgur) - ...---... - 0.0
+taaable:Short-2Dgrain_brown_rice - dbpedia:...---... - ...---... - Set(Short-grain brown rice) - ...---... - 0.0
+taaable:Jasmine_rice - dbpedia:...---... - ...---... - Set(Jasmine rice) - ...---... - 0.0
+taaable:Spelt - dbpedia:...---... - ...---... - Set(Spelt) - ...---... - 0.0
+taaable:White_basmati_rice - dbpedia:...---... - ...---... - Set(White basmati rice) - ...---... - 0.0
+taaable:Long-2Dgrain_white_rice - dbpedia:...---... - ...---... - Set(Long-grain white rice) - ...---... - 0.0
+taaable:Cracked_wheat - dbpedia:...---... - ...---... - Set(Cracked wheat) - ...---... - 0.0
+taaable:Barley - dbpedia:...---... - ...---... - Set(Barley) - ...---... - 0.0
+taaable:Rolled_oat - dbpedia:...---... - ...---... - Set(Rolled oat) - ...---... - 0.0
+taaable:White_rice - dbpedia:...---... - ...---... - Set(White rice) - ...---... - 0.0
+taaable:Quinoa - dbpedia:...---... - ...---... - Set(Quinoa) - ...---... - 0.0
+taaable:Popcorn - dbpedia:...---... - ...---... - Set(Popcorn) - ...---... - 0.0
+taaable:Rye - dbpedia:...---... - ...---... - Set(Rye) - ...---... - 0.0
+taaable:Whole_wheat - dbpedia:...---... - ...---... - Set(Whole wheat) - ...---... - 0.0
+taaable:Puffed_rice - dbpedia:...---... - ...---... - Set(Puffed rice) - ...---... - 0.0
+taaable:Instant_rice - dbpedia:...---... - ...---... - Set(Instant rice) - ...---... - 0.0
+taaable:Converted_rice - dbpedia:...---... - ...---... - Set(Converted rice) - ...---... - 0.0
+taaable:Brown_basmati_rice - dbpedia:...---... - ...---... - Set(Brown basmati rice) - ...---... - 0.0
+taaable:Japanese_rice - dbpedia:Japanese_Verbs - Japanese Verbs - Set(Japanese rice) - Japanese Verbs - 0.0918081918081918
+taaable:Millet - dbpedia:Millat - Millat - Set(Millet) - Millat - 0.06666666666666662
+taaable:Quick_oat - dbpedia:Quick_B - Quick B - Set(Quick oat) - Quick B - 0.09523809523809523
+taaable:Quick_oat - dbpedia:Quick_tape - Quick tape - Set(Quick oat) - Quick tape - 0.08722222222222215
+taaable:Japanese_rice - dbpedia:Japanese_Dress - Japanese Dress - Set(Japanese rice) - Japanese Dress - 0.07362637362637363
+taaable:Japanese_rice - dbpedia:Japanese_TD - Japanese TD - Set(Japanese rice) - Japanese TD - 0.09790209790209792
+taaable:Wild_rice - dbpedia:Wild_Force - Wild Force - Set(Wild rice) - Wild Force - 0.06222222222222218
+taaable:Converted_rice - dbpedia:Converged_Device - Converged Device - Set(Converted rice) - Converged Device - 0.09523809523809523
+taaable:Millet - dbpedia:Maille - Maille - Set(Millet) - Maille - 0.09999999999999995
+taaable:Japanese_rice - dbpedia:Japanese_Pirates - Japanese Pirates - Set(Japanese rice) - Japanese Pirates - 0.08205128205128202
+taaable:Amaranth - dbpedia:Amaranth_oil - Amaranth oil - Set(Amaranth) - Amaranth oil - 0.0666666666666667
+taaable:Japanese_rice - dbpedia:Japanese_Zen - Japanese Zen - Set(Japanese rice) - Japanese Zen - 0.07948717948717947
+taaable:White_rice - dbpedia:White_nigger - White nigger - Set(White rice) - White nigger - 0.09222222222222226
+taaable:Instant_rice - dbpedia:Instant_Live - Instant Live - Set(Instant rice) - Instant Live - 0.06666666666666662
+taaable:Popcorn - dbpedia:Popco - Popco - Set(Popcorn) - Popco - 0.057142857142857134
+taaable:Rolled_oat - dbpedia:Rolled_r - Rolled r - Set(Rolled oat) - Rolled r - 0.08499999999999996
+taaable:Brown_rice - dbpedia:Brown,_Michael - Brown, Michael - Set(Brown rice) - Brown, Michael - 0.09142857142857144
+taaable:Spelt - dbpedia:Spelter - Spelter - Set(Spelt) - Spelter - 0.057142857142857134
+taaable:Spelt - dbpedia:Aspelt - Aspelt - Set(Spelt) - Aspelt - 0.09090909090909094
+taaable:Kasha - dbpedia:Kashghar - Kashghar - Set(Kasha) - Kashghar - 0.075
+taaable:Japanese_rice - dbpedia:Japanese_cruiser_Isuzu - Japanese cruiser Isuzu - Set(Japanese rice) - Japanese cruiser Isuzu - 0.09720279720279713
+taaable:Japanese_rice - dbpedia:Japanese_cruiser_Kinu - Japanese cruiser Kinu - Set(Japanese rice) - Japanese cruiser Kinu - 0.09157509157509158
+taaable:Barley - dbpedia:Barleycup - Barleycup - Set(Barley) - Barleycup - 0.0666666666666667
+taaable:Amaranth - dbpedia:Amaranth_grain - Amaranth grain - Set(Amaranth) - Amaranth grain - 0.08571428571428574
+taaable:Japanese_rice - dbpedia:Japanese_cruiser_Kako - Japanese cruiser Kako - Set(Japanese rice) - Japanese cruiser Kako - 0.09157509157509158
+taaable:Japanese_rice - dbpedia:Japanese_Korea - Japanese Korea - Set(Japanese rice) - Japanese Korea - 0.07362637362637363
+taaable:Arborio - dbpedia:Arborio - Arborio - Set(Arborio) - Arborio - 0.0
+taaable:Japanese_rice - dbpedia:Japanese_paper - Japanese paper - Set(Japanese rice) - Japanese paper - 0.0918081918081918
+taaable:White_rice - dbpedia:White_Alice - White Alice - Set(White rice) - White Alice - 0.056363636363636324
+taaable:White_rice - dbpedia:White_cells - White cells - Set(White rice) - White cells - 0.09454545454545456
+taaable:Rye - dbpedia:Ryze - Ryze - Set(Rye) - Ryze - 0.0666666666666667
+taaable:Millet - dbpedia:Millinewton - Millinewton - Set(Millet) - Millinewton - 0.09090909090909088
+taaable:Brown_rice - dbpedia:Brown_Brigade - Brown Brigade - Set(Brown rice) - Brown Brigade - 0.0815384615384615
+taaable:Japanese_rice - dbpedia:Japanese_colonies - Japanese colonies - Set(Japanese rice) - Japanese colonies - 0.09087481146304677
+taaable:Japanese_rice - dbpedia:Japanese_particle - Japanese particle - Set(Japanese rice) - Japanese particle - 0.0470588235294118
+taaable:Amaranth - dbpedia:Amaranth_dye - Amaranth dye - Set(Amaranth) - Amaranth dye - 0.0666666666666667
+taaable:Kasha - dbpedia:Kashgai - Kashgai - Set(Kasha) - Kashgai - 0.057142857142857134
+taaable:Kasha - dbpedia:Kashkai - Kashkai - Set(Kasha) - Kashkai - 0.057142857142857134
+taaable:Amaranth - dbpedia:Amarynthia - Amarynthia - Set(Amaranth) - Amarynthia - 0.08499999999999996
+taaable:Kasha - dbpedia:Kashi_Math - Kashi Math - Set(Kasha) - Kashi Math - 0.09999999999999998
+taaable:Japanese_rice - dbpedia:Japanese_toilet - Japanese toilet - Set(Japanese rice) - Japanese toilet - 0.08410256410256414
+taaable:Instant_rice - dbpedia:Instanced - Instanced - Set(Instant rice) - Instanced - 0.08888888888888895
+taaable:Popcorn - dbpedia:Poproc - Poproc - Set(Popcorn) - Poproc - 0.07222222222222219
+taaable:Jasmine_rice - dbpedia:Jasmine_Trinca - Jasmine Trinca - Set(Jasmine rice) - Jasmine Trinca - 0.05952380952380951
+taaable:Barley - dbpedia:Barleyport - Barleyport - Set(Barley) - Barleyport - 0.07999999999999999
+taaable:Spelt - dbpedia:Spellthief - Spellthief - Set(Spelt) - Spellthief - 0.09999999999999998
+taaable:Quick_oat - dbpedia:Quickie_Koala - Quickie Koala - Set(Quick oat) - Quickie Koala - 0.09914529914529917
+taaable:Popcorn - dbpedia:Popcorn_(2006) - Popcorn (2006) - Set(Popcorn) - Popcorn (2006) - 0.09999999999999998
+taaable:Japanese_rice - dbpedia:Japanese_cruiser_Azuma - Japanese cruiser Azuma - Set(Japanese rice) - Japanese cruiser Azuma - 0.09720279720279713
+taaable:Japanese_rice - dbpedia:Japanese_cruiser_Unebi - Japanese cruiser Unebi - Set(Japanese rice) - Japanese cruiser Unebi - 0.09720279720279713
+taaable:Japanese_rice - dbpedia:Japanese_sea - Japanese sea - Set(Japanese rice) - Japanese sea - 0.07948717948717947
+taaable:Instant_rice - dbpedia:Instant_center - Instant center - Set(Instant rice) - Instant center - 0.07770562770562775
+taaable:Japanese_rice - dbpedia:Japanese_Peruvian - Japanese Peruvian - Set(Japanese rice) - Japanese Peruvian - 0.09087481146304677
+taaable:Japanese_rice - dbpedia:Japanese_cruiser_Suma - Japanese cruiser Suma - Set(Japanese rice) - Japanese cruiser Suma - 0.09157509157509158
+taaable:Japanese_rice - dbpedia:Japanese_cruiser_Otowa - Japanese cruiser Otowa - Set(Japanese rice) - Japanese cruiser Otowa - 0.09720279720279713
+taaable:Kasha - dbpedia:Kashi - Kashi - Set(Kasha) - Kashi - 0.07999999999999999
+taaable:Kasha - dbpedia:Kaisha - Kaisha - Set(Kasha) - Kaisha - 0.04444444444444438
+taaable:Japanese_rice - dbpedia:Japanese_cruiser_Izumi - Japanese cruiser Izumi - Set(Japanese rice) - Japanese cruiser Izumi - 0.09720279720279713
+taaable:Millet - dbpedia:Mollet - Mollet - Set(Millet) - Mollet - 0.09999999999999995
+taaable:Arborio - dbpedia:Arboricola - Arboricola - Set(Arborio) - Arboricola - 0.059999999999999984
+taaable:Brown_rice - dbpedia:Brown_sticker - Brown sticker - Set(Brown rice) - Brown sticker - 0.0815384615384615
+taaable:Brown_basmati_rice - dbpedia:Brown_sticker - Brown sticker - Set(Brown basmati rice) - Brown sticker - 0.0987179487179487
+taaable:Japanese_rice - dbpedia:Japanese_Air_Force - Japanese Air Force - Set(Japanese rice) - Japanese Air Force - 0.07094017094017085
+taaable:Barley - dbpedia:Bialey - Bialey - Set(Barley) - Bialey - 0.09999999999999995
+taaable:Millet - dbpedia:Millen - Millen - Set(Millet) - Millen - 0.06666666666666662
+taaable:White_rice - dbpedia:White_sucker - White sucker - Set(White rice) - White sucker - 0.09222222222222226
+taaable:White_rice - dbpedia:White_rock-rose - White rock-rose - Set(White rice) - White rock-rose - 0.09999999999999998
+taaable:White_rice - dbpedia:White_rockrose - White rockrose - Set(White rice) - White rockrose - 0.09142857142857144
+taaable:White_rice - dbpedia:White_rock_rose - White rock rose - Set(White rice) - White rock rose - 0.09999999999999998
+taaable:Japanese_rice - dbpedia:Japanese_cruiser_Soya - Japanese cruiser Soya - Set(Japanese rice) - Japanese cruiser Soya - 0.09157509157509158
+taaable:Japanese_rice - dbpedia:Japanese_cruiser_Saien - Japanese cruiser Saien - Set(Japanese rice) - Japanese cruiser Saien - 0.09720279720279713
+taaable:Quinoa - dbpedia:Quinoxalines - Quinoxalines - Set(Quinoa) - Quinoxalines - 0.09999999999999998
+taaable:Kasha - dbpedia:Kashyapas - Kashyapas - Set(Kasha) - Kashyapas - 0.08888888888888895
+taaable:Kasha - dbpedia:Kashara - Kashara - Set(Kasha) - Kashara - 0.057142857142857134
+taaable:White_rice - dbpedia:White_Coppice - White Coppice - Set(White rice) - White Coppice - 0.0815384615384615
+taaable:Japanese_rice - dbpedia:Japanese_cruiser_Aso - Japanese cruiser Aso - Set(Japanese rice) - Japanese cruiser Aso - 0.08538461538461542
+taaable:Amaranth - dbpedia:Amarpatan - Amarpatan - Set(Amaranth) - Amarpatan - 0.09801587301587301
+taaable:Amaranth - dbpedia:Ambarnath - Ambarnath - Set(Amaranth) - Ambarnath - 0.06296296296296297
+taaable:Popcorn - dbpedia:Popcount - Popcount - Set(Popcorn) - Popcount - 0.07857142857142856
+taaable:White_rice - dbpedia:White_ginger - White ginger - Set(White rice) - White ginger - 0.09222222222222226
+taaable:White_rice - dbpedia:White_Ginger - White Ginger - Set(White rice) - White Ginger - 0.09222222222222226
+taaable:Barley - dbpedia:Baley - Baley - Set(Barley) - Baley - 0.04444444444444438
+taaable:Popcorn - dbpedia:Popcorn_maker - Popcorn maker - Set(Popcorn) - Popcorn maker - 0.09230769230769231
+taaable:Barley - dbpedia:Briley - Briley - Set(Barley) - Briley - 0.09999999999999995
+taaable:Japanese_rice - dbpedia:Japanese_Parliament - Japanese Parliament - Set(Japanese rice) - Japanese Parliament - 0.08906882591093115
+taaable:Arborio - dbpedia:Arrowbio - Arrowbio - Set(Arborio) - Arrowbio - 0.07142857142857144
+taaable:Japanese_rice - dbpedia:Japanese_cruiser_Yodo - Japanese cruiser Yodo - Set(Japanese rice) - Japanese cruiser Yodo - 0.09157509157509158
+taaable:White_rice - dbpedia:White_Drin - White Drin - Set(White rice) - White Drin - 0.07999999999999999
+taaable:Brown_rice - dbpedia:Brow_ridge - Brow ridge - Set(Brown rice) - Brow ridge - 0.07999999999999999
+taaable:Millet - dbpedia:Millend - Millend - Set(Millet) - Millend - 0.09047619047619049
+taaable:Barley - dbpedia:Bardsley - Bardsley - Set(Barley) - Bardsley - 0.058333333333333355
+taaable:White_rice - dbpedia:White_Privilege - White Privilege - Set(White rice) - White Privilege - 0.09999999999999998
+taaable:Barley - dbpedia:Bahrey - Bahrey - Set(Barley) - Bahrey - 0.08888888888888884
+taaable:White_rice - dbpedia:White_stripez - White stripez - Set(White rice) - White stripez - 0.0815384615384615
+taaable:Japanese_rice - dbpedia:Japanese_marten - Japanese marten - Set(Japanese rice) - Japanese marten - 0.08410256410256414
+taaable:Japanese_rice - dbpedia:..... - ..... - Set(Japanese rice) - ..... - 0.0
+taaable:Amaranth - dbpedia:..... - ..... - Set(Amaranth) - ..... - 0.0
+taaable:Millet - dbpedia:..... - ..... - Set(Millet) - ..... - 0.0
+taaable:Wild_rice - dbpedia:..... - ..... - Set(Wild rice) - ..... - 0.0
+taaable:Whole_kernel_corn - dbpedia:..... - ..... - Set(Whole kernel corn) - ..... - 0.0
+taaable:Cream_of_rice - dbpedia:..... - ..... - Set(Cream of rice) - ..... - 0.0
+taaable:Brown_rice - dbpedia:..... - ..... - Set(Brown rice) - ..... - 0.0
+taaable:Kasha - dbpedia:..... - ..... - Set(Kasha) - ..... - 0.0
+taaable:Quick_oat - dbpedia:..... - ..... - Set(Quick oat) - ..... - 0.0
+taaable:Hominy_grit - dbpedia:..... - ..... - Set(Hominy grit) - ..... - 0.0
+taaable:Glutinous_rice - dbpedia:..... - ..... - Set(Glutinous rice) - ..... - 0.0
+taaable:Arborio - dbpedia:..... - ..... - Set(Arborio) - ..... - 0.0
+taaable:Jasmine_rice - dbpedia:..... - ..... - Set(Jasmine rice) - ..... - 0.0
+taaable:Long-2Dgrain_white_rice - dbpedia:..... - ..... - Set(Long-grain white rice) - ..... - 0.0
+taaable:Short-2Dgrain_brown_rice - dbpedia:..... - ..... - Set(Short-grain brown rice) - ..... - 0.0
+taaable:Fine_bulgur - dbpedia:..... - ..... - Set(Fine bulgur) - ..... - 0.0
+taaable:White_rice - dbpedia:..... - ..... - Set(White rice) - ..... - 0.0
+taaable:Spelt - dbpedia:..... - ..... - Set(Spelt) - ..... - 0.0
+taaable:Cracked_wheat - dbpedia:..... - ..... - Set(Cracked wheat) - ..... - 0.0
+taaable:White_basmati_rice - dbpedia:..... - ..... - Set(White basmati rice) - ..... - 0.0
+taaable:Puffed_rice - dbpedia:..... - ..... - Set(Puffed rice) - ..... - 0.0
+taaable:Barley - dbpedia:..... - ..... - Set(Barley) - ..... - 0.0
+taaable:Rolled_oat - dbpedia:..... - ..... - Set(Rolled oat) - ..... - 0.0
+taaable:Quinoa - dbpedia:..... - ..... - Set(Quinoa) - ..... - 0.0
+taaable:Brown_basmati_rice - dbpedia:..... - ..... - Set(Brown basmati rice) - ..... - 0.0
+taaable:Popcorn - dbpedia:..... - ..... - Set(Popcorn) - ..... - 0.0
+taaable:Rye - dbpedia:..... - ..... - Set(Rye) - ..... - 0.0
+taaable:Whole_wheat - dbpedia:..... - ..... - Set(Whole wheat) - ..... - 0.0
+taaable:Converted_rice - dbpedia:..... - ..... - Set(Converted rice) - ..... - 0.0
+taaable:Instant_rice - dbpedia:..... - ..... - Set(Instant rice) - ..... - 0.0
+taaable:Quinoa - dbpedia:Quinoa_oil - Quinoa oil - Set(Quinoa) - Quinoa oil - 0.07999999999999999
+taaable:Barley - dbpedia:Barley_water - Barley water - Set(Barley) - Barley water - 0.09999999999999998
+taaable:Japanese_rice - dbpedia:Japanese_mode - Japanese mode - Set(Japanese rice) - Japanese mode - 0.09230769230769231
+taaable:Barley - dbpedia:Barley-water - Barley-water - Set(Barley) - Barley-water - 0.09999999999999998
+taaable:Barley - dbpedia:Barley_midge - Barley midge - Set(Barley) - Barley midge - 0.09999999999999998
+taaable:Barley - dbpedia:Barley_Bree - Barley Bree - Set(Barley) - Barley Bree - 0.09090909090909088
+taaable:Japanese_rice - dbpedia:Japanese_rice_fish - Japanese rice fish - Set(Japanese rice) - Japanese rice fish - 0.05555555555555553
+taaable:Japanese_rice - dbpedia:Japanese_cherry - Japanese cherry - Set(Japanese rice) - Japanese cherry - 0.07205128205128206
+taaable:Japanese_rice - dbpedia:Japanese_Fiction - Japanese Fiction - Set(Japanese rice) - Japanese Fiction - 0.09326923076923077
+taaable:Japanese_rice - dbpedia:Japanese_fiction - Japanese fiction - Set(Japanese rice) - Japanese fiction - 0.09326923076923077
+taaable:Amaranth - dbpedia:Amatha - Amatha - Set(Amaranth) - Amatha - 0.09722222222222218
+taaable:Kasha - dbpedia:Kashafrud - Kashafrud - Set(Kasha) - Kashafrud - 0.08888888888888895
+taaable:Puffed_rice - dbpedia:Puff_piece - Puff piece - Set(Puffed rice) - Puff piece - 0.07858585858585858
+taaable:Popcorn - dbpedia:Popcorn_noise - Popcorn noise - Set(Popcorn) - Popcorn noise - 0.09230769230769231
+taaable:White_rice - dbpedia:White_air - White air - Set(White rice) - White air - 0.08722222222222215
+taaable:Japanese_rice - dbpedia:Japanese_Article_Number - Japanese Article Number - Set(Japanese rice) - Japanese Article Number - 0.08695652173913049
+taaable:Spelt - dbpedia:Slept - Slept - Set(Spelt) - Slept - 0.06000000000000009
+taaable:Amaranth - dbpedia:Amarynthos - Amarynthos - Set(Amaranth) - Amarynthos - 0.08499999999999996
+taaable:Japanese_rice - dbpedia:Japanese_pilchard - Japanese pilchard - Set(Japanese rice) - Japanese pilchard - 0.09087481146304677
+taaable:Japanese_rice - dbpedia:Japanese_blue_crab - Japanese blue crab - Set(Japanese rice) - Japanese blue crab - 0.0987179487179487
+taaable:White_rice - dbpedia:White_graphite - White graphite - Set(White rice) - White graphite - 0.09142857142857144
+taaable:Japanese_rice - dbpedia:Japanese_eel - Japanese eel - Set(Japanese rice) - Japanese eel - 0.07948717948717947
+taaable:Millet - dbpedia:Millihertz - Millihertz - Set(Millet) - Millihertz - 0.07999999999999999
+taaable:Japanese_rice - dbpedia:Japanese_Samurai - Japanese Samurai - Set(Japanese rice) - Japanese Samurai - 0.09326923076923077
+taaable:Popcorn - dbpedia:Popcron - Popcron - Set(Popcorn) - Popcron - 0.028571428571428536
+taaable:White_rice - dbpedia:White_Birch - White Birch - Set(White rice) - White Birch - 0.07858585858585858
+taaable:Japanese_rice - dbpedia:Japanese_cruiser_Ikoma - Japanese cruiser Ikoma - Set(Japanese rice) - Japanese cruiser Ikoma - 0.09720279720279713
+taaable:Japanese_rice - dbpedia:Japanese_actresses - Japanese actresses - Set(Japanese rice) - Japanese actresses - 0.0987179487179487
+taaable:Kasha - dbpedia:Kasar - Kasar - Set(Kasha) - Kasar - 0.09333333333333331
+taaable:Cream_of_rice - dbpedia:Cream_fresh - Cream fresh - Set(Cream of rice) - Cream fresh - 0.09790209790209792
+taaable:Kasha - dbpedia:Kashira - Kashira - Set(Kasha) - Kashira - 0.057142857142857134
+taaable:Japanese_rice - dbpedia:Japanese_Apricot - Japanese Apricot - Set(Japanese rice) - Japanese Apricot - 0.06538461538461535
+taaable:Instant_rice - dbpedia:Instant_Delivery - Instant Delivery - Set(Instant rice) - Instant Delivery - 0.09734848484848488
+taaable:Brown_rice - dbpedia:Brown_bread - Brown bread - Set(Brown rice) - Brown bread - 0.09454545454545456
+taaable:Kasha - dbpedia:Kashi_math - Kashi math - Set(Kasha) - Kashi math - 0.09999999999999998
+taaable:Japanese_rice - dbpedia:Japanese_pirates - Japanese pirates - Set(Japanese rice) - Japanese pirates - 0.08205128205128202
+taaable:Millet - dbpedia:Mileto - Mileto - Set(Millet) - Mileto - 0.07777777777777772
+taaable:Arborio - dbpedia:Arborio,_Italy - Arborio, Italy - Set(Arborio) - Arborio, Italy - 0.09999999999999998
+taaable:Quinoa - dbpedia:Quiliano - Quiliano - Set(Quinoa) - Quiliano - 0.09722222222222218
+taaable:Japanese_rice - dbpedia:Japanese_Crane - Japanese Crane - Set(Japanese rice) - Japanese Crane - 0.07362637362637363
+taaable:Barley - dbpedia:Bary - Bary - Set(Barley) - Bary - 0.0777777777777778
+taaable:White_rice - dbpedia:White_fibers - White fibers - Set(White rice) - White fibers - 0.09222222222222226
+taaable:Quinoa - dbpedia:Quintano - Quintano - Set(Quinoa) - Quintano - 0.0833333333333333
+taaable:Brown_rice - dbpedia:Brown_noise - Brown noise - Set(Brown rice) - Brown noise - 0.09454545454545456
+taaable:Barley - dbpedia:Barley-Corn - Barley-Corn - Set(Barley) - Barley-Corn - 0.09090909090909088
+taaable:Amaranth - dbpedia:Amaranthine - Amaranthine - Set(Amaranth) - Amaranthine - 0.054545454545454494
+taaable:Japanese_rice - dbpedia:Japanese_voice_actor - Japanese voice actor - Set(Japanese rice) - Japanese voice actor - 0.09538461538461537
+taaable:Brown_basmati_rice - dbpedia:Brown_bat - Brown bat - Set(Brown basmati rice) - Brown bat - 0.09999999999999998
+taaable:White_rice - dbpedia:Whitebridge - Whitebridge - Set(White rice) - Whitebridge - 0.09454545454545456
+taaable:Wild_rice - dbpedia:Wild_Life - Wild Life - Set(Wild rice) - Wild Life - 0.08888888888888895
+taaable:White_rice - dbpedia:Whiteriver - Whiteriver - Set(White rice) - Whiteriver - 0.07999999999999999
+taaable:Millet - dbpedia:Millwater - Millwater - Set(Millet) - Millwater - 0.09999999999999998
+taaable:Japanese_rice - dbpedia:Japanese_address - Japanese address - Set(Japanese rice) - Japanese address - 0.09326923076923077
+taaable:Jasmine_rice - dbpedia:Jasmin_Buric - Jasmin Buric - Set(Jasmine rice) - Jasmin Buric - 0.06666666666666662
+taaable:Jasmine_rice - dbpedia:Jasmin_Buri%C4%87 - Jasmin Burić - Set(Jasmine rice) - Jasmin Burić - 0.09999999999999998
+taaable:White_rice - dbpedia:Whitmerite - Whitmerite - Set(White rice) - Whitmerite - 0.07999999999999999
+taaable:Quinoa - dbpedia:Quinto - Quinto - Set(Quinoa) - Quinto - 0.06666666666666662
+taaable:Japanese_rice - dbpedia:Japanese_Aralia - Japanese Aralia - Set(Japanese rice) - Japanese Aralia - 0.08410256410256414
+taaable:Kasha - dbpedia:Katisha - Katisha - Set(Kasha) - Katisha - 0.07619047619047618
+taaable:White_rice - dbpedia:White_Drini - White Drini - Set(White rice) - White Drini - 0.09454545454545456
+taaable:Instant_rice - dbpedia:Instant_Justice - Instant Justice - Set(Instant rice) - Instant Justice - 0.07
+taaable:Arborio - dbpedia:Arborists - Arborists - Set(Arborio) - Arborists - 0.09523809523809523
+taaable:Amaranth - dbpedia:Amaranth_(color) - Amaranth (color) - Set(Amaranth) - Amaranth (color) - 0.09999999999999998
+taaable:White_rice - dbpedia:White_Mice - White Mice - Set(White rice) - White Mice - 0.040000000000000056
+taaable:White_rice - dbpedia:White_emigre - White emigre - Set(White rice) - White emigre - 0.09222222222222226
+taaable:Barley - dbpedia:Barley_honey - Barley honey - Set(Barley) - Barley honey - 0.09999999999999998
+taaable:Quinoa - dbpedia:Quingao - Quingao - Set(Quinoa) - Quingao - 0.06190476190476188
+taaable:Japanese_rice - dbpedia:Japanese_Chinese - Japanese Chinese - Set(Japanese rice) - Japanese Chinese - 0.09326923076923077
+taaable:Japanese_rice - dbpedia:Japanese_mole - Japanese mole - Set(Japanese rice) - Japanese mole - 0.09230769230769231
+taaable:Japanese_rice - dbpedia:Japanese_incense - Japanese incense - Set(Japanese rice) - Japanese incense - 0.06538461538461535
+taaable:Japanese_rice - dbpedia:Japanese_Incense - Japanese Incense - Set(Japanese rice) - Japanese Incense - 0.09326923076923077
+taaable:White_rice - dbpedia:White_rami - White rami - Set(White rice) - White rami - 0.07999999999999999
+taaable:Jasmine_rice - dbpedia:Jasmine_Richards - Jasmine Richards - Set(Jasmine rice) - Jasmine Richards - 0.09734848484848488
+taaable:Amaranth - dbpedia:Amaranths - Amaranths - Set(Amaranth) - Amaranths - 0.022222222222222254
+taaable:Quinoa - dbpedia:Quincha - Quincha - Set(Quinoa) - Quincha - 0.09047619047619049
+taaable:Japanese_rice - dbpedia:Japanese_tourism - Japanese tourism - Set(Japanese rice) - Japanese tourism - 0.09326923076923077
+taaable:Amaranth - dbpedia:-_- - - - - Set(Amaranth) - - - - 0.0
+taaable:Japanese_rice - dbpedia:-_- - - - - Set(Japanese rice) - - - - 0.0
+taaable:Millet - dbpedia:-_- - - - - Set(Millet) - - - - 0.0
+taaable:Puffed_rice - dbpedia:-_- - - - - Set(Puffed rice) - - - - 0.0
+taaable:Cream_of_rice - dbpedia:-_- - - - - Set(Cream of rice) - - - - 0.0
+taaable:Brown_rice - dbpedia:-_- - - - - Set(Brown rice) - - - - 0.0
+taaable:Whole_kernel_corn - dbpedia:-_- - - - - Set(Whole kernel corn) - - - - 0.0
+taaable:Brown_basmati_rice - dbpedia:-_- - - - - Set(Brown basmati rice) - - - - 0.0
+taaable:Hominy_grit - dbpedia:-_- - - - - Set(Hominy grit) - - - - 0.0
+taaable:Glutinous_rice - dbpedia:-_- - - - - Set(Glutinous rice) - - - - 0.0
+taaable:Quick_oat - dbpedia:-_- - - - - Set(Quick oat) - - - - 0.0
+taaable:Converted_rice - dbpedia:-_- - - - - Set(Converted rice) - - - - 0.0
+taaable:Long-2Dgrain_white_rice - dbpedia:-_- - - - - Set(Long-grain white rice) - - - - 0.0
+taaable:Short-2Dgrain_brown_rice - dbpedia:-_- - - - - Set(Short-grain brown rice) - - - - 0.0
+taaable:Jasmine_rice - dbpedia:-_- - - - - Set(Jasmine rice) - - - - 0.0
+taaable:Popcorn - dbpedia:-_- - - - - Set(Popcorn) - - - - 0.0
+taaable:White_rice - dbpedia:-_- - - - - Set(White rice) - - - - 0.0
+taaable:Whole_wheat - dbpedia:-_- - - - - Set(Whole wheat) - - - - 0.0
+taaable:Cracked_wheat - dbpedia:-_- - - - - Set(Cracked wheat) - - - - 0.0
+taaable:Spelt - dbpedia:-_- - - - - Set(Spelt) - - - - 0.0
+taaable:Wild_rice - dbpedia:-_- - - - - Set(Wild rice) - - - - 0.0
+taaable:Instant_rice - dbpedia:-_- - - - - Set(Instant rice) - - - - 0.0
+taaable:Rolled_oat - dbpedia:-_- - - - - Set(Rolled oat) - - - - 0.0
+taaable:Barley - dbpedia:-_- - - - - Set(Barley) - - - - 0.0
+taaable:Kasha - dbpedia:-_- - - - - Set(Kasha) - - - - 0.0
+taaable:Rye - dbpedia:-_- - - - - Set(Rye) - - - - 0.0
+taaable:White_basmati_rice - dbpedia:-_- - - - - Set(White basmati rice) - - - - 0.0
+taaable:Arborio - dbpedia:-_- - - - - Set(Arborio) - - - - 0.0
+taaable:Fine_bulgur - dbpedia:-_- - - - - Set(Fine bulgur) - - - - 0.0
+taaable:Quinoa - dbpedia:-_- - - - - Set(Quinoa) - - - - 0.0
+taaable:Millet - dbpedia:._. - . . - Set(Millet) - . . - 0.0
+taaable:Wild_rice - dbpedia:._. - . . - Set(Wild rice) - . . - 0.0
+taaable:Amaranth - dbpedia:._. - . . - Set(Amaranth) - . . - 0.0
+taaable:Japanese_rice - dbpedia:._. - . . - Set(Japanese rice) - . . - 0.0
+taaable:Brown_rice - dbpedia:._. - . . - Set(Brown rice) - . . - 0.0
+taaable:Kasha - dbpedia:._. - . . - Set(Kasha) - . . - 0.0
+taaable:Cream_of_rice - dbpedia:._. - . . - Set(Cream of rice) - . . - 0.0
+taaable:Whole_kernel_corn - dbpedia:._. - . . - Set(Whole kernel corn) - . . - 0.0
+taaable:Glutinous_rice - dbpedia:._. - . . - Set(Glutinous rice) - . . - 0.0
+taaable:Arborio - dbpedia:._. - . . - Set(Arborio) - . . - 0.0
+taaable:Hominy_grit - dbpedia:._. - . . - Set(Hominy grit) - . . - 0.0
+taaable:Quick_oat - dbpedia:._. - . . - Set(Quick oat) - . . - 0.0
+taaable:Short-2Dgrain_brown_rice - dbpedia:._. - . . - Set(Short-grain brown rice) - . . - 0.0
+taaable:Long-2Dgrain_white_rice - dbpedia:._. - . . - Set(Long-grain white rice) - . . - 0.0
+taaable:Fine_bulgur - dbpedia:._. - . . - Set(Fine bulgur) - . . - 0.0
+taaable:Jasmine_rice - dbpedia:._. - . . - Set(Jasmine rice) - . . - 0.0
+taaable:Spelt - dbpedia:._. - . . - Set(Spelt) - . . - 0.0
+taaable:Cracked_wheat - dbpedia:._. - . . - Set(Cracked wheat) - . . - 0.0
+taaable:White_basmati_rice - dbpedia:._. - . . - Set(White basmati rice) - . . - 0.0
+taaable:White_rice - dbpedia:._. - . . - Set(White rice) - . . - 0.0
+taaable:Barley - dbpedia:._. - . . - Set(Barley) - . . - 0.0
+taaable:Rolled_oat - dbpedia:._. - . . - Set(Rolled oat) - . . - 0.0
+taaable:Puffed_rice - dbpedia:._. - . . - Set(Puffed rice) - . . - 0.0
+taaable:Quinoa - dbpedia:._. - . . - Set(Quinoa) - . . - 0.0
+taaable:Popcorn - dbpedia:._. - . . - Set(Popcorn) - . . - 0.0
+taaable:Converted_rice - dbpedia:._. - . . - Set(Converted rice) - . . - 0.0
+taaable:Brown_basmati_rice - dbpedia:._. - . . - Set(Brown basmati rice) - . . - 0.0
+taaable:Whole_wheat - dbpedia:._. - . . - Set(Whole wheat) - . . - 0.0
+taaable:Instant_rice - dbpedia:._. - . . - Set(Instant rice) - . . - 0.0
+taaable:Rye - dbpedia:._. - . . - Set(Rye) - . . - 0.0
+taaable:Brown_rice - dbpedia:Brown_Field - Brown Field - Set(Brown rice) - Brown Field - 0.09454545454545456
+taaable:Kasha - dbpedia:Kashdejan - Kashdejan - Set(Kasha) - Kashdejan - 0.08888888888888895
+taaable:Japanese_rice - dbpedia:Japanese_cruiser_Oyodo - Japanese cruiser Oyodo - Set(Japanese rice) - Japanese cruiser Oyodo - 0.09720279720279713
+taaable:Quinoa - dbpedia:Quinotaur - Quinotaur - Set(Quinoa) - Quinotaur - 0.0666666666666667
+taaable:Japanese_rice - dbpedia:Japanese_cruiser_Myoko - Japanese cruiser Myoko - Set(Japanese rice) - Japanese cruiser Myoko - 0.09720279720279713
+taaable:Popcorn - dbpedia:Popcorn_Press - Popcorn Press - Set(Popcorn) - Popcorn Press - 0.09230769230769231
+taaable:White_rice - dbpedia:White_primaries - White primaries - Set(White rice) - White primaries - 0.09999999999999998
+taaable:Kasha - dbpedia:Kashagan - Kashagan - Set(Kasha) - Kashagan - 0.075
+taaable:White_rice - dbpedia:White_tiger - White tiger - Set(White rice) - White tiger - 0.07858585858585858
+taaable:Japanese_rice - dbpedia:Japanese_Korean - Japanese Korean - Set(Japanese rice) - Japanese Korean - 0.08410256410256414
+taaable:Japanese_rice - dbpedia:Japanese_regions - Japanese regions - Set(Japanese rice) - Japanese regions - 0.08205128205128202
+taaable:Instant_rice - dbpedia:Instant_ramen - Instant ramen - Set(Instant rice) - Instant ramen - 0.07948717948717947
+taaable:White_rice - dbpedia:White_rock_lake - White rock lake - Set(White rice) - White rock lake - 0.09999999999999998
+taaable:Rye - dbpedia:Ryme - Ryme - Set(Rye) - Ryme - 0.0666666666666667
+taaable:Kasha - dbpedia:Kasba - Kasba - Set(Kasha) - Kasba - 0.09333333333333331
+taaable:Wild_rice - dbpedia:W!ild_Rice - W!ild Rice - Set(Wild rice) - W!ild Rice - 0.09333333333333327
+taaable:White_rice - dbpedia:White_French - White French - Set(White rice) - White French - 0.09222222222222226
+taaable:Quick_oat - dbpedia:QuickShot - QuickShot - Set(Quick oat) - QuickShot - 0.08888888888888895
+taaable:White_rice - dbpedia:White_Spires - White Spires - Set(White rice) - White Spires - 0.09222222222222226
+taaable:Japanese_rice - dbpedia:Japanese_cruiser_Tama - Japanese cruiser Tama - Set(Japanese rice) - Japanese cruiser Tama - 0.09157509157509158
+taaable:Rye - dbpedia:RYE - RYE - Set(Rye) - RYE - 0.0
+taaable:Barley - dbpedia:Barfle - Barfle - Set(Barley) - Barfle - 0.07777777777777772
+taaable:Japanese_rice - dbpedia:Japanese_Tears - Japanese Tears - Set(Japanese rice) - Japanese Tears - 0.0918081918081918
+taaable:Quick_oat - dbpedia:Quickshot - Quickshot - Set(Quick oat) - Quickshot - 0.08888888888888895
+taaable:Japanese_rice - dbpedia:Japanese_lily - Japanese lily - Set(Japanese rice) - Japanese lily - 0.09230769230769231
+taaable:Japanese_rice - dbpedia:Japanese_Lily - Japanese Lily - Set(Japanese rice) - Japanese Lily - 0.09230769230769231
+taaable:Japanese_rice - dbpedia:Japanese_cruiser_Aoba - Japanese cruiser Aoba - Set(Japanese rice) - Japanese cruiser Aoba - 0.09157509157509158
+taaable:Japanese_rice - dbpedia:Japanese_cookery - Japanese cookery - Set(Japanese rice) - Japanese cookery - 0.08205128205128202
+taaable:Wild_rice - dbpedia:Wild_Edric - Wild Edric - Set(Wild rice) - Wild Edric - 0.06222222222222218
+taaable:Japanese_rice - dbpedia:Japanese_fencing - Japanese fencing - Set(Japanese rice) - Japanese fencing - 0.08205128205128202
+taaable:Japanese_rice - dbpedia:Japanese_society - Japanese society - Set(Japanese rice) - Japanese society - 0.08205128205128202
+taaable:Millet - dbpedia:Millime - Millime - Set(Millet) - Millime - 0.09047619047619049
+taaable:Millet - dbpedia:Millage_tax - Millage tax - Set(Millet) - Millage tax - 0.09090909090909088
+taaable:Millet - dbpedia:Millage - Millage - Set(Millet) - Millage - 0.09047619047619049
+taaable:White_rice - dbpedia:Whites_Bridge - Whites Bridge - Set(White rice) - Whites Bridge - 0.0815384615384615
+taaable:Instant_rice - dbpedia:Instant-Dict - Instant-Dict - Set(Instant rice) - Instant-Dict - 0.09999999999999998
+taaable:White_rice - dbpedia:White's_Bridge - White's Bridge - Set(White rice) - White's Bridge - 0.09142857142857144
+taaable:Converted_rice - dbpedia:Converted_barn - Converted barn - Set(Converted rice) - Converted barn - 0.08571428571428574
+taaable:Japanese_rice - dbpedia:Japanese_war_crime - Japanese war crime - Set(Japanese rice) - Japanese war crime - 0.07094017094017085
+taaable:Instant_rice - dbpedia:Instant_Vintage - Instant Vintage - Set(Instant rice) - Instant Vintage - 0.09999999999999998
+taaable:Instant_rice - dbpedia:Instant_Khichdi - Instant Khichdi - Set(Instant rice) - Instant Khichdi - 0.09999999999999998
+taaable:Jasmine_rice - dbpedia:Jasmin_Geisel - Jasmin Geisel - Set(Jasmine rice) - Jasmin Geisel - 0.09948717948717946
+taaable:Kasha - dbpedia:Kash_Karib - Kash Karib - Set(Kasha) - Kash Karib - 0.09999999999999998
+taaable:Japanese_rice - dbpedia:Japanee - Japanee - Set(Japanese rice) - Japanee - 0.09230769230769231
+taaable:Barley - dbpedia:Barely - Barely - Set(Barley) - Barely - 0.03888888888888883
+taaable:White_rice - dbpedia:White_racism - White racism - Set(White rice) - White racism - 0.09222222222222226
+taaable:Barley - dbpedia:Barleysnail - Barleysnail - Set(Barley) - Barleysnail - 0.09090909090909088
+taaable:Quick_oat - dbpedia:Quicktax - Quicktax - Set(Quick oat) - Quicktax - 0.09801587301587301
+taaable:Japanese_rice - dbpedia:Japanese_Imperial - Japanese Imperial - Set(Japanese rice) - Japanese Imperial - 0.09087481146304677
+taaable:Brown_rice - dbpedia:Brown_Boveri - Brown Boveri - Set(Brown rice) - Brown Boveri - 0.09222222222222226
+taaable:Japanese_rice - dbpedia:Japanese_currency - Japanese currency - Set(Japanese rice) - Japanese currency - 0.09087481146304677
+taaable:Japanese_rice - dbpedia:Japanese_millet - Japanese millet - Set(Japanese rice) - Japanese millet - 0.08410256410256414
+taaable:Japanese_rice - dbpedia:Japanese_Millet - Japanese Millet - Set(Japanese rice) - Japanese Millet - 0.08410256410256414
+taaable:White_rice - dbpedia:Whitney_Pier - Whitney Pier - Set(White rice) - Whitney Pier - 0.09222222222222226
+taaable:Amaranth - dbpedia:Aramanth - Aramanth - Set(Amaranth) - Aramanth - 0.037499999999999964
+taaable:Popcorn - dbpedia:Popcorn.net - Popcorn.net - Set(Popcorn) - Popcorn.net - 0.07272727272727272
+taaable:Amaranth - dbpedia:Amardian - Amardian - Set(Amaranth) - Amardian - 0.09999999999999998
+taaable:Brown_rice - dbpedia:Brown_race - Brown race - Set(Brown rice) - Brown race - 0.040000000000000056
+taaable:Japanese_rice - dbpedia:Japanese_Titles - Japanese Titles - Set(Japanese rice) - Japanese Titles - 0.08410256410256414
+taaable:Japanese_rice - dbpedia:Japanese_reggae - Japanese reggae - Set(Japanese rice) - Japanese reggae - 0.08410256410256414
+taaable:White_basmati_rice - dbpedia:White_Latin_American - White Latin American - Set(White basmati rice) - White Latin American - 0.09972222222222217
+taaable:Barley - dbpedia:Barley_tea - Barley tea - Set(Barley) - Barley tea - 0.07999999999999999
+taaable:Japanese_rice - dbpedia:Japanese_clover - Japanese clover - Set(Japanese rice) - Japanese clover - 0.07205128205128206
+taaable:White_rice - dbpedia:White_cd - White cd - Set(White rice) - White cd - 0.08499999999999996
+taaable:Quinoa - dbpedia:Quinate - Quinate - Set(Quinoa) - Quinate - 0.09047619047619049
+taaable:White_rice - dbpedia:White_coater - White coater - Set(White rice) - White coater - 0.09222222222222226
+taaable:Cream_of_rice - dbpedia:Cream_slice - Cream slice - Set(Cream of rice) - Cream slice - 0.09790209790209792
+taaable:White_rice - dbpedia:White_Train - White Train - Set(White rice) - White Train - 0.09454545454545456
+taaable:Kasha - dbpedia:Kasihta - Kasihta - Set(Kasha) - Kasihta - 0.06666666666666665
+taaable:Puffed_rice - dbpedia:Puffed_rice_cakes - Puffed rice cakes - Set(Puffed rice) - Puffed rice cakes - 0.07058823529411766
+taaable:Japanese_rice - dbpedia:Japanese_erotica - Japanese erotica - Set(Japanese rice) - Japanese erotica - 0.06826923076923072
+taaable:Japanese_rice - dbpedia:Japanese_Snipe - Japanese Snipe - Set(Japanese rice) - Japanese Snipe - 0.07362637362637363
+taaable:Jasmine_rice - dbpedia:Jamie_Price - Jamie Price - Set(Jasmine rice) - Jamie Price - 0.06868686868686877
+taaable:Millet - dbpedia:---- - ---- - Set(Millet) - ---- - 0.0
+taaable:Japanese_rice - dbpedia:---- - ---- - Set(Japanese rice) - ---- - 0.0
+taaable:Wild_rice - dbpedia:---- - ---- - Set(Wild rice) - ---- - 0.0
+taaable:Amaranth - dbpedia:---- - ---- - Set(Amaranth) - ---- - 0.0
+taaable:Brown_rice - dbpedia:---- - ---- - Set(Brown rice) - ---- - 0.0
+taaable:Whole_kernel_corn - dbpedia:---- - ---- - Set(Whole kernel corn) - ---- - 0.0
+taaable:Kasha - dbpedia:---- - ---- - Set(Kasha) - ---- - 0.0
+taaable:Cream_of_rice - dbpedia:---- - ---- - Set(Cream of rice) - ---- - 0.0
+taaable:Glutinous_rice - dbpedia:---- - ---- - Set(Glutinous rice) - ---- - 0.0
+taaable:Quick_oat - dbpedia:---- - ---- - Set(Quick oat) - ---- - 0.0
+taaable:Arborio - dbpedia:---- - ---- - Set(Arborio) - ---- - 0.0
+taaable:Hominy_grit - dbpedia:---- - ---- - Set(Hominy grit) - ---- - 0.0
+taaable:Short-2Dgrain_brown_rice - dbpedia:---- - ---- - Set(Short-grain brown rice) - ---- - 0.0
+taaable:Jasmine_rice - dbpedia:---- - ---- - Set(Jasmine rice) - ---- - 0.0
+taaable:Fine_bulgur - dbpedia:---- - ---- - Set(Fine bulgur) - ---- - 0.0
+taaable:Long-2Dgrain_white_rice - dbpedia:---- - ---- - Set(Long-grain white rice) - ---- - 0.0
+taaable:Spelt - dbpedia:---- - ---- - Set(Spelt) - ---- - 0.0
+taaable:White_rice - dbpedia:---- - ---- - Set(White rice) - ---- - 0.0
+taaable:White_basmati_rice - dbpedia:---- - ---- - Set(White basmati rice) - ---- - 0.0
+taaable:Cracked_wheat - dbpedia:---- - ---- - Set(Cracked wheat) - ---- - 0.0
+taaable:Barley - dbpedia:---- - ---- - Set(Barley) - ---- - 0.0
+taaable:Puffed_rice - dbpedia:---- - ---- - Set(Puffed rice) - ---- - 0.0
+taaable:Rolled_oat - dbpedia:---- - ---- - Set(Rolled oat) - ---- - 0.0
+taaable:Quinoa - dbpedia:---- - ---- - Set(Quinoa) - ---- - 0.0
+taaable:Popcorn - dbpedia:---- - ---- - Set(Popcorn) - ---- - 0.0
+taaable:Brown_basmati_rice - dbpedia:---- - ---- - Set(Brown basmati rice) - ---- - 0.0
+taaable:Rye - dbpedia:---- - ---- - Set(Rye) - ---- - 0.0
+taaable:Whole_wheat - dbpedia:---- - ---- - Set(Whole wheat) - ---- - 0.0
+taaable:Instant_rice - dbpedia:---- - ---- - Set(Instant rice) - ---- - 0.0
+taaable:Converted_rice - dbpedia:---- - ---- - Set(Converted rice) - ---- - 0.0
+taaable:Brown_rice - dbpedia:Browns_Line - Browns Line - Set(Brown rice) - Browns Line - 0.09454545454545456
+taaable:Wild_rice - dbpedia:Wild_Nine - Wild Nine - Set(Wild rice) - Wild Nine - 0.08888888888888895
+taaable:Kasha - dbpedia:Kabsah - Kabsah - Set(Kasha) - Kabsah - 0.0977777777777777
+taaable:Japanese_rice - dbpedia:Japanese_knife - Japanese knife - Set(Japanese rice) - Japanese knife - 0.07362637362637363
+taaable:Wild_rice - dbpedia:Wildrider - Wildrider - Set(Wild rice) - Wildrider - 0.08888888888888895
+taaable:Japanese_rice - dbpedia:Japanese_spicebush - Japanese spicebush - Set(Japanese rice) - Japanese spicebush - 0.08205128205128202
+taaable:Kasha - dbpedia:Kashal-Tee - Kashal-Tee - Set(Kasha) - Kashal-Tee - 0.09999999999999998
+taaable:Kasha - dbpedia:Kashina - Kashina - Set(Kasha) - Kashina - 0.057142857142857134
+taaable:Quinoa - dbpedia:Quinophan - Quinophan - Set(Quinoa) - Quinophan - 0.0666666666666667
+taaable:Japanese_rice - dbpedia:Japanese_slipper - Japanese slipper - Set(Japanese rice) - Japanese slipper - 0.08205128205128202
+taaable:Quinoa - dbpedia:Quin - Quin - Set(Quinoa) - Quin - 0.0666666666666667
+taaable:Jasmine_rice - dbpedia:Jasmine_Choi - Jasmine Choi - Set(Jasmine rice) - Jasmine Choi - 0.09999999999999998
+taaable:Millet - dbpedia:Mille_Pattes - Mille Pattes - Set(Millet) - Mille Pattes - 0.09999999999999998
+taaable:Japanese_rice - dbpedia:Japanese_Numbering - Japanese Numbering - Set(Japanese rice) - Japanese Numbering - 0.0987179487179487
+taaable:Whole_wheat - dbpedia:Whole_Oats - Whole Oats - Set(Whole wheat) - Whole Oats - 0.09454545454545456
+taaable:Converted_rice - dbpedia:Convert_or_die - Convert or die - Set(Converted rice) - Convert or die - 0.09047619047619049
+taaable:Wild_rice - dbpedia:Wild_river - Wild river - Set(Wild rice) - Wild river - 0.06222222222222218
+taaable:Amaranth - dbpedia:Amarantus - Amarantus - Set(Amaranth) - Amarantus - 0.06944444444444448
+taaable:Japanese_rice - dbpedia:Japanese_Koreans - Japanese Koreans - Set(Japanese rice) - Japanese Koreans - 0.09326923076923077
+taaable:White_rice - dbpedia:White_Karee - White Karee - Set(White rice) - White Karee - 0.09454545454545456
+taaable:Japanese_rice - dbpedia:Japanese_ring - Japanese ring - Set(Japanese rice) - Japanese ring - 0.061538461538461514
+taaable:Quick_oat - dbpedia:QuickSpot - QuickSpot - Set(Quick oat) - QuickSpot - 0.08888888888888895
+taaable:Quick_oat - dbpedia:Quick_count - Quick count - Set(Quick oat) - Quick count - 0.07676767676767682
+taaable:Quick_oat - dbpedia:Quick_Count - Quick Count - Set(Quick oat) - Quick Count - 0.07676767676767682
+taaable:White_rice - dbpedia:White_Prince - White Prince - Set(White rice) - White Prince - 0.033333333333333284
+taaable:Japanese_rice - dbpedia:Japanese_cricket_team - Japanese cricket team - Set(Japanese rice) - Japanese cricket team - 0.09157509157509158
+taaable:Instant_rice - dbpedia:Instant_Teen - Instant Teen - Set(Instant rice) - Instant Teen - 0.09999999999999998
+taaable:Instant_rice - dbpedia:Instant_Search - Instant Search - Set(Instant rice) - Instant Search - 0.07770562770562775
+taaable:Japanese_rice - dbpedia:Japanese_hornets - Japanese hornets - Set(Japanese rice) - Japanese hornets - 0.09326923076923077
+taaable:Japanese_rice - dbpedia:Japanese_counter - Japanese counter - Set(Japanese rice) - Japanese counter - 0.08205128205128202
+taaable:Brown_rice - dbpedia:Brown_Yorkie - Brown Yorkie - Set(Brown rice) - Brown Yorkie - 0.07
+taaable:Quick_oat - dbpedia:Quickspot - Quickspot - Set(Quick oat) - Quickspot - 0.08888888888888895
+taaable:White_rice - dbpedia:White_Rice - White Rice - Set(White rice) - White Rice - 0.0
+taaable:Amaranth - dbpedia:Amaranthia - Amaranthia - Set(Amaranth) - Amaranthia - 0.040000000000000056
+taaable:Amaranth - dbpedia:- - - - Set(Amaranth) - - - 0.0
+taaable:Millet - dbpedia:- - - - Set(Millet) - - - 0.0
+taaable:Japanese_rice - dbpedia:- - - - Set(Japanese rice) - - - 0.0
+taaable:Wild_rice - dbpedia:- - - - Set(Wild rice) - - - 0.0
+taaable:Cream_of_rice - dbpedia:- - - - Set(Cream of rice) - - - 0.0
+taaable:Brown_rice - dbpedia:- - - - Set(Brown rice) - - - 0.0
+taaable:Whole_kernel_corn - dbpedia:- - - - Set(Whole kernel corn) - - - 0.0
+taaable:Kasha - dbpedia:- - - - Set(Kasha) - - - 0.0
+taaable:Hominy_grit - dbpedia:- - - - Set(Hominy grit) - - - 0.0
+taaable:Glutinous_rice - dbpedia:- - - - Set(Glutinous rice) - - - 0.0
+taaable:Quick_oat - dbpedia:- - - - Set(Quick oat) - - - 0.0
+taaable:Arborio - dbpedia:- - - - Set(Arborio) - - - 0.0
+taaable:Long-2Dgrain_white_rice - dbpedia:- - - - Set(Long-grain white rice) - - - 0.0
+taaable:Short-2Dgrain_brown_rice - dbpedia:- - - - Set(Short-grain brown rice) - - - 0.0
+taaable:Jasmine_rice - dbpedia:- - - - Set(Jasmine rice) - - - 0.0
+taaable:Fine_bulgur - dbpedia:- - - - Set(Fine bulgur) - - - 0.0
+taaable:White_rice - dbpedia:- - - - Set(White rice) - - - 0.0
+taaable:Spelt - dbpedia:- - - - Set(Spelt) - - - 0.0
+taaable:Cracked_wheat - dbpedia:- - - - Set(Cracked wheat) - - - 0.0
+taaable:Barley - dbpedia:- - - - Set(Barley) - - - 0.0
+taaable:Puffed_rice - dbpedia:- - - - Set(Puffed rice) - - - 0.0
+taaable:White_basmati_rice - dbpedia:- - - - Set(White basmati rice) - - - 0.0
+taaable:Rolled_oat - dbpedia:- - - - Set(Rolled oat) - - - 0.0
+taaable:Quinoa - dbpedia:- - - - Set(Quinoa) - - - 0.0
+taaable:Brown_basmati_rice - dbpedia:- - - - Set(Brown basmati rice) - - - 0.0
+taaable:Rye - dbpedia:- - - - Set(Rye) - - - 0.0
+taaable:Popcorn - dbpedia:- - - - Set(Popcorn) - - - 0.0
+taaable:Whole_wheat - dbpedia:- - - - Set(Whole wheat) - - - 0.0
+taaable:Converted_rice - dbpedia:- - - - Set(Converted rice) - - - 0.0
+taaable:Instant_rice - dbpedia:- - - - Set(Instant rice) - - - 0.0
+taaable:Japanese_rice - dbpedia:Japanese_current - Japanese current - Set(Japanese rice) - Japanese current - 0.08205128205128202
+taaable:Japanese_rice - dbpedia:Japaese - Japaese - Set(Japanese rice) - Japaese - 0.09230769230769231
+taaable:Quinoa - dbpedia:Quenoa - Quenoa - Set(Quinoa) - Quenoa - 0.08888888888888884
+taaable:White_rice - dbpedia:Whitmerites - Whitmerites - Set(White rice) - Whitmerites - 0.09454545454545456
+taaable:Amaranth - dbpedia:Amarinth - Amarinth - Set(Amaranth) - Amarinth - 0.050000000000000024
+taaable:White_rice - dbpedia:White_american - White american - Set(White rice) - White american - 0.09714285714285713
+taaable:Japanese_rice - dbpedia:Japanese_soldier - Japanese soldier - Set(Japanese rice) - Japanese soldier - 0.08205128205128202
+taaable:Millet - dbpedia:Millet_beer - Millet beer - Set(Millet) - Millet beer - 0.09090909090909088
+taaable:Barley - dbpedia:Bartle - Bartle - Set(Barley) - Bartle - 0.07777777777777772
+taaable:Barley - dbpedia:Barley_candy - Barley candy - Set(Barley) - Barley candy - 0.09999999999999998
+taaable:Japanese_rice - dbpedia:Japanese_religions - Japanese religions - Set(Japanese rice) - Japanese religions - 0.0987179487179487
+taaable:Japanese_rice - dbpedia:Japanese_en - Japanese en - Set(Japanese rice) - Japanese en - 0.06433566433566434
+taaable:White_rice - dbpedia:White_sanicle - White sanicle - Set(White rice) - White sanicle - 0.0815384615384615
+taaable:Japanese_rice - dbpedia:Japanese_writers - Japanese writers - Set(Japanese rice) - Japanese writers - 0.06538461538461535
+taaable:Japanese_rice - dbpedia:Japanese_movies - Japanese movies - Set(Japanese rice) - Japanese movies - 0.08410256410256414
+taaable:Barley - dbpedia:Bareilvy - Bareilvy - Set(Barley) - Bareilvy - 0.09722222222222218
+taaable:Quick_oat - dbpedia:Quick_Man - Quick Man - Set(Quick oat) - Quick Man - 0.08888888888888895
+taaable:White_rice - dbpedia:White_Race - White Race - Set(White rice) - White Race - 0.07999999999999999
+taaable:Brown_rice - dbpedia:Brow_ridges - Brow ridges - Set(Brown rice) - Brow ridges - 0.09454545454545456
+taaable:Japanese_rice - dbpedia:Japanese_Trading - Japanese Trading - Set(Japanese rice) - Japanese Trading - 0.09326923076923077
+taaable:Barley - dbpedia:Barley_Tea - Barley Tea - Set(Barley) - Barley Tea - 0.07999999999999999
+taaable:Hominy_grit - dbpedia:Hominy_grits - Hominy grits - Set(Hominy grit) - Hominy grits - 0.016666666666666673
+taaable:White_rice - dbpedia:White_Privelage - White Privelage - Set(White rice) - White Privelage - 0.09999999999999998
+taaable:White_rice - dbpedia:White_Nigger - White Nigger - Set(White rice) - White Nigger - 0.09222222222222226
+taaable:Amaranth - dbpedia:Amaranth_(song) - Amaranth (song) - Set(Amaranth) - Amaranth (song) - 0.09333333333333332
+taaable:Instant_rice - dbpedia:Instantclient - Instantclient - Set(Instant rice) - Instantclient - 0.09948717948717946
+taaable:Japanese_rice - dbpedia:Japanese_privet - Japanese privet - Set(Japanese rice) - Japanese privet - 0.055384615384615386
+taaable:Wild_rice - dbpedia:Wild_quince - Wild quince - Set(Wild rice) - Wild quince - 0.07676767676767682
+taaable:White_rice - dbpedia:White_Bitch - White Bitch - Set(White rice) - White Bitch - 0.09454545454545456
+taaable:Rye - dbpedia:Raye - Raye - Set(Rye) - Raye - 0.07500000000000004
+taaable:White_rice - dbpedia:White_rock - White rock - Set(White rice) - White rock - 0.07999999999999999
+taaable:Quinoa - dbpedia:Quinam - Quinam - Set(Quinoa) - Quinam - 0.06666666666666662
+taaable:Cracked_wheat - dbpedia:Cracked_China - Cracked China - Set(Cracked wheat) - Cracked China - 0.09230769230769231
+taaable:Wild_rice - dbpedia:Wild_Liquorice - Wild Liquorice - Set(Wild rice) - Wild Liquorice - 0.09365079365079369
+taaable:Japanese_rice - dbpedia:Japanese_tissue - Japanese tissue - Set(Japanese rice) - Japanese tissue - 0.08410256410256414
+taaable:Japanese_rice - dbpedia:Japanese_Jews - Japanese Jews - Set(Japanese rice) - Japanese Jews - 0.09230769230769231
+taaable:White_rice - dbpedia:White_fire - White fire - Set(White rice) - White fire - 0.06222222222222218
+taaable:Spelt - dbpedia:Speth - Speth - Set(Spelt) - Speth - 0.09333333333333331
+taaable:White_rice - dbpedia:Whitefire - Whitefire - Set(White rice) - Whitefire - 0.08722222222222215
+taaable:Japanese_rice - dbpedia:._._. - . . . - Set(Japanese rice) - . . . - 0.0
+taaable:Millet - dbpedia:._._. - . . . - Set(Millet) - . . . - 0.0
+taaable:Wild_rice - dbpedia:._._. - . . . - Set(Wild rice) - . . . - 0.0
+taaable:Amaranth - dbpedia:._._. - . . . - Set(Amaranth) - . . . - 0.0
+taaable:Whole_kernel_corn - dbpedia:._._. - . . . - Set(Whole kernel corn) - . . . - 0.0
+taaable:Brown_rice - dbpedia:._._. - . . . - Set(Brown rice) - . . . - 0.0
+taaable:Kasha - dbpedia:._._. - . . . - Set(Kasha) - . . . - 0.0
+taaable:Cream_of_rice - dbpedia:._._. - . . . - Set(Cream of rice) - . . . - 0.0
+taaable:Quick_oat - dbpedia:._._. - . . . - Set(Quick oat) - . . . - 0.0
+taaable:Glutinous_rice - dbpedia:._._. - . . . - Set(Glutinous rice) - . . . - 0.0
+taaable:Arborio - dbpedia:._._. - . . . - Set(Arborio) - . . . - 0.0
+taaable:Hominy_grit - dbpedia:._._. - . . . - Set(Hominy grit) - . . . - 0.0
+taaable:Jasmine_rice - dbpedia:._._. - . . . - Set(Jasmine rice) - . . . - 0.0
+taaable:Fine_bulgur - dbpedia:._._. - . . . - Set(Fine bulgur) - . . . - 0.0
+taaable:Short-2Dgrain_brown_rice - dbpedia:._._. - . . . - Set(Short-grain brown rice) - . . . - 0.0
+taaable:Long-2Dgrain_white_rice - dbpedia:._._. - . . . - Set(Long-grain white rice) - . . . - 0.0
+taaable:Spelt - dbpedia:._._. - . . . - Set(Spelt) - . . . - 0.0
+taaable:White_basmati_rice - dbpedia:._._. - . . . - Set(White basmati rice) - . . . - 0.0
+taaable:Cracked_wheat - dbpedia:._._. - . . . - Set(Cracked wheat) - . . . - 0.0
+taaable:White_rice - dbpedia:._._. - . . . - Set(White rice) - . . . - 0.0
+taaable:Barley - dbpedia:._._. - . . . - Set(Barley) - . . . - 0.0
+taaable:Rolled_oat - dbpedia:._._. - . . . - Set(Rolled oat) - . . . - 0.0
+taaable:Puffed_rice - dbpedia:._._. - . . . - Set(Puffed rice) - . . . - 0.0
+taaable:Quinoa - dbpedia:._._. - . . . - Set(Quinoa) - . . . - 0.0
+taaable:Popcorn - dbpedia:._._. - . . . - Set(Popcorn) - . . . - 0.0
+taaable:Converted_rice - dbpedia:._._. - . . . - Set(Converted rice) - . . . - 0.0
+taaable:Brown_basmati_rice - dbpedia:._._. - . . . - Set(Brown basmati rice) - . . . - 0.0
+taaable:Whole_wheat - dbpedia:._._. - . . . - Set(Whole wheat) - . . . - 0.0
+taaable:Instant_rice - dbpedia:._._. - . . . - Set(Instant rice) - . . . - 0.0
+taaable:Rye - dbpedia:._._. - . . . - Set(Rye) - . . . - 0.0
+taaable:Glutinous_rice - dbpedia:Glutinous_snail - Glutinous snail - Set(Glutinous rice) - Glutinous snail - 0.09619047619047617
+taaable:Barley - dbpedia:Bareyo - Bareyo - Set(Barley) - Bareyo - 0.07777777777777772
+taaable:White_rice - dbpedia:White_piedra - White piedra - Set(White rice) - White piedra - 0.09222222222222226
+taaable:Millet - dbpedia:Mill_leat - Mill leat - Set(Millet) - Mill leat - 0.0666666666666667
+taaable:Instant_rice - dbpedia:Instant_Physics - Instant Physics - Set(Instant rice) - Instant Physics - 0.09999999999999998
+taaable:Kasha - dbpedia:Kasagh - Kasagh - Set(Kasha) - Kasagh - 0.08555555555555548
+taaable:Cream_of_rice - dbpedia:Cream_of_Rice - Cream of Rice - Set(Cream of rice) - Cream of Rice - 0.0
+taaable:Japanese_rice - dbpedia:Japanese_Spikenard - Japanese Spikenard - Set(Japanese rice) - Japanese Spikenard - 0.0987179487179487
+taaable:Amaranth - dbpedia:Amant - Amant - Set(Amaranth) - Amant - 0.0875
+taaable:Barley - dbpedia:Bartley - Bartley - Set(Barley) - Bartley - 0.03333333333333329
+taaable:Japanese_rice - dbpedia:Japanese_Beech - Japanese Beech - Set(Japanese rice) - Japanese Beech - 0.0918081918081918
+taaable:Japanese_rice - dbpedia:Japanese_beech - Japanese beech - Set(Japanese rice) - Japanese beech - 0.0918081918081918
+taaable:Barley - dbpedia:Barkley - Barkley - Set(Barley) - Barkley - 0.03333333333333329
+taaable:Wild_rice - dbpedia:Wild_Africa - Wild Africa - Set(Wild rice) - Wild Africa - 0.07676767676767682
+taaable:Instant_rice - dbpedia:Instant_star - Instant star - Set(Instant rice) - Instant star - 0.09999999999999998
+taaable:Millet - dbpedia:Millettia - Millettia - Set(Millet) - Millettia - 0.0666666666666667
+taaable:Glutinous_rice - dbpedia:Glutinous_rice_flour - Glutinous rice flour - Set(Glutinous rice) - Glutinous rice flour - 0.059999999999999984
+taaable:Japanese_rice - dbpedia:Japanese_cruiser_%C5%8Ci - Japanese cruiser Ōi - Set(Japanese rice) - Japanese cruiser Ōi - 0.07854251012145744
+taaable:Barley - dbpedia:Barley_Wine - Barley Wine - Set(Barley) - Barley Wine - 0.09090909090909088
+taaable:Japanese_rice - dbpedia:Japanese_cruiser_Kiso - Japanese cruiser Kiso - Set(Japanese rice) - Japanese cruiser Kiso - 0.09157509157509158
+taaable:Popcorn - dbpedia:Popcornflower - Popcornflower - Set(Popcorn) - Popcornflower - 0.09230769230769231
+taaable:Japanese_rice - dbpedia:Japanese_elections - Japanese elections - Set(Japanese rice) - Japanese elections - 0.0987179487179487
+taaable:Kasha - dbpedia:Kashf - Kashf - Set(Kasha) - Kashf - 0.07999999999999999
+taaable:Japanese_rice - dbpedia:Japanese_cities - Japanese cities - Set(Japanese rice) - Japanese cities - 0.07205128205128206
+taaable:Japanese_rice - dbpedia:Japanese_cruiser_Oi - Japanese cruiser Oi - Set(Japanese rice) - Japanese cruiser Oi - 0.07854251012145744
+taaable:White_rice - dbpedia:White_bicycle - White bicycle - Set(White rice) - White bicycle - 0.0815384615384615
+taaable:Quinoa - dbpedia:Quinisocaine - Quinisocaine - Set(Quinoa) - Quinisocaine - 0.09999999999999998
+taaable:Popcorn - dbpedia:Popcorn_press - Popcorn press - Set(Popcorn) - Popcorn press - 0.09230769230769231
+taaable:Japanese_rice - dbpedia:Japanese_Rock - Japanese Rock - Set(Japanese rice) - Japanese Rock - 0.09230769230769231
+taaable:Japanese_rice - dbpedia:Japanese_Derby - Japanese Derby - Set(Japanese rice) - Japanese Derby - 0.0918081918081918
+taaable:Japanese_rice - dbpedia:Japanese_cruiser_Heien - Japanese cruiser Heien - Set(Japanese rice) - Japanese cruiser Heien - 0.09720279720279713
+taaable:Kasha - dbpedia:Kashiwado - Kashiwado - Set(Kasha) - Kashiwado - 0.08888888888888895
+taaable:White_rice - dbpedia:White_Forces - White Forces - Set(White rice) - White Forces - 0.07
+taaable:Brown_rice - dbpedia:Brown_Oriole - Brown Oriole - Set(Brown rice) - Brown Oriole - 0.07
+taaable:Japanese_rice - dbpedia:Japanese_Accentor - Japanese Accentor - Set(Japanese rice) - Japanese Accentor - 0.09087481146304677
+taaable:Japanese_rice - dbpedia:Japanese_adress - Japanese adress - Set(Japanese rice) - Japanese adress - 0.08410256410256414
+taaable:Japanese_rice - dbpedia:Japanese_squirrel - Japanese squirrel - Set(Japanese rice) - Japanese squirrel - 0.09087481146304677
+taaable:Brown_rice - dbpedia:Brown_Brocket - Brown Brocket - Set(Brown rice) - Brown Brocket - 0.0815384615384615
+taaable:Instant_rice - dbpedia:Instant_Music - Instant Music - Set(Instant rice) - Instant Music - 0.07948717948717947
+taaable:Japanese_rice - dbpedia:Japanese_strike - Japanese strike - Set(Japanese rice) - Japanese strike - 0.055384615384615386
+taaable:Spelt - dbpedia:Spets - Spets - Set(Spelt) - Spets - 0.09333333333333331
+taaable:Glutinous_rice - dbpedia:Glutinous - Glutinous - Set(Glutinous rice) - Glutinous - 0.07142857142857144
+taaable:Japanese_rice - dbpedia:Japanese_devilray - Japanese devilray - Set(Japanese rice) - Japanese devilray - 0.09087481146304677
+taaable:White_rice - dbpedia:White_ricefield_eel - White ricefield eel - Set(White rice) - White ricefield eel - 0.09473684210526319
+taaable:Japanese_rice - dbpedia:Japanese_Iranian - Japanese Iranian - Set(Japanese rice) - Japanese Iranian - 0.09326923076923077
+taaable:Millet - dbpedia:Millet_Jelly - Millet Jelly - Set(Millet) - Millet Jelly - 0.09999999999999998
+taaable:Wild_rice - dbpedia:Wild_Side - Wild Side - Set(Wild rice) - Wild Side - 0.08888888888888895
+taaable:Wild_rice - dbpedia:Wild_privet - Wild privet - Set(Wild rice) - Wild privet - 0.07676767676767682
+taaable:Cracked_wheat - dbpedia:Cracked_software - Cracked software - Set(Cracked wheat) - Cracked software - 0.08205128205128202
+taaable:Jasmine_rice - dbpedia:Jasmine_Field - Jasmine Field - Set(Jasmine rice) - Jasmine Field - 0.07948717948717947
+taaable:Puffed_rice - dbpedia:Puffed_Rice - Puffed Rice - Set(Puffed rice) - Puffed Rice - 0.0
+taaable:Barley - dbpedia:Barlake - Barlake - Set(Barley) - Barlake - 0.09047619047619049
+taaable:Barley - dbpedia:Barle - Barle - Set(Barley) - Barle - 0.033333333333333284
+taaable:Barley - dbpedia:Barley_Green - Barley Green - Set(Barley) - Barley Green - 0.09999999999999998
+taaable:Barley - dbpedia:Barley_End - Barley End - Set(Barley) - Barley End - 0.07999999999999999
+taaable:Instant_rice - dbpedia:Instant_replays - Instant replays - Set(Instant rice) - Instant replays - 0.09999999999999998
+taaable:Kasha - dbpedia:Kash%C5%8D - Kashō - Set(Kasha) - Kashō - 0.07999999999999999
+taaable:Wild_rice - dbpedia:Wild_Privet - Wild Privet - Set(Wild rice) - Wild Privet - 0.07676767676767682
+taaable:Instant_rice - dbpedia:Instant_Hits - Instant Hits - Set(Instant rice) - Instant Hits - 0.09999999999999998
+taaable:Barley - dbpedia:Barly - Barly - Set(Barley) - Barly - 0.033333333333333284
+taaable:Quinoa - dbpedia:Quiina - Quiina - Set(Quinoa) - Quiina - 0.07777777777777772
+taaable:White_rice - dbpedia:White_Olive - White Olive - Set(White rice) - White Olive - 0.09454545454545456
+taaable:White_rice - dbpedia:Whitemud_Drive - Whitemud Drive - Set(White rice) - Whitemud Drive - 0.09142857142857144
+taaable:Quinoa - dbpedia:Quineoa - Quineoa - Set(Quinoa) - Quineoa - 0.028571428571428536
+taaable:Popcorn - dbpedia:POP-CORN - POP-CORN - Set(Popcorn) - POP-CORN - 0.0
+taaable:Popcorn - dbpedia:Popcorn_Taxi - Popcorn Taxi - Set(Popcorn) - Popcorn Taxi - 0.0833333333333333
+taaable:Instant_rice - dbpedia:Instant_def - Instant def - Set(Instant rice) - Instant def - 0.08636363636363635
+taaable:Jasmine_rice - dbpedia:Jasmine_Koreshi - Jasmine Koreshi - Set(Jasmine rice) - Jasmine Koreshi - 0.08818181818181818
+taaable:Rye - dbpedia:Ry - Ry - Set(Rye) - Ry - 0.08888888888888893
+taaable:Wild_rice - dbpedia:Wild_Rider - Wild Rider - Set(Wild rice) - Wild Rider - 0.08722222222222215
+taaable:Cream_of_rice - dbpedia:Cream_of_the_crop - Cream of the crop - Set(Cream of rice) - Cream of the crop - 0.09087481146304677
+taaable:Barley - dbpedia:Barkle - Barkle - Set(Barley) - Barkle - 0.07777777777777772
+taaable:Japanese_rice - dbpedia:--- - --- - Set(Japanese rice) - --- - 0.0
+taaable:Millet - dbpedia:--- - --- - Set(Millet) - --- - 0.0
+taaable:Wild_rice - dbpedia:--- - --- - Set(Wild rice) - --- - 0.0
+taaable:Whole_kernel_corn - dbpedia:--- - --- - Set(Whole kernel corn) - --- - 0.0
+taaable:Brown_rice - dbpedia:--- - --- - Set(Brown rice) - --- - 0.0
+taaable:Quick_oat - dbpedia:--- - --- - Set(Quick oat) - --- - 0.0
+taaable:Amaranth - dbpedia:--- - --- - Set(Amaranth) - --- - 0.0
+taaable:Kasha - dbpedia:--- - --- - Set(Kasha) - --- - 0.0
+taaable:Jasmine_rice - dbpedia:--- - --- - Set(Jasmine rice) - --- - 0.0
+taaable:Cream_of_rice - dbpedia:--- - --- - Set(Cream of rice) - --- - 0.0
+taaable:Arborio - dbpedia:--- - --- - Set(Arborio) - --- - 0.0
+taaable:Cracked_wheat - dbpedia:--- - --- - Set(Cracked wheat) - --- - 0.0
+taaable:Hominy_grit - dbpedia:--- - --- - Set(Hominy grit) - --- - 0.0
+taaable:Fine_bulgur - dbpedia:--- - --- - Set(Fine bulgur) - --- - 0.0
+taaable:Rolled_oat - dbpedia:--- - --- - Set(Rolled oat) - --- - 0.0
+taaable:Long-2Dgrain_white_rice - dbpedia:--- - --- - Set(Long-grain white rice) - --- - 0.0
+taaable:White_basmati_rice - dbpedia:--- - --- - Set(White basmati rice) - --- - 0.0
+taaable:Glutinous_rice - dbpedia:--- - --- - Set(Glutinous rice) - --- - 0.0
+taaable:White_rice - dbpedia:--- - --- - Set(White rice) - --- - 0.0
+taaable:Puffed_rice - dbpedia:--- - --- - Set(Puffed rice) - --- - 0.0
+taaable:Short-2Dgrain_brown_rice - dbpedia:--- - --- - Set(Short-grain brown rice) - --- - 0.0
+taaable:Popcorn - dbpedia:--- - --- - Set(Popcorn) - --- - 0.0
+taaable:Whole_wheat - dbpedia:--- - --- - Set(Whole wheat) - --- - 0.0
+taaable:Brown_basmati_rice - dbpedia:--- - --- - Set(Brown basmati rice) - --- - 0.0
+taaable:Spelt - dbpedia:--- - --- - Set(Spelt) - --- - 0.0
+taaable:Rye - dbpedia:--- - --- - Set(Rye) - --- - 0.0
+taaable:Quinoa - dbpedia:--- - --- - Set(Quinoa) - --- - 0.0
+taaable:Converted_rice - dbpedia:--- - --- - Set(Converted rice) - --- - 0.0
+taaable:Instant_rice - dbpedia:--- - --- - Set(Instant rice) - --- - 0.0
+taaable:Barley - dbpedia:--- - --- - Set(Barley) - --- - 0.0
+taaable:Quick_oat - dbpedia:QuickPath - QuickPath - Set(Quick oat) - QuickPath - 0.08888888888888895
+taaable:Instant_rice - dbpedia:Instant - Instant - Set(Instant rice) - Instant - 0.0833333333333333
+taaable:Quick_oat - dbpedia:Quickscat - Quickscat - Set(Quick oat) - Quickscat - 0.08888888888888895
+taaable:Kasha - dbpedia:Kashmakash - Kashmakash - Set(Kasha) - Kashmakash - 0.09999999999999998
+taaable:Hominy_grit - dbpedia:Homing - Homing - Set(Hominy grit) - Homing - 0.09090909090909088
+taaable:Japanese_rice - dbpedia:Japan_Post_Service - Japan Post Service - Set(Japanese rice) - Japan Post Service - 0.0987179487179487
+taaable:Millet - dbpedia:Mialet - Mialet - Set(Millet) - Mialet - 0.08888888888888884
+taaable:Japanese_rice - dbpedia:Japanese_cruiser_Ibuki - Japanese cruiser Ibuki - Set(Japanese rice) - Japanese cruiser Ibuki - 0.09720279720279713
+taaable:Converted_rice - dbpedia:Converters - Converters - Set(Converted rice) - Converters - 0.09142857142857144
+taaable:Wild_rice - dbpedia:Willard_Rice - Willard Rice - Set(Wild rice) - Willard Rice - 0.08425925925925924
+taaable:White_rice - dbpedia:White_rino - White rino - Set(White rice) - White rino - 0.07999999999999999
+taaable:Japanese_rice - dbpedia:Japanese_cabinet - Japanese cabinet - Set(Japanese rice) - Japanese cabinet - 0.08205128205128202
+taaable:Millet - dbpedia:MilNet - MilNet - Set(Millet) - MilNet - 0.07777777777777772
+taaable:Japanese_rice - dbpedia:Japanese_territory - Japanese territory - Set(Japanese rice) - Japanese territory - 0.0987179487179487
+taaable:Japanese_rice - dbpedia:Japanese_prints - Japanese prints - Set(Japanese rice) - Japanese prints - 0.08410256410256414
+taaable:Instant_rice - dbpedia:Instant_rice - Instant rice - Set(Instant rice) - Instant rice - 0.0
+taaable:Japanese_rice - dbpedia:Japanese_wine - Japanese wine - Set(Japanese rice) - Japanese wine - 0.061538461538461514
+taaable:Japanese_rice - dbpedia:Japanese_lacquer - Japanese lacquer - Set(Japanese rice) - Japanese lacquer - 0.08205128205128202
+taaable:Popcorn - dbpedia:Popcorn_Love - Popcorn Love - Set(Popcorn) - Popcorn Love - 0.0833333333333333
+taaable:Arborio - dbpedia:Arborius - Arborius - Set(Arborio) - Arborius - 0.07857142857142856
+taaable:Fine_bulgur - dbpedia:Fine_leg - Fine leg - Set(Fine bulgur) - Fine leg - 0.09772727272727277
+taaable:White_rice - dbpedia:White_copper - White copper - Set(White rice) - White copper - 0.09222222222222226
+taaable:White_rice - dbpedia:Whitley_Srieber - Whitley Srieber - Set(White rice) - Whitley Srieber - 0.09999999999999998
+taaable:Spelt - dbpedia:Speltz - Speltz - Set(Spelt) - Speltz - 0.033333333333333284
+taaable:Spelt - dbpedia:Spelts - Spelts - Set(Spelt) - Spelts - 0.033333333333333284
+taaable:Popcorn - dbpedia:Popcorn_arcade - Popcorn arcade - Set(Popcorn) - Popcorn arcade - 0.09999999999999998
+taaable:White_rice - dbpedia:White_Drim - White Drim - Set(White rice) - White Drim - 0.07999999999999999
+taaable:Millet - dbpedia:Millera - Millera - Set(Millet) - Millera - 0.09047619047619049
+taaable:Wild_rice - dbpedia:Wild_Jurchens - Wild Jurchens - Set(Wild rice) - Wild Jurchens - 0.09914529914529917
+taaable:Jasmine_rice - dbpedia:Jasmine_Lim - Jasmine Lim - Set(Jasmine rice) - Jasmine Lim - 0.08636363636363635
+taaable:Quinoa - dbpedia:Quiloa - Quiloa - Set(Quinoa) - Quiloa - 0.07777777777777772
+taaable:White_rice - dbpedia:White_Spruce - White Spruce - Set(White rice) - White Spruce - 0.07
+taaable:White_rice - dbpedia:White_Fir - White Fir - Set(White rice) - White Fir - 0.08722222222222215
+taaable:Glutinous_rice - dbpedia:Glutinous_Sage - Glutinous Sage - Set(Glutinous rice) - Glutinous Sage - 0.08571428571428574
+taaable:White_rice - dbpedia:White_tree - White tree - Set(White rice) - White tree - 0.07999999999999999
+taaable:White_rice - dbpedia:White_Africans - White Africans - Set(White rice) - White Africans - 0.09142857142857144
+taaable:Japanese_rice - dbpedia:Japanese_Wine - Japanese Wine - Set(Japanese rice) - Japanese Wine - 0.061538461538461514
+taaable:Kasha - dbpedia:Kasta - Kasta - Set(Kasha) - Kasta - 0.09333333333333331
+taaable:Japanese_rice - dbpedia:Japanese_citrus - Japanese citrus - Set(Japanese rice) - Japanese citrus - 0.07205128205128206
+taaable:Japanese_rice - dbpedia:Japanese_clothes - Japanese clothes - Set(Japanese rice) - Japanese clothes - 0.09326923076923077
+taaable:Jasmine_rice - dbpedia:Jasmin - Jasmin - Set(Jasmine rice) - Jasmin - 0.09999999999999998
+taaable:Wild_rice - dbpedia:Wild_fire - Wild fire - Set(Wild rice) - Wild fire - 0.06944444444444448
+taaable:Millet - dbpedia:Millner - Millner - Set(Millet) - Millner - 0.09047619047619049
+taaable:Japanese_rice - dbpedia:Japanese_Architecture - Japanese Architecture - Set(Japanese rice) - Japanese Architecture - 0.09157509157509158
+taaable:Amaranth - dbpedia:...... - ...... - Set(Amaranth) - ...... - 0.0
+taaable:Millet - dbpedia:...... - ...... - Set(Millet) - ...... - 0.0
+taaable:Wild_rice - dbpedia:...... - ...... - Set(Wild rice) - ...... - 0.0
+taaable:Japanese_rice - dbpedia:...... - ...... - Set(Japanese rice) - ...... - 0.0
+taaable:Cream_of_rice - dbpedia:...... - ...... - Set(Cream of rice) - ...... - 0.0
+taaable:Brown_rice - dbpedia:...... - ...... - Set(Brown rice) - ...... - 0.0
+taaable:Kasha - dbpedia:...... - ...... - Set(Kasha) - ...... - 0.0
+taaable:Whole_kernel_corn - dbpedia:...... - ...... - Set(Whole kernel corn) - ...... - 0.0
+taaable:Hominy_grit - dbpedia:...... - ...... - Set(Hominy grit) - ...... - 0.0
+taaable:Glutinous_rice - dbpedia:...... - ...... - Set(Glutinous rice) - ...... - 0.0
+taaable:Arborio - dbpedia:...... - ...... - Set(Arborio) - ...... - 0.0
+taaable:Quick_oat - dbpedia:...... - ...... - Set(Quick oat) - ...... - 0.0
+taaable:Long-2Dgrain_white_rice - dbpedia:...... - ...... - Set(Long-grain white rice) - ...... - 0.0
+taaable:Short-2Dgrain_brown_rice - dbpedia:...... - ...... - Set(Short-grain brown rice) - ...... - 0.0
+taaable:Fine_bulgur - dbpedia:...... - ...... - Set(Fine bulgur) - ...... - 0.0
+taaable:Jasmine_rice - dbpedia:...... - ...... - Set(Jasmine rice) - ...... - 0.0
+taaable:White_basmati_rice - dbpedia:...... - ...... - Set(White basmati rice) - ...... - 0.0
+taaable:Spelt - dbpedia:...... - ...... - Set(Spelt) - ...... - 0.0
+taaable:White_rice - dbpedia:...... - ...... - Set(White rice) - ...... - 0.0
+taaable:Cracked_wheat - dbpedia:...... - ...... - Set(Cracked wheat) - ...... - 0.0
+taaable:Rolled_oat - dbpedia:...... - ...... - Set(Rolled oat) - ...... - 0.0
+taaable:Barley - dbpedia:...... - ...... - Set(Barley) - ...... - 0.0
+taaable:Puffed_rice - dbpedia:...... - ...... - Set(Puffed rice) - ...... - 0.0
+taaable:Quinoa - dbpedia:...... - ...... - Set(Quinoa) - ...... - 0.0
+taaable:Popcorn - dbpedia:...... - ...... - Set(Popcorn) - ...... - 0.0
+taaable:Converted_rice - dbpedia:...... - ...... - Set(Converted rice) - ...... - 0.0
+taaable:Brown_basmati_rice - dbpedia:...... - ...... - Set(Brown basmati rice) - ...... - 0.0
+taaable:Whole_wheat - dbpedia:...... - ...... - Set(Whole wheat) - ...... - 0.0
+taaable:Instant_rice - dbpedia:...... - ...... - Set(Instant rice) - ...... - 0.0
+taaable:Rye - dbpedia:...... - ...... - Set(Rye) - ...... - 0.0
+taaable:Japanese_rice - dbpedia:..._... - ... ... - Set(Japanese rice) - ... ... - 0.0
+taaable:Amaranth - dbpedia:..._... - ... ... - Set(Amaranth) - ... ... - 0.0
+taaable:Millet - dbpedia:..._... - ... ... - Set(Millet) - ... ... - 0.0
+taaable:Puffed_rice - dbpedia:..._... - ... ... - Set(Puffed rice) - ... ... - 0.0
+taaable:Whole_kernel_corn - dbpedia:..._... - ... ... - Set(Whole kernel corn) - ... ... - 0.0
+taaable:Cream_of_rice - dbpedia:..._... - ... ... - Set(Cream of rice) - ... ... - 0.0
+taaable:Brown_rice - dbpedia:..._... - ... ... - Set(Brown rice) - ... ... - 0.0
+taaable:Brown_basmati_rice - dbpedia:..._... - ... ... - Set(Brown basmati rice) - ... ... - 0.0
+taaable:Quick_oat - dbpedia:..._... - ... ... - Set(Quick oat) - ... ... - 0.0
+taaable:Hominy_grit - dbpedia:..._... - ... ... - Set(Hominy grit) - ... ... - 0.0
+taaable:Glutinous_rice - dbpedia:..._... - ... ... - Set(Glutinous rice) - ... ... - 0.0
+taaable:Converted_rice - dbpedia:..._... - ... ... - Set(Converted rice) - ... ... - 0.0
+taaable:Jasmine_rice - dbpedia:..._... - ... ... - Set(Jasmine rice) - ... ... - 0.0
+taaable:Long-2Dgrain_white_rice - dbpedia:..._... - ... ... - Set(Long-grain white rice) - ... ... - 0.0
+taaable:Short-2Dgrain_brown_rice - dbpedia:..._... - ... ... - Set(Short-grain brown rice) - ... ... - 0.0
+taaable:White_rice - dbpedia:..._... - ... ... - Set(White rice) - ... ... - 0.0
+taaable:Cracked_wheat - dbpedia:..._... - ... ... - Set(Cracked wheat) - ... ... - 0.0
+taaable:Popcorn - dbpedia:..._... - ... ... - Set(Popcorn) - ... ... - 0.0
+taaable:Spelt - dbpedia:..._... - ... ... - Set(Spelt) - ... ... - 0.0
+taaable:Wild_rice - dbpedia:..._... - ... ... - Set(Wild rice) - ... ... - 0.0
+taaable:Rolled_oat - dbpedia:..._... - ... ... - Set(Rolled oat) - ... ... - 0.0
+taaable:Whole_wheat - dbpedia:..._... - ... ... - Set(Whole wheat) - ... ... - 0.0
+taaable:Barley - dbpedia:..._... - ... ... - Set(Barley) - ... ... - 0.0
+taaable:Kasha - dbpedia:..._... - ... ... - Set(Kasha) - ... ... - 0.0
+taaable:White_basmati_rice - dbpedia:..._... - ... ... - Set(White basmati rice) - ... ... - 0.0
+taaable:Instant_rice - dbpedia:..._... - ... ... - Set(Instant rice) - ... ... - 0.0
+taaable:Arborio - dbpedia:..._... - ... ... - Set(Arborio) - ... ... - 0.0
+taaable:Fine_bulgur - dbpedia:..._... - ... ... - Set(Fine bulgur) - ... ... - 0.0
+taaable:Rye - dbpedia:..._... - ... ... - Set(Rye) - ... ... - 0.0
+taaable:Quinoa - dbpedia:..._... - ... ... - Set(Quinoa) - ... ... - 0.0
+taaable:Instant_rice - dbpedia:Instant_Rice - Instant Rice - Set(Instant rice) - Instant Rice - 0.0
+taaable:White_rice - dbpedia:White_Bicycles - White Bicycles - Set(White rice) - White Bicycles - 0.09142857142857144
+taaable:Jasmine_rice - dbpedia:Jasmine_byrne - Jasmine byrne - Set(Jasmine rice) - Jasmine byrne - 0.07948717948717947
+taaable:Converted_rice - dbpedia:Converged_device - Converged device - Set(Converted rice) - Converged device - 0.09523809523809523
+taaable:White_rice - dbpedia:White_Rider - White Rider - Set(White rice) - White Rider - 0.07858585858585858
+taaable:Brown_basmati_rice - dbpedia:Brown_bag_seminar - Brown bag seminar - Set(Brown basmati rice) - Brown bag seminar - 0.0968627450980392
+taaable:Spelt - dbpedia:Spellathon - Spellathon - Set(Spelt) - Spellathon - 0.09999999999999998
+taaable:Rolled_oat - dbpedia:Rolled_gold - Rolled gold - Set(Rolled oat) - Rolled gold - 0.09454545454545456
+taaable:Rolled_oat - dbpedia:Rolled_Gold - Rolled Gold - Set(Rolled oat) - Rolled Gold - 0.09454545454545456
+taaable:Kasha - dbpedia:Kashimashi - Kashimashi - Set(Kasha) - Kashimashi - 0.09999999999999998
+taaable:White_rice - dbpedia:White_mite - White mite - Set(White rice) - White mite - 0.07999999999999999
+taaable:Millet - dbpedia:Millena - Millena - Set(Millet) - Millena - 0.09047619047619049
+taaable:White_rice - dbpedia:White_hurricane - White hurricane - Set(White rice) - White hurricane - 0.0666666666666667
+taaable:Millet - dbpedia:Millett_LJ - Millett LJ - Set(Millet) - Millett LJ - 0.07999999999999999
+taaable:Jasmine_rice - dbpedia:Jasmineae - Jasmineae - Set(Jasmine rice) - Jasmineae - 0.08888888888888895
+taaable:Millet - dbpedia:Millet_LJ - Millet LJ - Set(Millet) - Millet LJ - 0.0666666666666667
+taaable:White_rice - dbpedia:White_route - White route - Set(White rice) - White route - 0.09454545454545456
+taaable:Arborio - dbpedia:Arboring - Arboring - Set(Arborio) - Arboring - 0.07857142857142856
+taaable:Japanese_rice - dbpedia:Japanese_Miracle - Japanese Miracle - Set(Japanese rice) - Japanese Miracle - 0.05288461538461533
+taaable:Barley - dbpedia:Barleux - Barleux - Set(Barley) - Barleux - 0.09047619047619049
+taaable:Millet - dbpedia:Millot - Millot - Set(Millet) - Millot - 0.06666666666666662
+taaable:Japanese_rice - dbpedia:Japanese_Bodies - Japanese Bodies - Set(Japanese rice) - Japanese Bodies - 0.08410256410256414
+taaable:Japanese_rice - dbpedia:Japanese_verb - Japanese verb - Set(Japanese rice) - Japanese verb - 0.07972027972027976
+taaable:Millet - dbpedia:Maillet - Maillet - Set(Millet) - Maillet - 0.0428571428571428
+taaable:Brown_rice - dbpedia:Brown_Turei - Brown Turei - Set(Brown rice) - Brown Turei - 0.07858585858585858
+taaable:Barley - dbpedia:Barles - Barles - Set(Barley) - Barles - 0.06666666666666662
+taaable:Quinoa - dbpedia:Quinson - Quinson - Set(Quinoa) - Quinson - 0.09047619047619049
+taaable:White_rice - dbpedia:White_cedar - White cedar - Set(White rice) - White cedar - 0.07858585858585858
+taaable:Barley - dbpedia:Bayel - Bayel - Set(Barley) - Bayel - 0.0977777777777777
+taaable:Millet - dbpedia:Millertown - Millertown - Set(Millet) - Millertown - 0.07999999999999999
+taaable:Japanese_rice - dbpedia:Japanese_cusine - Japanese cusine - Set(Japanese rice) - Japanese cusine - 0.07205128205128206
+taaable:Kasha - dbpedia:Kashabowie - Kashabowie - Set(Kasha) - Kashabowie - 0.09999999999999998
+taaable:Barley - dbpedia:Barlieu - Barlieu - Set(Barley) - Barlieu - 0.09047619047619049
+taaable:Arborio - dbpedia:Arbori - Arbori - Set(Arborio) - Arbori - 0.028571428571428536
+taaable:Japanese_rice - dbpedia:Japanese_ryo - Japanese ryo - Set(Japanese rice) - Japanese ryo - 0.07948717948717947
+taaable:Japanese_rice - dbpedia:Japanese_script_reform - Japanese script reform - Set(Japanese rice) - Japanese script reform - 0.09720279720279713
+taaable:Brown_rice - dbpedia:Brown_rice_tea - Brown rice tea - Set(Brown rice) - Brown rice tea - 0.057142857142857134
+taaable:Amaranth - dbpedia:Amarinthos - Amarinthos - Set(Amaranth) - Amarinthos - 0.08499999999999996
+taaable:Japanese_rice - dbpedia:Japanese_pancake - Japanese pancake - Set(Japanese rice) - Japanese pancake - 0.09326923076923077
+taaable:Quinoa - dbpedia:Quindaro - Quindaro - Set(Quinoa) - Quindaro - 0.0833333333333333
+taaable:Wild_rice - dbpedia:Wild_rivers - Wild rivers - Set(Wild rice) - Wild rivers - 0.07676767676767682
+taaable:White_rice - dbpedia:White_Fisher - White Fisher - Set(White rice) - White Fisher - 0.09222222222222226
+taaable:White_rice - dbpedia:White_Strike - White Strike - Set(White rice) - White Strike - 0.07
+taaable:Quinoa - dbpedia:Quinsac - Quinsac - Set(Quinoa) - Quinsac - 0.09047619047619049
+taaable:Japanese_rice - dbpedia:Japanese_Briton - Japanese Briton - Set(Japanese rice) - Japanese Briton - 0.08410256410256414
+taaable:White_rice - dbpedia:White_Crane - White Crane - Set(White rice) - White Crane - 0.09454545454545456
+taaable:Barley - dbpedia:Barlest - Barlest - Set(Barley) - Barlest - 0.09047619047619049
+taaable:Japanese_rice - dbpedia:Japanese_cypress - Japanese cypress - Set(Japanese rice) - Japanese cypress - 0.08205128205128202
+taaable:Kasha - dbpedia:Kashaka - Kashaka - Set(Kasha) - Kashaka - 0.057142857142857134
+taaable:Japanese_rice - dbpedia:Japanese_FA - Japanese FA - Set(Japanese rice) - Japanese FA - 0.09790209790209792
+taaable:White_rice - dbpedia:WhiteTie - WhiteTie - Set(White rice) - WhiteTie - 0.08499999999999996
+taaable:Barley - dbpedia:Bruley - Bruley - Set(Barley) - Bruley - 0.09999999999999995
+taaable:Millet - dbpedia:Millery - Millery - Set(Millet) - Millery - 0.09047619047619049
+taaable:Millet - dbpedia:Millemont - Millemont - Set(Millet) - Millemont - 0.0666666666666667
+taaable:Quinoa - dbpedia:Quin%C3%A7ay - Quinçay - Set(Quinoa) - Quinçay - 0.09047619047619049
+taaable:Millet - dbpedia:Marillet - Marillet - Set(Millet) - Marillet - 0.07500000000000004
+taaable:White_rice - dbpedia:White_Triangle - White Triangle - Set(White rice) - White Triangle - 0.09142857142857144
+taaable:Kasha - dbpedia:Kalosha - Kalosha - Set(Kasha) - Kalosha - 0.07619047619047618
+taaable:Japanese_rice - dbpedia:Japanese_titles - Japanese titles - Set(Japanese rice) - Japanese titles - 0.08410256410256414
+taaable:Kasha - dbpedia:Kasakh - Kasakh - Set(Kasha) - Kasakh - 0.08555555555555548
+taaable:Japanese_rice - dbpedia:Japanese_home - Japanese home - Set(Japanese rice) - Japanese home - 0.09230769230769231
+taaable:Kasha - dbpedia:Kashkasu - Kashkasu - Set(Kasha) - Kashkasu - 0.075
+taaable:Kasha - dbpedia:Kashkaldak - Kashkaldak - Set(Kasha) - Kashkaldak - 0.09999999999999998
+taaable:Instant_rice - dbpedia:Instantiated - Instantiated - Set(Instant rice) - Instantiated - 0.09999999999999998
+taaable:Arborio - dbpedia:Arborlon - Arborlon - Set(Arborio) - Arborlon - 0.07857142857142856
+taaable:Arborio - dbpedia:Arboli - Arboli - Set(Arborio) - Arboli - 0.09047619047619049
+taaable:Kasha - dbpedia:Kashat - Kashat - Set(Kasha) - Kashat - 0.033333333333333284
+taaable:Quick_oat - dbpedia:Quickpath - Quickpath - Set(Quick oat) - Quickpath - 0.08888888888888895
+taaable:Kasha - dbpedia:Kasho - Kasho - Set(Kasha) - Kasho - 0.07999999999999999
+taaable:Barley - dbpedia:Baleyg - Baleyg - Set(Barley) - Baleyg - 0.08888888888888884
+taaable:Japanese_rice - dbpedia:Japanese_whiskey - Japanese whiskey - Set(Japanese rice) - Japanese whiskey - 0.09326923076923077
+taaable:Brown_rice - dbpedia:Brown_pine - Brown pine - Set(Brown rice) - Brown pine - 0.07999999999999999
+taaable:Brown_rice - dbpedia:Brown_Pine - Brown Pine - Set(Brown rice) - Brown Pine - 0.07999999999999999
+taaable:Jasmine_rice - dbpedia:Jasmin_Agic - Jasmin Agic - Set(Jasmine rice) - Jasmin Agic - 0.08636363636363635
+taaable:Japanese_rice - dbpedia:Japanesie - Japanesie - Set(Japanese rice) - Japanesie - 0.08376068376068384
+taaable:Barley - dbpedia:Barley_beer - Barley beer - Set(Barley) - Barley beer - 0.09090909090909088
+taaable:Arborio - dbpedia:Arborism - Arborism - Set(Arborio) - Arborism - 0.07857142857142856
+taaable:Quick_oat - dbpedia:Quick_Ratio - Quick Ratio - Set(Quick oat) - Quick Ratio - 0.05858585858585858
+taaable:White_rice - dbpedia:White_Triplex - White Triplex - Set(White rice) - White Triplex - 0.0815384615384615
+taaable:White_rice - dbpedia:White_pines - White pines - Set(White rice) - White pines - 0.09454545454545456
+taaable:Japanese_rice - dbpedia:Japanese_Schindler - Japanese Schindler - Set(Japanese rice) - Japanese Schindler - 0.0987179487179487
+taaable:Barley - dbpedia:Barkly - Barkly - Set(Barley) - Barkly - 0.07777777777777772
+taaable:Japanese_rice - dbpedia:Japanese_railway - Japanese railway - Set(Japanese rice) - Japanese railway - 0.09326923076923077
+taaable:Jasmine_rice - dbpedia:Jasmine_O'Brien - Jasmine O'Brien - Set(Jasmine rice) - Jasmine O'Brien - 0.07
+taaable:Millet - dbpedia:Miller_town - Miller town - Set(Millet) - Miller town - 0.09090909090909088
+taaable:Kasha - dbpedia:Kaash - Kaash - Set(Kasha) - Kaash - 0.05333333333333341
+taaable:Jasmine_rice - dbpedia:Jasmin_Fischer - Jasmin Fischer - Set(Jasmine rice) - Jasmin Fischer - 0.09588744588744591
+taaable:Jasmine_rice - dbpedia:Jasmin_Feige - Jasmin Feige - Set(Jasmine rice) - Jasmin Feige - 0.08666666666666661
+taaable:Arborio - dbpedia:Arbore - Arbore - Set(Arborio) - Arbore - 0.09047619047619049
+taaable:Japanese_rice - dbpedia:Japanese_airforce - Japanese airforce - Set(Japanese rice) - Japanese airforce - 0.06244343891402712
+taaable:Kasha - dbpedia:Kashasha - Kashasha - Set(Kasha) - Kashasha - 0.0
+taaable:Converted_rice - dbpedia:Converting_grace - Converting grace - Set(Converted rice) - Converting grace - 0.09523809523809523
+taaable:Kasha - dbpedia:Kasa%C3%AF - Kasaï - Set(Kasha) - Kasaï - 0.09333333333333331
+taaable:Wild_rice - dbpedia:Wildrye - Wildrye - Set(Wild rice) - Wildrye - 0.09523809523809523
+taaable:Brown_rice - dbpedia:Brown_mackie - Brown mackie - Set(Brown rice) - Brown mackie - 0.09222222222222226
+taaable:Amaranth - dbpedia:Amara_anthobia - Amara anthobia - Set(Amaranth) - Amara anthobia - 0.08571428571428574
+taaable:Japanese_rice - dbpedia:Japanese_ideograph - Japanese ideograph - Set(Japanese rice) - Japanese ideograph - 0.0987179487179487
+taaable:Japanese_rice - dbpedia:Japanese_pear - Japanese pear - Set(Japanese rice) - Japanese pear - 0.07972027972027976
+taaable:White_rice - dbpedia:White_bream - White bream - Set(White rice) - White bream - 0.09454545454545456
+taaable:Barley - dbpedia:Barlett - Barlett - Set(Barley) - Barlett - 0.09047619047619049
+taaable:White_rice - dbpedia:White - White - Set(White rice) - White - 0.09999999999999998
+taaable:Quinoa - dbpedia:Quina - Quina - Set(Quinoa) - Quina - 0.033333333333333284
+taaable:Wild_rice - dbpedia:Will_Price - Will Price - Set(Wild rice) - Will Price - 0.07259259259259254
+taaable:Quinoa - dbpedia:Quinol - Quinol - Set(Quinoa) - Quinol - 0.06666666666666662
+taaable:Quinoa - dbpedia:Quinna - Quinna - Set(Quinoa) - Quinna - 0.06666666666666662
+taaable:Japanese_rice - dbpedia:Japanese_Afterlife - Japanese Afterlife - Set(Japanese rice) - Japanese Afterlife - 0.0987179487179487
+taaable:Rye - dbpedia:Rhye - Rhye - Set(Rye) - Rhye - 0.07500000000000004
+taaable:Japanese_rice - dbpedia:Japanese_iris - Japanese iris - Set(Japanese rice) - Japanese iris - 0.07972027972027976
+taaable:White_rice - dbpedia:White_Sucker - White Sucker - Set(White rice) - White Sucker - 0.09222222222222226
+taaable:Kasha - dbpedia:Kashaf - Kashaf - Set(Kasha) - Kashaf - 0.033333333333333284
+taaable:Japanese_rice - dbpedia:Japanese_carrier_Chuyo - Japanese carrier Chuyo - Set(Japanese rice) - Japanese carrier Chuyo - 0.09720279720279713
+taaable:Kasha - dbpedia:Kavash - Kavash - Set(Kasha) - Kavash - 0.0977777777777777
+taaable:Japanese_rice - dbpedia:Japanese_Air_Force_One - Japanese Air Force One - Set(Japanese rice) - Japanese Air Force One - 0.09720279720279713
+taaable:Barley - dbpedia:Bareily - Bareily - Set(Barley) - Bareily - 0.07222222222222219
+taaable:Wild_rice - dbpedia:Widlice - Widlice - Set(Wild rice) - Widlice - 0.09735449735449739
+taaable:Wild_rice - dbpedia:Wild_lime - Wild lime - Set(Wild rice) - Wild lime - 0.08888888888888895
+taaable:Japanese_rice - dbpedia:Japanese_Chilean - Japanese Chilean - Set(Japanese rice) - Japanese Chilean - 0.09326923076923077
+taaable:Amaranth - dbpedia:Amarasti - Amarasti - Set(Amaranth) - Amarasti - 0.09999999999999998
+taaable:Kasha - dbpedia:Kashgartsy - Kashgartsy - Set(Kasha) - Kashgartsy - 0.09999999999999998
+taaable:Kasha - dbpedia:Kashgars - Kashgars - Set(Kasha) - Kashgars - 0.075
+taaable:Kasha - dbpedia:Kashkarlik - Kashkarlik - Set(Kasha) - Kashkarlik - 0.09999999999999998
+taaable:Kasha - dbpedia:Kashgarlyk - Kashgarlyk - Set(Kasha) - Kashgarlyk - 0.09999999999999998
+taaable:Kasha - dbpedia:Kashgarluk - Kashgarluk - Set(Kasha) - Kashgarluk - 0.09999999999999998
+taaable:Cracked_wheat - dbpedia:Crack_head - Crack head - Set(Cracked wheat) - Crack head - 0.08615384615384618
+taaable:Kasha - dbpedia:Kasia - Kasia - Set(Kasha) - Kasia - 0.09333333333333331
+taaable:Kasha - dbpedia:Kashstan - Kashstan - Set(Kasha) - Kashstan - 0.075
+taaable:Barley - dbpedia:Barleywood - Barleywood - Set(Barley) - Barleywood - 0.07999999999999999
+taaable:Japanese_rice - dbpedia:Japanese_dance - Japanese dance - Set(Japanese rice) - Japanese dance - 0.07362637362637363
+taaable:White_rice - dbpedia:Whites_(cricket) - Whites (cricket) - Set(White rice) - Whites (cricket) - 0.09499999999999999
+taaable:Amaranth - dbpedia:Amaranth_(Globe) - Amaranth (Globe) - Set(Amaranth) - Amaranth (Globe) - 0.09999999999999998
+taaable:Amaranth - dbpedia:Rantamah - Rantamah - Set(Amaranth) - Rantamah - 0.0
+taaable:Kasha - dbpedia:Kashka - Kashka - Set(Kasha) - Kashka - 0.033333333333333284
+taaable:Wild_rice - dbpedia:Wild_rue - Wild rue - Set(Wild rice) - Wild rue - 0.06944444444444448
+taaable:Brown_rice - dbpedia:Brown_Tiger - Brown Tiger - Set(Brown rice) - Brown Tiger - 0.07858585858585858
+taaable:Rolled_oat - dbpedia:Rolled_oyster - Rolled oyster - Set(Rolled oat) - Rolled oyster - 0.0815384615384615
+taaable:Japanese_rice - dbpedia:Japanese_square - Japanese square - Set(Japanese rice) - Japanese square - 0.08410256410256414
+taaable:Instant_rice - dbpedia:Instant_turn - Instant turn - Set(Instant rice) - Instant turn - 0.09999999999999998
+taaable:Amaranth - dbpedia:Amarnath - Amarnath - Set(Amaranth) - Amarnath - 0.024999999999999977
+taaable:Popcorn - dbpedia:Popcorn_Arcade - Popcorn Arcade - Set(Popcorn) - Popcorn Arcade - 0.09999999999999998
+taaable:Japanese_rice - dbpedia:Japanese_Hornet - Japanese Hornet - Set(Japanese rice) - Japanese Hornet - 0.08410256410256414
+taaable:Rolled_oat - dbpedia:Roller_boat - Roller boat - Set(Rolled oat) - Roller boat - 0.056363636363636324
+taaable:White_rice - dbpedia:White_Emigre - White Emigre - Set(White rice) - White Emigre - 0.09222222222222226
+taaable:Instant_rice - dbpedia:Instant_centre - Instant centre - Set(Instant rice) - Instant centre - 0.07770562770562775
+taaable:Brown_rice - dbpedia:Bronice - Bronice - Set(Brown rice) - Bronice - 0.06999999999999998
+taaable:Instant_rice - dbpedia:Instant_rebate - Instant rebate - Set(Instant rice) - Instant rebate - 0.09047619047619049
+taaable:Japanese_rice - dbpedia:Japanese_beer - Japanese beer - Set(Japanese rice) - Japanese beer - 0.07972027972027976
+taaable:Kasha - dbpedia:Kashigaun - Kashigaun - Set(Kasha) - Kashigaun - 0.08888888888888895
+taaable:Japanese_rice - dbpedia:Japanese_cyberpunk - Japanese cyberpunk - Set(Japanese rice) - Japanese cyberpunk - 0.0987179487179487
+taaable:Wild_rice - dbpedia:Wild_&_Wicked - Wild & Wicked - Set(Wild rice) - Wild & Wicked - 0.09914529914529917
+taaable:Japanese_rice - dbpedia:Japanese_ry%C5%8D - Japanese ryō - Set(Japanese rice) - Japanese ryō - 0.07948717948717947
+taaable:White_rice - dbpedia:White_flies - White flies - Set(White rice) - White flies - 0.09454545454545456
+taaable:Japanese_rice - dbpedia:Japanese_American - Japanese American - Set(Japanese rice) - Japanese American - 0.07782805429864252
+taaable:Japanese_rice - dbpedia:Japanese_Privet - Japanese Privet - Set(Japanese rice) - Japanese Privet - 0.055384615384615386
+taaable:Jasmine_rice - dbpedia:Jasmine_Chen - Jasmine Chen - Set(Jasmine rice) - Jasmine Chen - 0.09999999999999998
+taaable:Kasha - dbpedia:Kashalty - Kashalty - Set(Kasha) - Kashalty - 0.075
+taaable:Kasha - dbpedia:Kashkachay - Kashkachay - Set(Kasha) - Kashkachay - 0.09999999999999998
+taaable:Kasha - dbpedia:Kasach - Kasach - Set(Kasha) - Kasach - 0.08555555555555548
+taaable:Kasha - dbpedia:Kashad - Kashad - Set(Kasha) - Kashad - 0.033333333333333284
+taaable:Kasha - dbpedia:Kasha_diza - Kasha diza - Set(Kasha) - Kasha diza - 0.09999999999999998
+taaable:Kasha - dbpedia:Kasha-diza - Kasha-diza - Set(Kasha) - Kasha-diza - 0.09999999999999998
+taaable:Barley - dbpedia:Barley - Barley - Set(Barley) - Barley - 0.0
+taaable:Jasmine_rice - dbpedia:Jasmine_princess - Jasmine princess - Set(Jasmine rice) - Jasmine princess - 0.050000000000000024
+taaable:Millet - dbpedia:Millerites - Millerites - Set(Millet) - Millerites - 0.07999999999999999
+taaable:Kasha - dbpedia:Kasla - Kasla - Set(Kasha) - Kasla - 0.09333333333333331
+taaable:Instant_rice - dbpedia:Instinct_Dance - Instinct Dance - Set(Instant rice) - Instinct Dance - 0.09588744588744591
+taaable:Popcorn - dbpedia:Popcnt - Popcnt - Set(Popcorn) - Popcnt - 0.09047619047619049
+taaable:Japanese_rice - dbpedia:Japanese_spiraea - Japanese spiraea - Set(Japanese rice) - Japanese spiraea - 0.08205128205128202
+taaable:Arborio - dbpedia:Arborloo - Arborloo - Set(Arborio) - Arborloo - 0.07857142857142856
+taaable:Amaranth - dbpedia:Amanat - Amanat - Set(Amaranth) - Amanat - 0.09722222222222218
+taaable:Japanese_rice - dbpedia:Japanese_media - Japanese media - Set(Japanese rice) - Japanese media - 0.0918081918081918
+taaable:Kasha - dbpedia:Kashkari - Kashkari - Set(Kasha) - Kashkari - 0.075
+taaable:Spelt - dbpedia:Sperl - Sperl - Set(Spelt) - Sperl - 0.09333333333333331
+taaable:Japanese_rice - dbpedia:Japanese_lilac - Japanese lilac - Set(Japanese rice) - Japanese lilac - 0.07362637362637363
+taaable:Japanese_rice - dbpedia:Japanese_Tree_Lilac - Japanese Tree Lilac - Set(Japanese rice) - Japanese Tree Lilac - 0.07854251012145744
+taaable:Japanese_rice - dbpedia:Japanese_beef - Japanese beef - Set(Japanese rice) - Japanese beef - 0.09230769230769231
+taaable:Barley - dbpedia:Bharle - Bharle - Set(Barley) - Bharle - 0.09999999999999995
+taaable:Japanese_rice - dbpedia:Japanese_War_Bride - Japanese War Bride - Set(Japanese rice) - Japanese War Bride - 0.08205128205128202
+taaable:Japanese_rice - dbpedia:Japanese_Cedar - Japanese Cedar - Set(Japanese rice) - Japanese Cedar - 0.0918081918081918
+taaable:Japanese_rice - dbpedia:Japanese_log_ride - Japanese log ride - Set(Japanese rice) - Japanese log ride - 0.07420814479638009
+taaable:Kasha - dbpedia:Kashag - Kashag - Set(Kasha) - Kashag - 0.033333333333333284
+taaable:Kasha - dbpedia:Kashmira - Kashmira - Set(Kasha) - Kashmira - 0.075
+taaable:White_rice - dbpedia:White_Truck - White Truck - Set(White rice) - White Truck - 0.09454545454545456
+taaable:Brown_rice - dbpedia:Brice_Brown - Brice Brown - Set(Brown rice) - Brice Brown - 0.04210526315789476
+taaable:Brown_rice - dbpedia:Brice_brown - Brice brown - Set(Brown rice) - Brice brown - 0.04210526315789476
+taaable:White_rice - dbpedia:White_clover - White clover - Set(White rice) - White clover - 0.09222222222222226
+taaable:Wild_rice - dbpedia:Wild_America - Wild America - Set(Wild rice) - Wild America - 0.09444444444444446
+taaable:Instant_rice - dbpedia:Instant_Freeze - Instant Freeze - Set(Instant rice) - Instant Freeze - 0.09047619047619049
+taaable:Kasha - dbpedia:Kashyapa_I - Kashyapa I - Set(Kasha) - Kashyapa I - 0.09999999999999998
+taaable:White_rice - dbpedia:White_Nurse - White Nurse - Set(White rice) - White Nurse - 0.09454545454545456
+taaable:Whole_wheat - dbpedia:Wholehearted - Wholehearted - Set(Whole wheat) - Wholehearted - 0.08636363636363635
+taaable:Whole_wheat - dbpedia:Whole-hearted - Whole-hearted - Set(Whole wheat) - Whole-hearted - 0.09790209790209792
+taaable:Whole_wheat - dbpedia:Whole_hearted - Whole hearted - Set(Whole wheat) - Whole hearted - 0.06433566433566434
+taaable:Whole_wheat - dbpedia:Whole_heartedly - Whole heartedly - Set(Whole wheat) - Whole heartedly - 0.08484848484848487
+taaable:Japanese_rice - dbpedia:Japanese_tea - Japanese tea - Set(Japanese rice) - Japanese tea - 0.07948717948717947
+taaable:Kasha - dbpedia:Kashar - Kashar - Set(Kasha) - Kashar - 0.033333333333333284
+taaable:White_rice - dbpedia:White_haired - White haired - Set(White rice) - White haired - 0.09222222222222226
+taaable:Brown_rice - dbpedia:Brown_Rice - Brown Rice - Set(Brown rice) - Brown Rice - 0.0
+taaable:Kasha - dbpedia:Kashyapiya - Kashyapiya - Set(Kasha) - Kashyapiya - 0.09999999999999998
+taaable:Kasha - dbpedia:Kaha - Kaha - Set(Kasha) - Kaha - 0.05333333333333341
+taaable:Japanese_rice - dbpedia:Japanese_verbs - Japanese verbs - Set(Japanese rice) - Japanese verbs - 0.0918081918081918
+taaable:Japanese_rice - dbpedia:Japanese_French - Japanese French - Set(Japanese rice) - Japanese French - 0.07205128205128206
+taaable:Japanese_rice - dbpedia:Japanese_post_office - Japanese post office - Set(Japanese rice) - Japanese post office - 0.09538461538461537
+taaable:Japanese_rice - dbpedia:Japanese_huchen - Japanese huchen - Set(Japanese rice) - Japanese huchen - 0.08410256410256414
+taaable:Kasha - dbpedia:Kasrah - Kasrah - Set(Kasha) - Kasrah - 0.08555555555555548
+taaable:White_rice - dbpedia:White_%C3%89migre - White Émigre - Set(White rice) - White Émigre - 0.09222222222222226
+taaable:Amaranth - dbpedia:Amardaha - Amardaha - Set(Amaranth) - Amardaha - 0.09999999999999998
+taaable:Amaranth - dbpedia:Amaranath - Amaranath - Set(Amaranth) - Amaranath - 0.022222222222222254
+taaable:Japanese_rice - dbpedia:Japanese_War_Crimes - Japanese War Crimes - Set(Japanese rice) - Japanese War Crimes - 0.08906882591093115
+taaable:White_rice - dbpedia:White_Irish - White Irish - Set(White rice) - White Irish - 0.09454545454545456
+taaable:Kasha - dbpedia:Kashiram - Kashiram - Set(Kasha) - Kashiram - 0.075
+taaable:Kasha - dbpedia:Kashi_Ram - Kashi Ram - Set(Kasha) - Kashi Ram - 0.08888888888888895
+taaable:Jasmine_rice - dbpedia:Jasmin_Fejzic - Jasmin Fejzic - Set(Jasmine rice) - Jasmin Fejzic - 0.09948717948717946
+taaable:Popcorn - dbpedia:Popcorn_Park - Popcorn Park - Set(Popcorn) - Popcorn Park - 0.0833333333333333
+taaable:Amaranth - dbpedia:Amaanat - Amaanat - Set(Amaranth) - Amaanat - 0.09166666666666665
+taaable:Jasmine_rice - dbpedia:Jasmine_Byrtles - Jasmine Byrtles - Set(Jasmine rice) - Jasmine Byrtles - 0.09999999999999998
+taaable:Barley - dbpedia:Barley_grass - Barley grass - Set(Barley) - Barley grass - 0.09999999999999998
+taaable:Barley - dbpedia:Barley_Grass - Barley Grass - Set(Barley) - Barley Grass - 0.09999999999999998
+taaable:Japanese_rice - dbpedia:Japanese_TV_series - Japanese TV series - Set(Japanese rice) - Japanese TV series - 0.0987179487179487
+taaable:Wild_rice - dbpedia:Wild_Iris - Wild Iris - Set(Wild rice) - Wild Iris - 0.08888888888888895
+taaable:Instant_rice - dbpedia:Instant_Kiwi - Instant Kiwi - Set(Instant rice) - Instant Kiwi - 0.09999999999999998
+taaable:White_rice - dbpedia:White_ethnic - White ethnic - Set(White rice) - White ethnic - 0.09222222222222226
+taaable:White_rice - dbpedia:Whitey_Mitchell - Whitey Mitchell - Set(White rice) - Whitey Mitchell - 0.09999999999999998
+taaable:White_rice - dbpedia:White_grape - White grape - Set(White rice) - White grape - 0.09454545454545456
+taaable:Kasha - dbpedia:Kashkawane - Kashkawane - Set(Kasha) - Kashkawane - 0.09999999999999998
+taaable:Kasha - dbpedia:Kashawan - Kashawan - Set(Kasha) - Kashawan - 0.075
+taaable:Kasha - dbpedia:Kashkawan - Kashkawan - Set(Kasha) - Kashkawan - 0.08888888888888895
+taaable:Kasha - dbpedia:Kashqawan - Kashqawan - Set(Kasha) - Kashqawan - 0.08888888888888895
+taaable:Kasha - dbpedia:Katusha - Katusha - Set(Kasha) - Katusha - 0.07619047619047618
+taaable:Popcorn - dbpedia:Pop_Corn - Pop Corn - Set(Popcorn) - Pop Corn - 0.0
+taaable:Barley - dbpedia:Baxley - Baxley - Set(Barley) - Baxley - 0.08888888888888884
+taaable:Japanese_rice - dbpedia:Japanese_Ricefish - Japanese Ricefish - Set(Japanese rice) - Japanese Ricefish - 0.07420814479638009
+taaable:Wild_rice - dbpedia:Wild_Mike - Wild Mike - Set(Wild rice) - Wild Mike - 0.08888888888888895
+taaable:Brown_rice - dbpedia:Brown's_Arcade - Brown's Arcade - Set(Brown rice) - Brown's Arcade - 0.09142857142857144
+taaable:Quick_oat - dbpedia:Quick_man - Quick man - Set(Quick oat) - Quick man - 0.08888888888888895
+taaable:White_rice - dbpedia:White_Birches - White Birches - Set(White rice) - White Birches - 0.06615384615384617
+taaable:Millet - dbpedia:Millea - Millea - Set(Millet) - Millea - 0.06666666666666662
+taaable:Japanese_rice - dbpedia:Japanese_time - Japanese time - Set(Japanese rice) - Japanese time - 0.061538461538461514
+taaable:Instant_rice - dbpedia:Instant_Wilkie - Instant Wilkie - Set(Instant rice) - Instant Wilkie - 0.09047619047619049
+taaable:Japanese_rice - dbpedia:Japanese_carp - Japanese carp - Set(Japanese rice) - Japanese carp - 0.07972027972027976
+taaable:Japanese_rice - dbpedia:Japanese_red_cedar - Japanese red cedar - Set(Japanese rice) - Japanese red cedar - 0.0987179487179487
+taaable:White_rice - dbpedia:White_Bread - White Bread - Set(White rice) - White Bread - 0.09454545454545456
+taaable:Rolled_oat - dbpedia:Roll_mat - Roll mat - Set(Rolled oat) - Roll mat - 0.08499999999999996
+taaable:White_rice - dbpedia:White_Voices - White Voices - Set(White rice) - White Voices - 0.07
+taaable:Japanese_rice - dbpedia:Japanese_Whisper - Japanese Whisper - Set(Japanese rice) - Japanese Whisper - 0.08205128205128202
+taaable:Millet - dbpedia:Milltone - Milltone

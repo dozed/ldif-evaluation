@@ -1,4 +1,5 @@
 import com.hp.hpl.jena.rdf.model.{Resource, Model}
+import de.fuberlin.wiwiss.silk.linkagerule.similarity.SimpleDistanceMeasure
 import de.fuberlin.wiwiss.silk.plugins.distance.characterbased._
 import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.JaroDistanceMetric
 import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.JaroWinklerDistance
@@ -415,6 +416,18 @@ object Alg {
 
 }
 
+case class WuPalmer(g: Graph[String, WDiEdge], root: String) extends SimpleDistanceMeasure {
+  def evaluate(value1: String, value2: String, limit: Double): Double = {
+    Alg.wuPalmer(g, root, value1, value2)
+  }
+}
+
+case class StructuralCotopic(g: Graph[String, WDiEdge]) extends SimpleDistanceMeasure {
+  def evaluate(value1: String, value2: String, limit: Double): Double = {
+    Alg.structuralCotopic(g, value1, value2)
+  }
+}
+
 object TestDataset {
 
   import PrefixHelper._
@@ -717,6 +730,93 @@ object TestDataset {
     writers foreach (_.close)
   }
 
+  def testOat {
+    val instances = List(
+      "dbpedia:Oaths",
+      "dbpedia:Oates",
+      "dbpedia:Oaten",
+      "dbpedia:Oater",
+      "category:Oaths",
+      "dbpedia:Oatka",
+      "dbpedia:Oa",
+      "dbpedia:Oyat",
+      "dbpedia:Oast",
+      "category:Oats",
+      "dbpedia:Oats",
+      "dbpedia:Oath",
+      "dbpedia:OAT",
+      "dbpedia:Oat",
+      "dbpedia:......",
+      "dbpedia:----",
+      "dbpedia:..._...",
+      "dbpedia:-",
+      "dbpedia:-_-",
+      "dbpedia:--",
+      "dbpedia:...---...",
+      "dbpedia:-.-",
+      "dbpedia:._._.",
+      "dbpedia:%22_%22",
+      "dbpedia:.....",
+      "dbpedia:---",
+      "dbpedia:...",
+      "dbpedia:._.",
+      "dbpedia:....",
+      "dbpedia:..._---_...",
+      "dbpedia:%22.%22"
+    )
+
+    val dbpediaInstances = List(
+      "dbpedia:Oaths",
+      "dbpedia:Oates",
+      "dbpedia:Oaten",
+      "dbpedia:Oater",
+      "category:Oaths",
+      "dbpedia:Oatka",
+      "dbpedia:Oa",
+      "dbpedia:Oyat",
+      "dbpedia:Oast",
+      "category:Oats",
+      "dbpedia:Oats",
+      "dbpedia:Oath",
+      "dbpedia:OAT",
+      "dbpedia:Oat"
+    )
+
+    val taaableHierarchy = fromQuads(new FileInputStream("ldif-taaable/taaable-food.nq"))
+    val taaableLabels = labelsFromQuads(new FileInputStream("ldif-taaable/taaable-food.nq"))
+
+    val dbpediaHierarchy = fromQuads(new FileInputStream("ldif-taaable/grain/dataset-oats-articles-categories-labels.nt"))
+    val dbpediaLabels = labelsFromQuads(new FileInputStream("ldif-taaable/grain/dataset-oats-articles-categories-labels.nt"))
+
+    val taaableInstances = subsumedLeafs(taaableHierarchy, "taaable:Grain")
+
+    val g = taaableHierarchy ++ dbpediaHierarchy ++
+      merge("taaable:Food", "category:Food_and_drink") +
+      ("category:Food_and_drink" ~> "common:Root" % 1) +
+      ("taaable:Food" ~> "common:Root" % 1)
+
+    val containedDbpediaInstances = dbpediaInstances filter (i => g.nodes.toOuterNodes.contains(i))
+
+    val measures = List(
+      "relaxedEquality" -> new RelaxedEqualityMetric(),
+      "substring" -> SubStringDistance(),
+      "qgrams2" -> QGramsMetric(q = 2),
+      "jaroWinkler" -> JaroWinklerDistance(),
+      "jaro" -> JaroDistanceMetric(),
+      "levenshtein" -> LevenshteinMetric(),
+      "structuralCotopic" -> StructuralCotopic(g),
+      "wuPalmer" -> WuPalmer(g, "common:Root")
+    )
+
+    containedDbpediaInstances foreach { i =>
+      print(i + ": ")
+      measures.toMap.values foreach { m =>
+        print(m.evaluate("taaable:Oat", i) + " ")
+      }
+      println("")
+    }
+  }
+
 }
 
 object GraphTest extends App {
@@ -727,79 +827,12 @@ object GraphTest extends App {
   import Align._
   import TestDataset._
 
+  testOat
+
   //  generateOat
 
-  val instances = List(
-    "dbpedia:Oaths",
-    "dbpedia:Oates",
-    "dbpedia:Oaten",
-    "dbpedia:Oater",
-    "category:Oaths",
-    "dbpedia:Oatka",
-    "dbpedia:Oa",
-    "dbpedia:Oyat",
-    "dbpedia:Oast",
-    "category:Oats",
-    "dbpedia:Oats",
-    "dbpedia:Oath",
-    "dbpedia:OAT",
-    "dbpedia:Oat",
-    "dbpedia:......",
-    "dbpedia:----",
-    "dbpedia:..._...",
-    "dbpedia:-",
-    "dbpedia:-_-",
-    "dbpedia:--",
-    "dbpedia:...---...",
-    "dbpedia:-.-",
-    "dbpedia:._._.",
-    "dbpedia:%22_%22",
-    "dbpedia:.....",
-    "dbpedia:---",
-    "dbpedia:...",
-    "dbpedia:._.",
-    "dbpedia:....",
-    "dbpedia:..._---_...",
-    "dbpedia:%22.%22"
-  )
 
-  val dbpediaInstances = List(
-    "dbpedia:Oaths",
-    "dbpedia:Oates",
-    "dbpedia:Oaten",
-    "dbpedia:Oater",
-    "category:Oaths",
-    "dbpedia:Oatka",
-    "dbpedia:Oa",
-    "dbpedia:Oyat",
-    "dbpedia:Oast",
-    "category:Oats",
-    "dbpedia:Oats",
-    "dbpedia:Oath",
-    "dbpedia:OAT",
-    "dbpedia:Oat"
-  )
 
-  val taaableHierarchy = fromQuads(new FileInputStream("ldif-taaable/taaable-food.nq"))
-  val taaableLabels = labelsFromQuads(new FileInputStream("ldif-taaable/taaable-food.nq"))
-
-  val dbpediaHierarchy = fromQuads(new FileInputStream("ldif-taaable/grain/dataset-oats-articles-categories-labels.nt"))
-  val dbpediaLabels = labelsFromQuads(new FileInputStream("ldif-taaable/grain/dataset-oats-articles-categories-labels.nt"))
-
-  val taaableInstances = subsumedLeafs(taaableHierarchy, "taaable:Grain")
-
-  val g = taaableHierarchy ++ dbpediaHierarchy ++
-    merge("taaable:Food", "category:Food_and_drink") +
-    ("category:Food_and_drink" ~> "common:Root" % 1) +
-    ("taaable:Food" ~> "common:Root" % 1)
-
-  val containedDbpediaInstances = dbpediaInstances filter (i => g.nodes.toOuterNodes.contains(i))
-
-  containedDbpediaInstances foreach { i =>
-    val d1 = wuPalmer(g, "common:Root", "taaable:Oat", i)
-    val d2 = structuralCotopic(g, "taaable:Oat", i)
-    println(f"$i $d1 $d2")
-  }
 
 
 

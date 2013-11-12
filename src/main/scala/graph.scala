@@ -151,7 +151,7 @@ object GraphFactory {
       def endRDF() {}
     })
 
-    parser.parse(in, "")
+    parser.parse(in, "http://dbpedia.org/resource")
 
     g
   }
@@ -180,7 +180,7 @@ object GraphFactory {
       def endRDF() {}
     })
 
-    parser.parse(in, "")
+    parser.parse(in, "http://dbpedia.org/resource")
 
     labelMap.toMap
   }
@@ -511,7 +511,7 @@ object TestDataset {
     })
 
     val in = new FileInputStream(DBpediaFiles.articleCategories)
-    parser.parse(in, "http://dbpedia.org/resource/")
+    parser.parse(in, "http://dbpedia.org/resource")
 
     typeMap.toMap
   }
@@ -559,7 +559,7 @@ object TestDataset {
 
     val in = new SequenceInputStream(new FileInputStream(DBpediaFiles.articleLabels),
       new FileInputStream(DBpediaFiles.categoryLabels))
-    parser.parse(in, "http://dbpedia.org/resource/")
+    parser.parse(in, "http://dbpedia.org/resource")
 
     labelMap.toMap
   }
@@ -567,24 +567,30 @@ object TestDataset {
   def writeTestDataset(file: File, articleTypes: Map[String, Set[String]], categoryTypes: Set[(String, String)], conceptLabels: Map[String, Set[String]]) {
     val pw = new PrintWriter(file)
 
-    def write(s: String, p: String, o: String) {
-      val ls = f"<${fullUri(s)}> <$p> <${fullUri(o)}> ."
+    for {
+      (article, types) <- articleTypes
+      articleType <- types
+    } {
+      val ls = f"<${fullUri(article)}> <http://purl.org/dc/terms/subject> <${fullUri(articleType)}> ."
       println(ls)
       pw.println(ls)
     }
 
-    articleTypes foreach {
-      case (x, ys) =>
-        ys foreach (y => write(x, "http://purl.org/dc/terms/subject", y))
+    for {
+      (cat1, cat2) <- categoryTypes
+    } {
+      val ls = f"<${fullUri(cat1)}> <http://www.w3.org/2004/02/skos/core#broader> <${fullUri(cat2)}> ."
+      println(ls)
+      pw.println(ls)
     }
 
-    categoryTypes foreach {
-      case (x, y) => write(x, "http://www.w3.org/2004/02/skos/core#broader", y)
-    }
-
-    conceptLabels foreach {
-      case (x, ys) =>
-        ys foreach (y => write(x, "http://www.w3.org/2000/01/rdf-schema#label", y))
+    for {
+      (concept, labels) <- conceptLabels
+      label <- labels
+    } {
+      val ls = "<" + fullUri(concept) +"> <http://www.w3.org/2000/01/rdf-schema#label> \"" + label + "\"@en ."
+      println(ls)
+      pw.println(ls)
     }
 
     pw.close
@@ -722,6 +728,80 @@ object GraphTest extends App {
   import TestDataset._
 
   generateOat
+
+//  val instances = List(
+//    "dbpedia:Oaths",
+//    "dbpedia:Oates",
+//    "dbpedia:Oaten",
+//    "dbpedia:Oater",
+//    "category:Oaths",
+//    "dbpedia:Oatka",
+//    "dbpedia:Oa",
+//    "dbpedia:Oyat",
+//    "dbpedia:Oast",
+//    "category:Oats",
+//    "dbpedia:Oats",
+//    "dbpedia:Oath",
+//    "dbpedia:OAT",
+//    "dbpedia:Oat",
+//    "dbpedia:......",
+//    "dbpedia:----",
+//    "dbpedia:..._...",
+//    "dbpedia:-",
+//    "dbpedia:-_-",
+//    "dbpedia:--",
+//    "dbpedia:...---...",
+//    "dbpedia:-.-",
+//    "dbpedia:._._.",
+//    "dbpedia:%22_%22",
+//    "dbpedia:.....",
+//    "dbpedia:---",
+//    "dbpedia:...",
+//    "dbpedia:._.",
+//    "dbpedia:....",
+//    "dbpedia:..._---_...",
+//    "dbpedia:%22.%22"
+//  )
+//
+//  val taaableHierarchy = fromQuads(new FileInputStream("ldif-taaable/taaable-food.nq"))
+//  val taaableLabels = labelsFromQuads(new FileInputStream("ldif-taaable/taaable-food.nq"))
+//
+//  val dbpediaHierarchy = fromQuads(new FileInputStream("ldif-taaable/grain/dataset-oats-articles-categories-labels.nt"))
+//  val dbpediaLabels = labelsFromQuads(new FileInputStream("ldif-taaable/grain/dataset-oats-articles-categories-labels.nt"))
+//
+//  val dbpediaInstances = List(
+//    "dbpedia:Oaths",
+//    "dbpedia:Oates",
+//    "dbpedia:Oaten",
+//    "dbpedia:Oater",
+//    "category:Oaths",
+//    "dbpedia:Oatka",
+//    "dbpedia:Oa",
+//    "dbpedia:Oyat",
+//    "dbpedia:Oast",
+//    "category:Oats",
+//    "dbpedia:Oats",
+//    "dbpedia:Oath",
+//    "dbpedia:OAT",
+//    "dbpedia:Oat"
+//  )
+//  val taaableInstances = subsumedLeafs(taaableHierarchy, "taaable:Grain")
+//
+//
+//  //    merge("taaable:Vegetable", "category:Vegetables") ++
+//  //    merge("taaable:Stalk_vegetable", "category:Stem_vegetables") ++
+//  //    merge("taaable:Leaf_vegetable", "category:Leaf_vegetables") +
+//  val g = taaableHierarchy ++ dbpediaHierarchy ++
+//    merge("taaable:Food", "category:Food_and_drink") +
+//    ("category:Food_and_drink" ~> "common:Root" % 1) +
+//    ("taaable:Food" ~> "common:Root" % 1)
+//
+//  dbpediaInstances foreach { i =>
+//    val lcs0 = lcsCandidates(g, "taaable:Oat", "taaable:Oaths")
+//    println(i)
+//    lcs0 foreach (l => println(f"    $l"))
+//  }
+
 
   //  println("reading taaable")
   //  val taaableHierarchy = fromQuads(new FileInputStream("ldif-taaable/taaable-food.nq"))

@@ -588,7 +588,7 @@ object TestDataset {
       (concept, labels) <- conceptLabels
       label <- labels
     } {
-      val ls = "<" + fullUri(concept) +"> <http://www.w3.org/2000/01/rdf-schema#label> \"" + label + "\"@en ."
+      val ls = "<" + fullUri(concept) + "> <http://www.w3.org/2000/01/rdf-schema#label> \"" + label + "\"@en ."
       println(ls)
       pw.println(ls)
     }
@@ -727,80 +727,81 @@ object GraphTest extends App {
   import Align._
   import TestDataset._
 
-  generateOat
+  //  generateOat
 
-//  val instances = List(
-//    "dbpedia:Oaths",
-//    "dbpedia:Oates",
-//    "dbpedia:Oaten",
-//    "dbpedia:Oater",
-//    "category:Oaths",
-//    "dbpedia:Oatka",
-//    "dbpedia:Oa",
-//    "dbpedia:Oyat",
-//    "dbpedia:Oast",
-//    "category:Oats",
-//    "dbpedia:Oats",
-//    "dbpedia:Oath",
-//    "dbpedia:OAT",
-//    "dbpedia:Oat",
-//    "dbpedia:......",
-//    "dbpedia:----",
-//    "dbpedia:..._...",
-//    "dbpedia:-",
-//    "dbpedia:-_-",
-//    "dbpedia:--",
-//    "dbpedia:...---...",
-//    "dbpedia:-.-",
-//    "dbpedia:._._.",
-//    "dbpedia:%22_%22",
-//    "dbpedia:.....",
-//    "dbpedia:---",
-//    "dbpedia:...",
-//    "dbpedia:._.",
-//    "dbpedia:....",
-//    "dbpedia:..._---_...",
-//    "dbpedia:%22.%22"
-//  )
-//
-//  val taaableHierarchy = fromQuads(new FileInputStream("ldif-taaable/taaable-food.nq"))
-//  val taaableLabels = labelsFromQuads(new FileInputStream("ldif-taaable/taaable-food.nq"))
-//
-//  val dbpediaHierarchy = fromQuads(new FileInputStream("ldif-taaable/grain/dataset-oats-articles-categories-labels.nt"))
-//  val dbpediaLabels = labelsFromQuads(new FileInputStream("ldif-taaable/grain/dataset-oats-articles-categories-labels.nt"))
-//
-//  val dbpediaInstances = List(
-//    "dbpedia:Oaths",
-//    "dbpedia:Oates",
-//    "dbpedia:Oaten",
-//    "dbpedia:Oater",
-//    "category:Oaths",
-//    "dbpedia:Oatka",
-//    "dbpedia:Oa",
-//    "dbpedia:Oyat",
-//    "dbpedia:Oast",
-//    "category:Oats",
-//    "dbpedia:Oats",
-//    "dbpedia:Oath",
-//    "dbpedia:OAT",
-//    "dbpedia:Oat"
-//  )
-//  val taaableInstances = subsumedLeafs(taaableHierarchy, "taaable:Grain")
-//
-//
-//  //    merge("taaable:Vegetable", "category:Vegetables") ++
-//  //    merge("taaable:Stalk_vegetable", "category:Stem_vegetables") ++
-//  //    merge("taaable:Leaf_vegetable", "category:Leaf_vegetables") +
-//  val g = taaableHierarchy ++ dbpediaHierarchy ++
-//    merge("taaable:Food", "category:Food_and_drink") +
-//    ("category:Food_and_drink" ~> "common:Root" % 1) +
-//    ("taaable:Food" ~> "common:Root" % 1)
-//
-//  dbpediaInstances foreach { i =>
-//    val lcs0 = lcsCandidates(g, "taaable:Oat", "taaable:Oaths")
-//    println(i)
-//    lcs0 foreach (l => println(f"    $l"))
-//  }
+  val instances = List(
+    "dbpedia:Oaths",
+    "dbpedia:Oates",
+    "dbpedia:Oaten",
+    "dbpedia:Oater",
+    "category:Oaths",
+    "dbpedia:Oatka",
+    "dbpedia:Oa",
+    "dbpedia:Oyat",
+    "dbpedia:Oast",
+    "category:Oats",
+    "dbpedia:Oats",
+    "dbpedia:Oath",
+    "dbpedia:OAT",
+    "dbpedia:Oat",
+    "dbpedia:......",
+    "dbpedia:----",
+    "dbpedia:..._...",
+    "dbpedia:-",
+    "dbpedia:-_-",
+    "dbpedia:--",
+    "dbpedia:...---...",
+    "dbpedia:-.-",
+    "dbpedia:._._.",
+    "dbpedia:%22_%22",
+    "dbpedia:.....",
+    "dbpedia:---",
+    "dbpedia:...",
+    "dbpedia:._.",
+    "dbpedia:....",
+    "dbpedia:..._---_...",
+    "dbpedia:%22.%22"
+  )
+
+  val dbpediaInstances = List(
+    "dbpedia:Oaths",
+    "dbpedia:Oates",
+    "dbpedia:Oaten",
+    "dbpedia:Oater",
+    "category:Oaths",
+    "dbpedia:Oatka",
+    "dbpedia:Oa",
+    "dbpedia:Oyat",
+    "dbpedia:Oast",
+    "category:Oats",
+    "dbpedia:Oats",
+    "dbpedia:Oath",
+    "dbpedia:OAT",
+    "dbpedia:Oat"
+  )
+
+  val taaableHierarchy = fromQuads(new FileInputStream("ldif-taaable/taaable-food.nq"))
+  val taaableLabels = labelsFromQuads(new FileInputStream("ldif-taaable/taaable-food.nq"))
+
+  val dbpediaHierarchy = fromQuads(new FileInputStream("ldif-taaable/grain/dataset-oats-articles-categories-labels.nt"))
+  val dbpediaLabels = labelsFromQuads(new FileInputStream("ldif-taaable/grain/dataset-oats-articles-categories-labels.nt"))
+
+  val taaableInstances = subsumedLeafs(taaableHierarchy, "taaable:Grain")
+
+  val g = taaableHierarchy ++ dbpediaHierarchy ++
+    merge("taaable:Food", "category:Food_and_drink") +
+    ("category:Food_and_drink" ~> "common:Root" % 1) +
+    ("taaable:Food" ~> "common:Root" % 1)
+
+  val containedDbpediaInstances = dbpediaInstances filter (i => g.nodes.toOuterNodes.contains(i))
+
+  containedDbpediaInstances foreach { i =>
+    val d1 = wuPalmer(g, "common:Root", "taaable:Oat", i)
+    val d2 = structuralCotopic(g, "taaable:Oat", i)
+    println(f"$i $d1 $d2")
+  }
+
+
 
 
   //  println("reading taaable")

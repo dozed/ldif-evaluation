@@ -20,6 +20,16 @@ import scalax.collection.GraphEdge._
 import scalax.collection.edge.WDiEdge
 import scalax.collection.edge.Implicits._
 
+object DBpediaFiles {
+
+  val categories = new File("D:/Dokumente/dbpedia2/skos_categories_en.nt")
+  val categoryLabels = new File("D:/Dokumente/dbpedia2/category_labels_en.nt")
+
+  val articleLabels = new File("D:/Dokumente/dbpedia2/labels_en.nt")
+  val articleCategories = new File("D:/Dokumente/dbpedia2/article_categories_en.nt")
+
+}
+
 object PrefixHelper {
 
   val defaultPrefixes = Map(
@@ -405,23 +415,84 @@ object Alg {
 
 }
 
-object TestDataSet {
+object TestDataset {
 
   import PrefixHelper._
   import GraphFactory._
   import Alg._
 
-  def extractTypes(subjects: List[String]): Map[String, Set[String]] = {
+  def generateOat {
+    val instances = List(
+      "dbpedia:Oaths",
+      "dbpedia:Oates",
+      "dbpedia:Oaten",
+      "dbpedia:Oater",
+      "category:Oaths",
+      "dbpedia:Oatka",
+      "dbpedia:Oa",
+      "dbpedia:Oyat",
+      "dbpedia:Oast",
+      "category:Oats",
+      "dbpedia:Oats",
+      "dbpedia:Oath",
+      "dbpedia:OAT",
+      "dbpedia:Oat",
+      "dbpedia:......",
+      "dbpedia:----",
+      "dbpedia:..._...",
+      "dbpedia:-",
+      "dbpedia:-_-",
+      "dbpedia:--",
+      "dbpedia:...---...",
+      "dbpedia:-.-",
+      "dbpedia:._._.",
+      "dbpedia:%22_%22",
+      "dbpedia:.....",
+      "dbpedia:---",
+      "dbpedia:...",
+      "dbpedia:._.",
+      "dbpedia:....",
+      "dbpedia:..._---_...",
+      "dbpedia:%22.%22"
+    )
+    val (articleTypes, categoryTypes, conceptLabels) = generateTestDataset(instances)
+    writeTestDataset(new File("dataset-oat-types.nt"), articleTypes, categoryTypes, conceptLabels)
+  }
 
+  def generateCelery {
+    val instances = List(
+      "dbpedia:Celery",
+      "dbpedia:Cel-Ray",
+      "dbpedia:Celery_salt",
+      "dbpedia:Celery_Victor",
+      "dbpedia:Celery_cabbage",
+      "dbpedia:Celeriac",
+      "dbpedia:Celebrity_(tomato)"
+    )
+    val (articleTypes, categoryTypes, conceptLabels) = generateTestDataset(instances)
+    writeTestDataset(new File("dataset-cellery-types.nt"), articleTypes, categoryTypes, conceptLabels)
+  }
+
+  def generateTestDataset(instances: List[String]): (Map[String, Set[String]], Set[(String, String)], Map[String, Set[String]]) = {
+    println("extracting instance types")
+    val articleTypes = extractArticleTypes(instances)
+    val categoryTypes = extractUpperCategories(articleTypes.values.flatten.toSet)
+    val concepts = instances.toSet union categoryTypes.flatMap(t => Set(t._1, t._2))
+    val conceptLabels = extractConceptLabels(concepts)
+
+    (articleTypes, categoryTypes.toSet, conceptLabels)
+  }
+
+  def extractArticleTypes(subjects: List[String]): Map[String, Set[String]] = {
     val typeMap = collection.mutable.Map[String, Set[String]]()
 
     val parser = new NQuadsParser()
     parser.setRDFHandler(new RDFHandler {
       def handleStatement(p1: Statement) {
-        val s = p1.getSubject.stringValue
+        val s = shortenUri(p1.getSubject.stringValue)
         if (subjects.contains(s)) {
           val p = p1.getPredicate.stringValue
-          val o = p1.getObject.stringValue
+          val o = shortenUri(p1.getObject.stringValue)
           typeMap(s) = typeMap.getOrElseUpdate(s, Set.empty) + o
         }
       }
@@ -435,51 +506,64 @@ object TestDataSet {
       def endRDF() {}
     })
 
-    val in = new BufferedInputStream(new FileInputStream("D:/Dokumente/dbpedia2/article_categories_en.nt"))
+    val in = new FileInputStream(DBpediaFiles.articleCategories)
     parser.parse(in, "http://dbpedia.org/resource/")
 
     typeMap.toMap
   }
 
-  def generate = {
-
-    val instances = List(
-      "http://dbpedia.org/resource/Celery",
-      "http://dbpedia.org/resource/Cel-Ray",
-      "http://dbpedia.org/resource/Celery_salt",
-      "http://dbpedia.org/resource/Celery_Victor",
-      "http://dbpedia.org/resource/Celery_cabbage",
-      "http://dbpedia.org/resource/Celeriac",
-      "http://dbpedia.org/resource/Celebrity_(tomato)"
-    )
-
-    println("extracting instance types")
-    val typeMap = TestDataSet.extractTypes(instances).map {
-      case (k, v) =>
-        (k.replaceAll("http://dbpedia.org/resource/", "dbpedia:"), v.map(_.replaceAll("http://dbpedia.org/resource/Category:", "category:")))
-    }
-
-    println("loading hierarchy triples")
-    val model = RDFDataMgr.loadModel(f"file:///D:/Dokumente/dbpedia2/skos_categories_en.nt", Lang.NTRIPLES)
-
-    println("converting hierarchy to graph")
-    val g = GraphFactory.from(model)
+  def extractUpperCategories(categories: Set[String]): Set[(String, String)] = {
+    println("loading hierarchy graph")
+    val g = fromQuads(new FileInputStream(DBpediaFiles.categories))
 
     println("extracting transitive types")
-    val transitiveTypes = collection.mutable.HashSet[(String, String)]()
-    typeMap.map(_._2).flatten foreach {
+    val conceptTypes = collection.mutable.HashSet[(String, String)]()
+    categories foreach {
       x =>
         g.get(x).traverse(direction = GraphTraversal.Successors, breadthFirst = true)(edgeVisitor = {
           e =>
             val u: String = e._1
             val v: String = e._2
-            if (!transitiveTypes.contains((u, v))) {
-              transitiveTypes += ((u, v))
+            if (!conceptTypes.contains((u, v))) {
+              conceptTypes += ((u, v))
             }
         })
     }
+    conceptTypes.toSet
+  }
 
-    val pw = new PrintWriter("test-cellery.nt")
+  def extractConceptLabels(concepts: Set[String]): Map[String, Set[String]] = {
+    val labelMap = collection.mutable.Map[String, Set[String]]()
+
+    val parser = new NQuadsParser()
+    parser.setRDFHandler(new RDFHandler {
+      def handleStatement(p1: Statement) {
+        val s = shortenUri(p1.getSubject.stringValue)
+        val p = p1.getPredicate.stringValue
+        if (concepts.contains(s) && labelPredicates.contains(p)) {
+          val o = p1.getObject.stringValue
+          labelMap(s) = labelMap.getOrElseUpdate(s, Set.empty) + o
+        }
+      }
+
+      def handleNamespace(p1: String, p2: String) {}
+
+      def handleComment(p1: String) {}
+
+      def startRDF() {}
+
+      def endRDF() {}
+    })
+
+    val in = new SequenceInputStream(new FileInputStream(DBpediaFiles.articleLabels),
+      new FileInputStream(DBpediaFiles.categoryLabels))
+    parser.parse(in, "http://dbpedia.org/resource/")
+
+    labelMap.toMap
+  }
+
+  def writeTestDataset(file: File, articleTypes: Map[String, Set[String]], categoryTypes: Set[(String, String)], conceptLabels: Map[String, Set[String]]) {
+    val pw = new PrintWriter(file)
 
     def write(s: String, p: String, o: String) {
       val ls = f"<${fullUri(s)}> <$p> <${fullUri(o)}> ."
@@ -487,17 +571,21 @@ object TestDataSet {
       pw.println(ls)
     }
 
-    typeMap foreach {
+    articleTypes foreach {
       case (x, ys) =>
         ys foreach (y => write(x, "http://purl.org/dc/terms/subject", y))
     }
 
-    transitiveTypes foreach {
+    categoryTypes foreach {
       case (x, y) => write(x, "http://www.w3.org/2004/02/skos/core#broader", y)
     }
 
-    pw.close
+    conceptLabels foreach {
+      case (x, ys) =>
+        ys foreach (y => write(x, "http://www.w3.org/2000/01/rdf-schema#label", y))
+    }
 
+    pw.close
   }
 
   def graphStatistics[N](g: Graph[N, WDiEdge]) = {
@@ -598,8 +686,8 @@ object TestDataSet {
     val grainLabels = taaableLabels filterKeys grainEntities.contains
 
     println("reading dbpedia")
-    val dbpediaLabels = labelsFromQuads(new SequenceInputStream(new FileInputStream("D:/Dokumente/dbpedia2/labels_en.nt"),
-      new FileInputStream("D:/Dokumente/dbpedia2/category_labels_en.nt")))
+    val dbpediaLabels = labelsFromQuads(new SequenceInputStream(new FileInputStream(DBpediaFiles.articleLabels),
+      new FileInputStream(DBpediaFiles.categoryLabels)))
 
     val thresholds = List(0.1, 0.2, 0.3, 0.05, 0.15)
     val writers = thresholds map (t => new PrintWriter(f"grain-dbpedia-concepts-t.txt"))
@@ -629,21 +717,24 @@ object GraphTest extends App {
   import GraphFactory._
   import Alg._
   import Align._
+  import TestDataset._
 
-  println("reading taaable")
-  val taaableHierarchy = fromQuads(new FileInputStream("ldif-taaable/taaable-food.nq"))
-  val taaableLabels = labelsFromQuads(new FileInputStream("ldif-taaable/taaable-food.nq"))
+  generateOat
 
-  val grainEntities = subsumedConcepts(taaableHierarchy, "taaable:Grain")
-  val grainLabels = taaableLabels filterKeys grainEntities.contains
-
-  val alignment = fromLst(new File("ldif-taaable/align-grain-ref.lst"))
-  val (matched, notMatched) = grainEntities.partition(alignment.contains)
-
-  println("matched:")
-  matched foreach (m => println(m + ": " + alignment.all(m)))
-
-  println("not matched:")
-  notMatched foreach println
+  //  println("reading taaable")
+  //  val taaableHierarchy = fromQuads(new FileInputStream("ldif-taaable/taaable-food.nq"))
+  //  val taaableLabels = labelsFromQuads(new FileInputStream("ldif-taaable/taaable-food.nq"))
+  //
+  //  val grainEntities = subsumedConcepts(taaableHierarchy, "taaable:Grain")
+  //  val grainLabels = taaableLabels filterKeys grainEntities.contains
+  //
+  //  val alignment = fromLst(new File("ldif-taaable/align-grain-ref.lst"))
+  //  val (matched, notMatched) = grainEntities.partition(alignment.contains)
+  //
+  //  println("matched:")
+  //  matched foreach (m => println(m + ": " + alignment.all(m)))
+  //
+  //  println("not matched:")
+  //  notMatched foreach println
 
 }

@@ -797,24 +797,41 @@ object TestDataset {
 
     val containedDbpediaInstances = dbpediaInstances filter (i => g.nodes.toOuterNodes.contains(i))
 
-    val measures = List(
+    val nameBasedMeasures = List(
       "relaxedEquality" -> new RelaxedEqualityMetric(),
       "substring" -> SubStringDistance(),
       "qgrams2" -> QGramsMetric(q = 2),
       "jaroWinkler" -> JaroWinklerDistance(),
       "jaro" -> JaroDistanceMetric(),
-      "levenshtein" -> LevenshteinMetric(),
+      "levenshtein" -> LevenshteinMetric()
+    )
+
+    val structuralMeasures = List(
       "structuralCotopic" -> StructuralCotopic(g),
       "wuPalmer" -> WuPalmer(g, "common:Root")
     )
 
-    containedDbpediaInstances foreach { i =>
-      print(i + ": ")
-      measures.toMap.values foreach { m =>
-        print(m.evaluate("taaable:Oat", i) + " ")
+    val e1 = "taaable:Oat"
+    containedDbpediaInstances.par map { e2 =>
+      val sb = new StringBuilder
+      sb ++= e2 + ": "
+
+      nameBasedMeasures.map(_._2) foreach { m =>
+        val dists = for {
+          l1 <- taaableLabels(e1)
+          l2 <- dbpediaLabels(e2)
+        } yield m.evaluate(l1, l2)
+        val d = dists.min
+        sb ++= f"$d%1.3f "
       }
-      println("")
-    }
+
+      structuralMeasures.map(_._2) foreach { m =>
+        val d = m.evaluate(e1, e2)
+        sb ++= f"$d%1.3f "
+      }
+
+      sb.toString
+    } foreach println
   }
 
 }
@@ -828,10 +845,7 @@ object GraphTest extends App {
   import TestDataset._
 
   testOat
-
   //  generateOat
-
-
 
 
 

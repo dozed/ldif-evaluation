@@ -23,6 +23,8 @@ import scalax.collection.edge.Implicits._
 
 object DBpediaFiles {
 
+  val maxDistance = 77
+
   val categories = new File("D:/Dokumente/dbpedia2/skos_categories_en.nt")
   val categoryLabels = new File("D:/Dokumente/dbpedia2/category_labels_en.nt")
 
@@ -190,8 +192,6 @@ object GraphFactory {
 
 object Alg {
 
-  val maxDistance = 77
-
   // type DiHyperEdgeLikeIn[N] = DiHyperEdgeLike[N] with EdgeCopy[DiHyperEdgeLike] with EdgeIn[N,DiHyperEdgeLike]
 
   def merge[N](s: N, t: N) = {
@@ -294,7 +294,7 @@ object Alg {
     }
   }
 
-  def structuralCotopicNormalized[N](g: Graph[N, WDiEdge], s: N, t: N): Double = {
+  def structuralCotopicNormalized[N](g: Graph[N, WDiEdge], s: N, t: N, maxDistance: Double): Double = {
     structuralCotopic(g, s, t) / maxDistance
   }
 
@@ -812,26 +812,109 @@ object TestDataset {
     )
 
     val e1 = "taaable:Oat"
-    containedDbpediaInstances.par map { e2 =>
-      val sb = new StringBuilder
-      sb ++= e2 + ": "
+    containedDbpediaInstances.par map {
+      e2 =>
+        val sb = new StringBuilder
+        sb ++= e2 + ": "
 
-      nameBasedMeasures.map(_._2) foreach { m =>
-        val dists = for {
-          l1 <- taaableLabels(e1)
-          l2 <- dbpediaLabels(e2)
-        } yield m.evaluate(l1, l2)
-        val d = dists.min
-        sb ++= f"$d%1.3f "
-      }
+        nameBasedMeasures.map(_._2) foreach {
+          m =>
+            val dists = for {
+              l1 <- taaableLabels(e1)
+              l2 <- dbpediaLabels(e2)
+            } yield m.evaluate(l1, l2)
+            val d = dists.min
+            sb ++= f"$d%1.3f "
+        }
 
-      structuralMeasures.map(_._2) foreach { m =>
-        val d = m.evaluate(e1, e2)
-        sb ++= f"$d%1.3f "
-      }
+        structuralMeasures.map(_._2) foreach {
+          m =>
+            val d = m.evaluate(e1, e2)
+            sb ++= f"$d%1.3f "
+        }
 
-      sb.toString
+        sb.toString
     } foreach println
+  }
+
+  def testGrains {
+
+    // sources
+    val taaableHierarchy = fromQuads(new FileInputStream("ldif-taaable/taaable-food.nq"))
+    val taaableLabels = labelsFromQuads(new FileInputStream("ldif-taaable/taaable-food.nq"))
+
+    val dbpediaHierarchy = fromQuads(new FileInputStream("ldif-taaable/grain/dataset-oats-articles-categories-labels.nt"))
+    val dbpediaLabels = labelsFromQuads(new FileInputStream("ldif-taaable/grain/dataset-oats-articles-categories-labels.nt"))
+
+    val g = taaableHierarchy ++ dbpediaHierarchy ++
+      merge("taaable:Food", "category:Food_and_drink") +
+      ("category:Food_and_drink" ~> "common:Root" % 1) +
+      ("taaable:Food" ~> "common:Root" % 1)
+
+    // measures
+    val nameBasedMeasures = List(
+      "relaxedEquality" -> new RelaxedEqualityMetric(),
+      "substring" -> SubStringDistance(),
+      "qgrams2" -> QGramsMetric(q = 2),
+      "jaroWinkler" -> JaroWinklerDistance(),
+      "jaro" -> JaroDistanceMetric(),
+      "levenshtein" -> LevenshteinMetric()
+    )
+
+    val structuralMeasures = List(
+      "structuralCotopic" -> StructuralCotopic(g),
+      "wuPalmer" -> WuPalmer(g, "common:Root")
+    )
+
+    // candidates
+    val taaableInstances = subsumedLeafs(taaableHierarchy, "taaable:Grain")
+
+    def candidates0(e1: String): Set[String] = {
+      val cands = for {
+        e2: String <- dbpediaHierarchy.nodes.toOuterNodes // dbpediaLabels.keys doesnt work here
+      } yield {
+        val nameBasedDists = for {
+          label1 <- taaableLabels(e1)
+          label2 <- dbpediaLabels(e2)
+          (_, measure) <- nameBasedMeasures.par
+        } yield {
+          measure.evaluate(label1, label2)
+        }
+
+        val dist = nameBasedDists.min
+
+        if (dist < 0.1) Some(e2)
+        else None
+      }
+
+      cands.flatten.toSet[String]
+    }
+
+    val cands = candidates0("taaable:Grain")
+    cands foreach println
+
+    //
+    //    val e1 = "taaable:Oat"
+    //    containedDbpediaInstances.par map { e2 =>
+    //      val sb = new StringBuilder
+    //      sb ++= e2 + ": "
+    //
+    //      nameBasedMeasures.map(_._2) foreach { m =>
+    //        val dists = for {
+    //          l1 <- taaableLabels(e1)
+    //          l2 <- dbpediaLabels(e2)
+    //        } yield m.evaluate(l1, l2)
+    //        val d = dists.min
+    //        sb ++= f"$d%1.3f "
+    //      }
+    //
+    //      structuralMeasures.map(_._2) foreach { m =>
+    //        val d = m.evaluate(e1, e2)
+    //        sb ++= f"$d%1.3f "
+    //      }
+    //
+    //      sb.toString
+    //    } foreach println
   }
 
 }
@@ -844,11 +927,8 @@ object GraphTest extends App {
   import Align._
   import TestDataset._
 
-  testOat
+  testGrains
   //  generateOat
-
-
-
 
 
   //  println("reading taaable")

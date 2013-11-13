@@ -408,7 +408,7 @@ case class LinkingUI(res: MatchingResults, system: ActorSystem) extends Scalatra
       s <- dbpediaGraph.find(f"category:$from")
       t <- dbpediaGraph.find(f"category:$to")
     } yield {
-      Alg.structuralCotopicNormalized[String](dbpediaGraph, s, t)
+      Alg.structuralCotopicNormalized[String](dbpediaGraph, s, t, 77)
     }) getOrElse halt(500)
   }
 

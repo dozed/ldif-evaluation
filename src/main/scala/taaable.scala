@@ -4,11 +4,14 @@ import de.fuberlin.wiwiss.silk.entity._
 import de.fuberlin.wiwiss.silk.execution.GenerateLinksTask
 import de.fuberlin.wiwiss.silk.linkagerule.input.PathInput
 import de.fuberlin.wiwiss.silk.linkagerule.LinkageRule
-import de.fuberlin.wiwiss.silk.linkagerule.similarity.{Aggregation, Comparison}
+import de.fuberlin.wiwiss.silk.linkagerule.similarity.{SimpleDistanceMeasure, Aggregation, Comparison}
 import de.fuberlin.wiwiss.silk.output.{Output, LinkWriter}
 import de.fuberlin.wiwiss.silk.plugins.aggegrator.AverageAggregator
-import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.JaroWinklerDistance
+import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.{QGramsMetric, JaroWinklerDistance}
 
+import scala.collection.immutable.HashSet
+import scalax.collection.edge.WDiEdge
+import scalax.collection.Graph
 import scalax.collection.GraphPredef._
 import scalax.collection.edge.Implicits._
 
@@ -22,6 +25,7 @@ object TaaableEvaluation extends App with Evaluations {
 
   import GraphFactory._
   import Alg._
+  import PrefixHelper._
 
   // in order to work with DBpedia data:
   //
@@ -41,10 +45,10 @@ object TaaableEvaluation extends App with Evaluations {
 
   // setup hierarchies
   val taaableHierarchy = fromQuads(new FileInputStream("ldif-taaable/taaable-food.nq"))
-//  val taaableLabels = labelsFromQuads(new FileInputStream("ldif-taaable/taaable-food.nq"))
+  val taaableLabels = labelsFromQuads(new FileInputStream("ldif-taaable/taaable-food.nq"))
 
   val dbpediaHierarchy = fromQuads(new FileInputStream("ldif-taaable/grain/dataset-grain-articles-categories-labels.nt"))
-//  val dbpediaLabels = labelsFromQuads(new FileInputStream("ldif-taaable/grain/dataset-grain-articles-categories-labels.nt"))
+  val dbpediaLabels = labelsFromQuads(new FileInputStream("ldif-taaable/grain/dataset-grain-articles-categories-labels.nt"))
 
   val g = taaableHierarchy ++ dbpediaHierarchy ++
     merge("taaable:Food", "category:Food_and_drink") +
@@ -62,23 +66,41 @@ object TaaableEvaluation extends App with Evaluations {
     }
   })
 
+  case class WuPalmer(g: Graph[String, WDiEdge], root: String) extends SimpleDistanceMeasure {
+    def evaluate(value1: String, value2: String, limit: Double): Double = {
+      if (g.contains(value1) && g.contains(value2)) {
+        println(f"$value1 - $value2")
+        Alg.wuPalmer(g, root, value1, value2)
+      } else -1.0
+    }
+  }
+
+  val op1 = Comparison(
+    threshold = 0.2,
+    metric = QGramsMetric(2),
+    inputs = inputs
+  )
+
+  val op2 = Aggregation(
+    required = false,
+    weight = 1,
+    operators = List(Comparison(
+      threshold = 0.2,
+      metric = QGramsMetric(2),
+      inputs = inputs
+    ), new StructuralComparison(
+      threshold = 1.0,
+      metric = WuPalmer(g, "common:Root"),
+      inputs = inputs,
+      transformUri = shortenUri
+    )),
+    aggregator = AverageAggregator()
+  )
+
   val linkSpec = LinkSpecification(
     linkType = "http://www.w3.org/2002/07/owl#sameAs",
     datasets = datasets,
-    rule = LinkageRule(Aggregation(
-      required = false,
-      weight = 1,
-      operators = List(Comparison(
-        threshold = 0.2,
-        metric = JaroWinklerDistance(),
-        inputs = inputs
-      ), Comparison(
-        threshold = 1.0,
-        metric = WuPalmer(g, "common:Root"),
-        inputs = inputs
-      )),
-      aggregator = AverageAggregator()
-    )),
+    rule = LinkageRule(op1),
     outputs = List(output))
 
 

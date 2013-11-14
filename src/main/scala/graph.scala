@@ -1,5 +1,5 @@
 import com.hp.hpl.jena.rdf.model.{Resource, Model}
-import de.fuberlin.wiwiss.silk.linkagerule.similarity.SimpleDistanceMeasure
+import de.fuberlin.wiwiss.silk.linkagerule.similarity.{DistanceMeasure, SimpleDistanceMeasure}
 import de.fuberlin.wiwiss.silk.plugins.distance.characterbased._
 import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.JaroDistanceMetric
 import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.JaroWinklerDistance
@@ -433,9 +433,16 @@ object TestDataset {
   import PrefixHelper._
   import GraphFactory._
   import Alg._
+  import Align._
 
-  def generateOat {
-    val instances = List(
+  def extractGrains {
+    val instances = fromLst(new File("ldif-taaable/grain/align-grain-name-1.lst")).right
+    val (articleTypes, categoryTypes, conceptLabels) = generateTestDataset(instances)
+    writeTestDataset(new File("ldif-taaable/grain/dataset-grain-articles-categories-labels.nt"), articleTypes, categoryTypes, conceptLabels)
+  }
+
+  def extractOat {
+    val instances = Set(
       "dbpedia:Oaths",
       "dbpedia:Oates",
       "dbpedia:Oaten",
@@ -472,8 +479,8 @@ object TestDataset {
     writeTestDataset(new File("dataset-oat-types.nt"), articleTypes, categoryTypes, conceptLabels)
   }
 
-  def generateCelery {
-    val instances = List(
+  def extractCelery {
+    val instances = Set(
       "dbpedia:Celery",
       "dbpedia:Cel-Ray",
       "dbpedia:Celery_salt",
@@ -486,7 +493,7 @@ object TestDataset {
     writeTestDataset(new File("dataset-cellery-types.nt"), articleTypes, categoryTypes, conceptLabels)
   }
 
-  def generateTestDataset(instances: List[String]): (Map[String, Set[String]], Set[(String, String)], Map[String, Set[String]]) = {
+  def generateTestDataset(instances: Set[String]): (Map[String, Set[String]], Set[(String, String)], Map[String, Set[String]]) = {
     println("extracting instance types")
     val articleTypes = extractArticleTypes(instances)
 
@@ -500,7 +507,7 @@ object TestDataset {
     (articleTypes, categoryTypes.toSet, conceptLabels)
   }
 
-  def extractArticleTypes(subjects: List[String]): Map[String, Set[String]] = {
+  def extractArticleTypes(subjects: Set[String]): Map[String, Set[String]] = {
     val typeMap = collection.mutable.Map[String, Set[String]]()
 
     val parser = new NQuadsParser()
@@ -533,16 +540,21 @@ object TestDataset {
     val g = fromQuads(new FileInputStream(DBpediaFiles.categories))
 
     val conceptTypes = collection.mutable.HashSet[(String, String)]()
+    val outerNodes = g.nodes.toOuterNodes
     categories foreach {
       x =>
-        g.get(x).traverse(direction = GraphTraversal.Successors, breadthFirst = true)(edgeVisitor = {
-          e =>
-            val u: String = e._1
-            val v: String = e._2
-            if (!conceptTypes.contains((u, v))) {
-              conceptTypes += ((u, v))
-            }
-        })
+        if (outerNodes.contains(x)) {
+          g.get(x).traverse(direction = GraphTraversal.Successors, breadthFirst = true)(edgeVisitor = {
+            e =>
+              val u: String = e._1
+              val v: String = e._2
+              if (!conceptTypes.contains((u, v))) {
+                conceptTypes += ((u, v))
+              }
+          })
+        } else {
+          println(f"  did not find category in SKOS hierarchy: $x")
+        }
     }
     conceptTypes.toSet
   }
@@ -843,8 +855,8 @@ object TestDataset {
     val taaableHierarchy = fromQuads(new FileInputStream("ldif-taaable/taaable-food.nq"))
     val taaableLabels = labelsFromQuads(new FileInputStream("ldif-taaable/taaable-food.nq"))
 
-    val dbpediaHierarchy = fromQuads(new FileInputStream("ldif-taaable/grain/dataset-oats-articles-categories-labels.nt"))
-    val dbpediaLabels = labelsFromQuads(new FileInputStream("ldif-taaable/grain/dataset-oats-articles-categories-labels.nt"))
+    val dbpediaHierarchy = fromQuads(new FileInputStream("ldif-taaable/grain/dataset-grain-articles-categories-labels.nt"))
+    val dbpediaLabels = labelsFromQuads(new FileInputStream("ldif-taaable/grain/dataset-grain-articles-categories-labels.nt"))
 
     val g = taaableHierarchy ++ dbpediaHierarchy ++
       merge("taaable:Food", "category:Food_and_drink") +
@@ -867,33 +879,62 @@ object TestDataset {
     )
 
     // candidates
-    val taaableInstances = subsumedLeafs(taaableHierarchy, "taaable:Grain")
+    val taaableInstances = subsumedConcepts(taaableHierarchy, "taaable:Grain")
+    val dbpediaInstances = dbpediaHierarchy.nodes.toOuterNodes.toSet[String] intersect dbpediaLabels.keys.toSet
 
-    def candidates0(e1: String): Set[String] = {
+    // 1. calculates distances
+    // 2. aggregates distances (min)
+    // 3. filters matches (threshold)
+    def nameBasedMatchings(e1: String): Set[Matching] = {
       val cands = for {
         e2: String <- dbpediaHierarchy.nodes.toOuterNodes // dbpediaLabels.keys doesnt work here
+        if dbpediaLabels.contains(e2)
       } yield {
         val nameBasedDists = for {
           label1 <- taaableLabels(e1)
           label2 <- dbpediaLabels(e2)
-          (_, measure) <- nameBasedMeasures.par
+          (_, measure) <- nameBasedMeasures
         } yield {
           measure.evaluate(label1, label2)
         }
 
-        val dist = nameBasedDists.min
-
-        if (dist < 0.1) Some(e2)
-        else None
+        if (nameBasedDists.size > 0) {
+          val dist = nameBasedDists.min
+          if (dist < 0.1) Some(Matching(e1, e2, dist))
+          else None
+        } else None
       }
 
-      cands.flatten.toSet[String]
+      cands.flatten.toSet
     }
 
-    val cands = candidates0("taaable:Grain")
-    cands foreach println
+    def distances(e1: String): Alignment = {
+      val dists = for {
+        e2 <- dbpediaInstances
+      } yield {
+        val dist1 = JaroWinklerDistance()
+        val dist2 = WuPalmer(g, "common:Root")
+        val nameDist = (for {
+          label1 <- taaableLabels(e1)
+          label2 <- dbpediaLabels(e2)
+        } yield dist1.evaluate(e1, e2)) min
+        val structDist = dist2.evaluate(e1, e2)
+        Matching(e1, e2, nameDist * structDist)
+      }
+      Alignment(dists.take(3))
+    }
 
-    //
+//    val refAlign = fromLst(new File("ldif-taaable/grain/align-grain-ref.lst"))
+//    val align = Alignment(taaableInstances.par flatMap nameBasedMatchings seq)
+
+    for {
+      e1 <- taaableInstances
+    } {
+      val a = distances(e1)
+      println(e1)
+      println(a)
+    }
+
     //    val e1 = "taaable:Oat"
     //    containedDbpediaInstances.par map { e2 =>
     //      val sb = new StringBuilder
@@ -927,6 +968,7 @@ object GraphTest extends App {
   import Align._
   import TestDataset._
 
+  // extractGrains
   testGrains
   //  generateOat
 

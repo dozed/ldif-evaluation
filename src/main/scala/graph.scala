@@ -245,7 +245,7 @@ object Alg {
   }
 
   def lcsCandidates[N, E[N] <: WDiEdge[N]](g: Graph[N, E], s: N, t: N): List[(N, List[(N, Long)], List[(N, Long)])] = {
-    val (d_s, backlinks_s) = shortestPaths(g, s)
+    val (d_s, backlinks_s) = benchmark.run("lcs-candidates-sp-mark") { shortestPaths(g, s) }
 
     val d_t = collection.mutable.Map[N, Long](t -> 0)
     val backlinks_t = collection.mutable.Map[N, (N, Long)]()
@@ -254,33 +254,35 @@ object Alg {
 
     Q += t
 
-    while (!Q.isEmpty) {
-      val u = Q.dequeue()
+    benchmark.run("lcs-candidates-sp-collect") {
+      while (!Q.isEmpty) {
+        val u = Q.dequeue()
 
-      for (e <- g.get(u).outgoing) {
-        val v = e._2
-        val alt = d_t(u) + e.weight
+        for (e <- g.get(u).outgoing) {
+          val v = e._2
+          val alt = d_t(u) + e.weight
 
-        if (!d_t.contains(v) || alt < d_t(v)) {
-          d_t(v) = alt
-          backlinks_t(v) = (u, e.weight)
+          if (!d_t.contains(v) || alt < d_t(v)) {
+            d_t(v) = alt
+            backlinks_t(v) = (u, e.weight)
 
-          // dont expand if it is reachable from s => a lcs candidate
-          if (d_s.contains(v)) {
-            candidates += v
-          } else {
-            Q.remove(v)
-            Q.enqueue(v)
+            // dont expand if it is reachable from s => a lcs candidate
+            if (d_s.contains(v)) {
+              candidates += v
+            } else {
+              Q.remove(v)
+              Q.enqueue(v)
+            }
           }
+
         }
-
       }
-    }
 
-    candidates.map {
-      v =>
-        (v, backtrackPath0(s, v, backlinks_s.toMap), backtrackPath0(t, v, backlinks_t.toMap))
-    }.toList sortBy (l => weight(l._2) + weight(l._3))
+      candidates.map {
+        v =>
+          (v, backtrackPath0(s, v, backlinks_s.toMap), backtrackPath0(t, v, backlinks_t.toMap))
+      }.toList sortBy (l => weight(l._2) + weight(l._3))
+    }
   }
 
   def lcs[N](g: Graph[N, WDiEdge], s: N, t: N): Option[(N, List[(N, Long)], List[(N, Long)])] = {
@@ -301,13 +303,15 @@ object Alg {
   def wuPalmer[N](g: Graph[N, WDiEdge], root: N, s: N, t: N): Double = {
     val (l, p1, p2) = lcs(g, s, t).get
 
-    shortestPath(g, l, root) match {
-      case Some(p) =>
-        val w1 = weight(p1)
-        val w2 = weight(p2)
-        val wl = weight(p)
-        2.0 * wl / (w1 + w2 + 2 * wl)
-      case None => 100000
+    benchmark.run("lcs-shortestPath") {
+      shortestPath(g, l, root) match {
+        case Some(p) =>
+          val w1 = weight(p1)
+          val w2 = weight(p2)
+          val wl = weight(p)
+          2.0 * wl / (w1 + w2 + 2 * wl)
+        case None => 100000
+      }
     }
   }
 
@@ -969,8 +973,20 @@ object GraphTest extends App {
   import TestDataset._
 
   // extractGrains
-  testGrains
-  //  generateOat
+//  testGrains
+
+//  val taaableHierarchy = fromQuads(new FileInputStream("ldif-taaable/taaable-food.nq"))
+  val dbpediaHierarchy = fromQuads(new FileInputStream("ldif-taaable/grain/dataset-grain-articles-categories-labels.nt"))
+//  println(taaableHierarchy.nodes.size + dbpediaHierarchy.nodes.size)
+
+  // lcs over two disjunct hierarchies connected via bridge nodes
+  //   => candidates are the subsumers of all bridge nodes
+  val g = dbpediaHierarchy + ("category:Food_and_drink" ~> "common:Root" % 1)
+
+  val subs = subsumers(g, "category:Food_and_drink")
+  subs foreach println
+  println(subs.size)
+
 
 
   //  println("reading taaable")

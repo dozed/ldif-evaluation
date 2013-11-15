@@ -4,14 +4,17 @@ object benchmark {
   private val startTimes = collection.mutable.Map[String, Long]()
   private val durations = collection.mutable.Map[String, Long]()
 
-  private var c = 0
-
   def run[T](l: String)(code: => T) = {
     up(l)
     val res = code
     down(l)
-    c = c + 1
-    if (c % 3 == 0) stats
+    res
+  }
+
+  def run[T](code: => T) = {
+    up("default")
+    val res = code
+    down("default")
     res
   }
 
@@ -30,7 +33,6 @@ object benchmark {
   def values = durations.toMap
   def stats = {
     println("-----------------------------------------------------")
-    println(f"stats: $c")
     values foreach println
   }
 

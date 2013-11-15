@@ -1,5 +1,4 @@
-import com.hp.hpl.jena.rdf.model.{Resource, Model}
-import de.fuberlin.wiwiss.silk.linkagerule.similarity.{DistanceMeasure, SimpleDistanceMeasure}
+import de.fuberlin.wiwiss.silk.linkagerule.similarity.SimpleDistanceMeasure
 import de.fuberlin.wiwiss.silk.plugins.distance.characterbased._
 import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.JaroDistanceMetric
 import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.JaroWinklerDistance
@@ -10,9 +9,12 @@ import org.apache.any23.io.nquads.NQuadsParser
 import org.apache.jena.riot.{Lang, RDFDataMgr}
 import collection.JavaConversions._
 
+import com.hp.hpl.jena.rdf.model.{Resource, Model}
+
 import org.openrdf.model.Statement
 import org.openrdf.rio.RDFHandler
 
+import scala.reflect.ClassTag
 import scalax.collection.Graph
 import scalax.collection.GraphTraversal
 import scalax.collection.GraphTraversal.VisitorReturn
@@ -38,7 +40,8 @@ object PrefixHelper {
   val defaultPrefixes = Map(
     "category" -> "http://dbpedia.org/resource/Category:",
     "dbpedia" -> "http://dbpedia.org/resource/",
-    "taaable" -> "http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3A"
+    "taaable" -> "http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3A",
+    "common" -> "http://example.org/common/"
   )
 
   def shortenUri(fullUri: String): String = {
@@ -59,6 +62,81 @@ object PrefixHelper {
     }
   }
 
+}
+
+class MutableBiMap[X, Y] {
+
+  private val map = collection.mutable.Map[X, Y]()
+  private val reverseMap = collection.mutable.Map[Y, X]()
+
+  def update(x: X, value: Y) {
+    map(x) = value
+    reverseMap(value) = x
+  }
+
+  def size: Int = map.size
+
+  def apply(key: X): Y = map(key)
+
+  def isDefinedAt(key: X): Boolean = map.isDefinedAt(key)
+
+  def getOrElseUpdate(key: X, value: Y): Y = {
+    if (isDefinedAt(key)) this(key)
+    else {
+      update(key, value)
+      value
+    }
+  }
+
+  def inverse(key: Y): X = reverseMap(key)
+
+  def isInRange(key: Y): Boolean = reverseMap.isDefinedAt(key)
+
+}
+
+case class SparseMatrix[N](default: N, dim: Int) {
+
+  val columns = collection.mutable.Map[Int, collection.mutable.Map[Int, N]]()
+
+  def update(i: Int, j: Int, value: N) {
+    if (value != default) {
+      columns(i) = columns.getOrElseUpdate(i, collection.mutable.Map[Int, N]()).updated(j, value)
+    }
+  }
+
+  def apply(i: Int, j: Int): N = {
+    if (columns.contains(i)) {
+      if (columns(i).contains(j)) {
+        columns(i)(j)
+      } else default
+    } else default
+  }
+
+}
+
+case class DenseMatrix2[N: ClassTag](n: Int, m: Int) {
+
+  val data = Array.ofDim[N](n, m)
+
+  def update(i: Int, j: Int, value: N) {
+    data(i)(j) = value
+  }
+
+  def apply(i: Int, j: Int): N = {
+    data(i)(j)
+  }
+
+}
+
+object DenseMatrix2 {
+  def fill(n: Int, m: Int) = (value: Int) => {
+    val mat = DenseMatrix2[Int](n, m)
+    for {
+      i <- 0 to n - 1
+      j <- 0 to m - 1
+    } mat(i, j) = value
+    mat
+  }
 }
 
 object GraphFactory {
@@ -159,6 +237,85 @@ object GraphFactory {
     g
   }
 
+  def numericFromQuads(in: InputStream): (Graph[Int, WDiEdge], MutableBiMap[String, Int]) = {
+    val g = scalax.collection.mutable.Graph[Int, WDiEdge]()
+    val map = new MutableBiMap[String, Int]()
+    var counter = 0
+
+    def getOrUpdateMap0(s: String): Int = {
+      if (!map.isDefinedAt(s)) {
+        map(s) = counter
+        counter = counter + 1
+      }
+      map(s)
+    }
+
+    val parser = new NQuadsParser()
+    parser.setRDFHandler(new RDFHandler {
+      def handleStatement(p1: Statement) {
+        val p = p1.getPredicate.stringValue
+
+        if (taxonomicPredicates.contains(p)) {
+          val s = getOrUpdateMap0(shortenUri(p1.getSubject.stringValue))
+          val o = getOrUpdateMap0(shortenUri(p1.getObject.stringValue))
+
+          g += s ~> o % 1
+        }
+      }
+
+      def handleNamespace(p1: String, p2: String) {}
+
+      def handleComment(p1: String) {}
+
+      def startRDF() {}
+
+      def endRDF() {}
+    })
+
+    parser.parse(in, "http://dbpedia.org/resource")
+
+    (g, map)
+  }
+
+  def adjacencyMatrixFromQuads(in: InputStream, n: Int): DenseMatrixInt = {
+    val d = new DenseMatrixInt(n, n)
+    d.fill(Int.MaxValue)
+
+    println("reading triples")
+    val map = new MutableBiMap[String, Int]()
+    var counter = 0
+    def getOrUpdateMap0(s: String): Int = {
+      if (!map.isDefinedAt(s)) {
+        map(s) = counter
+        counter = counter + 1
+      }
+      map(s)
+    }
+    val parser = new NQuadsParser()
+    parser.setRDFHandler(new RDFHandler {
+      def handleStatement(p1: Statement) {
+        val p = p1.getPredicate.stringValue
+
+        if (taxonomicPredicates.contains(p)) {
+          val s = getOrUpdateMap0(shortenUri(p1.getSubject.stringValue))
+          val o = getOrUpdateMap0(shortenUri(p1.getObject.stringValue))
+
+          d.set(s, o, 1)
+        }
+      }
+
+      def handleNamespace(p1: String, p2: String) {}
+
+      def handleComment(p1: String) {}
+
+      def startRDF() {}
+
+      def endRDF() {}
+    })
+    parser.parse(in, "http://dbpedia.org/resource")
+    d
+  }
+
   def labelsFromQuads(in: InputStream): Map[String, Set[String]] = {
     val labelMap = collection.mutable.Map[String, Set[String]]()
 
@@ -199,6 +356,50 @@ object Alg {
   }
 
   def weight[N](p: List[(N, Long)]): Long = p.foldLeft[Long](0)(_ + _._2)
+
+  def extendShortestPaths(A: DenseMatrix2[Int]): DenseMatrix2[Int] = {
+    val n = A.n
+    val LL = DenseMatrix2.fill(n, n)(Int.MaxValue)
+    for {
+      i <- 0 to n - 1
+      j <- 0 to n - 1
+      k <- 0 to n - 1
+    } {
+      LL(i, j) = math.max(LL(i, j), A(i, k) + A(k, j))
+    }
+    LL
+  }
+
+  def allPairShortestPaths(A: DenseMatrix2[Int]): DenseMatrix2[Int] = {
+    val n = A.n
+    def ld(x: Double) = math.log(x) / math.log(2)
+    val m: Int = math.round(math.pow(2, math.ceil(ld(n)))).toInt
+
+    println(m)
+    var L = A
+
+    for {
+      i <- 1 to m
+    } {
+      println(f"iteration: $i / $m")
+      println(L)
+      L = extendShortestPaths(L)
+    }
+
+    L
+  }
+
+  def floydWarshall(A: DenseMatrix2[Int]): DenseMatrix2[Int] = {
+    val n = A.n
+    for {
+      k <- 0 to n - 1
+      i <- 0 to n - 1
+      j <- 0 to n - 1
+    } {
+      A(i, j) = math.min(A(i, j), A(i, k) + A(k, j))
+    }
+    A
+  }
 
   def shortestPath[N, E[N] <: DiHyperEdgeLikeIn[N]](g: Graph[N, E], s: N, t: N): Option[List[(N, Long)]] = {
     val (_, backlinks) = shortestPaths(g, s)
@@ -245,7 +446,9 @@ object Alg {
   }
 
   def lcsCandidates[N, E[N] <: WDiEdge[N]](g: Graph[N, E], s: N, t: N): List[(N, List[(N, Long)], List[(N, Long)])] = {
-    val (d_s, backlinks_s) = benchmark.run("lcs-candidates-sp-mark") { shortestPaths(g, s) }
+    val (d_s, backlinks_s) = benchmark.run("lcs-candidates-sp-mark") {
+      shortestPaths(g, s)
+    }
 
     val d_t = collection.mutable.Map[N, Long](t -> 0)
     val backlinks_t = collection.mutable.Map[N, (N, Long)]()
@@ -333,6 +536,10 @@ object Alg {
     })
 
     g2
+  }
+
+  def leafs[N](g: Graph[N, WDiEdge]): Set[N] = {
+    g.nodes.filter(_.inDegree == 0).toOuterNodes.toSet
   }
 
   def subsumedLeafs[N](g: Graph[N, WDiEdge], e: N): Set[N] = {
@@ -928,8 +1135,8 @@ object TestDataset {
       Alignment(dists.take(3))
     }
 
-//    val refAlign = fromLst(new File("ldif-taaable/grain/align-grain-ref.lst"))
-//    val align = Alignment(taaableInstances.par flatMap nameBasedMatchings seq)
+    //    val refAlign = fromLst(new File("ldif-taaable/grain/align-grain-ref.lst"))
+    //    val align = Alignment(taaableInstances.par flatMap nameBasedMatchings seq)
 
     for {
       e1 <- taaableInstances
@@ -968,41 +1175,14 @@ object GraphTest extends App {
 
   import PrefixHelper._
   import GraphFactory._
-  import Alg._
-  import Align._
-  import TestDataset._
 
   // extractGrains
-//  testGrains
+  // testGrains
 
-//  val taaableHierarchy = fromQuads(new FileInputStream("ldif-taaable/taaable-food.nq"))
-  val dbpediaHierarchy = fromQuads(new FileInputStream("ldif-taaable/grain/dataset-grain-articles-categories-labels.nt"))
-//  println(taaableHierarchy.nodes.size + dbpediaHierarchy.nodes.size)
+  println("building distance matrix")
+  val d = adjacencyMatrixFromQuads(new FileInputStream("ldif-taaable/taaable-food.nq"), 3000)
 
-  // lcs over two disjunct hierarchies connected via bridge nodes
-  //   => candidates are the subsumers of all bridge nodes
-  val g = dbpediaHierarchy + ("category:Food_and_drink" ~> "common:Root" % 1)
-
-  val subs = subsumers(g, "category:Food_and_drink")
-  subs foreach println
-  println(subs.size)
-
-
-
-  //  println("reading taaable")
-  //  val taaableHierarchy = fromQuads(new FileInputStream("ldif-taaable/taaable-food.nq"))
-  //  val taaableLabels = labelsFromQuads(new FileInputStream("ldif-taaable/taaable-food.nq"))
-  //
-  //  val grainEntities = subsumedConcepts(taaableHierarchy, "taaable:Grain")
-  //  val grainLabels = taaableLabels filterKeys grainEntities.contains
-  //
-  //  val alignment = fromLst(new File("ldif-taaable/align-grain-ref.lst"))
-  //  val (matched, notMatched) = grainEntities.partition(alignment.contains)
-  //
-  //  println("matched:")
-  //  matched foreach (m => println(m + ": " + alignment.all(m)))
-  //
-  //  println("not matched:")
-  //  notMatched foreach println
+  println("run")
+  new ShortestPath().floydWarshall(d)
 
 }

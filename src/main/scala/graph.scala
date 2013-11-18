@@ -1,7 +1,11 @@
 import de.fuberlin.wiwiss.silk.linkagerule.similarity.SimpleDistanceMeasure
 import de.fuberlin.wiwiss.silk.plugins.distance.characterbased._
 import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.JaroDistanceMetric
+import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.JaroDistanceMetric
 import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.JaroWinklerDistance
+import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.JaroWinklerDistance
+import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.LevenshteinMetric
+import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.QGramsMetric
 import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.QGramsMetric
 import de.fuberlin.wiwiss.silk.plugins.distance.equality.RelaxedEqualityMetric
 import java.io._
@@ -15,6 +19,7 @@ import org.openrdf.model.Statement
 import org.openrdf.rio.RDFHandler
 
 import scala.reflect.ClassTag
+import scala.Some
 import scalax.collection.Graph
 import scalax.collection.GraphTraversal
 import scalax.collection.GraphTraversal.VisitorReturn
@@ -279,7 +284,7 @@ object GraphFactory {
 
   def adjacencyMatrixFromQuads(in: InputStream, n: Int): DenseMatrixInt = {
     val d = new DenseMatrixInt(n, n)
-    d.fill(Int.MaxValue)
+    d.fill(Int.MaxValue / 2)
 
     println("reading triples")
     val map = new MutableBiMap[String, Int]()
@@ -357,15 +362,17 @@ object Alg {
 
   def weight[N](p: List[(N, Long)]): Long = p.foldLeft[Long](0)(_ + _._2)
 
+  val inf = Int.MaxValue / 2
+
   def extendShortestPaths(A: DenseMatrix2[Int]): DenseMatrix2[Int] = {
     val n = A.n
-    val LL = DenseMatrix2.fill(n, n)(Int.MaxValue)
+    val LL = DenseMatrix2.fill(n, n)(inf)
     for {
       i <- 0 to n - 1
       j <- 0 to n - 1
       k <- 0 to n - 1
     } {
-      LL(i, j) = math.max(LL(i, j), A(i, k) + A(k, j))
+      LL(i, j) = math.min(LL(i, j), A(i, k) + A(k, j))
     }
     LL
   }
@@ -375,14 +382,12 @@ object Alg {
     def ld(x: Double) = math.log(x) / math.log(2)
     val m: Int = math.round(math.pow(2, math.ceil(ld(n)))).toInt
 
-    println(m)
     var L = A
 
     for {
       i <- 1 to m
     } {
       println(f"iteration: $i / $m")
-      println(L)
       L = extendShortestPaths(L)
     }
 
@@ -446,9 +451,7 @@ object Alg {
   }
 
   def lcsCandidates[N, E[N] <: WDiEdge[N]](g: Graph[N, E], s: N, t: N): List[(N, List[(N, Long)], List[(N, Long)])] = {
-    val (d_s, backlinks_s) = benchmark.run("lcs-candidates-sp-mark") {
-      shortestPaths(g, s)
-    }
+    val (d_s, backlinks_s) = shortestPaths(g, s)
 
     val d_t = collection.mutable.Map[N, Long](t -> 0)
     val backlinks_t = collection.mutable.Map[N, (N, Long)]()
@@ -457,35 +460,33 @@ object Alg {
 
     Q += t
 
-    benchmark.run("lcs-candidates-sp-collect") {
-      while (!Q.isEmpty) {
-        val u = Q.dequeue()
+    while (!Q.isEmpty) {
+      val u = Q.dequeue()
 
-        for (e <- g.get(u).outgoing) {
-          val v = e._2
-          val alt = d_t(u) + e.weight
+      for (e <- g.get(u).outgoing) {
+        val v = e._2
+        val alt = d_t(u) + e.weight
 
-          if (!d_t.contains(v) || alt < d_t(v)) {
-            d_t(v) = alt
-            backlinks_t(v) = (u, e.weight)
+        if (!d_t.contains(v) || alt < d_t(v)) {
+          d_t(v) = alt
+          backlinks_t(v) = (u, e.weight)
 
-            // dont expand if it is reachable from s => a lcs candidate
-            if (d_s.contains(v)) {
-              candidates += v
-            } else {
-              Q.remove(v)
-              Q.enqueue(v)
-            }
+          // dont expand if it is reachable from s => a lcs candidate
+          if (d_s.contains(v)) {
+            candidates += v
+          } else {
+            Q.remove(v)
+            Q.enqueue(v)
           }
-
         }
-      }
 
-      candidates.map {
-        v =>
-          (v, backtrackPath0(s, v, backlinks_s.toMap), backtrackPath0(t, v, backlinks_t.toMap))
-      }.toList sortBy (l => weight(l._2) + weight(l._3))
+      }
     }
+
+    candidates.map {
+      v =>
+        (v, backtrackPath0(s, v, backlinks_s.toMap), backtrackPath0(t, v, backlinks_t.toMap))
+    }.toList sortBy (l => weight(l._2) + weight(l._3))
   }
 
   def lcs[N](g: Graph[N, WDiEdge], s: N, t: N): Option[(N, List[(N, Long)], List[(N, Long)])] = {
@@ -495,7 +496,7 @@ object Alg {
   def structuralCotopic[N](g: Graph[N, WDiEdge], s: N, t: N): Double = {
     lcs(g, s, t) match {
       case Some((_, p1, p2)) => p1.foldLeft[Long](0)(_ + _._2) + p2.foldLeft[Long](0)(_ + _._2)
-      case None => 100000
+      case None => Double.MaxValue
     }
   }
 
@@ -506,16 +507,14 @@ object Alg {
   def wuPalmer[N](g: Graph[N, WDiEdge], root: N, s: N, t: N): Double = {
     val (l, p1, p2) = lcs(g, s, t).get
 
-    benchmark.run("lcs-shortestPath") {
-      shortestPath(g, l, root) match {
+    shortestPath(g, l, root) match {
         case Some(p) =>
           val w1 = weight(p1)
           val w2 = weight(p2)
           val wl = weight(p)
           2.0 * wl / (w1 + w2 + 2 * wl)
-        case None => 100000
+        case None => Double.MaxValue
       }
-    }
   }
 
   def subsumers[N](g: Graph[N, WDiEdge], x: N): Set[N] = {
@@ -1119,54 +1118,68 @@ object TestDataset {
       cands.flatten.toSet
     }
 
-    def distances(e1: String): Alignment = {
-      val dists = for {
-        e2 <- dbpediaInstances
-      } yield {
-        val dist1 = JaroWinklerDistance()
-        val dist2 = WuPalmer(g, "common:Root")
-        val nameDist = (for {
-          label1 <- taaableLabels(e1)
-          label2 <- dbpediaLabels(e2)
-        } yield dist1.evaluate(e1, e2)) min
-        val structDist = dist2.evaluate(e1, e2)
-        Matching(e1, e2, nameDist * structDist)
-      }
-      Alignment(dists.take(3))
+    val structuralMeasure = WuPalmer(g, "common:Root")
+
+    def matching(e1: String, e2: String): Option[String] = {
+      val nameDists = (for {
+        l1 <- taaableLabels(e1)
+        l2 <- dbpediaLabels(e2)
+        (_, measure) <- nameBasedMeasures
+      } yield measure.evaluate(l1, l2))
+
+      if (nameDists.min < 0.1) {
+        val sb = new StringBuilder()
+        sb.append(f"$e1,$e2,")
+
+        val lcs1 = lcs(g, e1, e2)
+
+        lcs1 match {
+          case None => sb.append(",")
+          case Some((l, p1, p2)) => sb.append(f"$l,")
+        }
+
+        nameDists foreach (d => sb.append(f"$d,"))
+
+        if (lcs1.isDefined) {
+          val (l, p1, p2) = lcs1.get
+          shortestPath(g, l, "common:Root") match {
+            case Some(p) =>
+              val w1 = weight(p1)
+              val w2 = weight(p2)
+              val wl = weight(p)
+
+              // wu palmer
+              val d1 = 2.0 * wl / (w1 + w2 + 2 * wl)
+
+              val d2 = p1.foldLeft[Long](0)(_ + _._2) + p2.foldLeft[Long](0)(_ + _._2)
+
+              sb.append(f"$d1,$d2")
+            case None =>
+              sb.append(f"${Double.MaxValue},${Double.MaxValue}")
+          }
+        }
+
+        Some(sb.toString)
+      } else None
     }
 
     //    val refAlign = fromLst(new File("ldif-taaable/grain/align-grain-ref.lst"))
     //    val align = Alignment(taaableInstances.par flatMap nameBasedMatchings seq)
 
-    for {
-      e1 <- taaableInstances
+    val pw = new PrintWriter("grain-evaluation.txt")
+
+    val matchings = for {
+      e1 <- taaableInstances.par
+      e2 <- dbpediaInstances
+      m <- matching(e1, e2)
     } {
-      val a = distances(e1)
-      println(e1)
-      println(a)
+      println(m)
+      pw.println(m)
     }
 
-    //    val e1 = "taaable:Oat"
-    //    containedDbpediaInstances.par map { e2 =>
-    //      val sb = new StringBuilder
-    //      sb ++= e2 + ": "
-    //
-    //      nameBasedMeasures.map(_._2) foreach { m =>
-    //        val dists = for {
-    //          l1 <- taaableLabels(e1)
-    //          l2 <- dbpediaLabels(e2)
-    //        } yield m.evaluate(l1, l2)
-    //        val d = dists.min
-    //        sb ++= f"$d%1.3f "
-    //      }
-    //
-    //      structuralMeasures.map(_._2) foreach { m =>
-    //        val d = m.evaluate(e1, e2)
-    //        sb ++= f"$d%1.3f "
-    //      }
-    //
-    //      sb.toString
-    //    } foreach println
+    pw.close
+
+
   }
 
 }
@@ -1175,14 +1188,12 @@ object GraphTest extends App {
 
   import PrefixHelper._
   import GraphFactory._
+  import Alg._
+  import Align._
+  import TestDataset._
 
   // extractGrains
-  // testGrains
+  testGrains
 
-  println("building distance matrix")
-  val d = adjacencyMatrixFromQuads(new FileInputStream("ldif-taaable/taaable-food.nq"), 3000)
-
-  println("run")
-  new ShortestPath().floydWarshall(d)
 
 }

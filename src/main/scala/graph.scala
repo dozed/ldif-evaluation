@@ -1121,11 +1121,14 @@ object TestDataset {
     val structuralMeasure = WuPalmer(g, "common:Root")
 
     def matching(e1: String, e2: String): Option[String] = {
-      val nameDists = (for {
-        l1 <- taaableLabels(e1)
-        l2 <- dbpediaLabels(e2)
+      val nameDists = for {
         (_, measure) <- nameBasedMeasures
-      } yield measure.evaluate(l1, l2))
+      } yield {
+        (for {
+          l1 <- taaableLabels(e1)
+          l2 <- dbpediaLabels(e2)
+        } yield measure.evaluate(l1, l2)) min
+      }
 
       if (nameDists.min < 0.1) {
         val sb = new StringBuilder()
@@ -1151,6 +1154,7 @@ object TestDataset {
               // wu palmer
               val d1 = 2.0 * wl / (w1 + w2 + 2 * wl)
 
+              // structural cotopic
               val d2 = p1.foldLeft[Long](0)(_ + _._2) + p2.foldLeft[Long](0)(_ + _._2)
 
               sb.append(f"$d1,$d2")

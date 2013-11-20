@@ -645,12 +645,6 @@ object TestDataset {
   import Alg._
   import Align._
 
-  def extractGrains {
-    val instances = fromLst(new File("ldif-taaable/grain/align-grain-name-1.lst")).right
-    val (articleTypes, categoryTypes, conceptLabels) = generateTestDataset(instances)
-    writeTestDataset(new File("ldif-taaable/grain/dataset-grain-articles-categories-labels.nt"), articleTypes, categoryTypes, conceptLabels)
-  }
-
   def extractOat {
     val instances = Set(
       "dbpedia:Oaths",
@@ -1059,7 +1053,13 @@ object TestDataset {
     } foreach println
   }
 
-  def testGrains {
+  def extractGrains {
+    val instances = fromLst(new File("ldif-taaable/grain/align-grain-name-1.lst")).right
+    val (articleTypes, categoryTypes, conceptLabels) = generateTestDataset(instances)
+    writeTestDataset(new File("ldif-taaable/grain/dataset-grain-articles-categories-labels.nt"), articleTypes, categoryTypes, conceptLabels)
+  }
+
+  def matchGrains {
 
     // sources
     val taaableHierarchy = fromQuads(new FileInputStream("ldif-taaable/taaable-food.nq"))
@@ -1170,7 +1170,7 @@ object TestDataset {
     //    val refAlign = fromLst(new File("ldif-taaable/grain/align-grain-ref.lst"))
     //    val align = Alignment(taaableInstances.par flatMap nameBasedMatchings seq)
 
-    val pw = new PrintWriter("grain-evaluation.txt")
+    val pw = new PrintWriter("grain-evaluation.csv")
 
     val matchings = for {
       e1 <- taaableInstances.par
@@ -1186,6 +1186,68 @@ object TestDataset {
 
   }
 
+  def evaluateGrains {
+    case class MatchingLine(e1: String, e2: String, lcs: String, nameBased: List[Double], structureBased: List[Double])
+
+    case class DoubleRange(from: Double, to: Double) {
+      def contains(x: Double) = if (from <= x) x <= to else false
+    }
+
+    def toDouble(s: String): Double = s.replaceAll(",", ".") match {
+      case "inf" => Double.MaxValue
+      case x => x.toDouble
+    }
+
+    def toCSV(m: MatchingLine): String = {
+      f"${m.e1};${m.e2};${m.lcs};${m.nameBased.mkString(";")};${m.structureBased.mkString(";")}"
+    }
+
+    val lines = io.Source.fromFile("grain-evaluation.csv").getLines.toList.map { l =>
+      val ls = l.split(";")
+      val nb = ls.slice(3, 9).toList map toDouble
+      val sb = ls.slice(9, 11).toList map toDouble
+      MatchingLine(ls(0), ls(1), ls(2), nb, sb)
+    }
+
+    // find outliers which cant be discriminated by a structural measure
+    // are there any options?
+    for {
+      (e1, xs) <- lines.groupBy(_.e1).toList.sortBy(_._1)
+    } {
+      val (inFoodCat, notInFoodCat) = xs.partition(_.lcs.equals("category:Food_and_drink"))
+
+      if (inFoodCat.size> 0) {
+        val wuPalmerInFood = inFoodCat.map(_.structureBased(0))
+        val wuPalmerRange = DoubleRange(wuPalmerInFood.min, wuPalmerInFood.max)
+
+        val structuralCotopicInFood = inFoodCat.map(_.structureBased(1))
+        val structuralCotopicRange = DoubleRange(structuralCotopicInFood.min, structuralCotopicInFood.max)
+
+        def inFoodRange0(m: MatchingLine): Boolean = {
+          if (m.structureBased.size > 0) {
+            val wp = m.structureBased(0)
+            val sc = m.structureBased(1)
+            // and
+            // if (wuPalmerRange.contains(wp)) structuralCotopicRange.contains(sc) else false
+
+            // or
+            if (wuPalmerRange.contains(wp)) true else structuralCotopicRange.contains(sc)
+          } else false
+        }
+
+        // println(f"$e1: $wuPalmerRange $structuralCotopicRange")
+
+        val wuPalmerNonFoodOutliers = notInFoodCat filter inFoodRange0
+        wuPalmerNonFoodOutliers foreach (o => println(f"    $o"))
+        //      wuPalmerNonFoodOutliers map toCSV foreach println
+
+      } else {
+        println(f"$e1: no food-related match")
+      }
+
+    }
+  }
+
 }
 
 object GraphTest extends App {
@@ -1197,7 +1259,8 @@ object GraphTest extends App {
   import TestDataset._
 
   // extractGrains
-  testGrains
+  // matchGrains
+  // evaluateGrains
 
 
 }

@@ -1211,9 +1211,9 @@ object TestDataset {
     }
 
     def product2csv(p: Product): String = p.productIterator map {
-      case d: Double => f"$d%.2f"
+      case d: Double => f"$d%.2f".replaceAll(",", ".")
       case x => x
-    } mkString(";")
+    } mkString(",")
 
     val similarities = io.Source.fromFile("grain-evaluation.csv").getLines.toList.map { l =>
       val ls = l.split(";")

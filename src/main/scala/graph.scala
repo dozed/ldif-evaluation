@@ -1292,38 +1292,33 @@ object TestDataset {
       DenseVector(0, 0, 0, 1, 0, 0, 0, 0),
       DenseVector(0, 0, 0, 0, 1, 0, 0, 0),
       DenseVector(0, 0, 0, 0, 0, 1, 0, 0),
-      DenseVector(0, 0, 0, 0, 0, 0, 1, 0),
-      DenseVector(0, 1, 1, 1, 1, 1, 0, 0), // aggregated string measures
-      DenseVector(0, 1, 0, 1, 0, 1, 0, 0),
-      DenseVector(0, 1, 0, 0, 0, 1, 0, 0),
-      DenseVector(0, 0, 0, 1, 0, 1, 0, 0),
-      DenseVector(0, 1, 0, 0, 0, 1, 1, 0), // aggregated all measures
-      DenseVector(0, 1, 0, 1, 0, 1, 1, 0),
-      DenseVector(0, 0, 0, 1, 0, 1, 1, 0),
-      DenseVector(0, 1, 0, 1, 0, 0, 1, 0),
-      DenseVector(0, 1, 0, 0, 0, 3, 1, 0)  // non-binary weights
+      DenseVector(0, 0, 0, 0, 0, 0, 1, 0)
+//      DenseVector(0, 1, 1, 1, 1, 1, 0, 0), // aggregated string measures
+//      DenseVector(0, 1, 0, 1, 0, 1, 0, 0),
+//      DenseVector(0, 1, 0, 0, 0, 1, 0, 0),
+//      DenseVector(0, 0, 0, 1, 0, 1, 0, 0),
+//      DenseVector(0, 1, 0, 0, 0, 1, 1, 0), // aggregated all measures
+//      DenseVector(0, 1, 0, 1, 0, 1, 1, 0),
+//      DenseVector(0, 0, 0, 1, 0, 1, 1, 0),
+//      DenseVector(0, 1, 0, 1, 0, 0, 1, 0),
+//      DenseVector(0, 1, 0, 0, 0, 3, 1, 0)  // non-binary weights
     )
 
-    val S1 = for {
-      i <- 0 to 5
-      l = List(0, 0, 0, 0, 0, 0, 0, 0)
-    } yield DenseVector(l.updated(i, 1):_*)
+//    val S2 = for {
+//      i0 <- 0 to 5
+//      i1 <- 0 to 5
+//      i2 <- 0 to 5
+//      //i3 <- 0 to 5
+//      //i4 <- 0 to 3
+//      //i5 <- 0 to 3
+//      //i6 <- 0 to 3
+//      l = List(0, i0, 0, 0, 0, i2, i1, 0)
+//    } yield DenseVector(l:_*)
 
-    val S2 = for {
-      i0 <- 0 to 5
-      i1 <- 0 to 5
-      i2 <- 0 to 5
-      //i3 <- 0 to 5
-      //i4 <- 0 to 3
-      //i5 <- 0 to 3
-      //i6 <- 0 to 3
-      l = List(0, i0, 0, 0, 0, i2, i1, 0)
-    } yield DenseVector(l:_*)
-
-    val S3 = for {
-      i <- 1 to 10
-      j <- 1 to 10
-    } yield DenseVector(0, 0, 0, i, 0, 0, j, 0)
+//    val S3 = for {
+//      i <- 1 to 10
+//      j <- 1 to 10
+//    } yield DenseVector(0, 0, 0, i, 0, 0, j, 0)
 
     val i = new AtomicInteger(0)
 
@@ -1332,11 +1327,11 @@ object TestDataset {
       (al, a) <- A
     } yield {
       val l = labelWeights(s)
-//      val pw = new PrintWriter(f"ldif-taaable/grain/res-${i.incrementAndGet}.csv")
-//      pw.println(f"# $l-$al")
+      val pw = new PrintWriter(f"ldif-taaable/grain/res-${i.incrementAndGet}.csv")
+      pw.println(f"# $l-$al")
       val r = stats(a, s).toList
-//      r map product2csv foreach pw.println
-//      pw.close
+      r map product2csv foreach pw.println
+      pw.close
 
       (l, al, r.map(_._7).max, i)
     }

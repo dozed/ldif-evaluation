@@ -1243,7 +1243,7 @@ object TestDataset {
 
     def stats(agg: Aggregator, sims: Set[Int]) = {
       for {
-        t <- 0.0 to 0.7 by 0.02
+        t <- 0.001 to 0.7 by 0.01
       } yield {
         val result = toAlignment(agg, sims,  similarities, t)
 

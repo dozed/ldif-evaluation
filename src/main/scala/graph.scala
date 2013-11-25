@@ -1,4 +1,5 @@
-import de.fuberlin.wiwiss.silk.linkagerule.similarity.SimpleDistanceMeasure
+import de.fuberlin.wiwiss.silk.linkagerule.similarity.{Aggregator, SimpleDistanceMeasure}
+import de.fuberlin.wiwiss.silk.plugins.aggegrator.AverageAggregator
 import de.fuberlin.wiwiss.silk.plugins.distance.characterbased._
 import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.JaroDistanceMetric
 import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.JaroDistanceMetric
@@ -1187,7 +1188,15 @@ object TestDataset {
   }
 
   def evaluateGrains {
-    case class MatchingLine(e1: String, e2: String, lcs: String, nameBased: List[Double], structureBased: List[Double])
+
+    case class Similarities(e1: String, e2: String, lcs: String, sim: List[Double]) {
+      def subsetDefaultWeights(idxs: Set[Int]): List[(Int, Double)] = {
+        val s = new collection.mutable.ArrayBuffer[(Int, Double)]()
+        println(this)
+        for (i <- idxs.toList.sorted) s += ((1, sim(i)))
+        s.toList
+      }
+    }
 
     case class DoubleRange(from: Double, to: Double) {
       def contains(x: Double) = if (from <= x) x <= to else false
@@ -1198,54 +1207,51 @@ object TestDataset {
       case x => x.toDouble
     }
 
-    def toCSV(m: MatchingLine): String = {
-      f"${m.e1};${m.e2};${m.lcs};${m.nameBased.mkString(";")};${m.structureBased.mkString(";")}"
+    def toCSV(m: Similarities): String = {
+      f"${m.e1};${m.e2};${m.lcs};${m.sim.mkString(";")}"
     }
 
-    val lines = io.Source.fromFile("grain-evaluation.csv").getLines.toList.map { l =>
+    val similarities = io.Source.fromFile("grain-evaluation.csv").getLines.toList.map { l =>
       val ls = l.split(";")
-      val nb = ls.slice(3, 9).toList map toDouble
-      val sb = ls.slice(9, 11).toList map toDouble
-      MatchingLine(ls(0), ls(1), ls(2), nb, sb)
+      val nb = ls.slice(3, 11).toList map toDouble
+      Similarities(ls(0), ls(1), ls(2), nb)
     }
 
-    // find outliers which cant be discriminated by a structural measure
-    // are there any options?
-    for {
-      (e1, xs) <- lines.groupBy(_.e1).toList.sortBy(_._1)
-    } {
-      val (inFoodCat, notInFoodCat) = xs.partition(_.lcs.equals("category:Food_and_drink"))
-
-      if (inFoodCat.size> 0) {
-        val wuPalmerInFood = inFoodCat.map(_.structureBased(0))
-        val wuPalmerRange = DoubleRange(wuPalmerInFood.min, wuPalmerInFood.max)
-
-        val structuralCotopicInFood = inFoodCat.map(_.structureBased(1))
-        val structuralCotopicRange = DoubleRange(structuralCotopicInFood.min, structuralCotopicInFood.max)
-
-        def inFoodRange0(m: MatchingLine): Boolean = {
-          if (m.structureBased.size > 0) {
-            val wp = m.structureBased(0)
-            val sc = m.structureBased(1)
-            // and
-            // if (wuPalmerRange.contains(wp)) structuralCotopicRange.contains(sc) else false
-
-            // or
-            if (wuPalmerRange.contains(wp)) true else structuralCotopicRange.contains(sc)
-          } else false
-        }
-
-        // println(f"$e1: $wuPalmerRange $structuralCotopicRange")
-
-        val wuPalmerNonFoodOutliers = notInFoodCat filter inFoodRange0
-        wuPalmerNonFoodOutliers foreach (o => println(f"    $o"))
-        //      wuPalmerNonFoodOutliers map toCSV foreach println
-
-      } else {
-        println(f"$e1: no food-related match")
+    // - outliers which cant be discriminated by a structural measure
+    // - precision and recall resulting from different aggregations
+    
+    def toAlignment(agg: Aggregator, simIndices: Set[Int], xs: List[Similarities], t: Double): Alignment = {
+      val matchings = for {
+        x <- xs
+        sim <- agg.evaluate(x.subsetDefaultWeights(simIndices))
+        if (sim < t)
+      } yield {
+        Matching(x.e1, x.e2, sim)
       }
-
+      Alignment(matchings.toSet)
     }
+
+    def precRecall(reference: Alignment, result: Alignment): (Double, Double) = {
+      val correctMatches = result.matchings filter (m => reference.contains(m.e1, m.e2)) size
+      val foundMatches = reference.matchings filter (m => result.contains(m.e1, m.e2)) size
+
+      val prec = correctMatches.toDouble / result.matchings.size
+      val recall = foundMatches.toDouble / reference.matchings.size
+
+      (prec, recall)
+    }
+
+
+    // indices...
+    // rel-eq	substr	qgrams	jaroWink	jaro	levensht	wuPalm	strCotopic
+
+    val referenceAlignment: Alignment = fromLst(new File("ldif-taaable/grain/align-grain-ref.lst"))
+    val alignment = toAlignment(AverageAggregator(), Set(3, 6),  similarities, 0.15)
+
+    // no t: prec: 0.03907203907203907, rec: 0.9411764705882353
+
+    val (p, r) = precRecall(referenceAlignment, alignment)
+    println(f"prec: $p, rec: $r")
   }
 
 }
@@ -1260,7 +1266,7 @@ object GraphTest extends App {
 
   // extractGrains
   // matchGrains
-  // evaluateGrains
+  evaluateGrains
 
 
 }

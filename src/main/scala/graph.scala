@@ -1306,7 +1306,7 @@ object TestDataset {
     val i = new AtomicInteger(0)
 
     val res = for {
-      s <- S1.par
+      s <- S1
       (al, a) <- A
     } yield {
       val l = labelWeights(s)

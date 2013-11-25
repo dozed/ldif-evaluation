@@ -1322,10 +1322,11 @@ object TestDataset {
 
     val res = for {
       (s, i) <- S0.zipWithIndex.par
-      (al, a) <- A
+      ((al, a), j) <- A.zipWithIndex
     } yield {
       val l = labelWeights(s)
-      val pw = new PrintWriter(f"ldif-taaable/grain/res-${i+1}.csv")
+      val idx = i*A.size+j+1
+      val pw = new PrintWriter(f"ldif-taaable/grain/res-${idx}.csv")
       pw.println(f"# $l-$al")
       val r = stats(a, s).toList
       r map product2csv foreach pw.println

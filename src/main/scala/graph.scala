@@ -1,3 +1,4 @@
+import breeze.linalg.{DenseVector, Vector}
 import de.fuberlin.wiwiss.silk.linkagerule.similarity.{Aggregator, SimpleDistanceMeasure}
 import de.fuberlin.wiwiss.silk.plugins.aggegrator._
 import de.fuberlin.wiwiss.silk.plugins.aggegrator.AverageAggregator
@@ -11,6 +12,7 @@ import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.LevenshteinMetric
 import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.QGramsMetric
 import de.fuberlin.wiwiss.silk.plugins.distance.equality.RelaxedEqualityMetric
 import java.io._
+import java.util.concurrent.atomic.AtomicInteger
 import org.apache.any23.io.nquads.NQuadsParser
 import org.apache.jena.riot.{Lang, RDFDataMgr}
 import collection.JavaConversions._
@@ -1189,10 +1191,13 @@ object TestDataset {
 
   def evaluateGrains {
 
-    case class Similarities(e1: String, e2: String, lcs: String, sim: List[Double]) {
-      def subsetDefaultWeights(idxs: Set[Int]): List[(Int, Double)] = {
+    case class Similarities(e1: String, e2: String, lcs: String, sim: Vector[Double]) {
+      def zipWithWeights(weights: Vector[Int]): List[(Int, Double)] = {
+        val wl = weights.toArray
         val s = new collection.mutable.ArrayBuffer[(Int, Double)]()
-        for (i <- idxs.toList.sorted) s += ((1, sim(i)))
+        for (i <- 0 to sim.size - 1) {
+          if (wl(i) > 0.0) s += ((wl(i), sim(i)))
+        }
         s.toList
       }
     }
@@ -1207,7 +1212,7 @@ object TestDataset {
     }
 
     def toCSV(m: Similarities): String = {
-      f"${m.e1};${m.e2};${m.lcs};${m.sim.mkString(";")}"
+      f"${m.e1};${m.e2};${m.lcs};${m.sim.toArray.mkString(";")}"
     }
 
     def product2csv(p: Product): String = p.productIterator map {
@@ -1218,16 +1223,16 @@ object TestDataset {
     val similarities = io.Source.fromFile("grain-evaluation.csv").getLines.toList.map { l =>
       val ls = l.split(";")
       val nb = ls.slice(3, 11).toList map toDouble
-      Similarities(ls(0), ls(1), ls(2), nb)
+      Similarities(ls(0), ls(1), ls(2), DenseVector(nb:_*))
     }
 
     // - outliers which cant be discriminated by a structural measure
     // - precision and recall resulting from different aggregations
     
-    def toAlignment(agg: Aggregator, simIndices: Set[Int], xs: List[Similarities], t: Double): Alignment = {
+    def toAlignment(agg: Aggregator, weights: Vector[Int], xs: List[Similarities], t: Double): Alignment = {
       val matchings = for {
         x <- xs
-        sim <- agg.evaluate(x.subsetDefaultWeights(simIndices))
+        sim <- agg.evaluate(x.zipWithWeights(weights))
         if (sim < t)
       } yield {
         Matching(x.e1, x.e2, sim)
@@ -1241,11 +1246,11 @@ object TestDataset {
     // rel-eq	substr	qgrams	jaroWink	jaro	levensht	wuPalm	strCotopic
 
 
-    def stats(agg: Aggregator, sims: Set[Int]) = {
+    def stats(agg: Aggregator, weights: Vector[Int]): Seq[(Double, Int, Int, Int, Double, Double, Double, Double)] = {
       for {
         t <- 0.001 to 0.7 by 0.01
       } yield {
-        val result = toAlignment(agg, sims,  similarities, t)
+        val result = toAlignment(agg, weights,  similarities, t)
 
         val tp = result.matchings filter reference.contains size
         val fp = result.matchings.size - tp
@@ -1273,23 +1278,47 @@ object TestDataset {
       "geoMean" -> GeometricMeanAggregator(),
       "quadMean" -> QuadraticMeanAggregator())
 
-    val Slabels = List("rel-eq", "substr", "qgrams", "jaroWink", "jaro", "levensht", "wuPalm", "strCotopic")
-    val S = List(Set(3), Set(6), Set(3, 6))
+    val Slabels = List("req", "sub", "qgr", "jw", "ja", "lev", "wup", "sct")
 
-    var i = 0
-
-    for {
-      s <- S
-      (al, a) <- A
-    } {
-      val l = s map Slabels.apply mkString("+")
-
-      val pw = new PrintWriter(f"ldif-taaable/grain/res-$i.csv")
-      i += 1
-      pw.println(f"# $l-$al")
-      stats(a, s).toList map product2csv foreach pw.println
-      pw.close
+    def labelWeights(weights: Vector[Int]): String = {
+      (for {
+        (w, i) <- weights.toArray.zipWithIndex
+        if (w > 0)
+      } yield f"${Slabels(i)}($w)") mkString("+")
     }
+
+    // val S = List(Set(3), Set(6), Set(3, 6))
+    // val S = List(Set(3), Set(6), Set(3, 6))
+    // val S = List(List((3, 2), (6, 1)))
+    val S2 = List(
+      DenseVector(0, 0, 0, 1, 0, 0, 1, 0),
+      DenseVector(0, 0, 0, 6, 0, 0, 5, 0)
+    )
+
+//    println(v(7))
+    val S3 = for {
+      i <- 1 to 10
+      j <- 1 to 10
+    } yield DenseVector(0, 0, 0, i, 0, 0, j, 0)
+
+    var i = new AtomicInteger(0)
+
+    val res = for {
+      s <- S2.par
+      (al, a) <- A
+    } yield {
+      val l = labelWeights(s)
+
+      val pw = new PrintWriter(f"ldif-taaable/grain/res-${i.incrementAndGet}.csv")
+      pw.println(f"# $l-$al")
+      val r = stats(a, s).toList
+      r map product2csv foreach pw.println
+      pw.close
+
+      (l, al, r.maxBy(_._8)._8)
+    }
+
+    res.toList.sortBy(-_._3) take (10) foreach println
 
 
   }

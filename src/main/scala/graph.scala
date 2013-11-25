@@ -1320,14 +1320,12 @@ object TestDataset {
 //      j <- 1 to 10
 //    } yield DenseVector(0, 0, 0, i, 0, 0, j, 0)
 
-    val i = new AtomicInteger(0)
-
     val res = for {
-      s <- S0.par
+      (s, i) <- S0.zipWithIndex.par
       (al, a) <- A
     } yield {
       val l = labelWeights(s)
-      val pw = new PrintWriter(f"ldif-taaable/grain/res-${i.incrementAndGet}.csv")
+      val pw = new PrintWriter(f"ldif-taaable/grain/res-${i+1}.csv")
       pw.println(f"# $l-$al")
       val r = stats(a, s).toList
       r map product2csv foreach pw.println

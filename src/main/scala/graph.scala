@@ -1123,7 +1123,7 @@ object TestDataset {
 
     val structuralMeasure = WuPalmer(g, "common:Root")
 
-    def matching(e1: String, e2: String): Option[String] = {
+    def matching(e1: String, e2: String): String = {
       val nameDists = for {
         (_, measure) <- nameBasedMeasures
       } yield {
@@ -1133,52 +1133,50 @@ object TestDataset {
         } yield measure.evaluate(l1, l2)) min
       }
 
-      if (nameDists.min < 0.1) {
-        val sb = new StringBuilder()
-        sb.append(f"$e1,$e2,")
+      val sb = new StringBuilder()
+      sb.append(f"$e1,$e2,")
 
-        val lcs1 = lcs(g, e1, e2)
+      val lcs1 = lcs(g, e1, e2)
 
-        lcs1 match {
-          case None => sb.append(",")
-          case Some((l, p1, p2)) => sb.append(f"$l,")
+      lcs1 match {
+        case None => sb.append(",")
+        case Some((l, p1, p2)) => sb.append(f"$l,")
+      }
+
+      nameDists foreach (d => sb.append(f"$d,"))
+
+      if (lcs1.isDefined) {
+        val (l, p1, p2) = lcs1.get
+        shortestPath(g, l, "common:Root") match {
+          case Some(p) =>
+            val w1 = weight(p1)
+            val w2 = weight(p2)
+            val wl = weight(p)
+
+            // wu palmer
+            val d1 = 2.0 * wl / (w1 + w2 + 2 * wl)
+
+            // structural cotopic
+            val d2 = p1.foldLeft[Long](0)(_ + _._2) + p2.foldLeft[Long](0)(_ + _._2)
+
+            sb.append(f"$d1,$d2")
+          case None =>
+            sb.append(f"${Double.MaxValue},${Double.MaxValue}")
         }
+      }
 
-        nameDists foreach (d => sb.append(f"$d,"))
-
-        if (lcs1.isDefined) {
-          val (l, p1, p2) = lcs1.get
-          shortestPath(g, l, "common:Root") match {
-            case Some(p) =>
-              val w1 = weight(p1)
-              val w2 = weight(p2)
-              val wl = weight(p)
-
-              // wu palmer
-              val d1 = 2.0 * wl / (w1 + w2 + 2 * wl)
-
-              // structural cotopic
-              val d2 = p1.foldLeft[Long](0)(_ + _._2) + p2.foldLeft[Long](0)(_ + _._2)
-
-              sb.append(f"$d1,$d2")
-            case None =>
-              sb.append(f"${Double.MaxValue},${Double.MaxValue}")
-          }
-        }
-
-        Some(sb.toString)
-      } else None
+      sb.toString
     }
 
     //    val refAlign = fromLst(new File("ldif-taaable/grain/align-grain-ref.lst"))
     //    val align = Alignment(taaableInstances.par flatMap nameBasedMatchings seq)
 
-    val pw = new PrintWriter("grain-evaluation.csv")
+    val pw = new PrintWriter("ldif-taaable/grain/grain-evaluation.csv")
 
-    val matchings = for {
+    for {
       e1 <- taaableInstances.par
       e2 <- dbpediaInstances
-      m <- matching(e1, e2)
+      m = matching(e1, e2)
     } {
       println(m)
       pw.println(m)
@@ -1295,30 +1293,33 @@ object TestDataset {
       DenseVector(0, 0, 0, 6, 0, 0, 5, 0)
     )
 
-//    println(v(7))
+    val S1 = for {
+      i <- 0 to 5
+      l = List(0, 0, 0, 0, 0, 0, 0, 0)
+    } yield DenseVector(l.updated(i, 1):_*)
+
     val S3 = for {
       i <- 1 to 10
       j <- 1 to 10
     } yield DenseVector(0, 0, 0, i, 0, 0, j, 0)
 
-    var i = new AtomicInteger(0)
+    val i = new AtomicInteger(0)
 
     val res = for {
-      s <- S2.par
+      s <- S1.par
       (al, a) <- A
     } yield {
       val l = labelWeights(s)
-
       val pw = new PrintWriter(f"ldif-taaable/grain/res-${i.incrementAndGet}.csv")
       pw.println(f"# $l-$al")
       val r = stats(a, s).toList
       r map product2csv foreach pw.println
       pw.close
 
-      (l, al, r.maxBy(_._8)._8)
+      (l, al, r.map(_._7).max, i)
     }
 
-    res.toList.sortBy(-_._3) take (10) foreach println
+    res.toList.sortBy(-_._3) take (100) foreach println
 
 
   }

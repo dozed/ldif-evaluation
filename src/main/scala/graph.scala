@@ -1286,17 +1286,17 @@ object TestDataset {
     }
 
     val S0 = List(
-      DenseVector(1, 0, 0, 0, 0, 0, 0, 0), // simple measures
-      DenseVector(0, 1, 0, 0, 0, 0, 0, 0),
-      DenseVector(0, 0, 1, 0, 0, 0, 0, 0),
-      DenseVector(0, 0, 0, 1, 0, 0, 0, 0),
-      DenseVector(0, 0, 0, 0, 1, 0, 0, 0),
-      DenseVector(0, 0, 0, 0, 0, 1, 0, 0),
-      DenseVector(0, 0, 0, 0, 0, 0, 1, 0)
-//      DenseVector(0, 1, 1, 1, 1, 1, 0, 0), // aggregated string measures
-//      DenseVector(0, 1, 0, 1, 0, 1, 0, 0),
-//      DenseVector(0, 1, 0, 0, 0, 1, 0, 0),
-//      DenseVector(0, 0, 0, 1, 0, 1, 0, 0),
+//      DenseVector(1, 0, 0, 0, 0, 0, 0, 0), // simple measures
+//      DenseVector(0, 1, 0, 0, 0, 0, 0, 0),
+//      DenseVector(0, 0, 1, 0, 0, 0, 0, 0),
+//      DenseVector(0, 0, 0, 1, 0, 0, 0, 0),
+//      DenseVector(0, 0, 0, 0, 1, 0, 0, 0),
+//      DenseVector(0, 0, 0, 0, 0, 1, 0, 0),
+//      DenseVector(0, 0, 0, 0, 0, 0, 1, 0)
+      DenseVector(0, 1, 1, 1, 1, 1, 0, 0), // aggregated string measures
+      DenseVector(0, 1, 0, 1, 0, 1, 0, 0),
+      DenseVector(0, 1, 0, 0, 0, 1, 0, 0),
+      DenseVector(0, 0, 0, 1, 0, 1, 0, 0)
 //      DenseVector(0, 1, 0, 0, 0, 1, 1, 0), // aggregated all measures
 //      DenseVector(0, 1, 0, 1, 0, 1, 1, 0),
 //      DenseVector(0, 0, 0, 1, 0, 1, 1, 0),
@@ -1326,7 +1326,7 @@ object TestDataset {
     } yield {
       val l = labelWeights(s)
       val idx = i*A.size+j+1
-      val pw = new PrintWriter(f"ldif-taaable/grain/res-${idx}.csv")
+      val pw = new PrintWriter(f"ldif-taaable/grain/agg-string-${idx}.csv")
       pw.println(f"# $l-$al")
       val r = stats(a, s).toList
       r map product2csv foreach pw.println

@@ -3,17 +3,18 @@ import org.apache.jena.riot.{Lang, RDFDataMgr}
 
 case class Matching(e1: String, e2: String, p: Double) {
   def contains(e: String) = if (e1.equals(e)) true else e2.equals(e)
+  def covers(other: Matching) = if (e1.equals(other.e1) && e2.equals(other.e2)) true
+    else e1.equals(other.e2) && e2.equals(other.e1)
 }
 
 case class Alignment(matchings: Set[Matching]) {
   def size: Int = matchings.size
 
-  def contains(m: Matching): Boolean = matchings.contains(m)
-  def contains(e: String): Boolean = matchings.exists(m => m.contains(e))
-  def contains(e1: String, e2: String): Boolean = matchings.exists(m => m.e1.equals(e1) && m.e2.equals(e2))
+  def contains(m: Matching): Boolean = matchings.exists(_.covers(m))
+  def contains(e: String): Boolean = matchings.exists(_.contains(e))
   def get(e: String): Matching = opt(e).get
   def opt(e: String): Option[Matching] = all(e).headOption
-  def all(e: String): List[Matching] = matchings.filter(m => m.contains(e)).toList.sortBy(_.p)
+  def all(e: String): List[Matching] = matchings.filter(_.contains(e)).toList.sortBy(_.p)
   def best(e: String): Matching = bestOpt(e).get
   def bestOpt(e: String): Option[Matching] = all(e).toList sortBy (_.p) headOption
 

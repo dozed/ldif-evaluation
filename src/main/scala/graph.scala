@@ -1,12 +1,13 @@
 import de.fuberlin.wiwiss.silk.linkagerule.similarity.{Aggregator, SimpleDistanceMeasure}
+import de.fuberlin.wiwiss.silk.plugins.aggegrator._
 import de.fuberlin.wiwiss.silk.plugins.aggegrator.AverageAggregator
+import de.fuberlin.wiwiss.silk.plugins.aggegrator.GeometricMeanAggregator
+import de.fuberlin.wiwiss.silk.plugins.aggegrator.MinimumAggregator
+import de.fuberlin.wiwiss.silk.plugins.aggegrator.QuadraticMeanAggregator
 import de.fuberlin.wiwiss.silk.plugins.distance.characterbased._
 import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.JaroDistanceMetric
-import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.JaroDistanceMetric
-import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.JaroWinklerDistance
 import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.JaroWinklerDistance
 import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.LevenshteinMetric
-import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.QGramsMetric
 import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.QGramsMetric
 import de.fuberlin.wiwiss.silk.plugins.distance.equality.RelaxedEqualityMetric
 import java.io._
@@ -20,7 +21,6 @@ import org.openrdf.model.Statement
 import org.openrdf.rio.RDFHandler
 
 import scala.reflect.ClassTag
-import scala.Some
 import scalax.collection.Graph
 import scalax.collection.GraphTraversal
 import scalax.collection.GraphTraversal.VisitorReturn
@@ -1192,7 +1192,6 @@ object TestDataset {
     case class Similarities(e1: String, e2: String, lcs: String, sim: List[Double]) {
       def subsetDefaultWeights(idxs: Set[Int]): List[(Int, Double)] = {
         val s = new collection.mutable.ArrayBuffer[(Int, Double)]()
-        println(this)
         for (i <- idxs.toList.sorted) s += ((1, sim(i)))
         s.toList
       }
@@ -1210,6 +1209,11 @@ object TestDataset {
     def toCSV(m: Similarities): String = {
       f"${m.e1};${m.e2};${m.lcs};${m.sim.mkString(";")}"
     }
+
+    def product2csv(p: Product): String = p.productIterator map {
+      case d: Double => f"$d%.2f"
+      case x => x
+    } mkString(";")
 
     val similarities = io.Source.fromFile("grain-evaluation.csv").getLines.toList.map { l =>
       val ls = l.split(";")
@@ -1231,27 +1235,63 @@ object TestDataset {
       Alignment(matchings.toSet)
     }
 
-    def precRecall(reference: Alignment, result: Alignment): (Double, Double) = {
-      val correctMatches = result.matchings filter (m => reference.contains(m.e1, m.e2)) size
-      val foundMatches = reference.matchings filter (m => result.contains(m.e1, m.e2)) size
-
-      val prec = correctMatches.toDouble / result.matchings.size
-      val recall = foundMatches.toDouble / reference.matchings.size
-
-      (prec, recall)
-    }
-
+    val reference: Alignment = fromLst(new File("ldif-taaable/grain/align-grain-ref.lst"))
 
     // indices...
     // rel-eq	substr	qgrams	jaroWink	jaro	levensht	wuPalm	strCotopic
 
-    val referenceAlignment: Alignment = fromLst(new File("ldif-taaable/grain/align-grain-ref.lst"))
-    val alignment = toAlignment(AverageAggregator(), Set(3, 6),  similarities, 0.15)
 
-    // no t: prec: 0.03907203907203907, rec: 0.9411764705882353
+    def stats(agg: Aggregator, sims: Set[Int]) = {
+      for {
+        t <- 0.0 to 0.7 by 0.02
+      } yield {
+        val result = toAlignment(agg, sims,  similarities, t)
 
-    val (p, r) = precRecall(referenceAlignment, alignment)
-    println(f"prec: $p, rec: $r")
+        val tp = result.matchings filter reference.contains size
+        val fp = result.matchings.size - tp
+        val fn = reference.matchings filterNot result.contains size
+
+        val tpa = if (result.matchings.size > 0) {
+          tp.toDouble / result.matchings.size
+        } else 0.0
+
+        val tpr = if (result.matchings.size > 0) {
+          tp.toDouble / reference.matchings.size
+        } else 0.0
+
+        val fm = if (tpa+tpr > 0) 2*tpa*tpr/(tpa+tpr) else 0.0
+        val f2 = if (tpa+tpr > 0) 3*tpa*tpr/(3*tpa+tpr) else 0.0
+
+        (t, tp, fp, fn, tpa, tpr, fm, f2)
+      }
+    }
+
+    val A = Map(
+      "min" -> MinimumAggregator(),
+      "max" -> MaximumAggregator(),
+      "avg" -> AverageAggregator(),
+      "geoMean" -> GeometricMeanAggregator(),
+      "quadMean" -> QuadraticMeanAggregator())
+
+    val Slabels = List("rel-eq", "substr", "qgrams", "jaroWink", "jaro", "levensht", "wuPalm", "strCotopic")
+    val S = List(Set(3), Set(6), Set(3, 6))
+
+    var i = 0
+
+    for {
+      s <- S
+      (al, a) <- A
+    } {
+      val l = s map Slabels.apply mkString("+")
+
+      val pw = new PrintWriter(f"ldif-taaable/grain/res-$i.csv")
+      i += 1
+      pw.println(f"# $l-$al")
+      stats(a, s).toList map product2csv foreach pw.println
+      pw.close
+    }
+
+
   }
 
 }

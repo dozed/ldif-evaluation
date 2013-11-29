@@ -1,5 +1,35 @@
+import breeze.linalg.{DenseVector, Vector}
+import de.fuberlin.wiwiss.silk.linkagerule.similarity.Aggregator
 import java.io.File
 import org.apache.jena.riot.{Lang, RDFDataMgr}
+
+case class Similarities(e1: String, e2: String, lcs: String, sim: Vector[Double]) {
+  def zipWithWeights(weights: Vector[Int]): List[(Int, Double)] = {
+    val wl = weights.toArray
+    val s = new collection.mutable.ArrayBuffer[(Int, Double)]()
+    for (i <- 0 to sim.size - 1) {
+      if (wl(i) > 0.0) s += ((wl(i), sim(i)))
+    }
+    s.toList
+  }
+}
+
+case class AlignmentStatistics(threshold: Double, truePositives: Int, falsePositives: Int, falseNegatives: Int,
+                                truePositiveAccuracy: Double, truePositiveRate: Double) {
+
+  def tp = truePositives
+  def fp = falsePositives
+  def fn = falseNegatives
+  def tpa = truePositiveAccuracy
+  def tpr = truePositiveRate
+
+  def f(a: Double) = if (tpa+tpr > 0) (1+a)*tpa*tpr/(a*tpa+tpr) else 0.0
+
+  val f1 = f(1)
+  val f2 = f(2)
+  val f05 = f(0.5)
+
+}
 
 case class Matching(e1: String, e2: String, p: Double) {
   def contains(e: String) = if (e1.equals(e)) true else e2.equals(e)
@@ -27,6 +57,58 @@ object Align extends App {
 
   import PrefixHelper._
   import Alg._
+
+
+  // reads possibly precalculated similarities from a csv file
+  def toSimilarities(f: String): List[Similarities] = {
+    def toDouble(s: String): Double = s.replaceAll(",", ".") match {
+      case "inf" => Double.MaxValue
+      case x => x.toDouble
+    }
+
+    io.Source.fromFile(f).getLines.toList.map { l =>
+      val ls = l.split(";")
+      val nb = ls.slice(3, 11).toList map toDouble
+      Similarities(ls(0), ls(1), ls(2), DenseVector(nb:_*))
+    }
+  }
+
+  // converts a list of similarity vectors to an Alignment using an aggregator, weights and a threshold
+  def toAlignment(xs: List[Similarities], agg: Aggregator, weights: Vector[Int], t: Double): Alignment = {
+    val matchings = for {
+      x <- xs
+      sim <- agg.evaluate(x.zipWithWeights(weights))
+      if (sim < t)
+    } yield {
+      Matching(x.e1, x.e2, sim)
+    }
+    Alignment(matchings.toSet)
+  }
+
+  // calculates statistics over an alignment using varying thresholds
+  // enables the evaluation of fixed similarity vectors, aggregator and weights
+  def statistics(xs: List[Similarities], R: Alignment, agg: Aggregator, weights: Vector[Int]): Seq[AlignmentStatistics] = {
+    for {
+      t <- 0.001 to 1.0 by 0.01
+    } yield {
+      val A = toAlignment(xs, agg, weights, t)
+
+      val tp = A.matchings filter R.contains size
+      val fp = A.matchings.size - tp
+      val fn = R.matchings filterNot A.contains size
+
+      val tpa = if (A.matchings.size > 0) {
+        tp.toDouble / A.matchings.size
+      } else 0.0
+
+      val tpr = if (A.matchings.size > 0) {
+        tp.toDouble / R.matchings.size
+      } else 0.0
+
+      AlignmentStatistics(t, tp, fp, fn, tpa, tpr)
+    }
+  }
+
 
   def fromMd(md: File): Alignment = {
     val r1 = """(.+?)\s-\s(.+?)""".r

@@ -72,6 +72,10 @@ object PrefixHelper {
 
 }
 
+case class DoubleRange(from: Double, to: Double) {
+  def contains(x: Double) = if (from <= x) x <= to else false
+}
+
 class MutableBiMap[X, Y] {
 
   private val map = collection.mutable.Map[X, Y]()
@@ -1189,26 +1193,6 @@ object TestDataset {
 
   def evaluateGrains {
 
-    case class Similarities(e1: String, e2: String, lcs: String, sim: Vector[Double]) {
-      def zipWithWeights(weights: Vector[Int]): List[(Int, Double)] = {
-        val wl = weights.toArray
-        val s = new collection.mutable.ArrayBuffer[(Int, Double)]()
-        for (i <- 0 to sim.size - 1) {
-          if (wl(i) > 0.0) s += ((wl(i), sim(i)))
-        }
-        s.toList
-      }
-    }
-
-    case class DoubleRange(from: Double, to: Double) {
-      def contains(x: Double) = if (from <= x) x <= to else false
-    }
-
-    def toDouble(s: String): Double = s.replaceAll(",", ".") match {
-      case "inf" => Double.MaxValue
-      case x => x.toDouble
-    }
-
     def toCSV(m: Similarities): String = {
       f"${m.e1};${m.e2};${m.lcs};${m.sim.toArray.mkString(";")}"
     }
@@ -1218,56 +1202,9 @@ object TestDataset {
       case x => x
     } mkString(",")
 
-    val similarities = io.Source.fromFile("grain-evaluation.csv").getLines.toList.map { l =>
-      val ls = l.split(";")
-      val nb = ls.slice(3, 11).toList map toDouble
-      Similarities(ls(0), ls(1), ls(2), DenseVector(nb:_*))
-    }
 
-    // - outliers which cant be discriminated by a structural measure
-    // - precision and recall resulting from different aggregations
-    
-    def toAlignment(agg: Aggregator, weights: Vector[Int], xs: List[Similarities], t: Double): Alignment = {
-      val matchings = for {
-        x <- xs
-        sim <- agg.evaluate(x.zipWithWeights(weights))
-        if (sim < t)
-      } yield {
-        Matching(x.e1, x.e2, sim)
-      }
-      Alignment(matchings.toSet)
-    }
-
+    val similarities = toSimilarities("grain-evaluation.csv")
     val reference: Alignment = fromLst(new File("ldif-taaable/grain/align-grain-ref.lst"))
-
-    // indices...
-    // rel-eq	substr	qgrams	jaroWink	jaro	levensht	wuPalm	strCotopic
-
-
-    def stats(agg: Aggregator, weights: Vector[Int]): Seq[(Double, Int, Int, Int, Double, Double, Double, Double)] = {
-      for {
-        t <- 0.001 to 0.7 by 0.01
-      } yield {
-        val result = toAlignment(agg, weights,  similarities, t)
-
-        val tp = result.matchings filter reference.contains size
-        val fp = result.matchings.size - tp
-        val fn = reference.matchings filterNot result.contains size
-
-        val tpa = if (result.matchings.size > 0) {
-          tp.toDouble / result.matchings.size
-        } else 0.0
-
-        val tpr = if (result.matchings.size > 0) {
-          tp.toDouble / reference.matchings.size
-        } else 0.0
-
-        val fm = if (tpa+tpr > 0) 2*tpa*tpr/(tpa+tpr) else 0.0
-        val f2 = if (tpa+tpr > 0) 3*tpa*tpr/(3*tpa+tpr) else 0.0
-
-        (t, tp, fp, fn, tpa, tpr, fm, f2)
-      }
-    }
 
     val A = Map(
       "min" -> MinimumAggregator(),
@@ -1304,16 +1241,16 @@ object TestDataset {
       DenseVector(0, 1, 0, 0, 0, 3, 1, 0)  // non-binary weights
     )
 
-//    val S2 = for {
-//      i0 <- 0 to 5
-//      i1 <- 0 to 5
-//      i2 <- 0 to 5
-//      //i3 <- 0 to 5
-//      //i4 <- 0 to 3
-//      //i5 <- 0 to 3
-//      //i6 <- 0 to 3
-//      l = List(0, i0, 0, 0, 0, i2, i1, 0)
-//    } yield DenseVector(l:_*)
+    val S2 = for {
+      i0 <- 0 to 1
+      i1 <- 0 to 1
+      i2 <- 0 to 1
+      i3 <- 0 to 1
+      i4 <- 0 to 1
+      i5 <- 0 to 1
+      //i6 <- 0 to 3
+      l = List(0, i0, i1, i2, i3, i4, i5, 0)
+    } yield DenseVector(l:_*)
 
 //    val S3 = for {
 //      i <- 1 to 10
@@ -1321,23 +1258,28 @@ object TestDataset {
 //    } yield DenseVector(0, 0, 0, i, 0, 0, j, 0)
 
     val res = for {
-      (s, i) <- S0.zipWithIndex.par
-      ((al, a), j) <- A.zipWithIndex
+      (s, i) <- S2.zipWithIndex.par
+      // ((al, a), j) <- A.zipWithIndex
+      // ((al, a), j) = (("min", MinimumAggregator()), 0)
+      ((al, a), j) = (("geoMean", GeometricMeanAggregator()), 0)
     } yield {
       val l = labelWeights(s)
-      val idx = i*A.size+j+1
-      val pw = new PrintWriter(f"ldif-taaable/grain/agg-all-${idx}.csv")
-      pw.println(f"# $l-$al")
-      val r = stats(a, s).toList
-      r map product2csv foreach pw.println
-      pw.close
+//      val idx = i*A.size+j+1
+//      val pw = new PrintWriter(f"ldif-taaable/grain/agg-all-${idx}.csv")
+//      pw.println(f"# $l-$al")
+      val r = statistics(similarities, reference, a, s).toList
+//      r map product2csv foreach pw.println
+//      pw.close
 
-      (l, al, r.map(_._7).max, i)
+      (l, al, r.map(_.f05).max, i)
     }
 
     res.toList.sortBy(-_._3) take (100) foreach println
 
 
+//    stats(MinimumAggregator(), DenseVector(0, 0, 0, 0, 0, 1, 0, 0)) foreach { case (t, tp, fp, fn, tpa, tpr, fm, f2) =>
+//      println(f"$t%.2f;$tp;$fp;$fn;$tpa%.2f;$tpr%.2f;$fm%.2f;$f2%.2f")
+//    }
   }
 
 }

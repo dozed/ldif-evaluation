@@ -1,5 +1,5 @@
 import breeze.linalg.{DenseVector, Vector}
-import de.fuberlin.wiwiss.silk.linkagerule.similarity.{Aggregator, SimpleDistanceMeasure}
+import de.fuberlin.wiwiss.silk.linkagerule.similarity.SimpleDistanceMeasure
 import de.fuberlin.wiwiss.silk.plugins.aggegrator._
 import de.fuberlin.wiwiss.silk.plugins.aggegrator.AverageAggregator
 import de.fuberlin.wiwiss.silk.plugins.aggegrator.GeometricMeanAggregator
@@ -12,7 +12,6 @@ import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.LevenshteinMetric
 import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.QGramsMetric
 import de.fuberlin.wiwiss.silk.plugins.distance.equality.RelaxedEqualityMetric
 import java.io._
-import java.util.concurrent.atomic.AtomicInteger
 import org.apache.any23.io.nquads.NQuadsParser
 import org.apache.jena.riot.{Lang, RDFDataMgr}
 import collection.JavaConversions._
@@ -1193,7 +1192,7 @@ object TestDataset {
 
   def evaluateGrains {
 
-    def toCSV(m: Similarities): String = {
+    def toCSV(m: Distances): String = {
       f"${m.e1};${m.e2};${m.lcs};${m.sim.toArray.mkString(";")}"
     }
 
@@ -1203,7 +1202,7 @@ object TestDataset {
     } mkString(",")
 
 
-    val similarities = toSimilarities("grain-evaluation.csv")
+    val distances = toDistances("grain-evaluation.csv")
     val reference: Alignment = fromLst(new File("ldif-taaable/grain/align-grain-ref.lst"))
 
     val A = Map(
@@ -1267,7 +1266,7 @@ object TestDataset {
 //      val idx = i*A.size+j+1
 //      val pw = new PrintWriter(f"ldif-taaable/grain/agg-all-${idx}.csv")
 //      pw.println(f"# $l-$al")
-      val r = statistics(similarities, reference, a, s).toList
+      val r = statistics(distances, reference, a, s).toList
 //      r map product2csv foreach pw.println
 //      pw.close
 
@@ -1282,19 +1281,58 @@ object TestDataset {
 //    }
   }
 
+  def evaluateGrains2 {
+
+    val distances = toDistances("grain-evaluation.csv")
+
+    val reference = fromLst(new File("ldif-taaable/grain/align-grain-ref.lst"))
+
+    def approx(t: Double): Alignment = {
+      toAlignment(distances, MinimumAggregator(), DenseVector(1, 1, 1, 1, 1, 1, 0, 0), t)
+    }
+
+    val trivial = reference intersect approx(0.0)
+    val hard = reference subtract approx(0.8) subtract trivial
+
+    //    println("trivial:")
+    //    trivialMatches.matchings foreach println
+
+    //    println("non-trivial:")
+    //    (reference subtract trivialMatches).matchings foreach println
+
+    //    println("hard:")
+    //    hard foreach println
+
+    println("distances: " + distances.size)
+    println("refalign: " + reference.size)
+    println("trivial: " + trivial.size)
+    for (t <- 0.01 to 0.1 by 0.01) {
+      val a = reference intersect (approx(t) subtract trivial)
+      println(f"approx($t%.2f): ${a.size}")
+    }
+    println(f"approx(0.2): ${(reference intersect (approx(0.2) subtract trivial)).size}")
+    println(f"approx(0.3): ${(reference intersect (approx(0.3) subtract trivial)).size}")
+    println("hard: " + hard.size)
+
+
+    // List("req", "sub", "qgr", "jw", "ja", "lev", "wup", "sct")
+
+    //    trivialMatches.matchings foreach { m =>
+    //      distances.filter(s => m.covers(s.e1, s.e2))
+    //    }
+
+  }
+
 }
 
 object GraphTest extends App {
 
-  import PrefixHelper._
-  import GraphFactory._
-  import Alg._
-  import Align._
   import TestDataset._
 
   // extractGrains
   // matchGrains
-  evaluateGrains
+  // evaluateGrains
+  evaluateGrains2
 
 
 }

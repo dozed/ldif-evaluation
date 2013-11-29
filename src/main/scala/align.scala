@@ -3,7 +3,7 @@ import de.fuberlin.wiwiss.silk.linkagerule.similarity.Aggregator
 import java.io.File
 import org.apache.jena.riot.{Lang, RDFDataMgr}
 
-case class Similarities(e1: String, e2: String, lcs: String, sim: Vector[Double]) {
+case class Distances(e1: String, e2: String, lcs: String, sim: Vector[Double]) {
   def zipWithWeights(weights: Vector[Int]): List[(Int, Double)] = {
     val wl = weights.toArray
     val s = new collection.mutable.ArrayBuffer[(Int, Double)]()
@@ -33,15 +33,19 @@ case class AlignmentStatistics(threshold: Double, truePositives: Int, falsePosit
 
 case class Matching(e1: String, e2: String, p: Double) {
   def contains(e: String) = if (e1.equals(e)) true else e2.equals(e)
-  def covers(other: Matching) = if (e1.equals(other.e1) && e2.equals(other.e2)) true
-    else e1.equals(other.e2) && e2.equals(other.e1)
+  // def covers(other: Matching): Boolean = covers(other.e1, other.e2)
+  def covers(f1: String, f2: String): Boolean = if (e1.equals(f1) && e2.equals(f2)) true
+    else e1.equals(f2) && e2.equals(f1)
 }
 
 case class Alignment(matchings: Set[Matching]) {
-  def size: Int = matchings.size
 
-  def contains(m: Matching): Boolean = matchings.exists(_.covers(m))
-  def contains(e: String): Boolean = matchings.exists(_.contains(e))
+  def size: Int = matchings.size
+  def foreach[U](f: Matching => U): Unit = matchings.foreach(f)
+
+  def covers(e: String): Boolean = matchings.exists(_.contains(e))
+  def covers(m: Matching): Boolean = matchings.exists(_.covers(m.e1, m.e2))
+
   def get(e: String): Matching = opt(e).get
   def opt(e: String): Option[Matching] = all(e).headOption
   def all(e: String): List[Matching] = matchings.filter(_.contains(e)).toList.sortBy(_.p)
@@ -51,6 +55,20 @@ case class Alignment(matchings: Set[Matching]) {
   def entities: Set[String] = left ++ right
   def left: Set[String] = matchings.map(_.e1).toSet
   def right: Set[String] = matchings.map(_.e2).toSet
+
+  // A - B: keeps only those matching pairs from A which are not in B, doesnt take prob. into account
+  def subtract(other: Alignment): Alignment = {
+    Alignment(matchings filterNot other.covers)
+  }
+
+  def intersect(other: Alignment): Alignment = {
+    Alignment(matchings filter other.covers)
+  }
+
+  // (A u B) can contain two matchings of two entities with different probabilities
+  def union(other: Alignment): Alignment = {
+    Alignment(matchings union other.matchings)
+  }
 }
 
 object Align extends App {
@@ -59,8 +77,8 @@ object Align extends App {
   import Alg._
 
 
-  // reads possibly precalculated similarities from a csv file
-  def toSimilarities(f: String): List[Similarities] = {
+  // reads possibly precalculated distances from a csv file
+  def toDistances(f: String): List[Distances] = {
     def toDouble(s: String): Double = s.replaceAll(",", ".") match {
       case "inf" => Double.MaxValue
       case x => x.toDouble
@@ -69,40 +87,40 @@ object Align extends App {
     io.Source.fromFile(f).getLines.toList.map { l =>
       val ls = l.split(";")
       val nb = ls.slice(3, 11).toList map toDouble
-      Similarities(ls(0), ls(1), ls(2), DenseVector(nb:_*))
+      Distances(ls(0), ls(1), ls(2), DenseVector(nb:_*))
     }
   }
 
-  // converts a list of similarity vectors to an Alignment using an aggregator, weights and a threshold
-  def toAlignment(xs: List[Similarities], agg: Aggregator, weights: Vector[Int], t: Double): Alignment = {
+  // converts a list of distance vectors to an Alignment using an aggregator, weights and a threshold
+  def toAlignment(xs: List[Distances], agg: Aggregator, weights: Vector[Int], t: Double): Alignment = {
     val matchings = for {
       x <- xs
-      sim <- agg.evaluate(x.zipWithWeights(weights))
-      if (sim < t)
+      d <- agg.evaluate(x.zipWithWeights(weights))
+      if (d <= t)
     } yield {
-      Matching(x.e1, x.e2, sim)
+      Matching(x.e1, x.e2, d)
     }
     Alignment(matchings.toSet)
   }
 
   // calculates statistics over an alignment using varying thresholds
-  // enables the evaluation of fixed similarity vectors, aggregator and weights
-  def statistics(xs: List[Similarities], R: Alignment, agg: Aggregator, weights: Vector[Int]): Seq[AlignmentStatistics] = {
+  // enables the evaluation of fixed distance vectors, aggregator and weights
+  def statistics(xs: List[Distances], R: Alignment, agg: Aggregator, weights: Vector[Int]): Seq[AlignmentStatistics] = {
     for {
-      t <- 0.001 to 1.0 by 0.01
+      t <- 0.001 to 1.0 by 0.01   // todo increase by measuring influence on fpr
     } yield {
       val A = toAlignment(xs, agg, weights, t)
 
-      val tp = A.matchings filter R.contains size
-      val fp = A.matchings.size - tp
-      val fn = R.matchings filterNot A.contains size
+      val tp = A intersect R size
+      val fp = A.size - tp
+      val fn = R subtract A size
 
-      val tpa = if (A.matchings.size > 0) {
-        tp.toDouble / A.matchings.size
+      val tpa = if (A.size > 0) {
+        tp.toDouble / A.size
       } else 0.0
 
-      val tpr = if (A.matchings.size > 0) {
-        tp.toDouble / R.matchings.size
+      val tpr = if (A.size > 0) {
+        tp.toDouble / R.size
       } else 0.0
 
       AlignmentStatistics(t, tp, fp, fn, tpa, tpr)

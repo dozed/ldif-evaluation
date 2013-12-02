@@ -25,6 +25,11 @@
       <name>Sonatype Releases</name>
       <url>https://oss.sonatype.org/content/repositories/releases/</url>
     </repository>
+    <repository>
+      <id>external-jars</id>
+      <name>External Jar Repository</name>
+      <url>https://github.com/dozed/mvn-repo/raw/master/external</url>
+    </repository>
   </repositories>
 
   <dependencies>
@@ -149,6 +154,12 @@
       <groupId>fr.lgi2p.kid</groupId>
       <artifactId>slib-sml</artifactId>
       <version>0.7.1</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.wcohen</groupId>
+      <artifactId>secondstring</artifactId>
+      <version>20131203</version>
     </dependency>
 
     <!--

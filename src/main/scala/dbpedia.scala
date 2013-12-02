@@ -2,6 +2,8 @@ import dispatch._, Defaults._
 import org.apache.jena.riot.{RDFLanguages, LangBuilder, Lang}
 import org.json4s.JsonAST.{JArray, JValue}
 import org.json4s.JsonFormat
+import org.json4s._
+import org.json4s.jackson.JsonMethods._
 import scala.xml.Elem
 import scala.concurrent.Await
 import scala.concurrent.duration._
@@ -196,3 +198,4 @@ object SparqlImporter extends App {
 //  pw.close
 
 }
+

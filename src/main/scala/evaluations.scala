@@ -17,8 +17,8 @@ import de.fuberlin.wiwiss.silk.plugins.transformer.LowerCaseTransformer
 import de.fuberlin.wiwiss.silk.plugins.transformer.phonetic.{MetaphoneTransformer, NysiisTransformer, SoundexTransformer}
 import java.io.{PrintWriter, File}
 import java.util.logging.Level
-import ldif.local.{Evaluation, SemPRecEvaluation}
-import ldif.modules.silk.local.AlignmentApiWriter
+//import ldif.local.{Evaluation, SemPRecEvaluation}
+//import ldif.modules.silk.local.AlignmentApiWriter
 import scala.xml.XML
 
 /**
@@ -87,7 +87,7 @@ trait Evaluations {
   }
 
   def evaluate(rule: LinkageRule)(implicit config: RuntimeConfig) = {
-    val evalType = SemPRecEvaluation
+    // val evalType = SemPRecEvaluation
     val alignmentRef = new File(f"$base/alignment/align-named-ref.rdf")
     val alignmentOut = File.createTempFile("alignment", ".tmp")
     val alignmentResults = File.createTempFile("alignment-prec", ".tmp")
@@ -95,8 +95,8 @@ trait Evaluations {
     val linkSpec = LinkSpecification(
       linkType = "http://www.w3.org/2002/07/owl#sameAs",
       datasets = datasets,
-      rule = rule,
-      outputs = List(new Output("output", new AlignmentApiWriter(alignmentOut))))
+      rule = rule)
+      // outputs = List(new Output("output", new AlignmentApiWriter(alignmentOut))))
 
     new GenerateLinksTask(
       sources = List(sources._1, sources._2),
@@ -105,7 +105,7 @@ trait Evaluations {
       runtimeConfig = config
     ).apply()
 
-    Evaluation.eval(evalType, alignmentRef, alignmentOut, alignmentResults)
+    // Evaluation.eval(evalType, alignmentRef, alignmentOut, alignmentResults)
 
     val xml = XML.loadFile(alignmentResults)
     val prec = (xml \ "output" \ "precision" text).toDouble

@@ -1,11 +1,10 @@
 
-import de.fuberlin.wiwiss.silk.config.{LinkSpecification, Dataset}
+import de.fuberlin.wiwiss.silk.config.Dataset
 import de.fuberlin.wiwiss.silk.datasource.Source
 import de.fuberlin.wiwiss.silk.entity._
 import de.fuberlin.wiwiss.silk.linkagerule.input._
 import de.fuberlin.wiwiss.silk.linkagerule.LinkageRule
 import de.fuberlin.wiwiss.silk.linkagerule.similarity.{Aggregation, DistanceMeasure, Comparison}
-import de.fuberlin.wiwiss.silk.output.Output
 import de.fuberlin.wiwiss.silk.plugins.aggegrator.AverageAggregator
 import de.fuberlin.wiwiss.silk.plugins.distance.characterbased._
 import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.JaroDistanceMetric
@@ -13,11 +12,6 @@ import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.JaroWinklerDistan
 import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.LevenshteinMetric
 import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.QGramsMetric
 import de.fuberlin.wiwiss.silk.plugins.distance.equality.EqualityMetric
-import de.fuberlin.wiwiss.silk.util.DPair
-import java.io.File
-import ldif.local.{Evaluation, SemPRecEvaluation}
-import ldif.modules.silk.local.AlignmentApiWriter
-import scala.xml.XML
 
 /**
  * Created with IntelliJ IDEA.

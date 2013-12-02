@@ -1288,7 +1288,8 @@ object TestDataset {
     val reference = fromLst(new File("ldif-taaable/grain/align-grain-ref.lst"))
 
     def approx(t: Double): Alignment = {
-      toAlignment(distances, MinimumAggregator(), DenseVector(1, 1, 1, 1, 1, 1, 0, 0), t)
+      //toAlignment(distances, MinimumAggregator(), DenseVector(1, 1, 1, 1, 1, 1, 0, 0), t)   // t: 0.1
+      toAlignment(distances, MinimumAggregator(), DenseVector(0, 0, 0, 0, 0, 1, 0, 0), t)
     }
 
     val trivial = reference intersect approx(0.0)
@@ -1306,13 +1307,18 @@ object TestDataset {
     println("distances: " + distances.size)
     println("refalign: " + reference.size)
     println("trivial: " + trivial.size)
-    for (t <- 0.01 to 0.1 by 0.01) {
-      val a = reference intersect (approx(t) subtract trivial)
-      println(f"approx($t%.2f): ${a.size}")
-    }
-    println(f"approx(0.2): ${(reference intersect (approx(0.2) subtract trivial)).size}")
-    println(f"approx(0.3): ${(reference intersect (approx(0.3) subtract trivial)).size}")
     println("hard: " + hard.size)
+
+    var previousTpr = 0.0
+    for (t <- 0.001 to 1.0 by 0.001) {
+      val a = approx(t) // subtract trivial   // recall+
+      val s = statistics(a, reference, t)
+      if (s.tpr > previousTpr) {
+        println(f"approx($t%.3f): tp: ${s.tp} fp: ${s.fp} tpr: ${s.tpr} tpa: ${s.tpa} ")
+        previousTpr = s.tpr
+      }
+    }
+
 
 
     // List("req", "sub", "qgr", "jw", "ja", "lev", "wup", "sct")

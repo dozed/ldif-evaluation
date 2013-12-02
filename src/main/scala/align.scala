@@ -110,21 +110,24 @@ object Align extends App {
       t <- 0.001 to 1.0 by 0.01   // todo increase by measuring influence on fpr
     } yield {
       val A = toAlignment(xs, agg, weights, t)
-
-      val tp = A intersect R size
-      val fp = A.size - tp
-      val fn = R subtract A size
-
-      val tpa = if (A.size > 0) {
-        tp.toDouble / A.size
-      } else 0.0
-
-      val tpr = if (A.size > 0) {
-        tp.toDouble / R.size
-      } else 0.0
-
-      AlignmentStatistics(t, tp, fp, fn, tpa, tpr)
+      statistics(A, R, t)
     }
+  }
+
+  def statistics(A: Alignment, R: Alignment, t: Double): AlignmentStatistics = {
+    val tp = A intersect R size
+    val fp = A.size - tp
+    val fn = R subtract A size
+
+    val tpa = if (A.size > 0) {
+      tp.toDouble / A.size
+    } else 0.0
+
+    val tpr = if (A.size > 0) {
+      tp.toDouble / R.size
+    } else 0.0
+
+    AlignmentStatistics(t, tp, fp, fn, tpa, tpr)
   }
 
 

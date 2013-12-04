@@ -356,6 +356,15 @@ object GraphFactory {
     labelMap.toMap
   }
 
+  def labelsFromQuadsUnique(in: InputStream): Map[String, String] = {
+    for {
+      (key, labels) <- labelsFromQuads(in)
+    } yield {
+      if (labels.size != 1) throw new Error(f"More than one label for: $key")
+      (key, labels.head)
+    }
+  }
+
 }
 
 object Alg {

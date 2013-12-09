@@ -185,6 +185,10 @@ object text extends App {
   val taaableLabels = labelsFromQuadsUnique(new FileInputStream("ldif-taaable/taaable-food.nq"))
   val dbpediaLabels = labelsFromQuadsUnique(new FileInputStream("ldif-taaable/grain/dataset-grain-articles-categories-labels.nt"))
 
+  //    val taaableTokens = taaableLabels.mapValues(_ map tokenize)
+  //    val dbpediaTokens = labelTokens(dbpediaLabels).values.flatten.toSet.toList.sorted
+
+
   //  labelTokens(taaableLabels) foreach println
   //  labelTokens(dbpediaLabels)
 

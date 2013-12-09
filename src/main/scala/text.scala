@@ -58,7 +58,7 @@ object analyze {
     private val termAtt = addAttribute(classOf[CharTermAttribute])
 
     def accept: Boolean = {
-      termAtt.buffer.take(termAtt.length) exists (c => c != '–' && c != '-')
+      termAtt.buffer.take(termAtt.length) exists (c => c != '–' && c != '-' && c != '.' && c != ',')
     }
   }
 

@@ -1,4 +1,6 @@
-import breeze.linalg.{DenseVector, Vector}
+import breeze.linalg._
+import breeze.numerics._
+
 import de.fuberlin.wiwiss.silk.linkagerule.similarity.Aggregator
 import java.io.File
 import org.apache.jena.riot.{Lang, RDFDataMgr}
@@ -11,6 +13,11 @@ case class Distances(e1: String, e2: String, lcs: Option[String], dist: Vector[D
       if (wl(i) > 0.0) s += ((wl(i), dist(i)))
     }
     s.toList
+  }
+
+  def isTrivial(weights: Vector[Int]): Boolean = {
+    // TODO weights dot dist
+    (weights.mapValues(_.toDouble) dot dist) == 0.0
   }
 }
 
@@ -212,6 +219,10 @@ object align {
 
   def printAlignment(a: Alignment) {
     a.matchings foreach (m => println(f"(${m.e1}, ${m.e2}, ${m.p})"))
+  }
+
+  def toCSV(d: Distances): String = {
+    "\"" +  d.e1 + "\",\"" + d.e2 + "\",\"" + d.lcs.getOrElse("") + "\"," + d.dist.toArray.mkString(",")
   }
 
   // print info about the state of an alignment

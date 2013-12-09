@@ -1,6 +1,9 @@
+import breeze.linalg.DenseVector
+import breeze.linalg.DenseVector._
 import com.wcohen.ss._
 import com.wcohen.ss.api.StringDistance
 import de.fuberlin.wiwiss.silk.linkagerule.similarity.SimpleDistanceMeasure
+import de.fuberlin.wiwiss.silk.plugins.aggegrator.MinimumAggregator
 import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.{QGramsMetric, SubStringDistance}
 import de.fuberlin.wiwiss.silk.plugins.distance.equality.RelaxedEqualityMetric
 import java.io.{FileInputStream, PrintWriter}
@@ -13,7 +16,6 @@ object metrics extends App {
   import align._
   import analyze._
   import text._
-
 
   def calculateSimilarities(m1: Map[String, Set[String]], m2: Map[String, Set[String]], t: Double, out: String) {
     def distance(m: Any, s1: String, s2: String) = {
@@ -101,38 +103,89 @@ object metrics extends App {
     calculateSimilarities(taaableLabels, dbpediaLabels, 0.4, "ldif-taaable/grain/sim-labels-0.4.csv")
   }
 
-//  val distances = toDistances("ldif-taaable/grain/sim-tokens-0.5.csv", containsLcs = false, separator = ',', dropFirstLine = true)
-//  distances foreach { d =>
-//    if (d.sim(11) == 0.0 && !d.e1.equals(d.e2)) println(d)
-//  }
+  def generateTrainingData() {
+    println("reading ref alignment")
+    val R = fromLst("ldif-taaable/grain/align-grain-ref.lst")
 
+    // TODO check why those appear to be in low distance
+    val blacklist = Set(
+      "dbpedia:...",
+      "dbpedia:....",
+      "dbpedia:.....",
+      "dbpedia:......",
+      "dbpedia:..._---_...",
+      "dbpedia:..._...",
+      "dbpedia:._._.",
+      "dbpedia:...---...",
+      "dbpedia:-",
+      "dbpedia:--",
+      "dbpedia:---",
+      "dbpedia:----",
+      "dbpedia:._.",
+      "dbpedia:-.-",
+      "dbpedia:-_-",
+      "dbpedia:%22.%22",
+      "dbpedia:%22_%22"
+    )
 
-  val ref = fromLst("ldif-taaable/grain/align-grain-ref.lst")
+    println("reading precalculated distance vectors")
+    val dists = toDistances("ldif-taaable/grain/sim-labels-0.4.csv",
+      containsLcs = false,
+      separator = ',',
+      dropFirstLine = true).toList filterNot (d => blacklist.contains(d.e2))
 
-  // s1,s2,nw,anw,sw,lv,ap,slv,me,ja,jw,isub,req,sub,qgr
-  val dists = toDistances("ldif-taaable/grain/sim-labels-0.4.csv", containsLcs = false, separator = ',', dropFirstLine = true)
+    val ts = List(
+      (5, DenseVector(0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0), 0.430),
+      (7, DenseVector(0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0), 0.144),
+      (8, DenseVector(0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0), 0.087),
+      (9, DenseVector(0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0), 0.165),
+      (11, DenseVector(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0), 0.144),
+      (12, DenseVector(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1), 0.500)
+    )
 
-  dists filter { d => d.dist(6) <= 0.43 } foreach { d =>
-    println(d)
+    val tv =  DenseVector(0, 0, 0, 0, 0, 1, 0, 1, 1, 1, 0, 1, 1)
+
+    val agg = MinimumAggregator()
+
+    println("calculating statistics")
+    ts map { case (i, weights, t) =>
+      val A = toAlignment(dists, agg, weights, t)
+      val s = statistics(A, R)
+      println(f"$i + $t: ${s.fp} - ${s.tp}")
+    }
+
+    println("selecting non-trivial true positive matches")
+    val dtp = dists filter { d => R.covers(d.e1, d.e2) } filterNot { d => d.isTrivial(tv) }
+
+    println("selecting false positive matches (only a few)")
+    val dfp = dists filter { d =>
+      ts exists { case (i, weights, t) => agg.evaluate(d.zipWithWeights(weights)) forall (_ <= t) }
+    } filterNot { d => R.covers(d.e1, d.e2) }
+
+    println("# dtp: " + dtp.size)
+    println("# dfp: " + dfp.size)
+
+    println("writing filtered training data")
+    val pw = new PrintWriter("ldif-taaable/grain/sim-filtered.csv")
+    dtp map toCSV foreach pw.println
+    dfp map toCSV foreach pw.println
   }
 
+  //  5 + 0.43: 8325 - 32
+  //  7 + 0.144: 2033 - 32
+  //  8 + 0.087: 1720 - 32
+  //  9 + 0.165: 462 - 32
+  //  11 + 0.144: 450 - 32
+  //  12 + 0.5: 1261 - 32
+  //  # dtp: 25
+  //  # dfp: 8506
+  generateTrainingData
 
-
-
-  // tp, fp, fn => basic string measures
-  // tp, fp, fn => token-based string measures
-  //   - soft-tfidf: ...
-  //   - tversky
-  //   - soft-jaccard
-  //   - tfidf, jaccard: soft with req
   // selection of measures and training data
   //   - good measure => good tpr/tpa ?
   //   - different measures => different tp set overlap
   //   - good training data => ?
   // aggregation
-  //   - min/max/avg/means
-  // decision tree
-  //   - manual
-  //   - learned
+  //   - min/mean vs. decision tree
 
 }

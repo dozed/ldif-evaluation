@@ -658,7 +658,7 @@ object TestDataset {
   import PrefixHelper._
   import GraphFactory._
   import Alg._
-  import Align._
+  import align._
 
   def extractOat {
     val instances = Set(
@@ -909,58 +909,6 @@ object TestDataset {
     pw.close
   }
 
-  def nameBasedAlignment {
-    val measures = List(
-      "substring" -> SubStringDistance(),
-      "qgrams2" -> QGramsMetric(q = 2),
-      "jaro" -> JaroDistanceMetric(),
-      "jaroWinkler" -> JaroWinklerDistance(),
-      "levenshtein" -> LevenshteinMetric(),
-      "relaxedEquality" -> new RelaxedEqualityMetric()
-    )
-
-    def distance(sourceLabels: Set[String], targetLabels: Set[String]): (Double, String) = {
-      val dists = for {
-        (_, measure) <- measures
-        sourceLabel <- sourceLabels
-        targetLabel <- targetLabels
-      } yield {
-        (measure.evaluate(sourceLabel, targetLabel), targetLabel)
-      }
-      dists.minBy(_._1)
-    }
-
-    println("reading taaable")
-    val taaableHierarchy = fromQuads(new FileInputStream("D:/Workspaces/Dev/ldif-evaluation/ldif-taaable/taaable-food.nq"))
-    val taaableLabels = labelsFromQuads(new FileInputStream("D:/Workspaces/Dev/ldif-evaluation/ldif-taaable/taaable-food.nq"))
-
-    val grainEntities = subsumedConcepts(taaableHierarchy, "taaable:Grain")
-    val grainLabels = taaableLabels filterKeys grainEntities.contains
-
-    println("reading dbpedia")
-    val dbpediaLabels = labelsFromQuads(new SequenceInputStream(new FileInputStream(DBpediaFiles.articleLabels),
-      new FileInputStream(DBpediaFiles.categoryLabels)))
-
-    val thresholds = List(0.1, 0.2, 0.3, 0.05, 0.15)
-    val writers = thresholds map (t => new PrintWriter(f"grain-dbpedia-concepts-t.txt"))
-
-    for {
-      (source, sourceLabels) <- grainLabels.par
-      (target, targetLabels) <- dbpediaLabels
-    } {
-      val (dist, targetLabel) = distance(sourceLabels, targetLabels)
-      if (dist < 0.1) println(f"$sourceLabels - $targetLabel - $dist")
-      for {
-        (threshold, pw) <- thresholds zip writers
-        if (dist < threshold)
-      } {
-        pw.println(f"$source - $target - $sourceLabels - $targetLabels - $dist")
-      }
-    }
-
-    writers foreach (_.close)
-  }
-
   def testOat {
     val instances = List(
       "dbpedia:Oaths",
@@ -1066,6 +1014,58 @@ object TestDataset {
 
         sb.toString
     } foreach println
+  }
+
+  def nameBasedAlignment {
+    val measures = List(
+      "substring" -> SubStringDistance(),
+      "qgrams2" -> QGramsMetric(q = 2),
+      "jaro" -> JaroDistanceMetric(),
+      "jaroWinkler" -> JaroWinklerDistance(),
+      "levenshtein" -> LevenshteinMetric(),
+      "relaxedEquality" -> new RelaxedEqualityMetric()
+    )
+
+    def distance(sourceLabels: Set[String], targetLabels: Set[String]): (Double, String) = {
+      val dists = for {
+        (_, measure) <- measures
+        sourceLabel <- sourceLabels
+        targetLabel <- targetLabels
+      } yield {
+        (measure.evaluate(sourceLabel, targetLabel), targetLabel)
+      }
+      dists.minBy(_._1)
+    }
+
+    println("reading taaable")
+    val taaableHierarchy = fromQuads(new FileInputStream("D:/Workspaces/Dev/ldif-evaluation/ldif-taaable/taaable-food.nq"))
+    val taaableLabels = labelsFromQuads(new FileInputStream("D:/Workspaces/Dev/ldif-evaluation/ldif-taaable/taaable-food.nq"))
+
+    val grainEntities = subsumedConcepts(taaableHierarchy, "taaable:Grain")
+    val grainLabels = taaableLabels filterKeys grainEntities.contains
+
+    println("reading dbpedia")
+    val dbpediaLabels = labelsFromQuads(new SequenceInputStream(new FileInputStream(DBpediaFiles.articleLabels),
+      new FileInputStream(DBpediaFiles.categoryLabels)))
+
+    val thresholds = List(0.1, 0.2, 0.3, 0.05, 0.15)
+    val writers = thresholds map (t => new PrintWriter(f"grain-dbpedia-concepts-t.txt"))
+
+    for {
+      (source, sourceLabels) <- grainLabels.par
+      (target, targetLabels) <- dbpediaLabels
+    } {
+      val (dist, targetLabel) = distance(sourceLabels, targetLabels)
+      if (dist < 0.1) println(f"$sourceLabels - $targetLabel - $dist")
+      for {
+        (threshold, pw) <- thresholds zip writers
+        if (dist < threshold)
+      } {
+        pw.println(f"$source - $target - $sourceLabels - $targetLabels - $dist")
+      }
+    }
+
+    writers foreach (_.close)
   }
 
   def extractGrains {
@@ -1279,7 +1279,7 @@ object TestDataset {
 //      r map product2csv foreach pw.println
 //      pw.close
 
-      (l, al, r.map(_.f05).max, i)
+      (l, al, r.map(_._2.f05).max, i)
     }
 
     res.toList.sortBy(-_._3) take (100) foreach println
@@ -1292,7 +1292,7 @@ object TestDataset {
 
   def evaluateGrains2 {
 
-    val distances = toDistances("grain-evaluation.csv")
+    val distances = toDistances("ldif-taaable/grain/grain-evaluation.csv")
 
     val reference = fromLst(new File("ldif-taaable/grain/align-grain-ref.lst"))
 
@@ -1321,7 +1321,7 @@ object TestDataset {
     var previousTpr = 0.0
     for (t <- 0.001 to 1.0 by 0.001) {
       val a = approx(t) // subtract trivial   // recall+
-      val s = statistics(a, reference, t)
+      val s = statistics(a, reference)
       if (s.tpr > previousTpr) {
         println(f"approx($t%.3f): tp: ${s.tp} fp: ${s.fp} tpr: ${s.tpr} tpa: ${s.tpa} ")
         previousTpr = s.tpr

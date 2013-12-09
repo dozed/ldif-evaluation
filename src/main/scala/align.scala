@@ -3,7 +3,7 @@ import de.fuberlin.wiwiss.silk.linkagerule.similarity.Aggregator
 import java.io.File
 import org.apache.jena.riot.{Lang, RDFDataMgr}
 
-case class Distances(e1: String, e2: String, lcs: String, sim: Vector[Double]) {
+case class Distances(e1: String, e2: String, lcs: Option[String], sim: Vector[Double]) {
   def zipWithWeights(weights: Vector[Int]): List[(Int, Double)] = {
     val wl = weights.toArray
     val s = new collection.mutable.ArrayBuffer[(Int, Double)]()
@@ -14,16 +14,20 @@ case class Distances(e1: String, e2: String, lcs: String, sim: Vector[Double]) {
   }
 }
 
-case class AlignmentStatistics(threshold: Double, truePositives: Int, falsePositives: Int, falseNegatives: Int,
-                                truePositiveAccuracy: Double, truePositiveRate: Double) {
+case class AlignmentStatistics(truePositives: Int, falsePositives: Int, falseNegatives: Int,
+                               truePositiveAccuracy: Double, truePositiveRate: Double) {
 
   def tp = truePositives
+
   def fp = falsePositives
+
   def fn = falseNegatives
+
   def tpa = truePositiveAccuracy
+
   def tpr = truePositiveRate
 
-  def f(a: Double) = if (tpa+tpr > 0) (1+a)*tpa*tpr/(a*tpa+tpr) else 0.0
+  def f(a: Double) = if (tpa + tpr > 0) (1 + a) * tpa * tpr / (a * tpa + tpr) else 0.0
 
   val f1 = f(1)
   val f2 = f(2)
@@ -33,27 +37,40 @@ case class AlignmentStatistics(threshold: Double, truePositives: Int, falsePosit
 
 case class Matching(e1: String, e2: String, p: Double) {
   def contains(e: String) = if (e1.equals(e)) true else e2.equals(e)
+
   // def covers(other: Matching): Boolean = covers(other.e1, other.e2)
   def covers(f1: String, f2: String): Boolean = if (e1.equals(f1) && e2.equals(f2)) true
-    else e1.equals(f2) && e2.equals(f1)
+  else e1.equals(f2) && e2.equals(f1)
 }
 
 case class Alignment(matchings: Set[Matching]) {
 
   def size: Int = matchings.size
+
   def foreach[U](f: Matching => U): Unit = matchings.foreach(f)
 
+  // contains a matching for e
   def covers(e: String): Boolean = matchings.exists(_.contains(e))
-  def covers(m: Matching): Boolean = matchings.exists(_.covers(m.e1, m.e2))
+
+  // contains a matching between e1 and e2
+  def covers(e1: String, e2: String): Boolean = matchings.exists(_.covers(e1, e2))
+
+  def covers(m: Matching): Boolean = covers(m.e1, m.e2)
 
   def get(e: String): Matching = opt(e).get
+
   def opt(e: String): Option[Matching] = all(e).headOption
+
   def all(e: String): List[Matching] = matchings.filter(_.contains(e)).toList.sortBy(_.p)
+
   def best(e: String): Matching = bestOpt(e).get
+
   def bestOpt(e: String): Option[Matching] = all(e).toList sortBy (_.p) headOption
 
   def entities: Set[String] = left ++ right
+
   def left: Set[String] = matchings.map(_.e1).toSet
+
   def right: Set[String] = matchings.map(_.e2).toSet
 
   // A - B: keeps only those matching pairs from A which are not in B, doesnt take prob. into account
@@ -71,28 +88,67 @@ case class Alignment(matchings: Set[Matching]) {
   }
 }
 
-object Align extends App {
+object align {
 
   import PrefixHelper._
   import Alg._
 
-
-  // reads possibly precalculated distances from a csv file
-  def toDistances(f: String): List[Distances] = {
+  // reads pre-calculated distances from a csv file
+  def toDistances(f: String, containsLcs: Boolean = true, separator: Char = ';', dropFirstLine: Boolean = false): Seq[Distances] = {
     def toDouble(s: String): Double = s.replaceAll(",", ".") match {
       case "inf" => Double.MaxValue
       case x => x.toDouble
     }
 
-    io.Source.fromFile(f).getLines.toList.map { l =>
-      val ls = l.split(";")
-      val nb = ls.slice(3, 11).toList map toDouble
-      Distances(ls(0), ls(1), ls(2), DenseVector(nb:_*))
+    def munchLabel(s: String): (String, Int) = {
+      // "taaable:Ziti","category:Visitor_attractions_in_Washington,_D.C.",
+      val (i1, i2, i3) = {
+        if (s(0) == '"') {
+          val i1 = s.indexOf('"')
+          val i2 = s.indexOf('"', i1 + 1)
+          (i1 + 1, i2, i2 + 2)
+        } else {
+          val i2 = s.indexOf(separator)
+          if (i2 != -1) (0, i2, i2 + 1)
+          else (0, s.length - 1, -1)
+        }
+      }
+      (s.substring(i1, i2), i3)
+    }
+
+
+    val seq = {
+      val s = io.Source.fromFile(f).getLines.toSeq
+      if (dropFirstLine) s.drop(1) else s
+    }
+
+    seq map {
+      l =>
+
+        try {
+          val (e1, i1) = munchLabel(l)
+          val (e2, i2) = munchLabel(l.substring(i1))
+          if (containsLcs) {
+            val (lcs, i3) = munchLabel(l.substring(i1 + i2))
+            val ls = l.substring(i1 + i2 + i3).split(separator).toSeq
+            val nb = ls map toDouble
+            val lc = if (lcs.trim.isEmpty) None else Some(lcs.trim)
+            Distances(e1, e2, lc, DenseVector(nb: _*))
+          } else {
+            val ls = l.substring(i1 + i2).split(separator).toSeq
+            val nb = ls map toDouble
+            Distances(e1, e2, None, DenseVector(nb: _*))
+          }
+        } catch {
+          case e: Exception =>
+            println(l)
+            throw e
+        }
     }
   }
 
-  // converts a list of distance vectors to an Alignment using an aggregator, weights and a threshold
-  def toAlignment(xs: List[Distances], agg: Aggregator, weights: Vector[Int], t: Double): Alignment = {
+  // converts a list of distance vectors to an Alignment using an aggregation function, weights and a threshold
+  def toAlignment(xs: Seq[Distances], agg: Aggregator, weights: Vector[Int], t: Double): Alignment = {
     val matchings = for {
       x <- xs
       d <- agg.evaluate(x.zipWithWeights(weights))
@@ -103,18 +159,8 @@ object Align extends App {
     Alignment(matchings.toSet)
   }
 
-  // calculates statistics over an alignment using varying thresholds
-  // enables the evaluation of fixed distance vectors, aggregator and weights
-  def statistics(xs: List[Distances], R: Alignment, agg: Aggregator, weights: Vector[Int]): Seq[AlignmentStatistics] = {
-    for {
-      t <- 0.001 to 1.0 by 0.01   // todo increase by measuring influence on fpr
-    } yield {
-      val A = toAlignment(xs, agg, weights, t)
-      statistics(A, R, t)
-    }
-  }
-
-  def statistics(A: Alignment, R: Alignment, t: Double): AlignmentStatistics = {
+  // calculates statistics for an alignment A relative to a reference alignment R
+  def statistics(A: Alignment, R: Alignment): AlignmentStatistics = {
     val tp = A intersect R size
     val fp = A.size - tp
     val fn = R subtract A size
@@ -127,9 +173,19 @@ object Align extends App {
       tp.toDouble / R.size
     } else 0.0
 
-    AlignmentStatistics(t, tp, fp, fn, tpa, tpr)
+    AlignmentStatistics(tp, fp, fn, tpa, tpr)
   }
 
+  // calculates statistics over an alignment using varying thresholds
+  // enables the evaluation of fixed distance vectors, aggregator and weights
+  def statistics(xs: Seq[Distances], R: Alignment, agg: Aggregator, weights: Vector[Int]): Seq[(Double, AlignmentStatistics)] = {
+    for {
+      t <- 0.001 to 1.0 by 0.01 // todo increase by measuring influence on fpr
+    } yield {
+      val A = toAlignment(xs, agg, weights, t)
+      (t, statistics(A, R))
+    }
+  }
 
   def fromMd(md: File): Alignment = {
     val r1 = """(.+?)\s-\s(.+?)""".r
@@ -142,6 +198,7 @@ object Align extends App {
     Alignment(matchings)
   }
 
+  def fromLst(lst: String): Alignment = fromLst(new java.io.File(lst))
   def fromLst(lst: File): Alignment = {
     val r1 = """\(([^\s]+?)\s*?,\s*?([^\s]+)\s*?,\s*?(\d\.\d+?)\)""".r
 
@@ -191,8 +248,9 @@ object Align extends App {
       println(f"$e\t${matchedSubsumed.size} / ${alignedSubsumed.size} / ${subsumed.size}\t${matchedSubsumed.size.toDouble / alignedSubsumed.size.toDouble}\t${alignedSubsumed.size.toDouble / subsumed.size.toDouble}")
     }
 
-    taaableGraph.get("taaable:Food").inNeighbors foreach { n =>
-      partialHierarchyLeafCoverage(n)
+    taaableGraph.get("taaable:Food").inNeighbors foreach {
+      n =>
+        partialHierarchyLeafCoverage(n)
     }
   }
 

@@ -1202,7 +1202,7 @@ object TestDataset {
   def evaluateGrains {
 
     def toCSV(m: Distances): String = {
-      f"${m.e1};${m.e2};${m.lcs};${m.sim.toArray.mkString(";")}"
+      f"${m.e1};${m.e2};${m.lcs};${m.dist.toArray.mkString(";")}"
     }
 
     def product2csv(p: Product): String = p.productIterator map {

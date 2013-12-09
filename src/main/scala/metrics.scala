@@ -111,9 +111,12 @@ object metrics extends App {
 
   // s1,s2,nw,anw,sw,lv,ap,slv,me,ja,jw,isub,req,sub,qgr
   val dists = toDistances("ldif-taaable/grain/sim-labels-0.4.csv", containsLcs = false, separator = ',', dropFirstLine = true)
-  dists filter { d => ref.covers(d.e1, d.e2) } foreach { d =>
+
+  dists filter { d => d.dist(6) <= 0.43 } foreach { d =>
     println(d)
   }
+
+
 
 
   // tp, fp, fn => basic string measures

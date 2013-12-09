@@ -3,12 +3,12 @@ import de.fuberlin.wiwiss.silk.linkagerule.similarity.Aggregator
 import java.io.File
 import org.apache.jena.riot.{Lang, RDFDataMgr}
 
-case class Distances(e1: String, e2: String, lcs: Option[String], sim: Vector[Double]) {
+case class Distances(e1: String, e2: String, lcs: Option[String], dist: Vector[Double]) {
   def zipWithWeights(weights: Vector[Int]): List[(Int, Double)] = {
     val wl = weights.toArray
     val s = new collection.mutable.ArrayBuffer[(Int, Double)]()
-    for (i <- 0 to sim.size - 1) {
-      if (wl(i) > 0.0) s += ((wl(i), sim(i)))
+    for (i <- 0 to dist.size - 1) {
+      if (wl(i) > 0.0) s += ((wl(i), dist(i)))
     }
     s.toList
   }

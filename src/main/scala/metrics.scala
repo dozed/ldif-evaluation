@@ -102,6 +102,7 @@ object metrics extends App {
   def generateTrainingData(): (Seq[Distances], Seq[Distances]) = {
     println("reading ref alignment")
     val R = fromLst("ldif-taaable/grain/align-grain-ref.lst")
+    val left = R.left
 
     // TODO check why those appear to be in low distance
     val blacklist = Set(
@@ -128,7 +129,7 @@ object metrics extends App {
     val dists = toDistances("ldif-taaable/grain/sim-labels-0.4.csv",
       containsLcs = false,
       separator = ',',
-      dropFirstLine = true).toList filterNot (d => blacklist.contains(d.e2))
+      dropFirstLine = true).toList filter (d => left.contains(d.e1)) filterNot (d => blacklist.contains(d.e2))
 
     //  5 + 0.43: 8325 - 32
     //  7 + 0.144: 2033 - 32
@@ -182,10 +183,14 @@ object metrics extends App {
     (dtp, dfp)
   }
 
+  //  println("writing filtered training data")
+  //  val (tp, fp) = generateTrainingData()
+
   println("writing filtered training data")
   val (tp, fp) = generateTrainingData()
-
-
+  val pw = new PrintWriter("ldif-taaable/grain/sim-filtered.csv")
+  tp map toCSV foreach pw.println
+  fp map toCSV foreach pw.println
 
 
   //  println("writing filtered training data")

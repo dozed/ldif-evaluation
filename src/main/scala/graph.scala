@@ -51,6 +51,16 @@ object PrefixHelper {
     "common" -> "http://example.org/common/"
   )
 
+  val taxonomicPredicates = List(
+    "http://www.w3.org/2004/02/skos/core#broader",
+    "http://purl.org/dc/terms/subject",
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf")
+
+  val labelPredicates = List(
+    "http://www.w3.org/2000/01/rdf-schema#label",
+    "http://xmlns.com/foaf/0.1/name",
+    "http://dbpedia.org/property/name")
+
   def shortenUri(fullUri: String): String = {
     defaultPrefixes filter {
       case (_, uriPrefix) => fullUri.startsWith(uriPrefix)
@@ -150,19 +160,15 @@ object DenseMatrix2 {
   }
 }
 
+object rdfio {
+
+
+
+}
+
 object GraphFactory {
 
   import PrefixHelper._
-
-  val taxonomicPredicates = List(
-    "http://www.w3.org/2004/02/skos/core#broader",
-    "http://purl.org/dc/terms/subject",
-    "http://www.w3.org/2000/01/rdf-schema#subClassOf")
-
-  val labelPredicates = List(
-    "http://www.w3.org/2000/01/rdf-schema#label",
-    "http://xmlns.com/foaf/0.1/name",
-    "http://dbpedia.org/property/name")
 
   def from(model: Model): Graph[String, WDiEdge] = {
     val graph = scalax.collection.mutable.Graph[String, WDiEdge]()
@@ -337,7 +343,7 @@ object GraphFactory {
 
         if (labelPredicates.contains(p)) {
           val s = shortenUri(p1.getSubject.stringValue)
-          val o = shortenUri(p1.getObject.stringValue)
+          val o = p1.getObject.stringValue
           labelMap(s) = labelMap.getOrElse(s, Set.empty) + o
         }
       }

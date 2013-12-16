@@ -1,20 +1,25 @@
-import breeze.linalg.DenseVector
+import breeze.linalg._
+import breeze.linalg.{DenseMatrix, DenseVector}
 import com.wcohen.ss._
 import com.wcohen.ss.api.StringDistance
 import de.fuberlin.wiwiss.silk.linkagerule.similarity.SimpleDistanceMeasure
 import de.fuberlin.wiwiss.silk.plugins.aggegrator.MinimumAggregator
 import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.{QGramsMetric, SubStringDistance}
 import de.fuberlin.wiwiss.silk.plugins.distance.equality.RelaxedEqualityMetric
-import java.io.{FileInputStream, PrintWriter}
+import java.awt.BorderLayout
+import java.io.{File, FileInputStream, PrintWriter}
+import weka.classifiers.trees.J48
+import weka.core.converters.{ArffSaver, CSVLoader}
+import weka.gui.treevisualizer.{PlaceNode2, TreeVisualizer}
+
+import scalax.collection.Graph
+import scalax.collection.GraphPredef._
+import scalax.collection.GraphEdge._
 
 object metrics extends App {
 
-  import PrefixHelper._
   import GraphFactory._
-  import Alg._
   import align._
-  import analyze._
-  import text._
 
   def calculateSimilarities(m1: Map[String, Set[String]], m2: Map[String, Set[String]], t: Double, out: String) {
     def distance(m: Any, s1: String, s2: String) = {
@@ -131,12 +136,12 @@ object metrics extends App {
       separator = ',',
       dropFirstLine = true).toList filter (d => left.contains(d.e1)) filterNot (d => blacklist.contains(d.e2))
 
-    //  5 + 0.43: 8325 - 32
-    //  7 + 0.144: 2033 - 32
-    //  8 + 0.087: 1720 - 32
-    //  9 + 0.165: 462 - 32
-    //  11 + 0.144: 450 - 32
-    //  12 + 0.5: 1261 - 32
+    //  5 + 0.43: 1976 - 32
+    //  7 + 0.144: 1330 - 32
+    //  8 + 0.087: 1157 - 32
+    //  9 + 0.165: 295 - 32
+    //  11 + 0.144: 267 - 32
+    //  12 + 0.5: 794 - 32
     val ts = List(
       (5, DenseVector(0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0), 0.430),
       (7, DenseVector(0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0), 0.144),
@@ -176,28 +181,173 @@ object metrics extends App {
     }
 
     //  # dtp: 7
-    //  # dfp: 8506
+    //  # dfp: 2068
     println("# dtp: " + dtp.size)
     println("# dfp: " + dfp.size)
+
+    val pw = new PrintWriter("ldif-taaable/grain/sim-filtered.csv")
+    dtp map toCSV foreach pw.println
+    dfp map toCSV foreach pw.println
+    pw.close
 
     (dtp, dfp)
   }
 
+  def j48 {
+    // save ARFF
+    val loader = new CSVLoader
+    loader.setSource(new File("ldif-taaable/grain/sim-filtered.csv"))
+    val data = loader.getDataSet
+    val saver = new ArffSaver
+    saver.setInstances(data)
+    saver.setFile(new File("ldif-taaable/grain/sim-filtered.arff"))
+    //saver.setDestination(new File("ldif-taaable/grain/sim-filtered.arff"))
+    saver.writeBatch
+
+
+    val cls = new J48
+    //  val data = new Instances(new FileReader("ldif-taaable/grain/sim-filtered-2.arff"))
+    data.setClassIndex(3)
+    cls.buildClassifier(data)
+
+    val jf = new javax.swing.JFrame("Weka Classifier Tree Visualizer: J48")
+    jf.setSize(500,400)
+    jf.getContentPane().setLayout(new BorderLayout)
+    val tv = new TreeVisualizer(null, cls.graph(), new PlaceNode2())
+    jf.getContentPane().add(tv, BorderLayout.CENTER)
+    jf.addWindowListener(new java.awt.event.WindowAdapter() {
+      override def windowClosing(e: java.awt.event.WindowEvent) {
+        jf.dispose()
+      }
+    })
+
+    jf.setVisible(true)
+    tv.fitToScreen()
+  }
+
+  def similarityFlooding {
+    val g1 = Graph("Rolled oat" ~> "Oat", "Oat" ~> "Grain", "Grain" ~> "Food")
+    val g2 = Graph("Oat" ~> "Oats", "Rolled oat" ~> "Oats", "Oats" ~> "Grains", "Grains" ~> "Foods")
+
+    val pairs = (for {
+      e1 <- g1.nodes
+      e2 <- g2.nodes
+    } yield (e1.value, e2.value)) toList
+
+    // build propagation graph
+    val pcg = scalax.collection.mutable.Graph[Int, DiEdge]()
+
+    // add pair nodes
+    for {
+      i <- 0 to pairs.size - 1
+    } pcg += i
+
+    // add edges
+    for {
+      ((e1, e2), i1) <- pairs.zipWithIndex
+      out1 <- g1.get(e1).outNeighbors
+      out2 <- g2.get(e2).outNeighbors
+    } {
+      val i2 = pairs.indexOf((out1, out2))
+      pcg += i1 ~> i2
+    }
+
+    def toDot {
+      println("graph graphname {")
+      for {
+        ((e1, e2), i) <- pairs.zipWithIndex
+      } {
+        println("    " + i + " [label=\"(" + e1 + ", " + e2 + ")\"];")
+      }
+      for {
+        p <- pcg.edges
+      } {
+        System.out.println(f"    ${p.from} -> ${p.to};")
+      }
+      println("}")
+    }
+
+    // build transition matrix
+    val T = DenseMatrix.zeros[Double](pairs.size, pairs.size)
+
+    for {
+      i <- 0 to pcg.nodes.size - 1
+    } yield {
+      val in = pcg.get(i).inDegree
+      val out = pcg.get(i).outDegree
+
+      for {
+        j <- 0 to pcg.nodes.size - 1
+      } {
+        // try alternative weighting strategies
+        if (pcg.get(i).diSuccessors.contains(pcg.get(j))) {
+          T(i, j) = 1.0 / out
+        } else if (pcg.get(i).diPredecessors.contains(pcg.get(j))) {
+          T(i, j) = 1.0 / in
+        } else {
+          T(i, j) = 0
+        }
+      }
+    }
+
+    // build initial alignment
+    val isub = new ISub()
+    val sim = for {
+      (e1, e2) <- pairs
+    } yield {
+      math.max(isub.score(e1, e2, false), 0.001)
+    }
+    val s0 = DenseVector[Double](sim:_*)
+
+
+    // iteration
+    def p(si: DenseVector[Double]): DenseVector[Double] = {
+      val v = s0 + si + T * (s0 + si)
+      val z = max(v)
+      v / z
+    }
+
+    def res(s1: DenseVector[Double], s2: DenseVector[Double]): Double = {
+      norm(s1 - s2)
+    }
+
+    val r = (1 to 10).foldLeft(s0) { case (sp, i) =>
+      val sn = p(sp)
+      println("vec: " + sn)
+      println("res: " + res(sp, sn))
+      sn
+    }
+
+    (pairs zip r.toArray) sortBy (-_._2) foreach println
+
+
+    // debug
+    println("")
+    for (i <- 0 to T.rows - 1) println(T(i, ::).toDenseVector)
+    println("")
+    println(s0)
+    println("")
+    val (er, ei, ev) = eig(T)
+    for (i <- 1 to ev.cols - 1) println(ev(::, i).toDenseVector)
+
+  }
+
+
+//  val dbpediaLabels = labelsFromQuads(new FileInputStream("ldif-taaable/grain/dataset-grain-articles-categories-labels.nt"))
+//  println(dbpediaLabels("dbpedia:Abondance_cheese"))
+
+  val s = new ISub
+  println(s.score("Rolled oat", "Oats", false))
+  println(s.score("Oats", "Rolled oat", false))
+
+  println(SubStringDistance().evaluate("Oats", "Rolled oat"))
+  println(SubStringDistance().evaluate("Rolled oat", "Oat"))
+
+  similarityFlooding
+
+
   //  println("writing filtered training data")
   //  val (tp, fp) = generateTrainingData()
-
-  println("writing filtered training data")
-  val (tp, fp) = generateTrainingData()
-  val pw = new PrintWriter("ldif-taaable/grain/sim-filtered.csv")
-  tp map toCSV foreach pw.println
-  fp map toCSV foreach pw.println
-
-
-  //  println("writing filtered training data")
-  //  val (tp, fp) = generateTrainingData()
-  //  val pw = new PrintWriter("ldif-taaable/grain/sim-filtered.csv")
-  //  tp map toCSV foreach pw.println
-  //  fp map toCSV foreach pw.println
 
   // selection of measures and training data
   //   - good measure => good tpr/tpa ?

@@ -226,15 +226,17 @@ object metrics extends App {
   }
 
   def similarityFlooding {
+//    val g1 = Graph("Rolled oat" ~> "Oat", "Oat" ~> "Grain", "Grain" ~> "Food")
+//    val g2 = Graph("Oat" ~> "Oats", "Rolled oat" ~> "Oats", "Oats" ~> "Grains", "Grains" ~> "Foods")
     val g1 = Graph("Rolled oat" ~> "Oat", "Oat" ~> "Grain", "Grain" ~> "Food")
-    val g2 = Graph("Oat" ~> "Oats", "Rolled oat" ~> "Oats", "Oats" ~> "Grains", "Grains" ~> "Foods")
+    val g2 = Graph("Oat" ~> "Oats", "Rolled oat" ~> "Oats", "Oats" ~> "Cereals", "Grain" ~> "Cereals", "Cereals" ~> "Grains", "Grains" ~> "Staple foods", "Staple foods" ~> "Foods")
 
     val pairs = (for {
       e1 <- g1.nodes
       e2 <- g2.nodes
     } yield (e1.value, e2.value)) toList
 
-    // build propagation graph
+    // build pairwise connectivity graph
     val pcg = scalax.collection.mutable.Graph[Int, DiEdge]()
 
     // add pair nodes
@@ -267,28 +269,7 @@ object metrics extends App {
       println("}")
     }
 
-    // build transition matrix
-    val T = DenseMatrix.zeros[Double](pairs.size, pairs.size)
-
-    for {
-      i <- 0 to pcg.nodes.size - 1
-    } yield {
-      val in = pcg.get(i).inDegree
-      val out = pcg.get(i).outDegree
-
-      for {
-        j <- 0 to pcg.nodes.size - 1
-      } {
-        // try alternative weighting strategies
-        if (pcg.get(i).diSuccessors.contains(pcg.get(j))) {
-          T(i, j) = 1.0 / out
-        } else if (pcg.get(i).diPredecessors.contains(pcg.get(j))) {
-          T(i, j) = 1.0 / in
-        } else {
-          T(i, j) = 0
-        }
-      }
-    }
+    // toDot
 
     // build initial alignment
     val isub = new ISub()
@@ -298,6 +279,18 @@ object metrics extends App {
       math.max(isub.score(e1, e2, false), 0.001)
     }
     val s0 = DenseVector[Double](sim:_*)
+
+    // build transition matrix of propagation graph
+    val T = DenseMatrix.zeros[Double](pairs.size, pairs.size)
+
+    for {
+      i <- 0 to pcg.nodes.size - 1
+    } {
+      T(i, i) = s0(i)
+      // try alternative weighting strategies
+      for (j <- pcg.get(i).outNeighbors) T(i, j) = 1.0 / pcg.get(j).inDegree
+      for (j <- pcg.get(i).inNeighbors) T(i, j) = 1.0 / pcg.get(j).outDegree
+    }
 
 
     // iteration
@@ -318,10 +311,15 @@ object metrics extends App {
       sn
     }
 
+    // debug
+    println("ranked matches")
     (pairs zip r.toArray) sortBy (-_._2) foreach println
 
+    println("selecting matches")
+    (pairs zip r.toArray) groupBy (_._1._2) foreach { case (k, xs) =>
+      println(xs sortBy (-_._2) map (_._1) head)
+    }
 
-    // debug
     println("")
     for (i <- 0 to T.rows - 1) println(T(i, ::).toDenseVector)
     println("")

@@ -234,7 +234,15 @@ object metrics extends App {
     val pairs = (for {
       e1 <- g1.nodes
       e2 <- g2.nodes
-    } yield (e1.value, e2.value)) toList
+    } yield (e1, e2)) toList
+
+    // try alternative weighting strategies
+    val pairWeights = pairs.zipWithIndex map { case ((x, y), i) =>
+      (i -> 2.0 / (x.degree + y.degree))
+//      (i -> 1.0)
+    } toMap
+
+    val dampening = false
 
     // build pairwise connectivity graph
     val pcg = scalax.collection.mutable.Graph[Int, DiEdge]()
@@ -246,9 +254,9 @@ object metrics extends App {
 
     // add edges
     for {
-      ((e1, e2), i1) <- pairs.zipWithIndex
-      out1 <- g1.get(e1).outNeighbors
-      out2 <- g2.get(e2).outNeighbors
+      ((x, y), i1) <- pairs.zipWithIndex
+      out1 <- x.outNeighbors
+      out2 <- y.outNeighbors
     } {
       val i2 = pairs.indexOf((out1, out2))
       pcg += i1 ~> i2
@@ -284,13 +292,9 @@ object metrics extends App {
     val T = DenseMatrix.zeros[Double](pairs.size, pairs.size)
 
     for {
-      i <- 0 to pcg.nodes.size - 1
-    } {
-      T(i, i) = s0(i)
-      // try alternative weighting strategies
-      for (j <- pcg.get(i).outNeighbors) T(i, j) = 1.0 / pcg.get(j).inDegree
-      for (j <- pcg.get(i).inNeighbors) T(i, j) = 1.0 / pcg.get(j).outDegree
-    }
+      i <- pcg.nodes
+      j <- i.neighbors
+    } T(i, j) = pairWeights(j)
 
 
     // iteration

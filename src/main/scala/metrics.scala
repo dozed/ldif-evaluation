@@ -382,8 +382,9 @@ object metrics extends App {
 
         println("-----------------------------------------------------------")
         println("iteration " + i)
-        // val v = sn + T * (s0 + sn)
-        val v = sn + T * (sn)
+        // val v = s0 + sn + T * (s0 + sn)
+        // val v = sn + T * sn
+        val v = s0 + sn + T * sn
 
         println("vec: " + v)
 
@@ -422,9 +423,11 @@ object metrics extends App {
       case (k, xs) =>
         println(xs sortBy (-_._2) map (_._1) head)
     }
-//
-//    println("")
-//    for (i <- 0 to T.rows - 1) println(T(i, ::).toDenseVector)
+
+    println("")
+    println(s0)
+    println("")
+    for (i <- 0 to T.rows - 1) println(T(i, ::).toDenseVector)
     //    println("")
     //    println(s0)
     //    println("")

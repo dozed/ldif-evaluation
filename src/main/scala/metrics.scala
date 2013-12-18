@@ -1,20 +1,26 @@
 import breeze.linalg._
 import breeze.linalg.{DenseMatrix, DenseVector}
+
 import com.wcohen.ss._
 import com.wcohen.ss.api.StringDistance
+
 import de.fuberlin.wiwiss.silk.linkagerule.similarity.SimpleDistanceMeasure
 import de.fuberlin.wiwiss.silk.plugins.aggegrator.MinimumAggregator
 import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.{QGramsMetric, SubStringDistance}
 import de.fuberlin.wiwiss.silk.plugins.distance.equality.RelaxedEqualityMetric
+
 import java.awt.BorderLayout
 import java.io.{File, FileInputStream, PrintWriter}
+
 import weka.classifiers.trees.J48
 import weka.core.converters.{ArffSaver, CSVLoader}
 import weka.gui.treevisualizer.{PlaceNode2, TreeVisualizer}
 
+import scalax.collection.edge.WDiEdge
 import scalax.collection.Graph
 import scalax.collection.GraphPredef._
 import scalax.collection.GraphEdge._
+import scalax.collection.edge.Implicits._
 
 object metrics extends App {
 
@@ -211,7 +217,7 @@ object metrics extends App {
     cls.buildClassifier(data)
 
     val jf = new javax.swing.JFrame("Weka Classifier Tree Visualizer: J48")
-    jf.setSize(500,400)
+    jf.setSize(500, 400)
     jf.getContentPane().setLayout(new BorderLayout)
     val tv = new TreeVisualizer(null, cls.graph(), new PlaceNode2())
     jf.getContentPane().add(tv, BorderLayout.CENTER)
@@ -226,78 +232,137 @@ object metrics extends App {
   }
 
   def similarityFlooding {
-//    val g1 = Graph("Rolled oat" ~> "Oat", "Oat" ~> "Grain", "Grain" ~> "Food")
-//    val g2 = Graph("Oat" ~> "Oats", "Rolled oat" ~> "Oats", "Oats" ~> "Grains", "Grains" ~> "Foods")
-    val g1 = Graph("Rolled oat" ~> "Oat", "Oat" ~> "Grain", "Grain" ~> "Food")
-    val g2 = Graph("Oat" ~> "Oats", "Rolled oat" ~> "Oats", "Oats" ~> "Cereals", "Grain" ~> "Cereals", "Cereals" ~> "Grains", "Grains" ~> "Staple foods", "Staple foods" ~> "Foods")
+    //    val in1 = Graph("Rolled oat" ~> "Oat", "Oat" ~> "Grain", "Grain" ~> "Food")
+    //    val in2 = Graph("Oat" ~> "Oats", "Rolled oat" ~> "Oats", "Oats" ~> "Grains", "Grains" ~> "Foods")
 
-    val pairs = (for {
-      e1 <- g1.nodes
-      e2 <- g2.nodes
-    } yield (e1, e2)) toList
+    val in1 = Graph("Rolled oat" ~> "Oat", "Oat" ~> "Grain", "Grain" ~> "Food")
+    val in2 = Graph("Oat" ~> "Oats", "Rolled oat" ~> "Oats", "Oats" ~> "Cereals", "Grain" ~> "Cereals", "Cereals" ~> "Grains", "Grains" ~> "Staple foods", "Staple foods" ~> "Foods")
 
-    // try alternative weighting strategies
-    val pairWeights = pairs.zipWithIndex map { case ((x, y), i) =>
-      (i -> 2.0 / (x.degree + y.degree))
-//      (i -> 1.0)
-    } toMap
-
-    val dampening = false
-
-    // build pairwise connectivity graph
-    val pcg = scalax.collection.mutable.Graph[Int, DiEdge]()
-
-    // add pair nodes
-    for {
-      i <- 0 to pairs.size - 1
-    } pcg += i
-
-    // add edges
-    for {
-      ((x, y), i1) <- pairs.zipWithIndex
-      out1 <- x.outNeighbors
-      out2 <- y.outNeighbors
-    } {
-      val i2 = pairs.indexOf((out1, out2))
-      pcg += i1 ~> i2
-    }
-
-    def toDot {
-      println("graph graphname {")
-      for {
-        ((e1, e2), i) <- pairs.zipWithIndex
-      } {
-        println("    " + i + " [label=\"(" + e1 + ", " + e2 + ")\"];")
+    // dot conversion
+    def printPcgDot(g: Graph[Int, DiEdge], label: Int => (String, String)) {
+      println("digraph g {")
+      g.nodes foreach { n =>
+        val (l1, l2) = label(n.value)
+        println("    " + n.value + " [label=\"(" + l1 + ", " + l2 + ")\"];")
       }
-      for {
-        p <- pcg.edges
-      } {
-        System.out.println(f"    ${p.from} -> ${p.to};")
+      g.edges foreach { e =>
+        println(f"    ${e.from} -> ${e.to};")
       }
       println("}")
     }
 
-    // toDot
-
-    // build initial alignment
-    val isub = new ISub()
-    val sim = for {
-      (e1, e2) <- pairs
-    } yield {
-      math.max(isub.score(e1, e2, false), 0.001)
+    def printPgDot(g: Graph[Int, WDiEdge], label: Int => (String, String)) {
+      println("digraph g {")
+      g.nodes foreach { n =>
+        val (l1, l2) = label(n.value)
+        println("    " + n.value + " [label=\"(" + l1 + ", " + l2 + ")\"];")
+      }
+      g.edges foreach { e =>
+        println("    " + e.from + " -> " + e.to + " [label=\"" + (e.weight / 1000.0) + "\"];")
+      }
+      println("}")
     }
-    val s0 = DenseVector[Double](sim:_*)
+
+    // convert labelled graph to unlabelled graph
+    def toUnlabelledGraph[N](g: Graph[String, DiEdge]): (Graph[Int, DiEdge], Map[Int, String]) = {
+      val indices: Map[String, Int] = g.nodes.map(_.value.toString).zipWithIndex.toMap
+      val labels: Map[Int, String] = indices.map(e => (e._2, e._1))
+
+      val edges = g.edges.map {
+        e => indices(e.from) ~> indices(e.to)
+      }
+
+      (Graph(edges.toSeq: _*), labels)
+    }
+
+    // build pairwise connectivity graph
+    def toPCG(g1: Graph[Int, DiEdge], g2: Graph[Int, DiEdge]): Graph[Int, DiEdge] = {
+      val n = g1.nodes.size
+      val m = g2.nodes.size
+      def idx(x: Int, y: Int): Int = y * n + x
+
+      val nodes: Seq[Int] = 0 to (n * m) - 1 toList
+      val edges: Seq[GraphParam[Int, DiEdge]] = (for {
+        x <- g1.nodes
+        y <- g2.nodes
+        out1 <- x.outNeighbors
+        out2 <- y.outNeighbors
+      } yield idx(x, y) ~> idx(out1, out2)) toSeq
+
+      Graph[Int, DiEdge](nodes:_*) ++ edges
+    }
+
+    // build propagation graph
+    def toPG(pcg: Graph[Int, DiEdge]): Graph[Int, WDiEdge] = {
+      val nodes: Seq[GraphParam[Int,WDiEdge]] = pcg.nodes.map(_.value).toSeq
+      val edges = (for {
+        i <- pcg.nodes
+      } yield {
+        val e1 = for (j <- pcg.get(i).inNeighbors) yield {
+          i.value ~> j.value % (1000 / j.outDegree)
+        }
+
+        val e2 = for (j <- pcg.get(i).outNeighbors) yield {
+          i.value ~> j.value  % (1000 / j.inDegree)
+        }
+
+        // val e3 = i.value ~> i.value % (1000 * pairSim(i.value)).toLong
+        // Set(e3) ++ e1 ++ e2
+        e1 ++ e2
+      }).flatten.toSeq
+      Graph(edges:_*) ++ nodes
+    }
 
     // build transition matrix of propagation graph
-    val T = DenseMatrix.zeros[Double](pairs.size, pairs.size)
+    def toTransitionMatrix(pg: Graph[Int, WDiEdge], pairSim: Int => Double): DenseMatrix[Double] = {
+      val T = DenseMatrix.zeros[Double](pg.nodes.size, pg.nodes.size)
+      for (i <- pg.nodes) {
+        for (in <- pg.get(i).incoming) T(i, in.from) = in.weight
+        T(i, i) = pairSim(i.value)
+      }
+      T
+    }
 
+    def indexes(z: Int, n: Int) = {
+      ((z % n).toInt, (z / n).toInt)
+    }
+
+    def index(x: Int, y: Int, n: Int) = {
+      y * n + x
+    }
+
+    val (g1, labels1) = toUnlabelledGraph(in1)
+    val (g2, labels2) = toUnlabelledGraph(in2)
+
+    // dimensions of input
+    val n = g1.nodes.size
+    val m = g2.nodes.size
+
+    // gives the labels for a pair
+    def labels(p: Int): (String, String) = {
+      val (x, y) = indexes(p, n)
+      (labels1(x), labels2(y))
+    }
+
+    // build initial alignment vector
+    val s0 = DenseVector.zeros[Double](n * m)
+    val isub = new ISub()
     for {
-      i <- pcg.nodes
-      j <- i.neighbors
-    } T(i, j) = pairWeights(j)
+      (x, l1) <- labels1
+      (y, l2) <- labels2
+    } {
+      s0(index(x, y, n)) = math.max(isub.score(l1, l2, false), 0.001)
+    }
+
+    // build pcg / pg
+    val pcg = toPCG(g1, g2)
+    val pg = toPG(pcg)
+    val T = toTransitionMatrix(pg, s0.apply)
+    //    printPcgDot(pcg, labels)
+    //    printPgDot(pg, labels)
 
 
-    // iteration
+    // sfa algorithm
     def p(si: DenseVector[Double]): DenseVector[Double] = {
       val v = s0 + si + T * (s0 + si)
       val z = max(v)
@@ -308,35 +373,42 @@ object metrics extends App {
       norm(s1 - s2)
     }
 
-    val r = (1 to 10).foldLeft(s0) { case (sp, i) =>
-      val sn = p(sp)
-      println("vec: " + sn)
-      println("res: " + res(sp, sn))
-      sn
+    val r = (1 to 20).foldLeft(s0) {
+      case (sp, i) =>
+        val sn = p(sp)
+        println("vec: " + sn)
+        println("res: " + res(sp, sn))
+        sn
     }
+
+    val ranked = r.toArray.zipWithIndex map { case (sim, z) =>
+      val (l1, l2) = labels(z)
+      ((l1, l2), sim)
+    } sortBy (-_._2)
 
     // debug
     println("ranked matches")
-    (pairs zip r.toArray) sortBy (-_._2) foreach println
+    ranked foreach println
 
     println("selecting matches")
-    (pairs zip r.toArray) groupBy (_._1._2) foreach { case (k, xs) =>
-      println(xs sortBy (-_._2) map (_._1) head)
+    ranked groupBy (_._1._2) foreach {
+      case (k, xs) =>
+        println(xs sortBy (-_._2) map (_._1) head)
     }
 
-    println("")
-    for (i <- 0 to T.rows - 1) println(T(i, ::).toDenseVector)
-    println("")
-    println(s0)
-    println("")
-    val (er, ei, ev) = eig(T)
-    for (i <- 1 to ev.cols - 1) println(ev(::, i).toDenseVector)
+//    println("")
+//    for (i <- 0 to T.rows - 1) println(T(i, ::).toDenseVector)
+//    println("")
+//    println(s0)
+//    println("")
+//    val (er, ei, ev) = eig(T)
+//    for (i <- 1 to ev.cols - 1) println(ev(::, i).toDenseVector)
 
   }
 
 
-//  val dbpediaLabels = labelsFromQuads(new FileInputStream("ldif-taaable/grain/dataset-grain-articles-categories-labels.nt"))
-//  println(dbpediaLabels("dbpedia:Abondance_cheese"))
+  //  val dbpediaLabels = labelsFromQuads(new FileInputStream("ldif-taaable/grain/dataset-grain-articles-categories-labels.nt"))
+  //  println(dbpediaLabels("dbpedia:Abondance_cheese"))
 
   val s = new ISub
   println(s.score("Rolled oat", "Oats", false))

@@ -241,24 +241,28 @@ object metrics extends App {
     // dot conversion
     def printPcgDot(g: Graph[Int, DiEdge], label: Int => (String, String)) {
       println("digraph g {")
-      g.nodes foreach { n =>
-        val (l1, l2) = label(n.value)
-        println("    " + n.value + " [label=\"(" + l1 + ", " + l2 + ")\"];")
+      g.nodes foreach {
+        n =>
+          val (l1, l2) = label(n.value)
+          println("    " + n.value + " [label=\"(" + l1 + ", " + l2 + ")\"];")
       }
-      g.edges foreach { e =>
-        println(f"    ${e.from} -> ${e.to};")
+      g.edges foreach {
+        e =>
+          println(f"    ${e.from} -> ${e.to};")
       }
       println("}")
     }
 
     def printPgDot(g: Graph[Int, WDiEdge], label: Int => (String, String)) {
       println("digraph g {")
-      g.nodes foreach { n =>
-        val (l1, l2) = label(n.value)
-        println("    " + n.value + " [label=\"(" + l1 + ", " + l2 + ")\"];")
+      g.nodes foreach {
+        n =>
+          val (l1, l2) = label(n.value)
+          println("    " + n.value + " [label=\"(" + l1 + ", " + l2 + ")\"];")
       }
-      g.edges foreach { e =>
-        println("    " + e.from + " -> " + e.to + " [label=\"" + (e.weight / 1000.0) + "\"];")
+      g.edges foreach {
+        e =>
+          println("    " + e.from + " -> " + e.to + " [label=\"" + (e.weight / 1000.0) + "\"];")
       }
       println("}")
     }
@@ -289,12 +293,12 @@ object metrics extends App {
         out2 <- y.outNeighbors
       } yield idx(x, y) ~> idx(out1, out2)) toSeq
 
-      Graph[Int, DiEdge](nodes:_*) ++ edges
+      Graph[Int, DiEdge](nodes: _*) ++ edges
     }
 
     // build propagation graph
     def toPG(pcg: Graph[Int, DiEdge]): Graph[Int, WDiEdge] = {
-      val nodes: Seq[GraphParam[Int,WDiEdge]] = pcg.nodes.map(_.value).toSeq
+      val nodes: Seq[GraphParam[Int, WDiEdge]] = pcg.nodes.map(_.value).toSeq
       val edges = (for {
         i <- pcg.nodes
       } yield {
@@ -303,22 +307,22 @@ object metrics extends App {
         }
 
         val e2 = for (j <- pcg.get(i).outNeighbors) yield {
-          j.value ~> i.value  % (1000 / j.inDegree)
+          j.value ~> i.value % (1000 / j.inDegree)
         }
 
         // val e3 = i.value ~> i.value % (1000 * pairSim(i.value)).toLong
         // Set(e3) ++ e1 ++ e2
         e1 ++ e2
       }).flatten.toSeq
-      Graph(edges:_*) ++ nodes
+      Graph(edges: _*) ++ nodes
     }
 
     // build transition matrix of propagation graph
     def toTransitionMatrix(pg: Graph[Int, WDiEdge], pairSim: Int => Double): DenseMatrix[Double] = {
       val T = DenseMatrix.zeros[Double](pg.nodes.size, pg.nodes.size)
       for (i <- pg.nodes) {
-        for (in <- pg.get(i).incoming) T(i, in.from) = in.weight
-        T(i, i) = pairSim(i.value)
+        for (in <- pg.get(i).incoming) T(i, in.from) = in.weight / 1000.0
+        // T(i, i) = pairSim(i.value)
       }
       T
     }
@@ -354,55 +358,78 @@ object metrics extends App {
       s0(index(x, y, n)) = math.max(isub.score(l1, l2, false), 0.001)
     }
 
+    s0.toArray.zipWithIndex map {
+      case (sim, z) =>
+        val (l1, l2) = labels(z)
+        ((l1, l2), sim)
+    } sortBy (-_._2) foreach println
+
     // build pcg / pg
     val pcg = toPCG(g1, g2)
     val pg = toPG(pcg)
     val T = toTransitionMatrix(pg, s0.apply)
-    //    printPcgDot(pcg, labels)
-    printPgDot(pg, labels)
 
+    //    printPcgDot(pcg, labels)
+    //    printPgDot(pg, labels)
 
     // sfa algorithm
-    def p(si: DenseVector[Double]): DenseVector[Double] = {
-      val v = s0 + si + T * (s0 + si)
-      val z = max(v)
-      v / z
-    }
-
     def res(s1: DenseVector[Double], s2: DenseVector[Double]): Double = {
       norm(s1 - s2)
     }
 
     val r = (1 to 20).foldLeft(s0) {
-      case (sp, i) =>
-        val sn = p(sp)
-        println("vec: " + sn)
-        println("res: " + res(sp, sn))
-        sn
+      case (sn, i) =>
+
+        println("-----------------------------------------------------------")
+        println("iteration " + i)
+        // val v = sn + T * (s0 + sn)
+        val v = sn + T * (sn)
+
+        println("vec: " + v)
+
+        // unnormalized similarities after propagation
+        //        v.toArray.zipWithIndex map {
+        //          case (sim, z) =>
+        //            val (l1, l2) = labels(z)
+        //            ((l1, l2), sim)
+        //        } foreach println
+
+        val z = max(v)
+        val sn1 = v / z
+
+        val r = res(sn, sn1)
+
+        println("vno: " + sn1)
+        println("res: " + r)
+
+        sn1
     }
 
-    val ranked = r.toArray.zipWithIndex map { case (sim, z) =>
-      val (l1, l2) = labels(z)
-      ((l1, l2), sim)
+    val ranked = r.toArray.zipWithIndex map {
+      case (sim, z) =>
+        val (l1, l2) = labels(z)
+        ((l1, l2), sim)
     } sortBy (-_._2)
 
     // debug
+    println("-----------------------------------------------------------")
     println("ranked matches")
     ranked foreach println
 
+    println("-----------------------------------------------------------")
     println("selecting matches")
     ranked groupBy (_._1._2) foreach {
       case (k, xs) =>
         println(xs sortBy (-_._2) map (_._1) head)
     }
-
+//
 //    println("")
 //    for (i <- 0 to T.rows - 1) println(T(i, ::).toDenseVector)
-//    println("")
-//    println(s0)
-//    println("")
-//    val (er, ei, ev) = eig(T)
-//    for (i <- 1 to ev.cols - 1) println(ev(::, i).toDenseVector)
+    //    println("")
+    //    println(s0)
+    //    println("")
+    //    val (er, ei, ev) = eig(T)
+    //    for (i <- 1 to ev.cols - 1) println(ev(::, i).toDenseVector)
 
   }
 

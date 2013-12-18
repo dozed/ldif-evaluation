@@ -299,11 +299,11 @@ object metrics extends App {
         i <- pcg.nodes
       } yield {
         val e1 = for (j <- pcg.get(i).inNeighbors) yield {
-          i.value ~> j.value % (1000 / j.outDegree)
+          j.value ~> i.value % (1000 / j.outDegree)
         }
 
         val e2 = for (j <- pcg.get(i).outNeighbors) yield {
-          i.value ~> j.value  % (1000 / j.inDegree)
+          j.value ~> i.value  % (1000 / j.inDegree)
         }
 
         // val e3 = i.value ~> i.value % (1000 * pairSim(i.value)).toLong
@@ -359,7 +359,7 @@ object metrics extends App {
     val pg = toPG(pcg)
     val T = toTransitionMatrix(pg, s0.apply)
     //    printPcgDot(pcg, labels)
-    //    printPgDot(pg, labels)
+    printPgDot(pg, labels)
 
 
     // sfa algorithm

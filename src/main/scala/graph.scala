@@ -1,3 +1,4 @@
+import breeze.linalg.DenseMatrix
 import de.fuberlin.wiwiss.silk.linkagerule.similarity.SimpleDistanceMeasure
 import java.io._
 import org.apache.any23.io.nquads.NQuadsParser
@@ -46,51 +47,6 @@ class MutableBiMap[X, Y] {
 
   def isInRange(key: Y): Boolean = reverseMap.isDefinedAt(key)
 
-}
-
-case class SparseMatrix[N](default: N, dim: Int) {
-
-  val columns = collection.mutable.Map[Int, collection.mutable.Map[Int, N]]()
-
-  def update(i: Int, j: Int, value: N) {
-    if (value != default) {
-      columns(i) = columns.getOrElseUpdate(i, collection.mutable.Map[Int, N]()).updated(j, value)
-    }
-  }
-
-  def apply(i: Int, j: Int): N = {
-    if (columns.contains(i)) {
-      if (columns(i).contains(j)) {
-        columns(i)(j)
-      } else default
-    } else default
-  }
-
-}
-
-case class DenseMatrix2[N: ClassTag](n: Int, m: Int) {
-
-  val data = Array.ofDim[N](n, m)
-
-  def update(i: Int, j: Int, value: N) {
-    data(i)(j) = value
-  }
-
-  def apply(i: Int, j: Int): N = {
-    data(i)(j)
-  }
-
-}
-
-object DenseMatrix2 {
-  def fill(n: Int, m: Int) = (value: Int) => {
-    val mat = DenseMatrix2[Int](n, m)
-    for {
-      i <- 0 to n - 1
-      j <- 0 to m - 1
-    } mat(i, j) = value
-    mat
-  }
 }
 
 object graphFactory {
@@ -312,9 +268,9 @@ object graphAlg {
 
   val inf = Int.MaxValue / 2
 
-  def extendShortestPaths(A: DenseMatrix2[Int]): DenseMatrix2[Int] = {
-    val n = A.n
-    val LL = DenseMatrix2.fill(n, n)(inf)
+  def extendShortestPaths(A: DenseMatrix[Int]): DenseMatrix[Int] = {
+    val n = A.rows
+    val LL = DenseMatrix.fill(n, n)(inf)
     for {
       i <- 0 to n - 1
       j <- 0 to n - 1
@@ -325,8 +281,8 @@ object graphAlg {
     LL
   }
 
-  def allPairShortestPaths(A: DenseMatrix2[Int]): DenseMatrix2[Int] = {
-    val n = A.n
+  def allPairShortestPaths(A: DenseMatrix[Int]): DenseMatrix[Int] = {
+    val n = A.rows
     def ld(x: Double) = math.log(x) / math.log(2)
     val m: Int = math.round(math.pow(2, math.ceil(ld(n)))).toInt
 
@@ -342,8 +298,8 @@ object graphAlg {
     L
   }
 
-  def floydWarshall(A: DenseMatrix2[Int]): DenseMatrix2[Int] = {
-    val n = A.n
+  def floydWarshall(A: DenseMatrix[Int]): DenseMatrix[Int] = {
+    val n = A.rows
     for {
       k <- 0 to n - 1
       i <- 0 to n - 1

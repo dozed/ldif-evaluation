@@ -550,7 +550,6 @@ object graphAlg {
     println(dist)
   }
 
-
   def test(g: Graph[String, WDiEdge]) {
     //pathsTo(g, "http://dbpedia.org/resource/Category:Blue_cheeses", "http://dbpedia.org/resource/Category:Components").take(10) foreach println
     //    val e1 = extractEnvironment(g, "http://dbpedia.org/resource/Category:Blue_cheeses", 5)
@@ -559,18 +558,3 @@ object graphAlg {
   }
 
 }
-
-case class WuPalmer(g: Graph[String, WDiEdge], root: String) extends SimpleDistanceMeasure {
-  def evaluate(value1: String, value2: String, limit: Double): Double = {
-    graphAlg.wuPalmer(g, root, value1, value2)
-  }
-}
-
-case class StructuralCotopic(g: Graph[String, WDiEdge]) extends SimpleDistanceMeasure {
-  def evaluate(value1: String, value2: String, limit: Double): Double = {
-    graphAlg.structuralCotopic(g, value1, value2)
-  }
-}
-
-
-

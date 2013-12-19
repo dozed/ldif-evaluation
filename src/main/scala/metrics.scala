@@ -37,6 +37,18 @@ import scalax.collection.edge.Implicits._
 
 import collection.JavaConversions._
 
+case class WuPalmer(g: Graph[String, WDiEdge], root: String) extends SimpleDistanceMeasure {
+  def evaluate(value1: String, value2: String, limit: Double): Double = {
+    graphAlg.wuPalmer(g, root, value1, value2)
+  }
+}
+
+case class StructuralCotopic(g: Graph[String, WDiEdge]) extends SimpleDistanceMeasure {
+  def evaluate(value1: String, value2: String, limit: Double): Double = {
+    graphAlg.structuralCotopic(g, value1, value2)
+  }
+}
+
 object metrics extends App {
 
   import graphFactory._

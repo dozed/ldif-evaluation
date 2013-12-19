@@ -302,7 +302,7 @@ case class LinkingUI(res: MatchingResults, system: ActorSystem) extends Scalatra
                 |} where {
                 |  dbpedia:$token ?p ?o
                 |} LIMIT $limit""".stripMargin
-      DBpedia.sparql(q)
+      DBpediaQuery.sparql(q)
     }) getOrElse halt(500)
   }
 
@@ -318,14 +318,14 @@ case class LinkingUI(res: MatchingResults, system: ActorSystem) extends Scalatra
                 |} where {
                 |  ?s ?p dbpedia:$token
                 |} LIMIT $limit""".stripMargin
-      DBpedia.sparql(q)
+      DBpediaQuery.sparql(q)
     }) getOrElse halt(500)
   }
 
   get("/dbpedia/keywordSearch") {
     (for {
       q <- params.get("query")
-    } yield DBpedia.keywordSearch(q)) getOrElse halt(500)
+    } yield DBpediaQuery.keywordSearch(q)) getOrElse halt(500)
   }
 
   get("/wikipedia/search") {

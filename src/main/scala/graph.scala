@@ -18,61 +18,6 @@ import scalax.collection.GraphEdge._
 import scalax.collection.edge.WDiEdge
 import scalax.collection.edge.Implicits._
 
-object DBpediaFiles {
-
-  val maxDistance = 77
-
-  val categories = new File("D:/Dokumente/dbpedia2/skos_categories_en.nt")
-  val categoryLabels = new File("D:/Dokumente/dbpedia2/category_labels_en.nt")
-
-  val articleLabels = new File("D:/Dokumente/dbpedia2/labels_en.nt")
-  val articleCategories = new File("D:/Dokumente/dbpedia2/article_categories_en.nt")
-
-}
-
-object prefixHelper {
-
-  val defaultPrefixes = Map(
-    "category" -> "http://dbpedia.org/resource/Category:",
-    "dbpedia" -> "http://dbpedia.org/resource/",
-    "taaable" -> "http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3A",
-    "common" -> "http://example.org/common/"
-  )
-
-  val taxonomicPredicates = List(
-    "http://www.w3.org/2004/02/skos/core#broader",
-    "http://purl.org/dc/terms/subject",
-    "http://www.w3.org/2000/01/rdf-schema#subClassOf")
-
-  val labelPredicates = List(
-    "http://www.w3.org/2000/01/rdf-schema#label",
-    "http://xmlns.com/foaf/0.1/name",
-    "http://dbpedia.org/property/name")
-
-  def shortenUri(fullUri: String): String = {
-    defaultPrefixes filter {
-      case (_, uriPrefix) => fullUri.startsWith(uriPrefix)
-    } headOption match {
-      case Some((shortPrefix, uriPrefix)) => shortPrefix + ":" + fullUri.replaceAll(uriPrefix, "")
-      case None => fullUri
-    }
-  }
-
-  def fullUri(shortUri: String): String = {
-    defaultPrefixes filter {
-      case (shortPrefix, _) => shortUri.startsWith(shortPrefix + ":")
-    } headOption match {
-      case Some((shortPrefix, uriPrefix)) => uriPrefix + shortUri.replaceAll(shortPrefix + ":", "")
-      case None => shortUri
-    }
-  }
-
-}
-
-case class DoubleRange(from: Double, to: Double) {
-  def contains(x: Double) = if (from <= x) x <= to else false
-}
-
 class MutableBiMap[X, Y] {
 
   private val map = collection.mutable.Map[X, Y]()

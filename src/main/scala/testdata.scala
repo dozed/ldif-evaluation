@@ -4,6 +4,8 @@ import org.openrdf.model.Statement
 import org.openrdf.rio.RDFHandler
 import scalax.collection.GraphTraversal
 
+import collection.JavaConversions._
+
 object testData {
 
   import prefixHelper._

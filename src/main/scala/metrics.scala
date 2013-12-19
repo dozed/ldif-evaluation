@@ -25,8 +25,6 @@ import java.awt.BorderLayout
 import java.io.{SequenceInputStream, File, FileInputStream, PrintWriter}
 
 import org.apache.jena.riot.{Lang, RDFDataMgr}
-import scala.Some
-import scala.Some
 import weka.classifiers.trees.J48
 import weka.core.converters.{ArffSaver, CSVLoader}
 import weka.gui.treevisualizer.{PlaceNode2, TreeVisualizer}
@@ -36,6 +34,8 @@ import scalax.collection.Graph
 import scalax.collection.GraphPredef._
 import scalax.collection.GraphEdge._
 import scalax.collection.edge.Implicits._
+
+import collection.JavaConversions._
 
 object metrics extends App {
 
@@ -453,51 +453,6 @@ object metrics extends App {
   }
 
 
-  // filter concepts
-  // filter graph components
-  object DBpediaConceptFilter {
-
-    // 800
-    // category:1898_ships, category:1985_television_episodes
-    val aggregateByYear = """category:\d\d\d\d_.+""".r
-    val aggregateByYear2 = """category:.+?_\d\d\d\d""".r
-
-    val relationViaOf = """category:.+?_of_.+""".r
-
-    // _built_in_, _establishments_in_, _established_in_, _disestablished_in_
-    val relationViaIn = """category:.+?_in_.+""".r
-
-    // category:1920s_births, category:359_births
-    val birthAggregate = """category:.+?_births""".r
-    val deathAggregate = """category:.+?_deaths""".r
-
-    // category:2008_albums, category:The_Cure_albums
-    val aggregateAlbum = """category:.+?_albums""".r
-
-    def isConcept(c: String): Boolean = !isCategory(c)
-
-    def isCategory(c: String): Boolean = {
-      isAggregateByYear(c) || isRelation(c) || isBirthOrDeath(c) || isAlbum(c)
-    }
-
-    def isAggregateByYear(c: String): Boolean = {
-      (aggregateByYear findFirstIn c) orElse (aggregateByYear2 findFirstIn c) isDefined
-    }
-
-    def isRelation(c: String): Boolean = {
-      (relationViaOf findFirstIn c) orElse (relationViaIn findFirstIn c) isDefined
-    }
-
-    def isBirthOrDeath(c: String): Boolean = {
-      (birthAggregate findFirstIn c) orElse (deathAggregate findFirstIn c) isDefined
-    }
-
-    def isAlbum(c: String): Boolean = {
-      (aggregateAlbum findFirstIn c) isDefined
-    }
-
-  }
-
   val taaableHierarchy = fromQuads(new FileInputStream("ldif-taaable/taaable-food.nq"))
   val taaableLabels = labelsFromQuads(new FileInputStream("ldif-taaable/taaable-food.nq"))
 
@@ -547,58 +502,6 @@ object TestDataset {
   import graphAlg._
   import align._
   import testData._
-
-  def extractOat {
-    val instances = Set(
-      "dbpedia:Oaths",
-      "dbpedia:Oates",
-      "dbpedia:Oaten",
-      "dbpedia:Oater",
-      "category:Oaths",
-      "dbpedia:Oatka",
-      "dbpedia:Oa",
-      "dbpedia:Oyat",
-      "dbpedia:Oast",
-      "category:Oats",
-      "dbpedia:Oats",
-      "dbpedia:Oath",
-      "dbpedia:OAT",
-      "dbpedia:Oat",
-      "dbpedia:......",
-      "dbpedia:----",
-      "dbpedia:..._...",
-      "dbpedia:-",
-      "dbpedia:-_-",
-      "dbpedia:--",
-      "dbpedia:...---...",
-      "dbpedia:-.-",
-      "dbpedia:._._.",
-      "dbpedia:%22_%22",
-      "dbpedia:.....",
-      "dbpedia:---",
-      "dbpedia:...",
-      "dbpedia:._.",
-      "dbpedia:....",
-      "dbpedia:..._---_...",
-      "dbpedia:%22.%22"
-    )
-    val (articleTypes, categoryTypes, conceptLabels) = generateTestDataset(instances)
-    writeTestDataset(new File("dataset-oat-types.nt"), articleTypes, categoryTypes, conceptLabels)
-  }
-
-  def extractCelery {
-    val instances = Set(
-      "dbpedia:Celery",
-      "dbpedia:Cel-Ray",
-      "dbpedia:Celery_salt",
-      "dbpedia:Celery_Victor",
-      "dbpedia:Celery_cabbage",
-      "dbpedia:Celeriac",
-      "dbpedia:Celebrity_(tomato)"
-    )
-    val (articleTypes, categoryTypes, conceptLabels) = generateTestDataset(instances)
-    writeTestDataset(new File("dataset-cellery-types.nt"), articleTypes, categoryTypes, conceptLabels)
-  }
 
   def extractOat {
     val instances = Set(

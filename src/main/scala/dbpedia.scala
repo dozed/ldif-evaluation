@@ -1,15 +1,107 @@
 import dispatch._, Defaults._
+import java.io.File
 import org.apache.jena.riot.{RDFLanguages, LangBuilder, Lang}
-import org.json4s.JsonAST.{JArray, JValue}
-import org.json4s.JsonFormat
 import org.json4s._
-import org.json4s.jackson.JsonMethods._
 import scala.xml.Elem
 import scala.concurrent.Await
 import scala.concurrent.duration._
 import scala.util.control.Exception._
 
 import org.json4s.DefaultReaders._
+
+object DBpediaConceptFilter {
+
+  // 800
+  // category:1898_ships, category:1985_television_episodes
+  val aggregateByYear = """category:\d\d\d\d_.+""".r
+  val aggregateByYear2 = """category:.+?_\d\d\d\d""".r
+
+  val relationViaOf = """category:.+?_of_.+""".r
+
+  // _built_in_, _establishments_in_, _established_in_, _disestablished_in_
+  val relationViaIn = """category:.+?_in_.+""".r
+
+  // category:1920s_births, category:359_births
+  val birthAggregate = """category:.+?_births""".r
+  val deathAggregate = """category:.+?_deaths""".r
+
+  // category:2008_albums, category:The_Cure_albums
+  val aggregateAlbum = """category:.+?_albums""".r
+
+  def isConcept(c: String): Boolean = !isCategory(c)
+
+  def isCategory(c: String): Boolean = {
+    isAggregateByYear(c) || isRelation(c) || isBirthOrDeath(c) || isAlbum(c)
+  }
+
+  def isAggregateByYear(c: String): Boolean = {
+    (aggregateByYear findFirstIn c) orElse (aggregateByYear2 findFirstIn c) isDefined
+  }
+
+  def isRelation(c: String): Boolean = {
+    (relationViaOf findFirstIn c) orElse (relationViaIn findFirstIn c) isDefined
+  }
+
+  def isBirthOrDeath(c: String): Boolean = {
+    (birthAggregate findFirstIn c) orElse (deathAggregate findFirstIn c) isDefined
+  }
+
+  def isAlbum(c: String): Boolean = {
+    (aggregateAlbum findFirstIn c) isDefined
+  }
+
+}
+
+object DBpediaFiles {
+
+  val maxDistance = 77
+
+  val categories = new File("D:/Dokumente/dbpedia2/skos_categories_en.nt")
+  val categoryLabels = new File("D:/Dokumente/dbpedia2/category_labels_en.nt")
+
+  val articleLabels = new File("D:/Dokumente/dbpedia2/labels_en.nt")
+  val articleCategories = new File("D:/Dokumente/dbpedia2/article_categories_en.nt")
+
+}
+
+object prefixHelper {
+
+  val defaultPrefixes = Map(
+    "category" -> "http://dbpedia.org/resource/Category:",
+    "dbpedia" -> "http://dbpedia.org/resource/",
+    "taaable" -> "http://wikitaaable.loria.fr/index.php/Special:URIResolver/Category-3A",
+    "common" -> "http://example.org/common/"
+  )
+
+  val taxonomicPredicates = List(
+    "http://www.w3.org/2004/02/skos/core#broader",
+    "http://purl.org/dc/terms/subject",
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf")
+
+  val labelPredicates = List(
+    "http://www.w3.org/2000/01/rdf-schema#label",
+    "http://xmlns.com/foaf/0.1/name",
+    "http://dbpedia.org/property/name")
+
+  def shortenUri(fullUri: String): String = {
+    defaultPrefixes filter {
+      case (_, uriPrefix) => fullUri.startsWith(uriPrefix)
+    } headOption match {
+      case Some((shortPrefix, uriPrefix)) => shortPrefix + ":" + fullUri.replaceAll(uriPrefix, "")
+      case None => fullUri
+    }
+  }
+
+  def fullUri(shortUri: String): String = {
+    defaultPrefixes filter {
+      case (shortPrefix, _) => shortUri.startsWith(shortPrefix + ":")
+    } headOption match {
+      case Some((shortPrefix, uriPrefix)) => uriPrefix + shortUri.replaceAll(shortPrefix + ":", "")
+      case None => shortUri
+    }
+  }
+
+}
 
 object DBpedia {
 
@@ -74,7 +166,6 @@ object Wikipedia {
 
   val apiUrl = url("http://en.wikipedia.org/w/api.php")
 
-  import AppFormats._
 
   def search(query: String) = {
     for {

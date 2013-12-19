@@ -23,9 +23,9 @@ object TaaableEvaluation extends App with Evaluations {
 
   val base = "D:/Workspaces/Dev/ldif-evaluation/ldif-taaable"
 
-  import GraphFactory._
-  import Alg._
-  import PrefixHelper._
+  import graphFactory._
+  import graphAlg._
+  import prefixHelper._
 
   // in order to work with DBpedia data:
   //
@@ -70,7 +70,7 @@ object TaaableEvaluation extends App with Evaluations {
     def evaluate(value1: String, value2: String, limit: Double): Double = {
       if (g.contains(value1) && g.contains(value2)) {
         println(f"$value1 - $value2")
-        Alg.wuPalmer(g, root, value1, value2)
+        graphAlg.wuPalmer(g, root, value1, value2)
       } else -1.0
     }
   }

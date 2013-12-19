@@ -9,6 +9,8 @@ import scala.concurrent.Await
 import scala.concurrent.duration._
 import scala.util.control.Exception._
 
+import org.json4s.DefaultReaders._
+
 object DBpedia {
 
   val keywordUrl = url("http://lookup.dbpedia.org/api/search.asmx/KeywordSearch")
@@ -45,8 +47,6 @@ object DBpedia {
   }
 
 }
-
-import org.json4s.DefaultReaders._
 
 case class WikipediaSearchResult(title: String, snippet: String, size: Int)
 

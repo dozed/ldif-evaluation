@@ -97,8 +97,8 @@ case class Alignment(matchings: Set[Matching]) {
 
 object align {
 
-  import PrefixHelper._
-  import Alg._
+  import prefixHelper._
+  import graphAlg._
 
   // reads pre-calculated distances from a csv file
   def toDistances(f: String, containsLcs: Boolean = true, separator: Char = ';', dropFirstLine: Boolean = false): Seq[Distances] = {
@@ -243,7 +243,7 @@ object align {
     println(f"coverage over matched entities (< $maxIdx): ${alignment.size} / ${alignedEntities.size} - ${alignment.size.toDouble / alignedEntities.size.toDouble}")
 
     // statistics for leaf entities
-    val taaableGraph = GraphFactory.from(RDFDataMgr.loadModel("file:///D:/Workspaces/Dev/ldif-evaluation/ldif-taaable/taaable-food.ttl", Lang.TURTLE))
+    val taaableGraph = graphFactory.from(RDFDataMgr.loadModel("file:///D:/Workspaces/Dev/ldif-evaluation/ldif-taaable/taaable-food.ttl", Lang.TURTLE))
 
     def partialHierarchyLeafCoverage(e: String) = {
       val leafEntities = subsumedLeafs(taaableGraph, e)

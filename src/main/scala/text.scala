@@ -178,7 +178,7 @@ object analyze {
 
 object text extends App {
 
-  import GraphFactory._
+  import graphFactory._
   import analyze._
 
   //  val taaableHierarchy = fromQuads(new FileInputStream("ldif-taaable/taaable-food.nq"))

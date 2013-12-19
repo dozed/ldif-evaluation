@@ -1,5 +1,3 @@
-import scala.Int;
-
 public class ShortestPath {
 
 	public DenseMatrixInt extendShortestPaths(DenseMatrixInt A) {

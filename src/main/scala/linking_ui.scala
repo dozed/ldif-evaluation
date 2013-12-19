@@ -168,7 +168,7 @@ class MatchingResults extends Evaluations {
 
 case class LinkingUI(res: MatchingResults, system: ActorSystem) extends ScalatraServlet with ScalateSupport with FutureSupport with JacksonJsonSupport {
 
-  import PrefixHelper._
+  import prefixHelper._
 
   override protected val defaultLayoutPath = Some("layout.jade")
 
@@ -347,7 +347,7 @@ case class LinkingUI(res: MatchingResults, system: ActorSystem) extends Scalatra
     println("loading triples")
     val model = RDFDataMgr.loadModel(f"file:///D:/Workspaces/Dev/ldif-evaluation/dbpedia-foods-categories-2.nt", Lang.NTRIPLES)
     println("converting to graph")
-    GraphFactory.from(model)
+    graphFactory.from(model)
   }
 
   def n(outer: String) = dbpediaGraph get outer
@@ -381,7 +381,7 @@ case class LinkingUI(res: MatchingResults, system: ActorSystem) extends Scalatra
       from <- params.get("from")
       to <- params.get("to")
     } yield {
-      val lcs = Alg.lcsCandidates(dbpediaGraph, f"category:$from", f"category:$to")
+      val lcs = graphAlg.lcsCandidates(dbpediaGraph, f"category:$from", f"category:$to")
       <ul>{
         lcs map { case (v, p1, p2) =>
           <li>{v} {p1.size + p2.size}</li>
@@ -397,7 +397,7 @@ case class LinkingUI(res: MatchingResults, system: ActorSystem) extends Scalatra
       s <- dbpediaGraph.find(f"category:$from")
       t <- dbpediaGraph.find(f"category:$to")
     } yield {
-      Alg.structuralCotopic[String](dbpediaGraph, s, t)
+      graphAlg.structuralCotopic[String](dbpediaGraph, s, t)
     }) getOrElse halt(500)
   }
 
@@ -408,7 +408,7 @@ case class LinkingUI(res: MatchingResults, system: ActorSystem) extends Scalatra
       s <- dbpediaGraph.find(f"category:$from")
       t <- dbpediaGraph.find(f"category:$to")
     } yield {
-      Alg.structuralCotopicNormalized[String](dbpediaGraph, s, t, 77)
+      graphAlg.structuralCotopicNormalized[String](dbpediaGraph, s, t, 77)
     }) getOrElse halt(500)
   }
 

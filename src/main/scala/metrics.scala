@@ -22,12 +22,13 @@ import java.awt.BorderLayout
 import java.io.{SequenceInputStream, File, FileInputStream, PrintWriter}
 
 import org.apache.jena.riot.{Lang, RDFDataMgr}
+import scalax.collection.mutable.DefaultGraphImpl
 import weka.classifiers.trees.J48
 import weka.core.converters.{ArffSaver, CSVLoader}
 import weka.gui.treevisualizer.{PlaceNode2, TreeVisualizer}
 
 import scalax.collection.edge.WDiEdge
-import scalax.collection.Graph
+import scalax.collection.{GraphTraversal, Graph}
 import scalax.collection.GraphPredef._
 import scalax.collection.GraphEdge._
 import scalax.collection.edge.Implicits._
@@ -52,7 +53,9 @@ case class StructuralCotopic(g: Graph[String, WDiEdge]) extends SimpleDistanceMe
   }
 }
 
-object similarityFlooding extends App {
+object similarityFlooding {
+
+  // type DiHyperEdgeLikeIn[N] = DiHyperEdgeLike[N] with EdgeCopy[DiHyperEdgeLike] with EdgeIn[N,DiHyperEdgeLike]
 
   // dot conversion
   def printPcgDot(g: Graph[Int, DiEdge], label: Int => (String, String)) {
@@ -84,7 +87,7 @@ object similarityFlooding extends App {
   }
 
   // convert labelled graph to unlabelled graph
-  def toUnlabelledGraph[N](g: Graph[String, DiEdge]): (Graph[Int, DiEdge], Map[Int, String]) = {
+  def toUnlabelledGraph[E[String] <: DiHyperEdgeLikeIn[String]](g: Graph[String, E]): (Graph[Int, DiEdge], Map[Int, String]) = {
     val indices: Map[String, Int] = g.nodes.map(_.value.toString).zipWithIndex.toMap
     val labels: Map[Int, String] = indices.map(e => (e._2, e._1))
 
@@ -155,6 +158,7 @@ object similarityFlooding extends App {
   def run(g1: Graph[Int, DiEdge], g2: Graph[Int, DiEdge], s0: DenseVector[Double]) = {
     val pcg = toPCG(g1, g2)
     val pg = toPG(pcg)
+
     val T = toTransitionMatrix(pg, s0.apply)
 
     // sfa algorithm
@@ -194,78 +198,92 @@ object similarityFlooding extends App {
     r
   }
 
-  // evaluation
+  def evaluate {
+    //    val in1 = Graph("Rolled oat" ~> "Oat", "Oat" ~> "Grain", "Grain" ~> "Food")
+    //    val in2 = Graph("Oat" ~> "Oats", "Rolled oat" ~> "Oats", "Oats" ~> "Grains", "Grains" ~> "Foods")
 
-  //    val in1 = Graph("Rolled oat" ~> "Oat", "Oat" ~> "Grain", "Grain" ~> "Food")
-  //    val in2 = Graph("Oat" ~> "Oats", "Rolled oat" ~> "Oats", "Oats" ~> "Grains", "Grains" ~> "Foods")
+    //    val in1 = Graph("Rolled oat" ~> "Oat", "Oat" ~> "Grain", "Grain" ~> "Food")
+    //    val in2 = Graph("Oat" ~> "Oats", "Rolled oat" ~> "Oats", "Oats" ~> "Cereals", "Grain" ~> "Cereals", "Cereals" ~> "Grains", "Grains" ~> "Staple foods", "Staple foods" ~> "Foods")
 
-  //    val in1 = Graph("Rolled oat" ~> "Oat", "Oat" ~> "Grain", "Grain" ~> "Food")
-  //    val in2 = Graph("Oat" ~> "Oats", "Rolled oat" ~> "Oats", "Oats" ~> "Cereals", "Grain" ~> "Cereals", "Cereals" ~> "Grains", "Grains" ~> "Staple foods", "Staple foods" ~> "Foods")
+    // prepare input
+    val taaableHierarchy = fromQuads(new FileInputStream("ldif-taaable/taaable-food.nq"))
+    val taaableLabels = labelsFromQuads(new FileInputStream("ldif-taaable/taaable-food.nq"))
 
-  val (taaableHierarchy, taaableNodes) = numericFromQuads(new FileInputStream("ldif-taaable/taaable-food.nq"))
-  val taaableInstances = subsumedConcepts(taaableHierarchy, "taaable:Grain")
-  taaableHierarchy.nodes.filterNot(n => taaableInstances.contains(n)) foreach {
-    n =>
-      println("removing " + n)
-      taaableHierarchy.remove(n)
+    val dbpediaHierarchy = fromQuads(new FileInputStream("ldif-taaable/grain/dataset-grain-articles-categories-labels.nt"))
+    val dbpediaLabels = labelsFromQuads(new FileInputStream("ldif-taaable/grain/dataset-grain-articles-categories-labels.nt"))
+
+    // filter input
+    // filter grain sub-hierarchy
+    val taaableGrains = scalax.collection.mutable.Graph[String, WDiEdge]("taaable:Grain" ~> "taaable:Food" % 1)
+    taaableHierarchy.get("taaable:Grain").traverse(direction = GraphTraversal.Predecessors)(edgeVisitor = {
+      e => taaableGrains += e
+    })
+
+    val dbpediaFiltered = dbpediaHierarchy filter taaableHierarchy.having( edge = { e =>
+      dbpediaLabels.contains(e.from.value) && dbpediaLabels.contains(e.to.value)
+    })
+
+    def label1(x: String): String = taaableLabels(x) head
+    def label2(x: String): String = dbpediaLabels(x) head
+
+    val simFunc: (String, String) => Double = {
+      val isub = new ISub()
+
+      (x: String, y: String) => {
+        val l1 = label1(x)
+        val l2 = label2(y)
+        math.max(isub.score(l1, l2, false), 0.001)
+      }
+    }
+
+    //
+    val in1 = taaableGrains
+    val in2 = dbpediaFiltered
+
+    val (g1, nodes1) = toUnlabelledGraph(in1)
+    val (g2, nodes2) = toUnlabelledGraph(in2)
+
+    val n = g1.nodes.size
+    val m = g2.nodes.size
+
+    // build initial alignment vector
+    def initialAlignment(sim: (String, String) => Double): DenseVector[Double] = {
+      val s0 = DenseVector.zeros[Double](n * m)
+      for {
+        i <- g1.nodes
+        j <- g2.nodes
+      } s0(index(i, j, n)) = sim(nodes1(i), nodes2(j))
+      s0
+    }
+
+    val s0 = initialAlignment(simFunc)
+    println(s0)
+    val r = run(g1, g2, s0)
+
+    //  // debug
+    //  val ranked = r.toArray.zipWithIndex map {
+    //    case (sim, z) =>
+    //      val (l1, l2) = labels(z)
+    //      ((l1, l2), sim)
+    //  } sortBy (-_._2)
+    //
+    //  println("-----------------------------------------------------------")
+    //  println("ranked matches")
+    //  ranked foreach println
+    //
+    //  println("-----------------------------------------------------------")
+    //  println("selecting matches")
+    //  ranked groupBy (_._1._2) foreach {
+    //    case (k, xs) =>
+    //      println(xs sortBy (-_._2) map (_._1) head)
+    //  }
+
+    //    println("")
+    //    println(s0)
+    //    println("")
+    //    val (er, ei, ev) = eig(T)
+    //    for (i <- 1 to ev.cols - 1) println(ev(::, i).toDenseVector)
   }
-
-  val taaableLabels = labelsFromQuads(new FileInputStream("ldif-taaable/taaable-food.nq"))
-
-  val (dbpediaHierarchy, dbpediaNodes) = numericFromQuads(new FileInputStream("ldif-taaable/grain/dataset-grain-articles-categories-labels.nt"))
-  val dbpediaLabels = labelsFromQuads(new FileInputStream("ldif-taaable/grain/dataset-grain-articles-categories-labels.nt"))
-
-  val dbpediaInstances = dbpediaHierarchy.nodes.toOuterNodes.toSet[String] intersect dbpediaLabels.keys.toSet
-
-  val (g1, labels1) = toUnlabelledGraph(in1)
-  val (g2, labels2) = toUnlabelledGraph(in2)
-
-  // dimensions of input
-  val n = g1.nodes.size
-  val m = g2.nodes.size
-
-  // gives the labels for a pair
-  def labels(p: Int): (String, String) = {
-    val (x, y) = indexes(p, n)
-    (labels1(x), labels2(y))
-  }
-
-  // build initial alignment vector
-  val s0 = DenseVector.zeros[Double](n * m)
-  val isub = new ISub()
-  for {
-    (x, l1) <- labels1
-    (y, l2) <- labels2
-  } {
-    s0(index(x, y, n)) = math.max(isub.score(l1, l2, false), 0.001)
-  }
-
-  val r = run(g1, g2, s0)
-
-  val ranked = r.toArray.zipWithIndex map {
-    case (sim, z) =>
-      val (l1, l2) = labels(z)
-      ((l1, l2), sim)
-  } sortBy (-_._2)
-
-  // debug
-  println("-----------------------------------------------------------")
-  println("ranked matches")
-  ranked foreach println
-
-  println("-----------------------------------------------------------")
-  println("selecting matches")
-  ranked groupBy (_._1._2) foreach {
-    case (k, xs) =>
-      println(xs sortBy (-_._2) map (_._1) head)
-  }
-
-  //    println("")
-  //    println(s0)
-  //    println("")
-  //    val (er, ei, ev) = eig(T)
-  //    for (i <- 1 to ev.cols - 1) println(ev(::, i).toDenseVector)
-
 }
 
 object metrics extends App {
@@ -473,6 +491,8 @@ object metrics extends App {
     jf.setVisible(true)
     tv.fitToScreen()
   }
+
+  similarityFlooding.evaluate
 
   //  val taaableHierarchy = fromQuads(new FileInputStream("ldif-taaable/taaable-food.nq"))
   //  val taaableLabels = labelsFromQuads(new FileInputStream("ldif-taaable/taaable-food.nq"))
@@ -1024,7 +1044,7 @@ object testDataset {
   }
 
   // removes category/relation concepts by applying a name-based and degree-based heuristic
-  def cleanup[N](g: scalax.collection.mutable.Graph[N, WDiEdge]) {
+  def cleanup(g: scalax.collection.mutable.Graph[String, WDiEdge]) {
     g.nodes filter DBpediaConceptFilter.isCategory foreach g.remove
     for (i <- 1 to 100) {
       g.nodes.filter(n => n.outDegree == 0) foreach {

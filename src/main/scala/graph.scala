@@ -1,16 +1,4 @@
-import breeze.linalg.{DenseVector, Vector}
 import de.fuberlin.wiwiss.silk.linkagerule.similarity.SimpleDistanceMeasure
-import de.fuberlin.wiwiss.silk.plugins.aggegrator._
-import de.fuberlin.wiwiss.silk.plugins.aggegrator.AverageAggregator
-import de.fuberlin.wiwiss.silk.plugins.aggegrator.GeometricMeanAggregator
-import de.fuberlin.wiwiss.silk.plugins.aggegrator.MinimumAggregator
-import de.fuberlin.wiwiss.silk.plugins.aggegrator.QuadraticMeanAggregator
-import de.fuberlin.wiwiss.silk.plugins.distance.characterbased._
-import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.JaroDistanceMetric
-import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.JaroWinklerDistance
-import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.LevenshteinMetric
-import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.QGramsMetric
-import de.fuberlin.wiwiss.silk.plugins.distance.equality.RelaxedEqualityMetric
 import java.io._
 import org.apache.any23.io.nquads.NQuadsParser
 import org.apache.jena.riot.{Lang, RDFDataMgr}
@@ -158,12 +146,6 @@ object DenseMatrix2 {
     } mat(i, j) = value
     mat
   }
-}
-
-object rdfio {
-
-
-
 }
 
 object graphFactory {

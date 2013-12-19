@@ -19,36 +19,6 @@ import scalax.collection.GraphEdge._
 import scalax.collection.edge.WDiEdge
 import scalax.collection.edge.Implicits._
 
-class MutableBiMap[X, Y] {
-
-  private val map = collection.mutable.Map[X, Y]()
-  private val reverseMap = collection.mutable.Map[Y, X]()
-
-  def update(x: X, value: Y) {
-    map(x) = value
-    reverseMap(value) = x
-  }
-
-  def size: Int = map.size
-
-  def apply(key: X): Y = map(key)
-
-  def isDefinedAt(key: X): Boolean = map.isDefinedAt(key)
-
-  def getOrElseUpdate(key: X, value: Y): Y = {
-    if (isDefinedAt(key)) this(key)
-    else {
-      update(key, value)
-      value
-    }
-  }
-
-  def inverse(key: Y): X = reverseMap(key)
-
-  def isInRange(key: Y): Boolean = reverseMap.isDefinedAt(key)
-
-}
-
 object graphFactory {
 
   import prefixHelper._
@@ -137,17 +107,14 @@ object graphFactory {
     g
   }
 
-  def numericFromQuads(in: InputStream): (Graph[Int, WDiEdge], MutableBiMap[String, Int]) = {
+  def numericFromQuads(in: InputStream): (Graph[Int, WDiEdge], Map[Int, String]) = {
     val g = scalax.collection.mutable.Graph[Int, WDiEdge]()
-    val map = new MutableBiMap[String, Int]()
+    val nodes = collection.mutable.Map[String, Int]()
     var counter = 0
-
-    def getOrUpdateMap0(s: String): Int = {
-      if (!map.isDefinedAt(s)) {
-        map(s) = counter
-        counter = counter + 1
-      }
-      map(s)
+    def nextId = {
+      val id = counter
+      counter = counter + 1
+      id
     }
 
     val parser = new NQuadsParser()
@@ -156,8 +123,8 @@ object graphFactory {
         val p = p1.getPredicate.stringValue
 
         if (taxonomicPredicates.contains(p)) {
-          val s = getOrUpdateMap0(shortenUri(p1.getSubject.stringValue))
-          val o = getOrUpdateMap0(shortenUri(p1.getObject.stringValue))
+          val s = nodes.getOrElseUpdate(shortenUri(p1.getSubject.stringValue), nextId)
+          val o = nodes.getOrElseUpdate(shortenUri(p1.getObject.stringValue), nextId)
 
           g += s ~> o % 1
         }
@@ -174,31 +141,29 @@ object graphFactory {
 
     parser.parse(in, "http://dbpedia.org/resource")
 
-    (g, map)
+    (g, nodes.map(x => (x._2, x._1)).toMap)
   }
 
   def adjacencyMatrixFromQuads(in: InputStream, n: Int): DenseMatrixInt = {
     val d = new DenseMatrixInt(n, n)
     d.fill(Int.MaxValue / 2)
 
-    println("reading triples")
-    val map = new MutableBiMap[String, Int]()
+    val nodes = collection.mutable.Map[String, Int]()
     var counter = 0
-    def getOrUpdateMap0(s: String): Int = {
-      if (!map.isDefinedAt(s)) {
-        map(s) = counter
-        counter = counter + 1
-      }
-      map(s)
+    def nextId = {
+      val id = counter
+      counter = counter + 1
+      id
     }
+
     val parser = new NQuadsParser()
     parser.setRDFHandler(new RDFHandler {
       def handleStatement(p1: Statement) {
         val p = p1.getPredicate.stringValue
 
         if (taxonomicPredicates.contains(p)) {
-          val s = getOrUpdateMap0(shortenUri(p1.getSubject.stringValue))
-          val o = getOrUpdateMap0(shortenUri(p1.getObject.stringValue))
+          val s = nodes.getOrElseUpdate(shortenUri(p1.getSubject.stringValue), nextId)
+          val o = nodes.getOrElseUpdate(shortenUri(p1.getObject.stringValue), nextId)
 
           d.set(s, o, 1)
         }

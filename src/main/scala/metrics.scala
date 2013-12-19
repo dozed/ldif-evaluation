@@ -13,11 +13,8 @@ import de.fuberlin.wiwiss.silk.plugins.aggegrator.MaximumAggregator
 import de.fuberlin.wiwiss.silk.plugins.aggegrator.MinimumAggregator
 import de.fuberlin.wiwiss.silk.plugins.distance.characterbased._
 import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.JaroDistanceMetric
-import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.JaroDistanceMetric
-import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.JaroWinklerDistance
 import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.JaroWinklerDistance
 import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.LevenshteinMetric
-import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.QGramsMetric
 import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.QGramsMetric
 import de.fuberlin.wiwiss.silk.plugins.distance.equality.RelaxedEqualityMetric
 
@@ -263,8 +260,24 @@ object metrics extends App {
     //    val in1 = Graph("Rolled oat" ~> "Oat", "Oat" ~> "Grain", "Grain" ~> "Food")
     //    val in2 = Graph("Oat" ~> "Oats", "Rolled oat" ~> "Oats", "Oats" ~> "Grains", "Grains" ~> "Foods")
 
-    val in1 = Graph("Rolled oat" ~> "Oat", "Oat" ~> "Grain", "Grain" ~> "Food")
-    val in2 = Graph("Oat" ~> "Oats", "Rolled oat" ~> "Oats", "Oats" ~> "Cereals", "Grain" ~> "Cereals", "Cereals" ~> "Grains", "Grains" ~> "Staple foods", "Staple foods" ~> "Foods")
+    //    val in1 = Graph("Rolled oat" ~> "Oat", "Oat" ~> "Grain", "Grain" ~> "Food")
+    //    val in2 = Graph("Oat" ~> "Oats", "Rolled oat" ~> "Oats", "Oats" ~> "Cereals", "Grain" ~> "Cereals", "Cereals" ~> "Grains", "Grains" ~> "Staple foods", "Staple foods" ~> "Foods")
+
+
+    val (taaableHierarchy, taaableNodes) = numericFromQuads(new FileInputStream("ldif-taaable/taaable-food.nq"))
+    val taaableInstances = subsumedConcepts(taaableHierarchy, "taaable:Grain")
+    taaableHierarchy.nodes.filterNot(n => taaableInstances.contains(n)) foreach { n =>
+      println("removing " + n)
+      taaableHierarchy.remove(n)
+    }
+
+    val taaableLabels = labelsFromQuads(new FileInputStream("ldif-taaable/taaable-food.nq"))
+
+    val (dbpediaHierarchy, dbpediaNodes) = numericFromQuads(new FileInputStream("ldif-taaable/grain/dataset-grain-articles-categories-labels.nt"))
+    val dbpediaLabels = labelsFromQuads(new FileInputStream("ldif-taaable/grain/dataset-grain-articles-categories-labels.nt"))
+
+    val dbpediaInstances = dbpediaHierarchy.nodes.toOuterNodes.toSet[String] intersect dbpediaLabels.keys.toSet
+
 
     // dot conversion
     def printPcgDot(g: Graph[Int, DiEdge], label: Int => (String, String)) {

@@ -21,6 +21,7 @@ import de.fuberlin.wiwiss.silk.plugins.distance.equality.RelaxedEqualityMetric
 import java.awt.BorderLayout
 import java.io._
 
+import no.uib.cipr.matrix
 import no.uib.cipr.matrix.io.MatrixVectorReader
 import no.uib.cipr.matrix.sparse.{FlexCompRowMatrix, CompColMatrix}
 import org.apache.jena.riot.{Lang, RDFDataMgr}
@@ -305,81 +306,85 @@ object similarityFlooding {
 
   def evaluate {
 
+    val taaableLabels = labelsFromQuads(new FileInputStream("ldif-taaable/taaable-food.nq"))
+    val dbpediaLabels = labelsFromQuads(new FileInputStream("ldif-taaable/grain/dataset-grain-articles-categories-labels.nt"))
+    def label1(x: String): String = taaableLabels(x) head
+    def label2(x: String): String = dbpediaLabels(x) head
+
     //    val in1 = Graph("Rolled oat" ~> "Oat", "Oat" ~> "Grain", "Grain" ~> "Food")
     //    val in2 = Graph("Oat" ~> "Oats", "Rolled oat" ~> "Oats", "Oats" ~> "Grains", "Grains" ~> "Foods")
-
     //    val in1 = Graph("Rolled oat" ~> "Oat", "Oat" ~> "Grain", "Grain" ~> "Food")
     //    val in2 = Graph("Oat" ~> "Oats", "Rolled oat" ~> "Oats", "Oats" ~> "Cereals", "Grain" ~> "Cereals", "Cereals" ~> "Grains", "Grains" ~> "Staple foods", "Staple foods" ~> "Foods")
-
-    //    // prepare input
     //    val taaableHierarchy = fromQuads(new FileInputStream("ldif-taaable/taaable-food.nq"))
-    //    val taaableLabels = labelsFromQuads(new FileInputStream("ldif-taaable/taaable-food.nq"))
-    //
-    //    val dbpediaHierarchy = fromQuads(new FileInputStream("ldif-taaable/grain/dataset-grain-articles-categories-labels.nt"))
-    //    val dbpediaLabels = labelsFromQuads(new FileInputStream("ldif-taaable/grain/dataset-grain-articles-categories-labels.nt"))
-    //
-    //    // filter input
-    //    // filter grain sub-hierarchy
     //    val taaableGrains = scalax.collection.mutable.Graph[String, WDiEdge]("taaable:Grain" ~> "taaable:Food" % 1)
     //    taaableHierarchy.get("taaable:Grain").traverse(direction = GraphTraversal.Predecessors)(edgeVisitor = {
     //      e => taaableGrains += e
     //    })
-    //
+    //    val dbpediaHierarchy = fromQuads(new FileInputStream("ldif-taaable/grain/dataset-grain-articles-categories-labels.nt"))
     //    val dbpediaFiltered = dbpediaHierarchy filter taaableHierarchy.having(edge = {
-    //      e =>
-    //        dbpediaLabels.contains(e.from.value) && dbpediaLabels.contains(e.to.value)
+    //      e => dbpediaLabels.contains(e.from.value) && dbpediaLabels.contains(e.to.value)
     //    })
-    //
-    //    def label1(x: String): String = taaableLabels(x) head
-    //    def label2(x: String): String = dbpediaLabels(x) head
-    //
-    //    val simFunc: (String, String) => Double = {
-    //      val isub = new ISub()
-    //
-    //      (x: String, y: String) => {
-    //        val l1 = label1(x)
-    //        val l2 = label2(y)
-    //        math.max(isub.score(l1, l2, false), 0.001)
-    //      }
-    //    }
-
     // writePg("grains-pg", taaableGrains, dbpediaFiltered)
 
-    println("reading edges and nodes")
-    // val M = new CompColMatrix(new MatrixVectorReader(new FileReader("grains-pg.mm")))
+    //    776768,taaable:Buckwheat,category:Buckethead
+    //    451301,taaable:Buckwheat,category:Buckethead
 
+    println("reading matrix")
     val M = new FlexCompRowMatrix(985216, 985216)
-    val coords = readMM("grains-pg.mm")
-    println(coords.size)
+    val coords = readMM("ldif-taaable/grains-sfa/grains-pg.mm")
+    println("read " + coords.size + " coordinates")
 
     coords foreach {
-      case (i, j, w) =>
-        M.set(i, j, w)
+      case (i, j, w) => M.set(i, j, w)
     }
 
-    println(M.get(183, 104142))
+    // precalculate multiple initial alignments
+    val nodeMap = readPgNodes("ldif-taaable/grains-sfa/grains-pg.csv")
+    val s0 = new matrix.DenseVector(985216)
+    val isub = new ISub()
+
+    for {
+      z <- 0 to 985216 - 1
+    } {
+      val (x, y) = nodeMap(z)
+      val l1 = label1(x)
+      val l2 = label2(y)
+      s0.set(z, math.max(isub.score(l1, l2, false), 0.001))
+    }
+
+    println("multiply T * s0")
+
+    def res(v1: matrix.Vector, v2: matrix.Vector): Double = {
+      var s = 0.0
+      for (i <- 0 to v1.size - 1) {
+        val d = math.abs(v1.get(i) - v2.get(i))
+        s += d * d
+      }
+      math.sqrt(s)
+    }
+
+    val sn = (1 to 20).foldLeft[matrix.Vector](s0) { case (sn, i) =>
+      val st = new matrix.DenseVector(985216).add(sn).add(s0)
+      val sn1 = M.mult(st, new matrix.DenseVector(985216)).add(st)
+
+      val max = sn1.norm(matrix.Vector.Norm.Infinity)
+      sn1.scale(1.0 / max)
+
+      val r = res(s0, sn)
+      println("max: " + max + " res: " + r)
+
+      sn1
+    }
+
+    sn.iterator.map(_.get).toSeq.zipWithIndex map { case (e, i) =>
+      nodeMap(i) -> e
+    } sortBy (-_._2) take (1000) foreach println
 
 
     //    val nodes = readPgNodes("grains-pg.csv")
-    //
     //    println("converting to transition matrix")
-    //
-    //    val a = new CCSMatrix(Matrices.asMatrixMarketSource(
-    //      new FileInputStream("matrix.mm")));
-
-
-    //    val T = CSCMatrix.zeros[Double](nodes.size, nodes.size, edges.size)
-    //    // insert in row major order
-    //    for ((i, j, w) <- edges) {
-    //      T(i, j) = w
-    //    }
-    //
     //    println("writing transition matrix")
     //    write(T)
-    //
-    //    T.rowIndices
-    //    T.colPtrs
-    //    T.data
 
     def write(m: Matrix[Double]) {
       import scala.pickling._
@@ -396,14 +401,13 @@ object similarityFlooding {
     //      for {
     //        i <- g1.nodes
     //        j <- g2.nodes
-    //      } s0(index(i, j, n)) = sim(nodes1(i), nodes2(j))
+    //      } d(index(i, j, n)) = sim(nodes1(i), nodes2(j))
     //      s0
     //    }
-
+    //
     //    val s0 = initialAlignment(simFunc)
     //    println(s0)
     //    val r = run(g1, g2, s0)
-
 
     //  // debug
     //  val ranked = r.toArray.zipWithIndex map {

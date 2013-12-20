@@ -46,6 +46,12 @@
     </dependency>
 
     <dependency>
+      <groupId>org.scala-lang</groupId>
+      <artifactId>scala-pickling_2.10</artifactId>
+      <version>0.8.0-SNAPSHOT</version>
+    </dependency>
+
+    <dependency>
       <groupId>de.fuberlin.wiwiss.silk</groupId>
       <artifactId>silk-singlemachine</artifactId>
       <version>2.5.4</version>
@@ -108,6 +114,19 @@
       <artifactId>breeze_2.10</artifactId>
       <version>0.5.2</version>
     </dependency>
+
+    <dependency>
+      <groupId>com.googlecode.matrix-toolkits-java</groupId>
+      <artifactId>mtj</artifactId>
+      <version>1.0.1</version>
+    </dependency>
+    <dependency>
+      <groupId>com.github.fommil.netlib</groupId>
+      <artifactId>all</artifactId>
+      <version>1.1.2</version>
+      <type>pom</type>
+    </dependency>
+
 
     <dependency>
       <groupId>org.scalatra</groupId>

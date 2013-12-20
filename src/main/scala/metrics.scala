@@ -19,10 +19,12 @@ import de.fuberlin.wiwiss.silk.plugins.distance.characterbased.QGramsMetric
 import de.fuberlin.wiwiss.silk.plugins.distance.equality.RelaxedEqualityMetric
 
 import java.awt.BorderLayout
-import java.io.{SequenceInputStream, File, FileInputStream, PrintWriter}
+import java.io._
 
+import no.uib.cipr.matrix.io.MatrixVectorReader
+import no.uib.cipr.matrix.sparse.{FlexCompRowMatrix, CompColMatrix}
 import org.apache.jena.riot.{Lang, RDFDataMgr}
-import scalax.collection.mutable.DefaultGraphImpl
+
 import weka.classifiers.trees.J48
 import weka.core.converters.{ArffSaver, CSVLoader}
 import weka.gui.treevisualizer.{PlaceNode2, TreeVisualizer}
@@ -136,14 +138,111 @@ object similarityFlooding {
     Graph(edges: _*) ++ nodes
   }
 
+  def toEdgeList(pcg: Graph[Int, DiEdge]): Seq[(Int, Int, Double)] = {
+    var i = 0
+    val edges = collection.mutable.ArrayBuffer[(Int, Int, Double)]()
+    edges.sizeHint(pcg.edges.size)
+
+    for (e <- pcg.edges) {
+      val t1 = (e.from.value.asInstanceOf[Int], e.to.value.asInstanceOf[Int], (1000 / e.from.outDegree) / 1000.0)
+      val t2 = (e.to.value.asInstanceOf[Int], e.from.value.asInstanceOf[Int], (1000 / e.to.inDegree) / 1000.0)
+      edges += t1
+      edges += t2
+      i = i + 1
+      if (i % 100000 == 0) println(i)
+    }
+
+    println("sorting edges")
+    edges.sortWith {
+      case ((i, j, _), (x, y, _)) =>
+        if (i < x) true
+        else if (i == x) j <= y
+        else false
+    }
+  }
+
   // build transition matrix of propagation graph
-  def toTransitionMatrix(pg: Graph[Int, WDiEdge], pairSim: Int => Double): DenseMatrix[Double] = {
-    val T = DenseMatrix.zeros[Double](pg.nodes.size, pg.nodes.size)
-    for (i <- pg.nodes) {
-      for (in <- pg.get(i).incoming) T(i, in.from) = in.weight / 1000.0
+  def toTransitionMatrix(pg: Graph[Int, WDiEdge], pairSim: Int => Double): CSCMatrix[Double] = {
+    val T = CSCMatrix.zeros[Double](pg.nodes.size, pg.nodes.size, pg.edges.size)
+    //    val T = DenseMatrix.zeros[Double](pg.nodes.size, pg.nodes.size)
+    // insert in column major order
+
+    for (i <- 0 to pg.nodes.size - 1) {
+      for ((j, w) <- pg.get(i).incoming.map(e => (e.from.value, e.weight)).toList.sortBy(_._1)) {
+        T(i, j) = w / 1000.0
+      }
       // T(i, i) = pairSim(i.value)
     }
     T
+  }
+
+  // writes the pg to a file
+  // 1. the propgation graph to <key>.mm
+  // 2. the node labels to <key>.csv
+  def writePg(key: String, in1: Graph[String, WDiEdge], in2: Graph[String, WDiEdge]) {
+    val (g1, nodes1) = toUnlabelledGraph(in1)
+    val (g2, nodes2) = toUnlabelledGraph(in2)
+
+    val n = g1.nodes.size
+    val m = g2.nodes.size
+
+    println("building pcg")
+    val pcg = toPCG(g1, g2)
+
+    println("building pg edge list")
+    val edges = toEdgeList(pcg)
+
+    println("writing pg edges")
+    val pw = new PrintWriter(key + ".mm")
+    pw.println("%%MatrixMarket matrix coordinate real general")
+    pw.println("% rows columns non-zero-values")
+    pw.println((n * m) + " " + (n * m) + " " + edges.size)
+    pw.println("% row column value")
+    edges foreach pw.println
+    pw.close
+
+    println("writing pg node information (id, concept1, concept2")
+    val pw3 = new PrintWriter(key + ".csv")
+    pcg.nodes foreach {
+      i =>
+        val (x, y) = indexes(i, n)
+        pw3.println(i + ",\"" + nodes1(x) + "\",\"" + nodes2(y) + "\"")
+    }
+    pw3.close
+  }
+
+  // reads list of coords from matrix market file, i ~> j % weight
+  def readMM(file: String): List[(Int, Int, Double)] = {
+    val coord = """(\d+?) (\d+?) (\d\.\d+?)""".r
+
+    val source = io.Source.fromFile(file)
+    val coords = source.getLines.toList flatMap {
+      case line if line.startsWith("%") => None
+      case coord(i, j, w) => Some((i.toInt, j.toInt, w.toDouble))
+      case _ => None
+    }
+    source.close
+
+    coords
+  }
+
+  // reads map of pcg node to node pair from original graphs g1, g2, i -> (e1, e2)
+  def readPgNodes(file: String): Map[Int, (String, String)] = {
+    val nodeItem = """(\d+?),(.+?),(.+?)""".r
+
+    val coo = io.Source.fromFile(file)
+    val lines = coo.getLines
+    val cnts = lines.next
+
+    val nodes = lines.toList flatMap {
+      case nodeItem(id, e1, e2) => Some((id.toInt ->(e1, e2)))
+      case x =>
+        println(x)
+        None
+    }
+    coo.close
+
+    nodes.toMap
   }
 
   def indexes(z: Int, n: Int) = {
@@ -156,9 +255,15 @@ object similarityFlooding {
 
   // run similarity flooding algorithm
   def run(g1: Graph[Int, DiEdge], g2: Graph[Int, DiEdge], s0: DenseVector[Double]) = {
+    println("building pcg")
     val pcg = toPCG(g1, g2)
+    //    writeEdgeList(pcg)
+    println("building pg")
     val pg = toPG(pcg)
 
+    println("nodes: " + pcg.nodes.size + " edges: " + pcg.edges.size)
+
+    println("building transition matrix")
     val T = toTransitionMatrix(pg, s0.apply)
 
     // sfa algorithm
@@ -199,66 +304,106 @@ object similarityFlooding {
   }
 
   def evaluate {
+
     //    val in1 = Graph("Rolled oat" ~> "Oat", "Oat" ~> "Grain", "Grain" ~> "Food")
     //    val in2 = Graph("Oat" ~> "Oats", "Rolled oat" ~> "Oats", "Oats" ~> "Grains", "Grains" ~> "Foods")
 
     //    val in1 = Graph("Rolled oat" ~> "Oat", "Oat" ~> "Grain", "Grain" ~> "Food")
     //    val in2 = Graph("Oat" ~> "Oats", "Rolled oat" ~> "Oats", "Oats" ~> "Cereals", "Grain" ~> "Cereals", "Cereals" ~> "Grains", "Grains" ~> "Staple foods", "Staple foods" ~> "Foods")
 
-    // prepare input
-    val taaableHierarchy = fromQuads(new FileInputStream("ldif-taaable/taaable-food.nq"))
-    val taaableLabels = labelsFromQuads(new FileInputStream("ldif-taaable/taaable-food.nq"))
+    //    // prepare input
+    //    val taaableHierarchy = fromQuads(new FileInputStream("ldif-taaable/taaable-food.nq"))
+    //    val taaableLabels = labelsFromQuads(new FileInputStream("ldif-taaable/taaable-food.nq"))
+    //
+    //    val dbpediaHierarchy = fromQuads(new FileInputStream("ldif-taaable/grain/dataset-grain-articles-categories-labels.nt"))
+    //    val dbpediaLabels = labelsFromQuads(new FileInputStream("ldif-taaable/grain/dataset-grain-articles-categories-labels.nt"))
+    //
+    //    // filter input
+    //    // filter grain sub-hierarchy
+    //    val taaableGrains = scalax.collection.mutable.Graph[String, WDiEdge]("taaable:Grain" ~> "taaable:Food" % 1)
+    //    taaableHierarchy.get("taaable:Grain").traverse(direction = GraphTraversal.Predecessors)(edgeVisitor = {
+    //      e => taaableGrains += e
+    //    })
+    //
+    //    val dbpediaFiltered = dbpediaHierarchy filter taaableHierarchy.having(edge = {
+    //      e =>
+    //        dbpediaLabels.contains(e.from.value) && dbpediaLabels.contains(e.to.value)
+    //    })
+    //
+    //    def label1(x: String): String = taaableLabels(x) head
+    //    def label2(x: String): String = dbpediaLabels(x) head
+    //
+    //    val simFunc: (String, String) => Double = {
+    //      val isub = new ISub()
+    //
+    //      (x: String, y: String) => {
+    //        val l1 = label1(x)
+    //        val l2 = label2(y)
+    //        math.max(isub.score(l1, l2, false), 0.001)
+    //      }
+    //    }
 
-    val dbpediaHierarchy = fromQuads(new FileInputStream("ldif-taaable/grain/dataset-grain-articles-categories-labels.nt"))
-    val dbpediaLabels = labelsFromQuads(new FileInputStream("ldif-taaable/grain/dataset-grain-articles-categories-labels.nt"))
+    // writePg("grains-pg", taaableGrains, dbpediaFiltered)
 
-    // filter input
-    // filter grain sub-hierarchy
-    val taaableGrains = scalax.collection.mutable.Graph[String, WDiEdge]("taaable:Grain" ~> "taaable:Food" % 1)
-    taaableHierarchy.get("taaable:Grain").traverse(direction = GraphTraversal.Predecessors)(edgeVisitor = {
-      e => taaableGrains += e
-    })
+    println("reading edges and nodes")
+    // val M = new CompColMatrix(new MatrixVectorReader(new FileReader("grains-pg.mm")))
 
-    val dbpediaFiltered = dbpediaHierarchy filter taaableHierarchy.having( edge = { e =>
-      dbpediaLabels.contains(e.from.value) && dbpediaLabels.contains(e.to.value)
-    })
+    val M = new FlexCompRowMatrix(985216, 985216)
+    val coords = readMM("grains-pg.mm")
+    println(coords.size)
 
-    def label1(x: String): String = taaableLabels(x) head
-    def label2(x: String): String = dbpediaLabels(x) head
-
-    val simFunc: (String, String) => Double = {
-      val isub = new ISub()
-
-      (x: String, y: String) => {
-        val l1 = label1(x)
-        val l2 = label2(y)
-        math.max(isub.score(l1, l2, false), 0.001)
-      }
+    coords foreach {
+      case (i, j, w) =>
+        M.set(i, j, w)
     }
 
+    println(M.get(183, 104142))
+
+
+    //    val nodes = readPgNodes("grains-pg.csv")
     //
-    val in1 = taaableGrains
-    val in2 = dbpediaFiltered
+    //    println("converting to transition matrix")
+    //
+    //    val a = new CCSMatrix(Matrices.asMatrixMarketSource(
+    //      new FileInputStream("matrix.mm")));
 
-    val (g1, nodes1) = toUnlabelledGraph(in1)
-    val (g2, nodes2) = toUnlabelledGraph(in2)
 
-    val n = g1.nodes.size
-    val m = g2.nodes.size
+    //    val T = CSCMatrix.zeros[Double](nodes.size, nodes.size, edges.size)
+    //    // insert in row major order
+    //    for ((i, j, w) <- edges) {
+    //      T(i, j) = w
+    //    }
+    //
+    //    println("writing transition matrix")
+    //    write(T)
+    //
+    //    T.rowIndices
+    //    T.colPtrs
+    //    T.data
+
+    def write(m: Matrix[Double]) {
+      import scala.pickling._
+      import scala.pickling.binary._
+      val s = m.pickle
+      val out = new FileOutputStream("out")
+      out.write(s.value)
+      out.close
+    }
 
     // build initial alignment vector
-    def initialAlignment(sim: (String, String) => Double): DenseVector[Double] = {
-      val s0 = DenseVector.zeros[Double](n * m)
-      for {
-        i <- g1.nodes
-        j <- g2.nodes
-      } s0(index(i, j, n)) = sim(nodes1(i), nodes2(j))
-      s0
-    }
+    //    def initialAlignment(sim: (String, String) => Double): DenseVector[Double] = {
+    //      val s0 = DenseVector.zeros[Double](n * m)
+    //      for {
+    //        i <- g1.nodes
+    //        j <- g2.nodes
+    //      } s0(index(i, j, n)) = sim(nodes1(i), nodes2(j))
+    //      s0
+    //    }
 
-    val s0 = initialAlignment(simFunc)
-    println(s0)
-    val r = run(g1, g2, s0)
+    //    val s0 = initialAlignment(simFunc)
+    //    println(s0)
+    //    val r = run(g1, g2, s0)
+
 
     //  // debug
     //  val ranked = r.toArray.zipWithIndex map {
